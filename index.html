@@ -7,10 +7,10 @@
   <meta name="color-scheme" content="dark light" />
   <title>KINGFISHER</title>
   <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="stylesheet" href="./kingfisher.css?v=14" />
+  <link rel="stylesheet" href="./kingfisher.css?v=15" />
   <script>
     (()=>{
-      const VERSION='kingfisher-intro-v5';
+      const VERSION='kingfisher-intro-v6';
       if(localStorage.getItem('kingfisherIntroVersion')!==VERSION){
         localStorage.removeItem('kingfisherTutorialDone');
         localStorage.setItem('kingfisherIntroVersion',VERSION);
@@ -54,17 +54,6 @@
     <main class="main">
       <section id="cardsScreen" class="screen cards-screen active">
         <div id="deck" class="deck" aria-live="polite"></div>
-        <div id="actionDock" class="action-dock" aria-label="カード操作">
-          <button class="action-button known" data-action="known" aria-label="左へ送る">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20.5 7.5 12.5 16l8 8.5"/><path d="M12.5 16H26"/></svg>
-          </button>
-          <button class="action-button save" data-action="save" aria-label="上へ送って保存">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10.5 11h11v14.5l-5.5-4-5.5 4z"/><path d="M16 15V5.5M12.5 9l3.5-3.5L19.5 9"/></svg>
-          </button>
-          <button class="action-button read" data-action="read" aria-label="右へ送って記事を読む">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m11.5 7.5 8 8.5-8 8.5"/><path d="M6 16h13.5"/></svg>
-          </button>
-        </div>
       </section>
 
       <section id="diveScreen" class="screen dive-screen" style="--surface-pull:0">
@@ -104,12 +93,12 @@
         <div id="detailSource" class="detail-source"></div>
       </div>
     </div>
-    <div id="detailSwipeBar" class="detail-swipe-zone" aria-label="カード一覧へ戻る"><span class="detail-swipe-handle" aria-hidden="true"></span></div>
+    <div id="detailReturnHandle" class="detail-return-handle" aria-label="右へスワイプしてカード一覧へ戻る"><span aria-hidden="true">›</span></div>
   </article>
 
   <div id="undoToast" class="undo-toast" role="status"><button id="undoBtn" aria-label="元に戻す">↶</button></div>
 
-  <script src="./articles.js?v=14" defer></script>
-  <script src="./kingfisher.js?v=14" defer></script>
+  <script src="./articles.js?v=15" defer></script>
+  <script src="./kingfisher.js?v=15" defer></script>
 </body>
 </html>
