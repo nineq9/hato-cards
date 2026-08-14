@@ -4,25 +4,84 @@ import fs from 'node:fs';
 fs.mkdirSync('test-output',{recursive:true});
 const browser=await chromium.launch({headless:true});
 
-async function shot(page,path){const cdp=await page.context().newCDPSession(page);const out=await cdp.send('Page.captureScreenshot',{format:'png',fromSurface:true,captureBeyondViewport:false});fs.writeFileSync(path,Buffer.from(out.data,'base64'));await cdp.detach()}
-async function drag(page,sel,dx,dy,ms=180){const b=await page.locator(sel).boundingBox();assert(b,`missing ${sel}`);const x=b.x+b.width/2,y=b.y+b.height/2;await page.mouse.move(x,y);await page.mouse.down();for(let i=1;i<=8;i++){await page.mouse.move(x+dx*i/8,y+dy*i/8);await page.waitForTimeout(ms/8)}await page.mouse.up()}
-async function boot(page,tutorial=false){await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});await page.evaluate(()=>localStorage.clear());if(!tutorial)await page.evaluate(()=>{localStorage.setItem('kingfisherIntroVersion','kingfisher-intro-v5');localStorage.setItem('kingfisherTutorialDone','1')});await page.reload({waitUntil:'domcontentloaded'});const bird=page.locator('#splashBird');await page.waitForSelector('#splash:not(.hidden)');assert.equal(await bird.evaluate(e=>getComputedStyle(e).opacity),'1');const b=await bird.boundingBox();assert(b);await page.mouse.move(b.x+b.width/2,b.y+b.height/2);await page.mouse.down();await page.mouse.move(b.x+b.width/2,b.y+b.height/2-135,{steps:7});assert.equal(await bird.evaluate(e=>getComputedStyle(e).opacity),'1');await page.mouse.up();await page.waitForFunction(()=>document.querySelector('#splash')?.classList.contains('hidden'),null,{timeout:5500});if(tutorial){await page.waitForSelector('#tutorial:not(.hidden)');await drag(page,'#tutorialCard',-100,0);await page.waitForTimeout(360);await drag(page,'#tutorialCard',100,0);await page.waitForTimeout(360);await drag(page,'#tutorialCard',0,-110);await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1600})}else assert(await page.locator('#tutorial').evaluate(e=>e.classList.contains('hidden')))}
+async function drag(page,selector,dx,dy,duration=180,pos=null){
+  const box=await page.locator(selector).boundingBox();
+  assert(box,`missing ${selector}`);
+  const sx=box.x+(pos?pos[0]:box.width/2),sy=box.y+(pos?pos[1]:box.height/2);
+  await page.mouse.move(sx,sy);await page.mouse.down();
+  for(let i=1;i<=10;i++){await page.mouse.move(sx+dx*i/10,sy+dy*i/10);await page.waitForTimeout(duration/10)}
+  await page.mouse.up();
+}
+async function boot(page,{tutorial=false}={}){
+  await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
+  await page.evaluate(()=>localStorage.clear());
+  if(!tutorial) await page.evaluate(()=>{localStorage.setItem('kingfisherIntroVersion','kingfisher-intro-v6');localStorage.setItem('kingfisherTutorialDone','1')});
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.waitForSelector('#splash:not(.hidden)');
+  assert.equal(await page.locator('#waterVeil').evaluate(e=>getComputedStyle(e).display),'none');
+  const bird=await page.locator('#splashBird').boundingBox();assert(bird);
+  await page.mouse.move(bird.x+bird.width/2,bird.y+bird.height/2);await page.mouse.down();
+  await page.mouse.move(bird.x+bird.width/2,bird.y+bird.height/2-140,{steps:8});
+  assert(Number(await page.locator('#splashBird').evaluate(e=>getComputedStyle(e).opacity))>.9);
+  await page.mouse.up();
+  await page.waitForFunction(()=>document.querySelector('#splash')?.classList.contains('hidden'),null,{timeout:5500});
+  if(tutorial){
+    await page.waitForSelector('#tutorial:not(.hidden)');
+    await drag(page,'#tutorialCard',-100,0);await page.waitForTimeout(340);
+    await drag(page,'#tutorialCard',100,0);await page.waitForTimeout(340);
+    assert((await page.locator('#tutorialHint').innerText()).includes('下'));
+    await drag(page,'#tutorialCard',0,110);
+    await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1700});
+  }
+}
 
 const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
-await boot(page,true);
-const tabs=(await page.locator('.feed-tab').allTextContents()).map(x=>x.trim());assert.deepEqual(tabs,['FOR YOU','HOT','DIVE']);
-const nav=await page.locator('.feed-nav').boundingBox(),hot=await page.locator('[data-tab="hot"]').boundingBox();assert(nav&&hot);assert(Math.abs(hot.x+hot.width/2-(nav.x+nav.width/2))<2.5);
-assert.equal(await page.locator('.news-card .swipe-cue').count(),0);assert.equal(await page.locator('.news-card .gesture-label').count(),0);assert.equal(await page.locator('.card-count svg').count(),0);assert((await page.locator('.card-copy p').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize)))>=13.8);
-const card=await page.locator('.news-card[data-pos="0"]').boundingBox(),title=await page.locator('.news-card[data-pos="0"] h2').boundingBox();assert(card&&title);assert(Math.abs((title.x-card.x)-((card.x+card.width)-(title.x+title.width)))<2.5);assert(new Set(await page.locator('.news-card').evaluateAll(ns=>ns.map(n=>getComputedStyle(n).transform))).size>1);assert((await page.locator('.card-source-row').first().innerText()).length>2);
-await shot(page,'test-output/390-card.png');
+await boot(page,{tutorial:true});
+assert.equal(await page.locator('#actionDock').count(),0);
+assert.equal(await page.locator('.action-button').count(),0);
+assert.equal(await page.locator('.news-card[data-pos="0"] .card-gesture-strip').count(),1);
+assert.equal(await page.locator('.news-card[data-pos="0"]').evaluate(e=>getComputedStyle(e).transform),'matrix(1, 0, 0, 1, 0, 0)');
+if(await page.locator('.news-card').count()>=3){
+  const transforms=await page.locator('.news-card').evaluateAll(ns=>ns.map(n=>getComputedStyle(n).transform));
+  assert.equal(new Set(transforms).size,3);
+}
+assert(Number(await page.locator('.card-copy p').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize)))>=14);
+assert(Number(await page.locator('.card-count span').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize)))>=15);
 
-await drag(page,'.news-card[data-pos="0"]',105,0);await page.waitForSelector('#detail.open');await page.waitForTimeout(430);assert((await page.locator('#detailScroll').evaluate(e=>e.scrollTop))<4);assert.equal(await page.locator('#detailDek').count(),0);assert.equal(await page.locator('.news-brief').count(),0);assert.equal(await page.locator('.news-section.overview').count(),1);assert.equal(await page.locator('.quoted-news').count(),1);assert.equal(await page.locator('.quoted-news a').count(),1);assert.equal(await page.locator('#detailSwipeBar').count(),1);assert.equal(await page.locator('#detailBackHint').count(),0);await shot(page,'test-output/390-detail.png');await page.locator('#detailScroll').evaluate(e=>e.scrollTop=320);await page.waitForTimeout(300);assert((await page.locator('#detailScroll').evaluate(e=>e.scrollTop))>240);await drag(page,'#detailSwipeBar',105,0);await page.waitForFunction(()=>!document.querySelector('#detail')?.classList.contains('open'),null,{timeout:1500});
+const upId=await page.locator('.news-card[data-pos="0"]').getAttribute('data-id');
+await drag(page,'.news-card[data-pos="0"]',0,-115);await page.waitForTimeout(280);
+assert.equal(await page.locator('.news-card[data-pos="0"]').getAttribute('data-id'),upId);
+assert(!(await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(upId),'up swipe must not save');
+await drag(page,'.news-card[data-pos="0"]',0,115);await page.waitForTimeout(380);
+assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(upId),'down swipe must save');
 
-const savedId=await page.locator('.news-card[data-pos="0"]').getAttribute('data-id');await drag(page,'.news-card[data-pos="0"]',0,-110);await page.waitForTimeout(380);assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(savedId));
-await page.click('#menuButton');await page.waitForSelector('#drawer.open');let text=await page.locator('#drawerBody').innerText();assert(text.includes('設定')&&text.includes('履歴'));await page.locator('[data-view="settings"]').click();text=await page.locator('#drawerBody').innerText();for(const x of ['言語','興味・好み','デザイン'])assert(text.includes(x));await shot(page,'test-output/390-settings.png');await page.locator('[data-lang="ru"]').click();assert.equal(await page.evaluate(()=>localStorage.getItem('kingfisherLanguage')),'ru');await page.locator('.drawer-back').click();await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
-await page.mouse.move(3,300);await page.mouse.down();await page.mouse.move(115,300,{steps:8});await page.mouse.up();await page.waitForSelector('#drawer.open');await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
-// Legacy DIVE is regression-checked only; its UX is intentionally not validated or redesigned here.
-await page.click('[data-tab="dive"]');await page.waitForSelector('#diveScreen.active');await drag(page,'#diveScreen',0,130);await page.waitForTimeout(260);assert(await page.locator('#cardsScreen').evaluate(e=>e.classList.contains('active')));await page.close();
+await drag(page,'.news-card[data-pos="0"]',110,0);await page.waitForSelector('#detail.open');
+const pads=await page.locator('.detail-body').evaluate(e=>[parseFloat(getComputedStyle(e).paddingLeft),parseFloat(getComputedStyle(e).paddingRight),parseFloat(getComputedStyle(e).paddingTop)]);
+assert(Math.abs(pads[0]-pads[1])<.1&&pads[2]>=24);
+await page.locator('#detailScroll').evaluate(e=>e.scrollTop=320);await page.waitForTimeout(250);
+assert((await page.locator('#detailScroll').evaluate(e=>e.scrollTop))>240,'detail scroll reset');
+await drag(page,'#detailScroll',115,0,190,[180,360]);
+await page.waitForFunction(()=>!document.querySelector('#detail')?.classList.contains('open'),null,{timeout:1600});
+await drag(page,'.news-card[data-pos="0"]',110,0);await page.waitForSelector('#detail.open');
+assert.equal(await page.locator('#detailReturnHandle').count(),1);
+await drag(page,'#detailReturnHandle',110,0);
+await page.waitForFunction(()=>!document.querySelector('#detail')?.classList.contains('open'),null,{timeout:1600});
 
-for(const [w,h] of [[375,667],[430,932]]){const p=await browser.newPage({viewport:{width:w,height:h},isMobile:true,hasTouch:true});await boot(p,false);const c=await p.locator('.news-card[data-pos="0"]').boundingBox(),d=await p.locator('#actionDock').boundingBox(),n=await p.locator('.feed-nav').boundingBox();assert(c&&d&&n);assert(c.y+c.height<=d.y+2,`${w} card/dock overlap`);assert(d.y+d.height<=n.y+3,`${w} dock/nav overlap`);await shot(p,`test-output/${w}x${h}.png`);await p.close()}
-console.log('KINGFISHER v14 smoke: PASS');await browser.close();
+await page.mouse.move(3,300);await page.mouse.down();await page.mouse.move(120,300,{steps:9});await page.mouse.up();await page.waitForSelector('#drawer.open');
+const settings=await page.locator('[data-view="settings"]').boundingBox();assert(settings&&settings.width>250);
+await page.mouse.click(settings.x+settings.width-12,settings.y+settings.height/2);assert((await page.locator('.settings-group').count())>=3);
+await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
+await page.click('#menuButton');await page.waitForSelector('#drawer.open');assert.equal(await page.locator('.settings-group').count(),0);assert.equal(await page.locator('[data-view="saved"] .drawer-save-icon svg').count(),1);
+await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
+
+await page.click('[data-tab="dive"]');await page.waitForSelector('#diveScreen.active');await drag(page,'#diveScreen',0,130);await page.waitForTimeout(260);assert(await page.locator('#cardsScreen').evaluate(e=>e.classList.contains('active')));
+await page.close();
+
+for(const [w,h] of [[375,667],[390,844],[430,932]]){
+  const p=await browser.newPage({viewport:{width:w,height:h},isMobile:true,hasTouch:true});await boot(p);
+  const c=await p.locator('.news-card[data-pos="0"]').boundingBox(),n=await p.locator('.feed-nav').boundingBox();assert(c&&n);
+  assert(c.y+c.height<=n.y+1,`${w} card/nav overlap`);assert(n.y-(c.y+c.height)<40,`${w} excessive card bottom gap`);
+  assert.equal(await p.locator('#actionDock').count(),0);
+  await p.screenshot({path:`test-output/v15-${w}x${h}.png`});await p.close();
+}
+console.log('KINGFISHER v15 smoke: PASS');await browser.close();
