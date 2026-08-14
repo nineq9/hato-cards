@@ -8,6 +8,31 @@
   <title>KINGFISHER</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
+  <script>
+    (()=>{
+      const INTRO_VERSION='kingfisher-intro-v2';
+      if(localStorage.getItem('kingfisherIntroVersion')!==INTRO_VERSION){
+        localStorage.removeItem('kingfisherTutorialDone');
+        localStorage.removeItem('kawasemiTutorialDone');
+        localStorage.setItem('kingfisherIntroVersion',INTRO_VERSION);
+      }
+      const nativeMatchMedia=window.matchMedia.bind(window);
+      window.matchMedia=(query)=>{
+        const m=nativeMatchMedia(query);
+        if(query!=='(prefers-reduced-motion: reduce)') return m;
+        return {
+          matches:false,
+          media:m.media,
+          onchange:null,
+          addListener:m.addListener?.bind(m),
+          removeListener:m.removeListener?.bind(m),
+          addEventListener:m.addEventListener?.bind(m),
+          removeEventListener:m.removeEventListener?.bind(m),
+          dispatchEvent:m.dispatchEvent?.bind(m)
+        };
+      };
+    })();
+  </script>
 </head>
 <body>
   <section id="splash" class="splash" aria-label="KINGFISHER intro">
