@@ -11,171 +11,20 @@
 </head>
 <body>
   <section id="splash" class="splash" aria-label="KAWASEMI">
-    <div class="splash-photo"></div>
-    <div class="splash-far-polygons" aria-hidden="true">
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
-    <div class="splash-brand">KAWASEMI</div>
-    <div class="flight-guide" aria-hidden="true"><span></span><b>⌃</b><b>⌃</b></div>
-    <div id="splashBird" class="splash-bird" aria-hidden="true">
-      <svg viewBox="0 0 120 110">
-        <polygon points="58,4 66,28 54,28" fill="#1a2930"/>
-        <polygon points="54,24 66,24 76,45 60,56 44,45" fill="#0b8f99"/>
-        <polygon points="44,43 60,56 38,70 10,66" fill="#0a5961"/>
-        <polygon points="76,43 60,56 82,70 110,66" fill="#073f48"/>
-        <polygon points="38,70 60,56 50,92 22,78" fill="#117a82"/>
-        <polygon points="82,70 60,56 70,92 98,78" fill="#095d66"/>
-        <polygon points="50,92 60,56 70,92 61,108" fill="#063d48"/>
-        <polygon points="46,38 54,24 60,56 48,52" fill="#e9eee7"/>
-        <polygon points="74,38 66,24 60,56 72,52" fill="#dfe8e0"/>
-        <polygon points="44,45 38,55 47,57" fill="#c67f5f"/>
-        <polygon points="76,45 82,55 73,57" fill="#b46d56"/>
-      </svg>
-    </div>
+    <div class="splash-photo"></div><div class="splash-far-polygons" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="splash-brand">KAWASEMI</div><div class="flight-guide" aria-hidden="true"><span></span><b>⌃</b><b>⌃</b></div>
+    <div id="splashBird" class="splash-bird" aria-hidden="true"><svg viewBox="0 0 120 110"><polygon points="58,4 66,28 54,28" fill="#1a2930"/><polygon points="54,24 66,24 76,45 60,56 44,45" fill="#0b8f99"/><polygon points="44,43 60,56 38,70 10,66" fill="#0a5961"/><polygon points="76,43 60,56 82,70 110,66" fill="#073f48"/><polygon points="38,70 60,56 50,92 22,78" fill="#117a82"/><polygon points="82,70 60,56 70,92 98,78" fill="#095d66"/><polygon points="50,92 60,56 70,92 61,108" fill="#063d48"/><polygon points="46,38 54,24 60,56 48,52" fill="#e9eee7"/><polygon points="74,38 66,24 60,56 72,52" fill="#dfe8e0"/><polygon points="44,45 38,55 47,57" fill="#c67f5f"/><polygon points="76,45 82,55 73,57" fill="#b46d56"/></svg></div>
   </section>
-
-  <section id="tutorial" class="tutorial hidden" aria-hidden="true">
-    <div class="tutorial-card" aria-hidden="true">
-      <div class="tutorial-photo"></div>
-      <div class="tutorial-copy">
-        <span>UKRAINE · TECH</span>
-        <strong>必要なニュースを、<br>一枚ずつ。</strong>
-      </div>
-    </div>
-    <div class="tutorial-action t-left"><b>←</b><small>KNOW</small></div>
-    <div class="tutorial-action t-up">
-      <b>↑</b>
-      <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
-    </div>
-    <div class="tutorial-action t-right"><small>READ</small><b>→</b></div>
-    <button id="tutorialDone" class="tutorial-done" aria-label="チュートリアルを終了"><span>›</span></button>
-  </section>
-
+  <section id="tutorial" class="tutorial hidden" aria-hidden="true"></section>
   <div id="app" class="app-shell hidden">
-    <header class="topbar">
-      <div class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 44 36">
-          <polygon points="6,20 20,9 23,18 38,14 26,25 18,31" fill="currentColor"/>
-          <polygon points="20,9 29,5 23,18" fill="currentColor" opacity=".58"/>
-          <polygon points="18,31 26,25 30,34" fill="currentColor" opacity=".72"/>
-        </svg>
-      </div>
-      <div class="brand-word">KAWASEMI</div>
-      <div id="counter" class="geo-counter" aria-label="残り20件"></div>
-    </header>
-
+    <header class="topbar"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 44 36"><polygon points="6,20 20,9 23,18 38,14 26,25 18,31" fill="currentColor"/><polygon points="20,9 29,5 23,18" fill="currentColor" opacity=".58"/><polygon points="18,31 26,25 30,34" fill="currentColor" opacity=".72"/></svg></div><div class="brand-word">KAWASEMI</div><div id="counter" class="geo-counter" aria-label="残り20件"></div></header>
     <main class="main">
-      <section id="cardsScreen" class="screen active">
-        <nav class="feed-tabs" aria-label="フィード">
-          <button class="feed-tab active" data-feed="forYou">FOR YOU</button>
-          <button class="feed-tab" data-feed="hot">HOT</button>
-          <button class="feed-tab" data-feed="must">MUST KNOW</button>
-        </nav>
-        <div id="deck" class="deck" aria-live="polite"></div>
-        <div id="actionDock" class="action-dock">
-          <button class="action-circle" data-action="known" aria-label="知ってる">
-            <svg viewBox="0 0 28 28"><path d="M18.5 5.5 10 14l8.5 8.5"/><path d="M10.5 14H24"/></svg>
-          </button>
-          <button class="action-circle save-action" data-action="save" aria-label="あとで読む">
-            <span class="mini-up">⌃</span>
-            <svg viewBox="0 0 28 28"><path d="M8 5.5h12v17l-6-4-6 4z"/></svg>
-          </button>
-          <button class="action-circle primary-action" data-action="read" aria-label="もっと見る">
-            <svg viewBox="0 0 28 28"><path d="m9.5 5.5 8.5 8.5-8.5 8.5"/><path d="M4 14h13.5"/></svg>
-          </button>
-        </div>
-      </section>
-
-      <section id="discoverScreen" class="screen">
-        <div class="section-head"><span>HOT NOW</span><i></i></div>
-        <div id="hotClusters" class="cluster-grid"></div>
-        <div class="section-head secondary"><span>RADAR</span><i></i></div>
-        <div id="radarTopics" class="radar-topics"></div>
-      </section>
-
-      <section id="savedScreen" class="screen">
-        <div class="archive-head">
-          <strong>SAVED</strong>
-          <div class="archive-switch">
-            <button class="active" data-archive="theme">THEME</button>
-            <button data-archive="date">DATE</button>
-          </div>
-        </div>
-        <div id="savedArchive" class="saved-archive"></div>
-      </section>
-
-      <section id="meScreen" class="screen">
-        <div class="me-block">
-          <div class="section-head"><span>INTERESTS</span><i></i></div>
-          <div id="interestChips" class="interest-chips"></div>
-          <form id="interestForm" class="interest-form">
-            <input id="interestInput" maxlength="32" placeholder="＋" aria-label="興味ワードを追加" />
-            <button aria-label="追加">＋</button>
-          </form>
-        </div>
-
-        <div class="me-block">
-          <div class="section-head"><span>THEME</span><i></i></div>
-          <div class="theme-picker" role="group" aria-label="テーマ">
-            <button data-theme-choice="light" aria-label="ライト">☼</button>
-            <button data-theme-choice="auto" class="active" aria-label="自動">◐</button>
-            <button data-theme-choice="dark" aria-label="ダーク">☾</button>
-          </div>
-        </div>
-
-        <div class="me-block quiet-stats">
-          <div><strong id="screenedStat">0</strong><span>SCREENED</span></div>
-          <div><strong id="savedStat">0</strong><span>SAVED</span></div>
-          <div><strong id="likedStat">0</strong><span>LIKED</span></div>
-        </div>
-      </section>
-    </main>
-
-    <nav class="bottom-nav" aria-label="メインナビゲーション">
-      <button class="nav-btn active" data-screen="cardsScreen" aria-label="カード">
-        <svg viewBox="0 0 30 30"><path d="M7 9h14v13H7z"/><path d="M10 6h14v13"/></svg><i></i>
-      </button>
-      <button class="nav-btn" data-screen="discoverScreen" aria-label="ディスカバー">
-        <svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="9"/><path d="m18.5 10.5-2.1 5.9-5.9 2.1 2.1-5.9z"/></svg><i></i>
-      </button>
-      <button class="nav-btn" data-screen="savedScreen" aria-label="保存">
-        <svg viewBox="0 0 30 30"><path d="M9 5.5h12v19l-6-4.5-6 4.5z"/></svg><i></i>
-      </button>
-      <button class="nav-btn" data-screen="meScreen" aria-label="自分">
-        <svg viewBox="0 0 30 30"><polygon points="8,22 14,7 22,10 16,24" class="fill-shape"/><path d="M9 21.5 20 10.5"/></svg><i></i>
-      </button>
-    </nav>
+      <section id="cardsScreen" class="screen active"><nav class="feed-tabs" aria-label="フィード"><button class="feed-tab active" data-feed="forYou">FOR YOU</button><button class="feed-tab" data-feed="hot">HOT</button><button class="feed-tab" data-feed="must">MUST KNOW</button></nav><div id="deck" class="deck" aria-live="polite"></div><div id="actionDock" class="action-dock"><button class="action-circle" data-action="known" aria-label="知ってる"><svg viewBox="0 0 28 28"><path d="M18.5 5.5 10 14l8.5 8.5"/><path d="M10.5 14H24"/></svg></button><button class="action-circle save-action" data-action="save" aria-label="あとで読む"><span class="mini-up">⌃</span><svg viewBox="0 0 28 28"><path d="M8 5.5h12v17l-6-4-6 4z"/></svg></button><button class="action-circle primary-action" data-action="read" aria-label="もっと見る"><svg viewBox="0 0 28 28"><path d="m9.5 5.5 8.5 8.5-8.5 8.5"/><path d="M4 14h13.5"/></svg></button></div></section>
+      <section id="discoverScreen" class="screen"><div class="section-head"><span>HOT NOW</span><i></i></div><div id="hotClusters" class="cluster-grid"></div><div class="section-head secondary"><span>RADAR</span><i></i></div><div id="radarTopics" class="radar-topics"></div></section>
+      <section id="savedScreen" class="screen"><div class="archive-head"><strong>SAVED</strong><div class="archive-switch"><button class="active" data-archive="theme">THEME</button><button data-archive="date">DATE</button></div></div><div id="savedArchive" class="saved-archive"></div></section>
+      <section id="meScreen" class="screen"><div class="me-block"><div class="section-head"><span>INTERESTS</span><i></i></div><div id="interestChips" class="interest-chips"></div><form id="interestForm" class="interest-form"><input id="interestInput" maxlength="32" placeholder="＋" aria-label="興味ワードを追加"/><button aria-label="追加">＋</button></form></div><div class="me-block"><div class="section-head"><span>THEME</span><i></i></div><div class="theme-picker" role="group" aria-label="テーマ"><button data-theme-choice="light" aria-label="ライト">☼</button><button data-theme-choice="auto" class="active" aria-label="自動">◐</button><button data-theme-choice="dark" aria-label="ダーク">☾</button></div></div><div class="me-block quiet-stats"><div><strong id="screenedStat">0</strong><span>SCREENED</span></div><div><strong id="savedStat">0</strong><span>SAVED</span></div><div><strong id="likedStat">0</strong><span>LIKED</span></div></div></section>
+    </main><nav class="bottom-nav" aria-label="フィード"></nav>
   </div>
-
-  <article id="detail" class="detail" aria-hidden="true">
-    <div class="detail-scroll">
-      <div id="detailHero" class="detail-hero"></div>
-      <div class="detail-body">
-        <div id="detailMeta" class="detail-meta"></div>
-        <h1 id="detailTitle"></h1>
-        <p id="detailDek" class="detail-dek"></p>
-        <div id="detailArticle" class="article-copy"></div>
-        <div class="article-end-actions">
-          <button id="detailLike" class="end-action heart" aria-label="いいね">
-            <svg viewBox="0 0 32 32"><path d="M16 27S5 20.7 5 12.2C5 8.2 7.6 6 10.8 6c2.2 0 4.2 1.2 5.2 3 1-1.8 3-3 5.2-3C24.4 6 27 8.2 27 12.2 27 20.7 16 27 16 27z"/></svg>
-          </button>
-          <button id="detailBookmark" class="end-action" aria-label="保存">
-            <svg viewBox="0 0 32 32"><path d="M9 5h14v22l-7-5-7 5z"/></svg>
-          </button>
-        </div>
-        <div id="detailSource" class="detail-source"></div>
-      </div>
-    </div>
-    <div class="detail-edge" aria-hidden="true"></div>
-  </article>
-
-  <div id="undoToast" class="undo-toast" role="status">
-    <span id="undoText"></span>
-    <button id="undoBtn" aria-label="元に戻す">↶</button>
-  </div>
-
-  <script src="./articles.js" defer></script>
-  <script src="./app.js" defer></script>
-  <script src="./drag-fix.js" defer></script>
-</body>
-</html>
+  <article id="detail" class="detail" aria-hidden="true"><div class="detail-scroll"><div id="detailHero" class="detail-hero"></div><div class="detail-body"><div id="detailMeta" class="detail-meta"></div><h1 id="detailTitle"></h1><p id="detailDek" class="detail-dek"></p><div id="detailArticle" class="article-copy"></div><div class="article-end-actions"><button id="detailLike" class="end-action heart" aria-label="いいね"><svg viewBox="0 0 32 32"><path d="M16 27S5 20.7 5 12.2C5 8.2 7.6 6 10.8 6c2.2 0 4.2 1.2 5.2 3 1-1.8 3-3 5.2-3C24.4 6 27 8.2 27 12.2 27 20.7 16 27 16 27z"/></svg></button><button id="detailBookmark" class="end-action" aria-label="保存"><svg viewBox="0 0 32 32"><path d="M9 5h14v22l-7-5-7 5z"/></svg></button></div><div id="detailSource" class="detail-source"></div></div></div><div class="detail-edge" aria-hidden="true"></div></article>
+  <div id="undoToast" class="undo-toast" role="status"><span id="undoText"></span><button id="undoBtn" aria-label="元に戻す">↶</button></div>
+  <script src="./articles.js" defer></script><script src="./app.js" defer></script><script src="./ui-fix-v4.js" defer></script>
+</body></html>
