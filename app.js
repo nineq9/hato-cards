@@ -6,6 +6,8 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const easeOutQuint = t => 1 - Math.pow(1 - t, 5);
 const easeInCubic = t => t * t * t;
 const easeSmooth = t => t * t * (3 - 2 * t);
+const EASING = {smooth:easeSmooth,outQuint:easeOutQuint,inCubic:easeInCubic,linear:t=>t};
+const useEase = (name,t) => (EASING[name] || EASING.linear)(clamp(t,0,1));
 
 window.KINGFISHER_MOTION = {
   charge: {
@@ -36,6 +38,12 @@ window.KINGFISHER_MOTION = {
     cameraScale: 1.52,
     veilOpacity: 1,
     handoffAt: 0.44
+  },
+  easing: {
+    charge: 'smooth',
+    flight: 'outQuint',
+    dive: 'inCubic',
+    immersion: 'outQuint'
   }
 };
 
@@ -74,6 +82,7 @@ function persist() {
   localStorage.setItem('kingfisherLiked', JSON.stringify([...state.liked]));
   localStorage.setItem('kingfisherInterests', JSON.stringify(state.interests));
 }
+
 function resolveTheme(choice = state.themeChoice) {
   if (choice === 'system') return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   return choice === 'light' ? 'light' : 'dark';
@@ -152,6 +161,7 @@ function attachImageFallback(root = document) {
     }, {once:true});
   });
 }
+
 function cardMarkup(a, pos) {
   return `<article class="news-card ${pos===1?'back1':pos===2?'back2':''}" data-id="${a.id}" data-pos="${pos}">
     <div class="card-image">${imageMarkup(a)}</div>
@@ -375,11 +385,13 @@ function renderMe(){
 function updateStats(){if($('#screenedStat'))$('#screenedStat').textContent=state.processed.size;if($('#savedStat'))$('#savedStat').textContent=state.saved.size;if($('#likedStat'))$('#likedStat').textContent=state.liked.size}
 function goHome(){state.feed='forYou';switchScreen('cardsScreen');$$('.feed-nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.feed==='forYou'));renderDeck()}
 
+/* splash physics: mass -> release -> acceleration -> dive -> immersion */
 function bindSplash(){
-  let input=null,raf=0,visualY=0,targetY=0;
+  let input=null,raf=0,visualY=0,targetY=0,lastRender=performance.now();
   const motion=window.KINGFISHER_MOTION;
   const renderCharge=()=>{
     if(!input){raf=0;return}
+    const now=performance.now();lastRender=now;
     visualY += (targetY-visualY)*motion.charge.visualResponse;
     splashBird.style.transform=`translate3d(-50%,${visualY}px,0) scale(${1-Math.min(.12,Math.abs(visualY)/1800)})`;
     raf=requestAnimationFrame(renderCharge);
@@ -400,7 +412,7 @@ function bindSplash(){
     const v=(input.lastY-e.clientY)/dt;
     input.velocity=input.velocity*.55+v*.45;input.lastY=e.clientY;input.lastT=now;input.distance=upward;
     const n=clamp(upward/motion.charge.maxDistance,0,1);
-    const follow=lerp(motion.charge.initialFollow,motion.charge.finalFollow,easeSmooth(n));
+    const follow=lerp(motion.charge.initialFollow,motion.charge.finalFollow,useEase(motion.easing.charge,n));
     targetY=-upward*follow;
     $('.flight-guide',splash).style.opacity=String(clamp(.75-n*.9,0,.75));
   };
@@ -436,16 +448,17 @@ function launchSplash(releaseVelocity=0,distance=0,startVisualY=0){
   let phase='flight',phaseStart=start;
   const animate=now=>{
     if(phase==='flight'){
-      const p=clamp((now-phaseStart)/flightDuration,0,1),e=easeOutQuint(p);
+      const p=clamp((now-phaseStart)/flightDuration,0,1),e=useEase(M.easing.flight,p);
       const y=lerp(startVisualY,totalTravel*.88,e);
       const s=lerp(startScale,M.flight.scaleEnd,e);
       splashBird.style.transform=`translate3d(-50%,${y}px,0) scale(${s})`;
-      const cam=lerp(1.035,M.flight.cameraScale,easeSmooth(p));
+      const cam=lerp(1.035,M.flight.cameraScale,useEase(M.easing.charge,p));
       splashScene.style.transform=`scale(${cam})`;
       splashScene.style.filter=`saturate(${lerp(1.03,1.12,p)})`;
       if(p>=1){phase='dive';phaseStart=now;requestAnimationFrame(animate);return}
     } else if(phase==='dive'){
-      const p=clamp((now-phaseStart)/M.dive.duration,0,1),e=easeInCubic(p);
+      const diveDuration=M.dive.duration/Math.max(.4,M.dive.speedBoost);
+      const p=clamp((now-phaseStart)/diveDuration,0,1),e=useEase(M.easing.dive,p);
       const y=lerp(totalTravel*.88,totalTravel,e);
       const s=lerp(M.flight.scaleEnd,M.dive.scaleEnd,e);
       splashBird.style.transform=`translate3d(-50%,${y}px,0) scale(${s})`;
@@ -454,7 +467,7 @@ function launchSplash(releaseVelocity=0,distance=0,startVisualY=0){
         splashBird.style.opacity='0';waterRipple.classList.add('impact');phase='immersion';phaseStart=now;app.classList.remove('hidden');app.style.opacity='0';requestAnimationFrame(animate);return
       }
     } else {
-      const p=clamp((now-phaseStart)/M.immersion.duration,0,1),e=easeOutQuint(p);
+      const p=clamp((now-phaseStart)/M.immersion.duration,0,1),e=useEase(M.easing.immersion,p);
       const cam=lerp(M.flight.cameraScale*1.035,M.immersion.cameraScale,e);
       splashScene.style.transform=`scale(${cam}) translateY(${lerp(0,-2.5,e)}%)`;
       splashScene.style.filter=`saturate(${lerp(1.12,1.18,p)}) blur(${lerp(0,2.3,e)}px)`;
@@ -466,7 +479,7 @@ function launchSplash(releaseVelocity=0,distance=0,startVisualY=0){
     requestAnimationFrame(animate);
   };
   requestAnimationFrame(animate);
-  setTimeout(()=>{if(!splash.classList.contains('hidden'))completeSplash()},flightDuration+M.dive.duration+M.immersion.duration+450);
+  setTimeout(()=>{if(!splash.classList.contains('hidden'))completeSplash()},flightDuration+(M.dive.duration/Math.max(.4,M.dive.speedBoost))+M.immersion.duration+450);
 }
 function completeSplash(){
   if(splash.classList.contains('hidden'))return;
@@ -499,4 +512,5 @@ $('#detailLike').addEventListener('click',toggleLike);$('#detailBookmark').addEv
 
 applyTheme();bindSplash();bindDetailGesture();bindTutorialCard();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){setTimeout(()=>{if(!state.splashComplete){state.splashComplete=true;completeSplash()}},300)}
+setTimeout(()=>{if(!state.splashComplete){state.splashComplete=true;completeSplash()}},15000)
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
