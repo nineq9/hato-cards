@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f2ed" />
+  <title>HATO CARDS</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-btn" aria-label="メニュー">☰</button>
+      <div class="brand">HATO <span>CARDS</span></div>
+      <button class="icon-btn" id="undoTop" aria-label="ひとつ戻す">↶</button>
+    </header>
+
+    <main class="main">
+      <section id="batchIntro" class="batch-intro">
+        <div class="eyebrow">NEW CARDS</div>
+        <h1>新しいカードが<br><span id="batchCount">4</span>枚届きました。</h1>
+        <p>立ち上がって、部屋を少し歩きながらどうぞ。</p>
+        <button id="startBatch" class="primary">カードを見る</button>
+      </section>
+
+      <section id="cardStage" class="card-stage hidden" aria-live="polite">
+        <div class="outside-progress"><span id="position">1</span> / <span id="total">4</span></div>
+        <div id="deck" class="deck"></div>
+        <div class="gesture-legend"><span>← 知ってる</span><span>もっと知る →</span></div>
+      </section>
+
+      <section id="clearScreen" class="clear-screen hidden">
+        <div class="eyebrow">NEW CARDS CLEAR</div>
+        <div class="clear-score"><span id="clearDone">4</span> / <span id="clearTotal">4</span></div>
+        <h2>今届いていた世界は、<br>ここまで。</h2>
+        <p>少し身体も動いたし、また自分の時間へ。</p>
+        <div class="reward">ATTA「よし。戻ろう。」</div>
+      </section>
+    </main>
+  </div>
+
+  <aside id="detail" class="detail" aria-hidden="true">
+    <header class="detail-bar">
+      <button id="detailBack" class="icon-btn" aria-label="カードへ戻る">←</button>
+      <div id="detailPosition" class="detail-position">1 / 4</div>
+      <div class="detail-spacer"></div>
+    </header>
+    <div class="detail-scroll">
+      <div id="detailCountry" class="detail-country"></div>
+      <div id="detailTags" class="tags"></div>
+      <h2 id="detailTitle"></h2>
+      <p id="detailDek" class="detail-dek"></p>
+
+      <section class="article-section"><h3>3行でわかる</h3><p id="detailThree"></p></section>
+      <section class="article-section"><h3>何が起きた？</h3><p id="detailWhat"></p></section>
+      <section class="article-section"><h3>なぜ重要？</h3><p id="detailWhy"></p></section>
+      <section class="article-section"><h3>次に見るポイント</h3><p id="detailWatch"></p></section>
+      <section class="article-section"><h3>情報源</h3><p id="detailSource"></p></section>
+    </div>
+    <div class="detail-hint">← 左スワイプでカードへ戻る</div>
+  </aside>
+
+  <div id="undoToast" class="undo-toast"><span id="undoText">戻せます</span><button id="undoBtn">戻す ↶</button></div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
