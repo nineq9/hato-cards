@@ -15,44 +15,15 @@
       <div class="logo-wrap"><img src="assets/img1.webp" alt="HATO"></div>
       <button id="searchBtn" class="icon-btn" aria-label="検索"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
     </header>
-    <div class="utility">
-      <div class="day-progress"><div class="track"><div id="dayFill" class="fill"></div></div><span id="dayCount" class="day-count">0 / 47</span></div>
-      <button id="playBtn" class="play-small" aria-label="音声"><svg viewBox="0 0 20 20"><path d="M6 4.8 15 10 6 15.2Z"/></svg></button>
-    </div>
-    <div id="categorySelector" class="category-selector">
-      <button id="categoryToggle" class="category-toggle" aria-expanded="false" aria-controls="categoryPanel">
-        <span class="category-toggle-inner">
-          <span class="category-toggle-main"><span id="categoryCurrent" class="category-current">TOP</span><span id="categoryCurrentStatus" class="category-current-status">0/9</span></span>
-          <span class="category-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
-        </span>
-      </button>
-      <div id="categoryPanel" class="category-panel" aria-label="今日のニュースカテゴリ">
-        <button class="cat-btn active" data-cat="TOP"><span class="cat-label">TOP</span></button>
-        <button class="cat-btn" data-cat="UKRAINE"><span class="cat-label">UKRAINE</span></button>
-        <button class="cat-btn" data-cat="LIFE"><span class="cat-label">LIFE</span></button>
-        <button class="cat-btn" data-cat="REGIONS"><span class="cat-label">REGIONS</span></button>
-        <button class="cat-btn" data-cat="WAR"><span class="cat-label">WAR</span></button>
-        <button class="cat-btn" data-cat="WORLD"><span class="cat-label">WORLD</span></button>
-        <button class="cat-btn" data-cat="TECH"><span class="cat-label">TECH</span></button>
-        <button class="cat-btn" data-cat="OSINT"><span class="cat-label">OSINT</span></button>
-      </div>
-    </div>
+    <div class="utility"><div class="day-progress"><div class="track"><div id="dayFill" class="fill"></div></div><span id="dayCount" class="day-count">0 / 47</span></div><button id="playBtn" class="play-small" aria-label="音声"><svg viewBox="0 0 20 20"><path d="M6 4.8 15 10 6 15.2Z"/></svg></button></div>
+    <div id="categorySelector" class="category-selector"><button id="categoryToggle" class="category-toggle" aria-expanded="false" aria-controls="categoryPanel"><span class="category-toggle-inner"><span class="category-toggle-main"><span id="categoryCurrent" class="category-current">TOP</span><span id="categoryCurrentStatus" class="category-current-status">0/9</span></span><span class="category-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span></span></button><div id="categoryPanel" class="category-panel" aria-label="今日のニュースカテゴリ"><button class="cat-btn active" data-cat="TOP"><span class="cat-label">TOP</span></button><button class="cat-btn" data-cat="UKRAINE"><span class="cat-label">UKRAINE</span></button><button class="cat-btn" data-cat="LIFE"><span class="cat-label">LIFE</span></button><button class="cat-btn" data-cat="REGIONS"><span class="cat-label">REGIONS</span></button><button class="cat-btn" data-cat="WAR"><span class="cat-label">WAR</span></button><button class="cat-btn" data-cat="WORLD"><span class="cat-label">WORLD</span></button><button class="cat-btn" data-cat="TECH"><span class="cat-label">TECH</span></button><button class="cat-btn" data-cat="OSINT"><span class="cat-label">OSINT</span></button></div></div>
     <div id="searchPanel" class="search-panel"><input id="searchInput" type="search" placeholder="HATOを検索" autocomplete="off"></div>
-    <main class="feed">
-      <div id="feed"></div>
-      <div id="categoryOverview" class="category-overview"></div>
-      <div id="endLock" class="end-lock">今日のブリーフを読み進めています。</div>
-      <section id="completion" class="completion">
-        <div id="completionIntro" class="completion-intro"><div class="complete-card">
-          <div id="completionProgress" class="completion-progress" aria-hidden="true"><div class="completion-runner"></div><div class="meter-frame"><div id="meterBars" class="meter-bars"></div></div></div>
-          <div class="complete-count">47 / 47</div><div class="complete-title">今日のブリーフは、<br>すべて読み終えました。</div>
-        </div></div>
-      </section>
-    </main>
+    <main class="feed"><div id="feed"></div><div id="categoryOverview" class="category-overview"></div><div id="endLock" class="end-lock">今日のブリーフを読み進めています。</div><section id="completion" class="completion"></section></main>
   </div>
+  <section id="archivePage" class="page-section"><div class="sub-topbar"><button class="icon-btn menu-open">☰</button><div class="logo-wrap"><img src="assets/img1.webp" alt="HATO"></div><span></span></div><h1 class="section-title">ARCHIVE</h1><input id="archiveSearch" class="archive-search" type="search" placeholder="過去のHATOを検索"><div id="archiveResults" class="archive-results"></div><div class="month-label">AUGUST 2026</div><div id="archiveRows"></div></section>
+  <section id="aboutPage" class="page-section"><div class="sub-topbar"><button class="icon-btn menu-open">☰</button><div class="logo-wrap"><img src="assets/img1.webp" alt="HATO"></div><span></span></div><h1 class="section-title about-title">ABOUT HATO</h1><p class="about-copy">世界は広く、知るべきことに終わりはありません。<br>でも、時間は有限です。<br><br>時間の使い方は、人生の使い方。<br>HATOは、ニュースを追い続けるためではなく、今日の世界を必要な深さまで理解して、その先の大切な仕事や暮らしに時間を使うためのデイリーブリーフです。</p><hr class="about-rule"><p class="about-small">ニュースを、追い続けるためではなく。<br>今日の世界を理解して、自分の一日へ戻るために。</p><div class="about-birds"><img src="assets/img6.webp" alt="眠るATTA"></div></section>
 </div>
-<div id="menu" class="overlay" aria-hidden="true"><div class="overlay-head"><button id="menuClose" class="icon-btn" aria-label="閉じる">×</button><div class="overlay-title">HATO</div><span></span></div><div class="menu-body"><div class="menu-links"><button class="menu-link active" data-page="today">TODAY</button><button class="menu-link" data-page="archive">ARCHIVE</button><button class="menu-link" data-page="audio">AUDIO</button><button class="menu-link" data-page="about">ABOUT HATO</button></div></div></div>
-<div id="articleView" class="article-view"><div id="articleProgress" class="article-progress"></div><article id="articleContent" class="article-inner"></article></div><button id="backArticle" class="back-fab" aria-label="戻る">←</button>
-<div id="scrim" class="scrim"></div><div id="audioSheet" class="bottom-sheet"></div><div id="miniPlayer" class="mini-player"></div>
+<div id="menu" class="overlay" aria-hidden="true"><div class="overlay-head"><button id="menuClose" class="icon-btn">×</button><div class="overlay-title">HATO</div><span></span></div><div class="menu-body"><div class="menu-links"><button class="menu-link active" data-page="today">TODAY</button><button class="menu-link" data-page="archive">ARCHIVE</button><button class="menu-link" data-page="audio">AUDIO</button><button class="menu-link" data-page="about">ABOUT HATO</button></div><div class="menu-bottom"><img src="assets/img7.webp" alt="手紙を運ぶATTA"><p>新しい世界をお知らせ</p></div></div></div>
+<div id="articleView" class="article-view"><div id="articleProgress" class="article-progress"></div><article id="articleContent" class="article-inner"></article></div><button id="backArticle" class="back-fab" aria-label="戻る">←</button><div id="scrim" class="scrim"></div><div id="audioSheet" class="bottom-sheet"></div><div id="miniPlayer" class="mini-player"></div>
 <script>(async()=>{const gunzip=async u=>{const r=await fetch(u);if(!r.ok)throw new Error(u);return new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).text()};try{const css=await gunzip('./style.css.gz');const s=document.createElement('style');s.textContent=css;document.head.appendChild(s);document.getElementById('bootStyle')?.remove();document.body.style.visibility='visible';const js=await gunzip('./app.js.gz');(0,eval)(js)}catch(e){document.body.style.visibility='visible';console.error(e)}})();</script>
 </body></html>
