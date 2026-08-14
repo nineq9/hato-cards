@@ -1,0 +1,2 @@
+idth:min(190px,48vw)!important;margin:0 auto!important;display:block!important}
+@media(min-width:700px){#aboutPage>.about-title,#aboutPage>.about-copy,#aboutPage>.about-rule,#aboutPage>.about-small{margin-left:clamp(56px,10vw,120px)!important;margin-right:clamp(56px,10vw,120px)!important}#aboutPage>.about-copy{font-size:13.5px!important;max-width:520px!important}#aboutPage>.about-small{font-size:11.3px!important;max-width:500px!important}#aboutPage>.about-birds img{width:min(210px,32vw)!important}}
