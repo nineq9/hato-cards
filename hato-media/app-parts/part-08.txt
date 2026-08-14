@@ -38,3 +38,4 @@ function init(){
   if(FORCE_COMPLETE){ setTimeout(()=>{ const old=document.documentElement.style.scrollBehavior; document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,$('#completion').offsetTop); document.documentElement.style.scrollBehavior=old; completionScroll(); },160); }
 }
 document.addEventListener('DOMContentLoaded',init);
+fetch('./ru.js?v=ru1',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('ru.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO Russian localization failed',err));
