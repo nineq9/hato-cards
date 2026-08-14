@@ -1,0 +1,144 @@
+iCurrent').textContent=fmtTime(target);
+}
+function stopSpeech(hide=true){
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+  if(speechState.raf)cancelAnimationFrame(speechState.raf);
+  speechState={active:false,paused:false,mode:null,text:'',duration:0,position:0,charIndex:0,startedAt:0,utterance:null,raf:0};
+  if(hide)$('#miniPlayer').classList.remove('show');
+  else{$('#miniStatus').textContent='再生終了';$('#miniPlay').textContent='▶';$('#miniSeek').value=1000;$('#miniSeek').style.setProperty('--seekPct','100%');}
+}
+
+function primeAudio(){
+  if(audioCtx)return;
+  try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+}
+function tickSequence(){
+  if(!audioCtx || audioCtx.state!=='running')return;
+  const now=audioCtx.currentTime;
+  for(let i=0;i<18;i++){
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type='sine'; o.frequency.value=860+i*22;
+    g.gain.setValueAtTime(0.0001,now+i*.075); g.gain.exponentialRampToValueAtTime(.018,now+i*.075+.008); g.gain.exponentialRampToValueAtTime(.0001,now+i*.075+.035);
+    o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.075);o.stop(now+i*.075+.04);
+  }
+}
+
+function completionScroll(){
+  const comp=$('#completion'); if(!comp.classList.contains('unlocked')){document.body.classList.remove('completion-mode');return;}
+  const vh=window.innerHeight;
+  const cr=comp.getBoundingClientRect();
+  document.body.classList.toggle('completion-mode', cr.top < vh*.35 && cr.bottom > vh*.15);
+  const intro=$('#completionIntro').getBoundingClientRect();
+  if(!meterPlayed && intro.top < vh*.62){ meterPlayed=true; $('#meterBars').classList.add('play'); $('#completionProgress').classList.add('play'); tickSequence(); }
+
+  const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)};
+
+  // Future message: fixed in place. It only fades in and fades out — no slide, no scale.
+  const fs=$('#futureScene'), fr=fs.getBoundingClientRect();
+  const ftotal=Math.max(1,fr.height-vh); const fp=Math.max(0,Math.min(1,-fr.top/ftotal));
+  const fadeIn=smooth(.05,.34,fp), fadeOut=1-smooth(.74,.995,fp), fo=Math.min(fadeIn,fadeOut);
+  const future=$('#futureCopy');
+  future.style.opacity=fo;
+  future.style.filter='none';
+  future.style.transform='none';
+
+  // Scripture: fade the red field in normally. On exit, the field disappears and resolves into one red heart.
+  const ss=$('#scriptureScene'), sr=ss.getBoundingClientRect();
+  const stotal=Math.max(1,sr.height-vh), sp=Math.max(0,Math.min(1,-sr.top/stotal));
+  const curtain=$('#redCurtain'), scripture=$('#scriptureCopy');
+
+  if(sp<.24){
+    const p=smooth(.01,.24,sp);
+    curtain.style.setProperty('--fieldAlpha', `${p}`);
+    curtain.style.setProperty('--heartOpacity','0');
+    const so=smooth(.08,.24,sp);
+    scripture.style.opacity=so;
+    scripture.style.filter=`blur(${2.5*(1-so)}px)`;
+  }else if(sp<.56){
+    curtain.style.setProperty('--fieldAlpha','1');
+    curtain.style.setProperty('--heartOpacity','1');
+    scripture.style.opacity=1;
+    scripture.style.filter='blur(0)';
+  }else if(sp<.82){
+    const p=smooth(.56,.82,sp);
+    curtain.style.setProperty('--fieldAlpha', `${1-p}`);
+    curtain.style.setProperty('--heartOpacity','1');
+    const so=1-smooth(.56,.72,sp);
+    scripture.style.opacity=so;
+    scripture.style.filter=`blur(${2*(1-so)}px)`;
+  }else if(sp<.94){
+    curtain.style.setProperty('--fieldAlpha','0');
+    curtain.style.setProperty('--heartOpacity','1');
+    scripture.style.opacity=0;
+    scripture.style.filter='blur(2px)';
+  }else{
+    const p=smooth(.94,.998,sp);
+    curtain.style.setProperty('--fieldAlpha','0');
+    curtain.style.setProperty('--heartOpacity', `${1-p}`);
+    scripture.style.opacity=0;
+    scripture.style.filter='blur(2px)';
+  }
+
+  // One ATTA only. The same visible bird approaches, kisses, then leaves.
+  // The second image is used only as a hidden preload/source; it is never independently shown.
+  const ks=$('#kissScene'), kr=ks.getBoundingClientRect();
+  const ktotal=Math.max(1,kr.height-vh), kp=Math.max(0,Math.min(1,-kr.top/ktotal));
+  const bird=$('#kissBird'), love=$('#loveLine'), normalPreload=$('#flyAway');
+  if(!bird.dataset.kissSrc){ bird.dataset.kissSrc=bird.src; bird.dataset.normalSrc=normalPreload.src; }
+  const kissSrc=bird.dataset.kissSrc, normalSrc=bird.dataset.normalSrc;
+  normalPreload.style.display='none';
+
+  if(kp<.005){
+    if(bird.src!==normalSrc) bird.src=normalSrc;
+    bird.style.opacity=0;
+    bird.style.transform='translate3d(-22vw,8vh,-390px) scale(.36) rotate(-5deg)';
+    love.style.opacity=0;
+  }else if(kp<.68){
+    if(bird.src!==normalSrc) bird.src=normalSrc;
+    const p=smooth(.005,.68,kp);
+    bird.style.opacity=Math.min(1,.10+p);
+    bird.style.transform=`translate3d(${-22*(1-p)}vw,${8*(1-p)}vh,${-390*(1-p)}px) scale(${.36+.54*p}) rotate(${-5*(1-p)}deg)`;
+    love.style.opacity=0;
+  }else if(kp<.80){
+    if(bird.src!==normalSrc) bird.src=normalSrc;
+    const p=smooth(.68,.80,kp);
+    bird.style.opacity=1;
+    bird.style.transform=`translate3d(0,${-.8*p}vh,0) scale(${.90+.06*p}) rotate(0deg)`;
+    love.style.opacity=0;
+  }else if(kp<.90){
+    if(bird.src!==kissSrc) bird.src=kissSrc;
+    const p=smooth(.80,.90,kp);
+    bird.style.opacity=1;
+    bird.style.transform=`translate3d(0,-.8vh,0) scale(${.96+.10*p}) rotate(0deg)`;
+    const lo=smooth(.84,.90,kp);
+    love.style.opacity=lo;
+    love.style.transform=`translateY(${8*(1-lo)}px)`;
+  }else if(kp<.94){
+    if(bird.src!==kissSrc) bird.src=kissSrc;
+    bird.style.opacity=1;
+    bird.style.transform='translate3d(0,-.8vh,0) scale(1.06)';
+    love.style.opacity=1;
+    love.style.transform='translateY(0)';
+  }else if(kp<.998){
+    if(bird.src!==normalSrc) bird.src=normalSrc;
+    const p=smooth(.94,.998,kp);
+    bird.style.opacity=1-smooth(.965,.998,kp);
+    bird.style.transform=`translate3d(${48*p}vw,${-36*p}vh,0) scale(${1.0-.12*p}) rotate(${8*p}deg)`;
+    love.style.opacity=1-smooth(.94,.975,kp);
+  }else{
+    if(bird.src!==normalSrc) bird.src=normalSrc;
+    bird.style.opacity=0;
+    love.style.opacity=0;
+  }
+}
+
+function buildMeter(){
+  const total=18;
+  $('#meterBars').innerHTML=Array.from({length:total},(_,i)=>`<span class="meter-bar" style="--i:${i}"></span>`).join('');
+}
+function renderArchive(){
+  const days=[['14 AUG','47 stories',readSet.size===47?'すべて読了 ✓':`${readSet.size} / 47`],['13 AUG','39 stories','21 / 39'],['12 AUG','44 stories',''],['11 AUG','42 stories','すべて読了 ✓'],['10 AUG','51 stories',''],['09 AUG','36 stories',''],['08 AUG','48 stories','']];
+  $('#archiveRows').innerHTML=days.map((d,i)=>{
+    const fullDate=`${d[0]} 2026`;
+    return `<div class="archive-row" data-day="${i}" data-archive-date="${fullDate}">
+      <button class="archive-main archive-day-open" data-day="${i}" data-date="${fullDate}"><span class="archive-date">${d[0]}</span><span class="archive-info">${d[1]}${d[2]?` · ${d[2]}`:''}</span><span class="archive-chev">›</span></button>
+      <div class="archive-audio-line"><span class="archive
