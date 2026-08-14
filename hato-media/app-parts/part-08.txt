@@ -1,0 +1,40 @@
+-audio-label">AUDIO</span><button class="archive-audio-btn" data-archive-audio="digest" data-date="${fullDate}">12 min</button><button class="archive-audio-btn" data-archive-audio="all" data-date="${fullDate}">25 min</button></div>
+    </div>`;
+  }).join('');
+  $$('#archiveRows .archive-day-open').forEach((b,i)=>b.addEventListener('click',()=>{ if(i===0)showPage('today'); else alert(`${days[i][0]} の保存済みHATOを開く導線です。プロトタイプでは現在日のデータのみ収録しています。`); }));
+  $$('.archive-audio-btn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();openAudio(b.dataset.date);}));
+  const julyOpen=document.querySelector('[data-date="31 JUL 2026"].archive-day-open');
+  if(julyOpen)julyOpen.addEventListener('click',()=>alert('31 JUL の保存済みHATOを開く導線です。プロトタイプでは現在日のデータのみ収録しています。'));
+  const input=$('#archiveSearch');
+  input.addEventListener('input',()=>{
+    const q=input.value.trim().toLowerCase();
+    const box=$('#archiveResults');
+    if(!q){box.innerHTML='';return;}
+    const hits=ARTICLES.filter(a=>(a.title+' '+a.summary).toLowerCase().includes(q)).slice(0,8);
+    box.innerHTML=hits.length?hits.map(a=>`<button class="archive-result" data-id="${a.id}"><strong>${a.title}</strong><span>14 AUG 2026 · ${a.category}</span></button>`).join(''):'<div class="about-small">該当する記事はありません。</div>';
+    $$('#archiveResults .archive-result').forEach(b=>b.addEventListener('click',()=>{showPage('today');setTimeout(()=>openArticle(Number(b.dataset.id)),50);}));
+  });
+}
+
+function init(){
+  buildMeter(); renderFeed(); updateProgress(); renderArchive();
+  $$('.cat-btn').forEach(b=>b.addEventListener('click',()=>setCategory(b.dataset.cat)));
+  $('#categoryToggle').addEventListener('click',toggleCategorySelector);
+  document.addEventListener('click',e=>{const selector=$('#categorySelector'); if(selector && selector.classList.contains('open') && !selector.contains(e.target)) closeCategorySelector();});
+  $$('.menu-open').forEach(b=>b.addEventListener('click',openMenu)); $('#menuClose').addEventListener('click',closeMenu);
+  $('#searchBtn').addEventListener('click',()=>{const p=$('#searchPanel');p.classList.toggle('open'); if(p.classList.contains('open'))$('#searchInput').focus();});
+  $('#searchInput').addEventListener('input',e=>{query=e.target.value;renderFeed();});
+  $('#backArticle').addEventListener('click',closeArticle); $('#articleView').addEventListener('scroll',articleScroll,{passive:true});
+  $('#playBtn').addEventListener('click',openAudio); $('#scrim').addEventListener('click',closeAudio); $('#audioClose').addEventListener('click',closeAudio);
+  $$('.audio-option').forEach(b=>b.addEventListener('click',()=>startSpeech(b.dataset.mode)));
+  $('#miniPlay').addEventListener('click',toggleSpeech); $('#miniClose').addEventListener('click',()=>stopSpeech(true));
+  $('#miniBack10').addEventListener('click',()=>seekSpeech(-10));
+  $('#miniForward10').addEventListener('click',()=>seekSpeech(10));
+  $('#miniSeek').addEventListener('input',e=>{if(!speechState.active)return;const f=Number(e.target.value)/1000;const target=speechState.duration*f;$('#miniCurrent').textContent=fmtTime(target);e.target.style.setProperty('--seekPct',`${f*100}%`);});
+  $('#miniSeek').addEventListener('change',e=>seekSpeechToFraction(Number(e.target.value)/1000));
+  $$('.menu-link').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+  document.addEventListener('pointerdown',()=>{primeAudio(); if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();},{once:true});
+  window.addEventListener('scroll',()=>requestAnimationFrame(()=>{completionScroll();syncCurrentChapter();}),{passive:true});
+  if(FORCE_COMPLETE){ setTimeout(()=>{ const old=document.documentElement.style.scrollBehavior; document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,$('#completion').offsetTop); document.documentElement.style.scrollBehavior=old; completionScroll(); },160); }
+}
+document.addEventListener('DOMContentLoaded',init);
