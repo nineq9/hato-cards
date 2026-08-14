@@ -22,7 +22,6 @@ await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
 await page.evaluate(()=>localStorage.clear());
 await page.reload({waitUntil:'domcontentloaded'});
 
-// Splash: touching does not hide bird, then upward release launches.
 await page.waitForSelector('#splash:not(.hidden)');
 const opacityBefore = await page.locator('#splashBird').evaluate(el=>getComputedStyle(el).opacity);
 assert.equal(opacityBefore,'1');
@@ -35,31 +34,27 @@ const opacityDuring = await page.locator('#splashBird').evaluate(el=>getComputed
 assert.equal(opacityDuring,'1');
 await page.mouse.move(splashBox.x+splashBox.width/2,splashBox.y+splashBox.height/2-135,{steps:5});
 await page.mouse.up();
-await page.waitForSelector('#splash.hidden',{timeout:5000});
+await page.waitForFunction(()=>document.querySelector('#splash')?.classList.contains('hidden'),null,{timeout:5000});
 
-// Tutorial must be interactive and auto-dismiss after left/right/down.
 await page.waitForSelector('#tutorial:not(.hidden)');
 await drag('#tutorialCard',-100,0);
 await page.waitForTimeout(380);
 await drag('#tutorialCard',100,0);
 await page.waitForTimeout(380);
 await drag('#tutorialCard',0,110);
-await page.waitForSelector('#tutorial.hidden',{timeout:1500});
+await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1500});
 
-// Navigation contract.
 const tabs = await page.locator('.feed-tab').allTextContents();
 assert.deepEqual(tabs.map(x=>x.trim()),['FOR YOU','HOT','DIVE']);
 assert.equal(await page.locator('[data-tab="must"]').count(),0);
 assert.equal(await page.locator('#menuButton').count(),1);
 assert.equal(await page.locator('.news-card .card-count').count(),1);
 
-// HOT visual center.
 const nav = await page.locator('.feed-nav').boundingBox();
 const hot = await page.locator('[data-tab="hot"]').boundingBox();
 assert(nav&&hot);
 assert(Math.abs((hot.x+hot.width/2)-(nav.x+nav.width/2))<2.5,'HOT is not centered');
 
-// Read by right swipe, detail starts at top and stays scrolled.
 await drag('.news-card[data-pos="0"]',100,0);
 await page.waitForSelector('#detail.open');
 assert((await page.locator('#detailScroll').evaluate(el=>el.scrollTop))<4);
@@ -68,27 +63,25 @@ await page.waitForTimeout(350);
 assert((await page.locator('#detailScroll').evaluate(el=>el.scrollTop))>250,'detail scroll reset');
 assert((await page.locator('.news-section h2').first().evaluate(el=>parseFloat(getComputedStyle(el).fontSize)))>=18);
 assert.equal(await page.locator('.quoted-news').count(),1);
-
-// Right swipe returns to cards and persistent hint exists.
 assert.equal(await page.locator('#detailBackHint').count(),1);
-await drag('#detailScroll',105,0);
-await page.waitForSelector('#detail:not(.open)',{timeout:1500});
 
-// Pull toward user/down to save and verify storage.
+await drag('#detailScroll',105,0);
+await page.waitForFunction(()=>!document.querySelector('#detail')?.classList.contains('open'),null,{timeout:1500});
+
 const savedId = await page.locator('.news-card[data-pos="0"]').getAttribute('data-id');
 await drag('.news-card[data-pos="0"]',0,110);
 await page.waitForTimeout(420);
 const saved = await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'));
 assert(saved.includes(savedId),'down swipe did not save');
 
-// Drawer includes history and saved/liked/interests/appearance controls.
 await page.click('#menuButton');
 await page.waitForSelector('#drawer.open');
-for(const label of ['LIKED','SAVED','INTERESTS','APPEARANCE']) assert((await page.locator('#drawerBody').innerText()).includes(label));
+const drawerText=await page.locator('#drawerBody').innerText();
+for(const label of ['LIKED','SAVED','INTERESTS','APPEARANCE']) assert(drawerText.includes(label));
 assert((await page.locator('.drawer-article').count())>0,'history is empty after swipes');
-await page.click('#drawerBackdrop');
+await page.click('#drawerBackdrop',{position:{x:350,y:200}});
+await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
 
-// DIVE: 3 choices, selection advances, down pull surfaces.
 await page.click('[data-tab="dive"]');
 await page.waitForSelector('#diveScreen.active');
 assert.equal(await page.locator('.dive-choice').count(),3);
