@@ -65,7 +65,10 @@
 
       <section id="diveScreen" class="screen dive-screen" style="--surface-pull:0">
         <div id="diveStage" class="dive-stage">
-          <div id="diveDepth" class="dive-depth" aria-label="深度"></div>
+          <div class="dive-depth" aria-label="深度" style="display:flex;align-items:flex-start;gap:1px">
+            <span class="geo-number" aria-hidden="true"><svg viewBox="0 0 24 42"><line x1="5" y1="4" x2="19" y2="4"/><line x1="21" y1="6" x2="21" y2="19"/><line x1="21" y1="22" x2="21" y2="35"/><line x1="5" y1="37" x2="19" y2="37"/><line x1="3" y1="22" x2="3" y2="35"/><line x1="3" y1="6" x2="3" y2="19"/><line x1="5" y1="20.5" x2="19" y2="20.5" opacity=".08"/><path d="M0 26 L8 19" opacity=".28"/></svg></span>
+            <span id="diveDepth"></span>
+          </div>
           <div id="diveRail" class="dive-rail" aria-hidden="true"></div>
           <div class="dive-copy"><small>DIVE</small><h2 id="diveTheme"></h2><p id="diveText"></p></div>
           <div id="diveChoices" class="dive-choices"></div>
