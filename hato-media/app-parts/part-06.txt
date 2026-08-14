@@ -1,0 +1,131 @@
+.statements)}</p></section>`:''}
+    ${showReality&&a.reality?`<section class="article-section"><h3>どこまで確認できてる？</h3><p>${esc(a.reality)}</p></section>`:''}
+    ${a.previous?`<section class="article-section"><h3>これまでの流れ</h3><p class="timeline">${esc(a.previous)}</p></section>`:''}
+    ${a.previous?`<section class="article-section"><h3>今日変わったこと</h3><p>前日までと比べて、今日更新された点だけをここに短くまとめます。</p></section>`:''}
+    <section class="article-section"><h3>次に見るポイント</h3><p>${esc(a.watch)}</p></section>
+    <section class="article-sources-wrap"><h3>情報源</h3><div class="article-sources"><a class="source-link" href="#" onclick="return false">${a.source}</a><a class="source-link" href="#" onclick="return false">一次資料</a><a class="source-link" href="#" onclick="return false">現地発表</a></div></section>`;
+  const view=$('#articleView'); view.classList.add('open'); document.body.classList.add('lock','article-open'); view.scrollTop=0; $('#articleProgress').style.width='0';
+}
+function closeArticle(){
+  const view=$('#articleView'); view.classList.remove('open'); document.body.classList.remove('lock','article-open'); setTimeout(()=>window.scrollTo(0,listScroll),0); articleId=null;
+}
+function articleScroll(){
+  const v=$('#articleView'); const max=v.scrollHeight-v.clientHeight; const pct=max>0?v.scrollTop/max*100:0; $('#articleProgress').style.width=pct+'%';
+}
+
+function openMenu(){ $('#menu').classList.add('open'); document.body.classList.add('lock'); }
+function closeMenu(){ $('#menu').classList.remove('open'); document.body.classList.remove('lock'); }
+function showPage(name){
+  closeMenu();
+  $$('.menu-link').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+  $('#todayView').style.display=name==='today'?'block':'none';
+  $$('.page-section').forEach(s=>s.classList.toggle('active',s.id===name+'Page'));
+  if(name==='audio'){ openAudio(); $('#todayView').style.display='block'; $$('.page-section').forEach(s=>s.classList.remove('active')); }
+  window.scrollTo(0,0);
+}
+
+let audioContextDate='TODAY';
+function openAudio(dateLabel='TODAY'){
+  audioContextDate=dateLabel || 'TODAY';
+  $('#sheetTitle').textContent=audioContextDate==='TODAY' ? 'AUDIO' : `AUDIO · ${audioContextDate}`;
+  $('#scrim').classList.add('open'); $('#audioSheet').classList.add('open'); document.body.classList.add('lock');
+}
+function closeAudio(){ $('#scrim').classList.remove('open'); $('#audioSheet').classList.remove('open'); document.body.classList.remove('lock'); }
+function buildSpeechText(mode){
+  const items= mode==='digest' ? ARTICLES.slice(0,8) : ARTICLES;
+  const preface=audioContextDate==='TODAY'?'':`${audioContextDate}の音声アーカイブ。プロトタイプではデモ記事を読み上げます。`;
+  return preface+items.map((a,i)=>`${i+1}。${a.title}。${a.summary}`).join('。');
+}
+function estimateSpeechDuration(text){
+  // デモ用の概算。本番MP3では audio.duration をそのまま使う。
+  return Math.max(20,text.length/5.2);
+}
+function fmtTime(sec){
+  sec=Math.max(0,Math.round(sec||0));
+  const m=Math.floor(sec/60),s=String(sec%60).padStart(2,'0');
+  return `${m}:${s}`;
+}
+function getSpeechPosition(){
+  if(!speechState.active)return speechState.position||0;
+  if(speechState.paused)return speechState.position||0;
+  return Math.min(speechState.duration,(performance.now()-speechState.startedAt)/1000);
+}
+function updateSpeechUI(){
+  if(!speechState.active)return;
+  const pos=getSpeechPosition(),dur=Math.max(1,speechState.duration);
+  speechState.position=pos;
+  const seek=$('#miniSeek');
+  seek.value=Math.round(pos/dur*1000);
+  seek.style.setProperty('--seekPct',`${Math.min(100,pos/dur*100)}%`);
+  $('#miniCurrent').textContent=fmtTime(pos);
+  $('#miniDuration').textContent=fmtTime(dur);
+  speechState.raf=requestAnimationFrame(updateSpeechUI);
+}
+function speakFromPosition(position,keepPaused=false){
+  if(!('speechSynthesis' in window)||!speechState.text)return;
+  speechSynthesis.cancel();
+  const dur=Math.max(1,speechState.duration);
+  const pos=Math.max(0,Math.min(dur-.05,position||0));
+  const startChar=Math.min(speechState.text.length-1,Math.floor((pos/dur)*speechState.text.length));
+  const u=new SpeechSynthesisUtterance(speechState.text.slice(startChar));
+  u.lang='ja-JP';u.rate=.98;u.pitch=1;
+  speechState.position=pos;
+  speechState.charIndex=startChar;
+  speechState.startedAt=performance.now()-pos*1000;
+  speechState.utterance=u;
+  u.onboundary=e=>{
+    if(typeof e.charIndex==='number'){
+      speechState.charIndex=startChar+e.charIndex;
+      speechState.position=(speechState.charIndex/Math.max(1,speechState.text.length))*speechState.duration;
+      speechState.startedAt=performance.now()-speechState.position*1000;
+    }
+  };
+  u.onend=()=>{ if(speechState.active && !speechState.paused && getSpeechPosition()>=speechState.duration*.97) stopSpeech(false); };
+  speechSynthesis.speak(u);
+  if(keepPaused){setTimeout(()=>{speechSynthesis.pause();},30);}
+}
+function startSpeech(mode){
+  closeAudio();
+  if(!('speechSynthesis' in window)){alert('このブラウザではデモ音声を再生できません。本番版ではMP3音声を使用します。');return;}
+  const text=buildSpeechText(mode);
+  if(speechState.raf)cancelAnimationFrame(speechState.raf);
+  speechState={active:true,paused:false,mode,text,duration:estimateSpeechDuration(text),position:0,charIndex:0,startedAt:performance.now(),utterance:null,raf:0};
+  speakFromPosition(0,false);
+  $('#miniPlayer').classList.add('show');
+  $('#miniTitle').textContent=(audioContextDate==='TODAY'?'':audioContextDate+' · ')+(mode==='digest'?'重要ニュースだけ':'すべての概要');
+  $('#miniStatus').textContent='デモ音声を再生中';
+  $('#miniPlay').textContent='Ⅱ';
+  updateSpeechUI();
+}
+function toggleSpeech(){
+  if(!speechState.active)return;
+  if(speechState.paused){
+    speechSynthesis.resume();speechState.paused=false;speechState.startedAt=performance.now()-speechState.position*1000;
+    $('#miniPlay').textContent='Ⅱ';$('#miniStatus').textContent='再生中';updateSpeechUI();
+  }else{
+    speechState.position=getSpeechPosition();speechSynthesis.pause();speechState.paused=true;
+    if(speechState.raf)cancelAnimationFrame(speechState.raf);
+    $('#miniPlay').textContent='▶';$('#miniStatus').textContent='一時停止';
+  }
+}
+function seekSpeech(seconds){
+  if(!speechState.active)return;
+  const target=Math.max(0,Math.min(speechState.duration-.05,getSpeechPosition()+seconds));
+  const wasPaused=speechState.paused;
+  speechState.position=target;
+  speakFromPosition(target,wasPaused);
+  if(!wasPaused){speechState.startedAt=performance.now()-target*1000;updateSpeechUI();}
+  else{
+    const seek=$('#miniSeek'),dur=Math.max(1,speechState.duration);
+    seek.value=Math.round(target/dur*1000);seek.style.setProperty('--seekPct',`${target/dur*100}%`);
+    $('#miniCurrent').textContent=fmtTime(target);
+  }
+}
+function seekSpeechToFraction(fraction){
+  if(!speechState.active)return;
+  const target=Math.max(0,Math.min(speechState.duration-.05,speechState.duration*fraction));
+  const wasPaused=speechState.paused;
+  speechState.position=target;
+  speakFromPosition(target,wasPaused);
+  if(!wasPaused){speechState.startedAt=performance.now()-target*1000;updateSpeechUI();}
+  $('#min
