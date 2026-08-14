@@ -1,30 +1,167 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#087f86" />
-  <meta name="color-scheme" content="light dark" />
-  <title>KAWASEMI</title>
+  <meta name="theme-color" content="#0a1214" />
+  <meta name="color-scheme" content="dark light" />
+  <title>KINGFISHER</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <section id="splash" class="splash" aria-label="KAWASEMI">
-    <div class="splash-photo"></div><div class="splash-far-polygons" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="splash-brand">KAWASEMI</div><div class="flight-guide" aria-hidden="true"><span></span><b>⌃</b><b>⌃</b></div>
-    <div id="splashBird" class="splash-bird" aria-hidden="true"><svg viewBox="0 0 120 110"><polygon points="58,4 66,28 54,28" fill="#1a2930"/><polygon points="54,24 66,24 76,45 60,56 44,45" fill="#0b8f99"/><polygon points="44,43 60,56 38,70 10,66" fill="#0a5961"/><polygon points="76,43 60,56 82,70 110,66" fill="#073f48"/><polygon points="38,70 60,56 50,92 22,78" fill="#117a82"/><polygon points="82,70 60,56 70,92 98,78" fill="#095d66"/><polygon points="50,92 60,56 70,92 61,108" fill="#063d48"/><polygon points="46,38 54,24 60,56 48,52" fill="#e9eee7"/><polygon points="74,38 66,24 60,56 72,52" fill="#dfe8e0"/><polygon points="44,45 38,55 47,57" fill="#c67f5f"/><polygon points="76,45 82,55 73,57" fill="#b46d56"/></svg></div>
+  <section id="splash" class="splash" aria-label="KINGFISHER intro">
+    <div id="splashScene" class="splash-scene"></div>
+    <div class="splash-depth" aria-hidden="true"></div>
+    <div id="waterRipple" class="water-ripple" aria-hidden="true"></div>
+    <div id="waterVeil" class="water-veil" aria-hidden="true"></div>
+    <div class="flight-guide" aria-hidden="true"><i></i><i></i></div>
+    <div id="splashBird" class="splash-bird" aria-hidden="true">
+      <svg viewBox="0 0 120 110" focusable="false">
+        <polygon points="58,5 68,27 54,28" fill="#102428"/>
+        <polygon points="54,25 68,25 78,45 60,57 42,45" fill="#1597a3"/>
+        <polygon points="42,44 60,57 36,70 8,66" fill="#0d6972"/>
+        <polygon points="78,44 60,57 84,70 112,66" fill="#0a5058"/>
+        <polygon points="36,70 60,57 49,93 20,79" fill="#13808a"/>
+        <polygon points="84,70 60,57 71,93 100,79" fill="#0d6069"/>
+        <polygon points="49,93 60,57 71,93 61,108" fill="#0a4148"/>
+        <polygon points="45,39 54,25 60,57 48,52" fill="#eeeae2"/>
+        <polygon points="75,39 68,25 60,57 72,52" fill="#ded7ca"/>
+        <polygon points="42,45 36,56 47,57" fill="#b98662"/>
+        <polygon points="78,45 84,56 73,57" fill="#9d6f50"/>
+      </svg>
+    </div>
   </section>
-  <section id="tutorial" class="tutorial hidden" aria-hidden="true"></section>
+
+  <section id="tutorial" class="tutorial hidden" aria-hidden="true">
+    <div class="tutorial-stage">
+      <div class="tutorial-topline">KINGFISHER</div>
+      <div id="tutorialCard" class="tutorial-card">
+        <div class="tutorial-image"></div>
+        <div class="tutorial-shade"></div>
+        <div class="tutorial-copy">
+          <small>WORLD · TECHNOLOGY</small>
+          <strong>触って、流れをつかむ。</strong>
+        </div>
+        <span class="tutorial-cue cue-left">←</span>
+        <span class="tutorial-cue cue-right">→</span>
+        <span class="tutorial-cue cue-save">⌄</span>
+      </div>
+      <button id="tutorialDone" class="tutorial-done" aria-label="チュートリアルを終了"><span>›</span></button>
+    </div>
+  </section>
+
   <div id="app" class="app-shell hidden">
-    <header class="topbar"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 44 36"><polygon points="6,20 20,9 23,18 38,14 26,25 18,31" fill="currentColor"/><polygon points="20,9 29,5 23,18" fill="currentColor" opacity=".58"/><polygon points="18,31 26,25 30,34" fill="currentColor" opacity=".72"/></svg></div><div class="brand-word">KAWASEMI</div><div id="counter" class="geo-counter" aria-label="残り20件"></div></header>
-    <main class="main">
-      <section id="cardsScreen" class="screen active"><nav class="feed-tabs" aria-label="フィード"><button class="feed-tab active" data-feed="forYou">FOR YOU</button><button class="feed-tab" data-feed="hot">HOT</button><button class="feed-tab" data-feed="must">MUST KNOW</button></nav><div id="deck" class="deck" aria-live="polite"></div><div id="actionDock" class="action-dock"><button class="action-circle" data-action="known" aria-label="知ってる"><svg viewBox="0 0 28 28"><path d="M18.5 5.5 10 14l8.5 8.5"/><path d="M10.5 14H24"/></svg></button><button class="action-circle save-action" data-action="save" aria-label="あとで読む"><span class="mini-up">⌃</span><svg viewBox="0 0 28 28"><path d="M8 5.5h12v17l-6-4-6 4z"/></svg></button><button class="action-circle primary-action" data-action="read" aria-label="もっと見る"><svg viewBox="0 0 28 28"><path d="m9.5 5.5 8.5 8.5-8.5 8.5"/><path d="M4 14h13.5"/></svg></button></div></section>
-      <section id="discoverScreen" class="screen"><div class="section-head"><span>HOT NOW</span><i></i></div><div id="hotClusters" class="cluster-grid"></div><div class="section-head secondary"><span>RADAR</span><i></i></div><div id="radarTopics" class="radar-topics"></div></section>
-      <section id="savedScreen" class="screen"><div class="archive-head"><strong>SAVED</strong><div class="archive-switch"><button class="active" data-archive="theme">THEME</button><button data-archive="date">DATE</button></div></div><div id="savedArchive" class="saved-archive"></div></section>
-      <section id="meScreen" class="screen"><div class="me-block"><div class="section-head"><span>INTERESTS</span><i></i></div><div id="interestChips" class="interest-chips"></div><form id="interestForm" class="interest-form"><input id="interestInput" maxlength="32" placeholder="＋" aria-label="興味ワードを追加"/><button aria-label="追加">＋</button></form></div><div class="me-block"><div class="section-head"><span>THEME</span><i></i></div><div class="theme-picker" role="group" aria-label="テーマ"><button data-theme-choice="light" aria-label="ライト">☼</button><button data-theme-choice="auto" class="active" aria-label="自動">◐</button><button data-theme-choice="dark" aria-label="ダーク">☾</button></div></div><div class="me-block quiet-stats"><div><strong id="screenedStat">0</strong><span>SCREENED</span></div><div><strong id="savedStat">0</strong><span>SAVED</span></div><div><strong id="likedStat">0</strong><span>LIKED</span></div></div></section>
-    </main><nav class="bottom-nav" aria-label="フィード"></nav>
+    <header class="topbar">
+      <button id="homeButton" class="brand-home" aria-label="ホームへ戻る">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 36">
+            <polygon points="5,21 20,8 23,18 39,14 26,26 18,32" fill="currentColor"/>
+            <polygon points="20,8 30,5 23,18" fill="currentColor" opacity=".55"/>
+            <polygon points="18,32 26,26 30,34" fill="currentColor" opacity=".72"/>
+          </svg>
+        </span>
+        <span class="brand-word">KINGFISHER</span>
+      </button>
+      <div class="top-tools">
+        <button class="top-tool" data-screen-target="savedScreen" aria-label="保存した記事">
+          <svg viewBox="0 0 28 28"><path d="M8.5 4.5h11v19l-5.5-4-5.5 4z"/></svg>
+        </button>
+        <button class="top-tool" data-screen-target="meScreen" aria-label="設定">
+          <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="3"/><path d="M14 4v3M14 21v3M4 14h3M21 14h3M7 7l2.2 2.2M18.8 18.8 21 21M21 7l-2.2 2.2M9.2 18.8 7 21"/></svg>
+        </button>
+      </div>
+      <div id="counter" class="geo-counter" aria-label="残りカード数"></div>
+    </header>
+
+    <main id="main" class="main">
+      <section id="cardsScreen" class="screen cards-screen active">
+        <div id="deck" class="deck" aria-live="polite"></div>
+        <div id="actionDock" class="action-dock">
+          <button class="action-circle" data-action="known" aria-label="知ってる">
+            <svg viewBox="0 0 30 30"><path d="M19.5 6.5 11 15l8.5 8.5"/><path d="M11 15h13"/></svg>
+          </button>
+          <button class="action-circle save-action" data-action="save" aria-label="あとで読む">
+            <svg class="save-arrow" viewBox="0 0 30 30"><path d="M15 5v7"/><path d="m11.5 9 3.5 3.5L18.5 9"/></svg>
+            <svg class="save-bookmark" viewBox="0 0 30 30"><path d="M9 8h12v17l-6-4-6 4z"/></svg>
+          </button>
+          <button class="action-circle primary-action" data-action="read" aria-label="記事を読む">
+            <svg viewBox="0 0 30 30"><path d="m10.5 6.5 8.5 8.5-8.5 8.5"/><path d="M5 15h13.5"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section id="savedScreen" class="screen utility-screen">
+        <div class="screen-head">
+          <strong>SAVED</strong>
+          <div class="archive-switch" role="group" aria-label="保存記事の並び替え">
+            <button class="active" data-archive="theme">THEME</button>
+            <button data-archive="date">DATE</button>
+          </div>
+        </div>
+        <div id="savedArchive" class="saved-archive"></div>
+      </section>
+
+      <section id="meScreen" class="screen utility-screen">
+        <section class="settings-block">
+          <h2>INTERESTS</h2>
+          <div id="interestChips" class="interest-chips"></div>
+          <form id="interestForm" class="interest-form">
+            <input id="interestInput" maxlength="32" placeholder="＋" aria-label="興味ワードを追加" />
+            <button aria-label="追加">＋</button>
+          </form>
+        </section>
+        <section class="settings-block">
+          <h2>THEME</h2>
+          <div class="theme-picker" role="group" aria-label="テーマ">
+            <button data-theme-choice="dark">DARK</button>
+            <button data-theme-choice="light">LIGHT</button>
+            <button data-theme-choice="system">SYSTEM</button>
+          </div>
+        </section>
+        <section class="quiet-stats">
+          <div><strong id="screenedStat">0</strong><span>SCREENED</span></div>
+          <div><strong id="savedStat">0</strong><span>SAVED</span></div>
+          <div><strong id="likedStat">0</strong><span>LIKED</span></div>
+        </section>
+      </section>
+    </main>
+
+    <nav class="feed-nav" aria-label="フィード">
+      <button class="feed-nav-btn active" data-feed="forYou">FOR YOU</button>
+      <button class="feed-nav-btn" data-feed="hot">HOT<i></i></button>
+      <button class="feed-nav-btn" data-feed="must">MUST</button>
+    </nav>
   </div>
-  <article id="detail" class="detail" aria-hidden="true"><div class="detail-scroll"><div id="detailHero" class="detail-hero"></div><div class="detail-body"><div id="detailMeta" class="detail-meta"></div><h1 id="detailTitle"></h1><p id="detailDek" class="detail-dek"></p><div id="detailArticle" class="article-copy"></div><div class="article-end-actions"><button id="detailLike" class="end-action heart" aria-label="いいね"><svg viewBox="0 0 32 32"><path d="M16 27S5 20.7 5 12.2C5 8.2 7.6 6 10.8 6c2.2 0 4.2 1.2 5.2 3 1-1.8 3-3 5.2-3C24.4 6 27 8.2 27 12.2 27 20.7 16 27 16 27z"/></svg></button><button id="detailBookmark" class="end-action" aria-label="保存"><svg viewBox="0 0 32 32"><path d="M9 5h14v22l-7-5-7 5z"/></svg></button></div><div id="detailSource" class="detail-source"></div></div></div><div class="detail-edge" aria-hidden="true"></div></article>
-  <div id="undoToast" class="undo-toast" role="status"><span id="undoText"></span><button id="undoBtn" aria-label="元に戻す">↶</button></div>
-  <script src="./articles.js" defer></script><script src="./app.js" defer></script><script src="./ui-fix-v4.js" defer></script>
-</body></html>
+
+  <article id="detail" class="detail" aria-hidden="true">
+    <div id="detailScroll" class="detail-scroll">
+      <div id="detailHero" class="detail-hero"></div>
+      <div class="detail-body">
+        <div id="detailMeta" class="detail-meta"></div>
+        <h1 id="detailTitle"></h1>
+        <p id="detailDek" class="detail-dek"></p>
+        <div id="detailArticle" class="article-copy"></div>
+        <div class="article-end-actions">
+          <button id="detailLike" class="end-action" aria-label="いいね">
+            <svg viewBox="0 0 34 34"><path d="M17 29S5.5 22.2 5.5 13.4C5.5 9 8.3 6.5 11.7 6.5c2.4 0 4.4 1.3 5.3 3.2.9-1.9 2.9-3.2 5.3-3.2 3.4 0 6.2 2.5 6.2 6.9C28.5 22.2 17 29 17 29z"/></svg>
+          </button>
+          <button id="detailBookmark" class="end-action" aria-label="保存">
+            <svg viewBox="0 0 34 34"><path d="M10 5.5h14v23l-7-5-7 5z"/></svg>
+          </button>
+        </div>
+        <div id="detailSource" class="detail-source"></div>
+        <div class="detail-return-cue" aria-hidden="true"><b>←</b><span>CARD</span></div>
+      </div>
+    </div>
+  </article>
+
+  <div id="undoToast" class="undo-toast" role="status">
+    <span id="undoText"></span>
+    <button id="undoBtn" aria-label="元に戻す">↶</button>
+  </div>
+
+  <script src="./articles.js" defer></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>
