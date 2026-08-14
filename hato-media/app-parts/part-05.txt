@@ -1,0 +1,151 @@
+cat){ return chapterItems(cat).filter(a=>readSet.has(a.id)).length; }
+function updateCategoryStatus(){
+  $$('.cat-btn').forEach(btn=>{
+    const cat=btn.dataset.cat, total=chapterItems(cat).length, read=categoryReadCount(cat);
+    let status=btn.querySelector('.cat-status');
+    if(!status){ status=document.createElement('span'); status.className='cat-status'; btn.appendChild(status); }
+    status.textContent=read>=total && total ? '✓ 完了' : `${read}/${total}`;
+    btn.classList.toggle('active',cat===currentCategory);
+  });
+  const total=chapterItems(currentCategory).length, read=categoryReadCount(currentCategory);
+  const current=$('#categoryCurrent'), currentStatus=$('#categoryCurrentStatus');
+  if(current) current.textContent=currentCategory;
+  if(currentStatus) currentStatus.textContent=read>=total && total ? '✓' : `${read}/${total}`;
+}
+function renderCategoryOverview(){
+  const box=$('#categoryOverview');
+  if(box){ box.classList.remove('show'); box.innerHTML=''; }
+}
+function updateProgress(){
+  const n=readSet.size;
+  $('#dayCount').textContent=`${n} / ${ARTICLES.length}`;
+  $('#dayFill').style.width=`${n/ARTICLES.length*100}%`;
+  updateCategoryStatus();
+  const lock=$('#endLock'), comp=$('#completion');
+  if(n>=ARTICLES.length){ lock.style.display='none'; comp.classList.add('unlocked'); }
+  else { comp.classList.remove('unlocked'); }
+  renderCategoryOverview();
+}
+function filtered(){
+  if(!query) return ARTICLES;
+  const q=query.toLowerCase();
+  return ARTICLES.filter(a=>(a.title+' '+a.summary+' '+a.category).toLowerCase().includes(q));
+}
+function storyHTML(a, lead=false, displayNo=a.id){
+  const read=readSet.has(a.id);
+  if(lead){return `<article class="lead ${read?'read':''}" data-id="${a.id}">
+    <div class="kicker">TOP · ${a.category}</div>
+    <h1><button class="open-article" data-id="${a.id}">${esc(a.title)}</button></h1>
+    <p class="summary">${esc(a.summary)}</p>
+    <button class="open-article lead-art" data-id="${a.id}" aria-label="記事を開く">${artSVG(a,displayNo)}</button>
+    <div class="meta"><a class="source-link" href="#" onclick="return false">${a.source}</a><span>${a.time}</span>${read?'<span>✓ READ</span>':''}</div>
+  </article>`}
+  return `<article class="story ${read?'read':''}" data-id="${a.id}">
+    <div class="story-num">${String(displayNo).padStart(2,'0')}</div>
+    <div class="story-main">
+      <div class="story-topline"><span class="story-cat">${a.category}</span><span class="read-check">✓ READ</span></div>
+      <h2><button class="open-article" data-id="${a.id}">${esc(a.title)}</button></h2>
+      <p>${esc(a.summary)}</p>
+      <div class="meta"><a class="source-link" href="#" onclick="return false">${a.source}</a><span>${a.time}</span></div>
+    </div>
+    <button class="open-article story-art" data-id="${a.id}" aria-label="記事を開く">${artSVG(a,displayNo)}</button>
+  </article>`;
+}
+function updateEndVisibility(){
+  const lock=$('#endLock'), comp=$('#completion'), n=readSet.size;
+  if(query){ lock.style.display='none'; comp.style.display='none'; return; }
+  comp.style.display='';
+  if(n>=ARTICLES.length){
+    lock.style.display='none';
+    comp.classList.add('unlocked');
+  }else{
+    comp.classList.remove('unlocked');
+    lock.style.display='block';
+    lock.className='timeline-end-note';
+    lock.innerHTML=`今日のブリーフはあと <strong>${ARTICLES.length-n}</strong> 本。ここで今日のニュースは終わりです。`;
+  }
+}
+function chapterHeaderHTML(cat){
+  const items=chapterItems(cat), read=categoryReadCount(cat), done=items.length>0 && read>=items.length;
+  return `<div class="chapter-head ${done?'chapter-done':''}"><div class="chapter-name">${cat}</div><div class="chapter-status"><span class="chapter-count">${done?'✓ 完了':`${read} / ${items.length}`}</span><span class="chapter-note">${done?'この章は読了':'この章の進捗'}</span></div></div>`;
+}
+function renderFeed(){
+  updateCategoryStatus();
+  const feed=$('#feed');
+  if(query){
+    const items=filtered();
+    feed.innerHTML=items.length ? items.map((a,i)=>storyHTML(a,false,i+1)).join('') : '<div class="empty-state">該当する記事はありません。</div>';
+    $$('.open-article').forEach(b=>b.addEventListener('click',()=>openArticle(Number(b.dataset.id))));
+    updateEndVisibility();
+    return;
+  }
+
+  const topItems=chapterItems('TOP');
+  let html=`<section id="chapter-TOP" class="timeline-chapter timeline-top">`;
+  if(topItems.length){
+    html+=storyHTML(topItems[0],true,1);
+    html+=topItems.slice(1).map((a,i)=>storyHTML(a,false,i+2)).join('');
+  }
+  html+='</section>';
+
+  CONTENT_CATEGORIES.forEach(cat=>{
+    const items=chapterItems(cat);
+    html+=`<section id="chapter-${cat}" class="timeline-chapter">${chapterHeaderHTML(cat)}${items.map((a,i)=>storyHTML(a,false,i+1)).join('')}</section>`;
+  });
+
+  feed.innerHTML=html;
+  $$('.open-article').forEach(b=>b.addEventListener('click',()=>openArticle(Number(b.dataset.id))));
+  updateEndVisibility();
+}
+function closeCategorySelector(){
+  const selector=$('#categorySelector'), toggle=$('#categoryToggle');
+  if(selector) selector.classList.remove('open');
+  if(toggle) toggle.setAttribute('aria-expanded','false');
+}
+function toggleCategorySelector(){
+  const selector=$('#categorySelector'), toggle=$('#categoryToggle');
+  if(!selector||!toggle)return;
+  const open=!selector.classList.contains('open');
+  selector.classList.toggle('open',open);
+  toggle.setAttribute('aria-expanded',open?'true':'false');
+}
+function setCategory(cat){
+  currentCategory=cat;
+  closeCategorySelector();
+  if(query){ query=''; const input=$('#searchInput'); if(input) input.value=''; renderFeed(); }
+  updateCategoryStatus();
+  const target=$(`#chapter-${cat}`);
+  if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function syncCurrentChapter(){
+  if(query)return;
+  let active='TOP';
+  ['TOP',...CONTENT_CATEGORIES].forEach(cat=>{
+    const el=$(`#chapter-${cat}`);
+    if(el && el.getBoundingClientRect().top<=116) active=cat;
+  });
+  if(active!==currentCategory){ currentCategory=active; updateCategoryStatus(); }
+}
+
+function openArticle(id){
+  const a=ARTICLES.find(x=>x.id===id); if(!a)return;
+  listScroll=window.scrollY; articleId=id; readSet.add(id); saveRead(); updateProgress(); renderFeed();
+  const showReality=['WAR','OSINT','REGIONS'].includes(a.category);
+  $('#articleContent').innerHTML=`
+    <div class="article-cat">${a.category}</div>
+    <h1 class="article-title">${esc(a.title)}</h1>
+    <p class="article-dek">${esc(a.summary)}</p>
+    <div class="article-meta"><a href="#" onclick="return false" class="source-link">${a.source}</a> &nbsp; ${a.time}</div>
+    <div class="article-hero-art">${artSVG(a)}</div>
+
+    <section class="article-glance">
+      <h3>3行でわかる</h3>
+      <p>${esc(a.summary)}</p>
+      <p>${esc(a.why)}</p>
+      <p>${esc(a.watch)}</p>
+    </section>
+
+    <section class="article-section"><h3>何が起きた？</h3><p>${esc(a.details)}</p></section>
+    <section class="article-section"><h3>なぜ重要？</h3><p>${esc(a.why)}</p></section>
+    ${a.statements?`<section class="article-section"><h3>誰が何を言った？</h3><p>${esc(a
