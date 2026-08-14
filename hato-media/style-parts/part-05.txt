@@ -1,5 +1,8 @@
 idth:min(190px,48vw)!important;margin:0 auto!important;display:block!important}
-@media(min-width:700px){#aboutPage>.about-title,#aboutPage>.about-copy,#aboutPage>.about-rule,#aboutPage>.about-small{margin-left:clamp(56px,10vw,120px)!important;margin-right:clamp(56px,10vw,120px)!important}#aboutPage>.about-copy{font-size:13.5px!important;max-width:520px!important}#aboutPage>.about-small{font-size:11.3px!important;max-width:500px!important}#aboutPage>.about-birds img{width:min(210px,32vw)!important}}
+@media(min-width:700px){#aboutPage>.about-title,#aboutPage>.about-copy,#aboutPage>.about-rule,#aboutPage>.about-small{margin-left:clamp(56px,10vw,120px)!important;margin-right:clamp(56px,10vw,120px)!important}#aboutPage>.about-copy{font-size:13.5px!important;max-width:520px!important}#aboutPage>.about-small{font-size:11.3px!important;max-width:500px!important}}
 
-/* article back button: bottom center */
-.back-fab{left:50%!important;right:auto!important;transform:translateX(-50%)!important;}
+/* Article detail back control: bottom center */
+#detailBackBtn,.detail-back-btn,.article-back-btn{left:50%!important;right:auto!important;transform:translateX(-50%)!important}
+
+/* Read-state: make every already-read lead/top story visibly quieter too. */
+[data-read="true"],.is-read,.read,.article-card[data-read="true"],.lead-card[data-read="true"],.top-story[data-read="true"]{opacity:.54!important;filter:saturate(.62) brightness(1.05)!important;transition:opacity .22s ease,filter .22s ease}
