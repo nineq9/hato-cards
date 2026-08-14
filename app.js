@@ -1,218 +1,408 @@
-const cards=[
-{
-  id:'ua-rebuild',country:'🇺🇦 UKRAINE',palette:['#2f4657','#aa9147'],tags:['政治','復興','経済'],
-  title:'政府、復旧予算の追加配分案を発表　住宅再建を最優先に',
-  summary:'追加の復旧予算を住宅再建へ重点配分する方針。対象地域と財源が次の焦点になる。',
-  source:'Kyiv Independent',
-  image:'https://images.unsplash.com/photo-1569511166187-97eb6e387e19?auto=format&fit=crop&w=1200&q=82',
-  what:'追加予算の配分先として、損壊住宅の再建を優先する方針が示されました。',
-  why:'住宅再建は避難者の帰還、地方経済、自治体財政に直接影響します。',watch:'対象地域と財源の正式決定。'
-},
-{
-  id:'us-cpi',country:'🇺🇸 WORLD',palette:['#572c34','#29384b'],tags:['経済','市場'],
-  title:'米国の消費者物価、伸びが鈍化　市場は利下げ時期を再評価',
-  summary:'物価上昇率が予想を下回り、金利見通しが変化。ドルと株式市場にも反応が出た。',
-  source:'Reuters',
-  image:'https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=1200&q=82',
-  what:'最新の消費者物価統計が市場予想を下回りました。',
-  why:'米金利は為替、資金調達、欧州や新興国の市場にも広く影響します。',watch:'次回FOMCまでの雇用・物価指標。'
-},
-{
-  id:'eu-sanctions',country:'🇪🇺 EUROPE',palette:['#2f4665','#8e7b43'],tags:['制裁','外交','安全保障'],
-  title:'EU、対ロ追加制裁で合意　エネルギーと金融への規制を強化',
-  summary:'新たな制裁パッケージがまとまり、エネルギー収入と金融取引への制限が強まる。',
-  source:'European Commission',
-  image:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=82',
-  what:'EU加盟国が追加制裁の主要項目で合意しました。',
-  why:'ロシアの戦費調達と欧州企業の取引双方に影響するためです。',watch:'各国での実施時期と例外規定。'
-},
-{
-  id:'ua-east',country:'🇺🇦 WAR',palette:['#563839','#8c6645'],tags:['戦況','軍事'],
-  title:'東部戦線で攻撃方向に変化　複数地点の動きを確認',
-  summary:'占領面積よりも攻撃軸の変化が重要。複数の公開情報から方向転換が確認された。',
-  source:'HATO Desk',image:null,
-  what:'複数地点で部隊移動と攻撃方向の変化が確認されています。',
-  why:'攻撃軸の変化は補給、予備兵力、次の重点地域を読む材料になります。',watch:'48時間以内の部隊配置と補給線の変化。'
+const articles = window.KAWASEMI_ARTICLES || [];
+
+const $ = (s, root=document) => root.querySelector(s);
+const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+
+const state = {
+  feed:"forYou",
+  processed:new Set(JSON.parse(localStorage.getItem("kawasemiProcessed") || "[]")),
+  saved:new Set(JSON.parse(localStorage.getItem("kawasemiSaved") || "[]")),
+  liked:new Set(JSON.parse(localStorage.getItem("kawasemiLiked") || "[]")),
+  interests:JSON.parse(localStorage.getItem("kawasemiInterests") || '["Ukraine","AI","Drones","Europe","Energy"]'),
+  archiveMode:"theme",
+  history:[],
+  drag:null,
+  detailArticle:null,
+  detailRect:null,
+  detailDrag:null,
+  toastTimer:null,
+  themeChoice:localStorage.getItem("kawasemiTheme") || "auto"
+};
+
+const app = $("#app");
+const splash = $("#splash");
+const tutorial = $("#tutorial");
+const deck = $("#deck");
+const detail = $("#detail");
+
+function persist(){
+  localStorage.setItem("kawasemiProcessed", JSON.stringify([...state.processed]));
+  localStorage.setItem("kawasemiSaved", JSON.stringify([...state.saved]));
+  localStorage.setItem("kawasemiLiked", JSON.stringify([...state.liked]));
+  localStorage.setItem("kawasemiInterests", JSON.stringify(state.interests));
 }
-];
-
-let index=0;
-let history=[];
-let understood=new Set();
-let saved=new Set(JSON.parse(localStorage.getItem('hatoSaved')||'[]'));
-let drag=null;
-let toastTimer=null;
-let detailStartX=0;
-let lastCardRect=null;
-let detailClosing=false;
-
-const $=s=>document.querySelector(s);
-const deck=$('#deck');
-const stage=$('#cardStage');
-const intro=$('#batchIntro');
-const clear=$('#clearScreen');
-const detail=$('#detail');
-
-function flagFromCountry(c){return c.split(' ')[0]||'🌍'}
-function persistSaved(){localStorage.setItem('hatoSaved',JSON.stringify([...saved]));updateSavedCount()}
-function updateSavedCount(){$('#savedCount').textContent=saved.size}
-function flagFallback(country,a,b){return `<div class="flag-fallback" style="background:linear-gradient(145deg,${a},${b});"><span class="flag-emoji">${flagFromCountry(country)}</span></div>`}
-function mediaHTML(d){
-  if(d.image){
-    return `<img src="${d.image}" alt="" loading="eager" onerror="this.parentElement.innerHTML=flagFallback('${d.country}','${d.palette[0]}','${d.palette[1]}')">`;
-  }
-  return flagFallback(d.country,d.palette[0],d.palette[1]);
+function applyTheme(){
+  const mediaDark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const actual = state.themeChoice === "auto" ? (mediaDark ? "dark":"light") : state.themeChoice;
+  document.documentElement.dataset.theme = actual;
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", actual === "dark" ? "#071a1e" : "#f6f5f2");
+  $$("[data-theme-choice]").forEach(b=>b.classList.toggle("active", b.dataset.themeChoice === state.themeChoice));
 }
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", ()=>{if(state.themeChoice==="auto")applyTheme()});
 
+function renderGeoNumber(value){
+  const text = String(Math.max(0,value));
+  $("#counter").innerHTML = [...text].map(d=>`<span class="geo-digit">${d}</span>`).join("");
+  $("#counter").setAttribute("aria-label", `残り${value}件`);
+}
+function likedTags(){
+  const tags = new Set();
+  articles.filter(a=>state.liked.has(a.id)).forEach(a=>a.tags.forEach(t=>tags.add(t.toLowerCase())));
+  return tags;
+}
+function interestScore(article){
+  const prefs = new Set([...state.interests.map(x=>x.toLowerCase()), ...likedTags()]);
+  return article.tags.reduce((n,t)=>n+(prefs.has(t.toLowerCase())?3:0),0) + (article.hot?1:0) + (article.must?1:0);
+}
+function feedArticles(){
+  let list;
+  if(state.feed==="hot") list = articles.filter(a=>a.hot);
+  else if(state.feed==="must") list = articles.filter(a=>a.must);
+  else list = [...articles].sort((a,b)=>interestScore(b)-interestScore(a));
+  return list.filter(a=>!state.processed.has(a.id));
+}
+function articleById(id){return articles.find(a=>a.id===id)}
+function imageMarkup(a){return `<img src="${a.image}" alt="" loading="eager" referrerpolicy="no-referrer">`}
+
+function cardMarkup(a, pos){
+  return `
+    <article class="news-card ${pos===1?"back1":pos===2?"back2":""}" data-id="${a.id}" data-pos="${pos}">
+      <div class="card-image">${imageMarkup(a)}</div>
+      <div class="card-shade"></div>
+      <div class="card-copy">
+        <div class="card-tags">${a.tags.slice(0,3).map(t=>`<span class="card-tag">${t}</span>`).join("")}</div>
+        <h2 class="card-title">${a.title}</h2>
+        <p class="card-summary">${a.summary}</p>
+        <div class="card-source">${a.source}</div>
+      </div>
+      ${state.saved.has(a.id)?`<div class="saved-corner"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></div>`:""}
+      <div class="gesture-flash left"><b>←</b><span>KNOW</span></div>
+      <div class="gesture-flash right"><span>READ</span><b>→</b></div>
+      <div class="gesture-flash up"><b>⌃</b><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></div>
+    </article>`;
+}
 function renderDeck(){
-  deck.innerHTML='';
-  $('#position').textContent=Math.min(index+1,cards.length);
-  $('#total').textContent=cards.length;
-  if(index>=cards.length){
-    stage.classList.add('hidden');
-    clear.classList.remove('hidden');
-    $('#clearDone').textContent=cards.length;
-    $('#clearTotal').textContent=cards.length;
-    $('#clearStats').textContent=`${cards.length} stories screened · ${understood.size} deeply read · ${saved.size} saved`;
-    if(navigator.vibrate)navigator.vibrate([35,45,70]);
+  const q = feedArticles();
+  renderGeoNumber(q.length);
+  deck.innerHTML = "";
+  if(!q.length){
+    deck.innerHTML = `<div class="clear-card"><div><div class="zero">0</div><small>CLEAR</small></div></div>`;
+    $("#actionDock").style.opacity=".25";
+    $("#actionDock").style.pointerEvents="none";
+    updateStats();
     return;
   }
-  clear.classList.add('hidden');
-  for(let p=Math.min(2,cards.length-1-index);p>=0;p--){
-    const d=cards[index+p];
-    const el=document.createElement('article');
-    el.className='news-card'+(p===1?' back1':p===2?' back2':'');
-    el.dataset.pos=p;
-    const [a,b]=d.palette;
-    el.innerHTML=`<div class="country-band" style="background:linear-gradient(90deg,${a},${b})"></div>
-      <div class="card-content">
-        <div class="card-head"><div class="country-label">${d.country}</div><div class="save-mark">${saved.has(d.id)?'↑':'♡'}</div></div>
-        <div class="tags card-tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-        <h2 class="card-title">${d.title}</h2>
-        <p class="card-summary">${d.summary}</p>
-        <div class="source">${d.source}</div>
-        <div class="visual">${mediaHTML(d)}</div>
-        ${understood.has(d.id)?'<div class="understood">理解できた ✓</div>':''}
-        ${saved.has(d.id)?'<div class="saved-pill">SAVED ↑</div>':''}
-        <div class="swipe-badge left">知ってる</div>
-        <div class="swipe-badge right">もっと知る</div>
-        <div class="swipe-badge up">あとで読む ↑</div>
-      </div>`;
-    deck.appendChild(el);
-  }
-  bindSwipe();
+  $("#actionDock").style.opacity="1";
+  $("#actionDock").style.pointerEvents="auto";
+  for(let p=Math.min(2,q.length-1);p>=0;p--) deck.insertAdjacentHTML("beforeend",cardMarkup(q[p],p));
+  bindTopCard();
+  updateStats();
 }
-
-function topCard(){return deck.querySelector('.news-card[data-pos="0"]')}
-function resetVisualBadges(c){c.querySelectorAll('.swipe-badge').forEach(x=>x.style.opacity=0)}
-function reset(c){c.style.transform='';resetVisualBadges(c)}
-
-function bindSwipe(){
-  const c=topCard();
-  if(!c)return;
-  const start=(x,y,id)=>{drag={x,y,id,axis:null};c.style.transition='none'};
+function topCard(){return $(".news-card[data-pos='0']",deck)}
+function currentArticle(){const c=topCard(); return c?articleById(c.dataset.id):null}
+function resetCard(card){
+  if(!card)return;
+  card.style.transform="";
+  card.style.opacity="";
+  $$(".gesture-flash",card).forEach(x=>x.style.opacity=0);
+}
+function showDragCue(card, axis, dx, dy){
+  const left=$(".gesture-flash.left",card),right=$(".gesture-flash.right",card),up=$(".gesture-flash.up",card);
+  [left,right,up].forEach(x=>x.style.opacity=0);
+  if(axis==="y" && dy<0) up.style.opacity=Math.min(1,Math.abs(dy)/90);
+  if(axis==="x" && dx<0) left.style.opacity=Math.min(1,Math.abs(dx)/90);
+  if(axis==="x" && dx>0) right.style.opacity=Math.min(1,Math.abs(dx)/90);
+}
+function bindTopCard(){
+  const card=topCard(); if(!card)return;
+  const begin=(x,y,id)=>{state.drag={x,y,id,axis:null};card.style.transition="none"};
   const move=(x,y)=>{
-    if(!drag)return;
-    const dx=x-drag.x,dy=y-drag.y;
-    if(!drag.axis&&(Math.abs(dx)>8||Math.abs(dy)>8))drag.axis=Math.abs(dx)>=Math.abs(dy)?'x':'y';
-    if(drag.axis==='y'){
-      if(dy>0){resetVisualBadges(c);return}
-      c.style.transform=`translateY(${dy*.72}px) scale(${1-Math.min(.035,Math.abs(dy)/5000)})`;
-      c.querySelector('.swipe-badge.up').style.opacity=Math.max(0,Math.min(1,-dy/95));
-      c.querySelector('.swipe-badge.left').style.opacity=0;
-      c.querySelector('.swipe-badge.right').style.opacity=0;
-      return;
+    if(!state.drag)return;
+    const dx=x-state.drag.x,dy=y-state.drag.y;
+    if(!state.drag.axis && (Math.abs(dx)>7||Math.abs(dy)>7)) state.drag.axis=Math.abs(dx)>=Math.abs(dy)?"x":"y";
+    const axis=state.drag.axis;
+    if(axis==="y"){
+      if(dy>0){resetCard(card);return}
+      card.style.transform=`translateY(${dy*.72}px) scale(${1-Math.min(.045,Math.abs(dy)/4200)})`;
+    }else if(axis==="x"){
+      card.style.transform=`translateX(${dx}px) rotate(${dx/34}deg)`;
     }
-    c.style.transform=`translateX(${dx}px) rotate(${dx/24}deg)`;
-    c.querySelector('.swipe-badge.left').style.opacity=Math.max(0,Math.min(1,-dx/95));
-    c.querySelector('.swipe-badge.right').style.opacity=Math.max(0,Math.min(1,dx/95));
-    c.querySelector('.swipe-badge.up').style.opacity=0;
+    showDragCue(card,axis,dx,dy);
   };
   const end=(x,y)=>{
-    if(!drag)return;
-    const dx=x-drag.x,dy=y-drag.y,axis=drag.axis;
-    drag=null;
-    c.style.transition='transform .25s cubic-bezier(.2,.8,.2,1),opacity .22s ease';
-    if(axis==='y'&&dy<-90){saveForLater(c);return}
-    if(axis==='x'&&dx<-90){acceptKnown(c);return}
-    if(axis==='x'&&dx>90){openMore(c);return}
-    reset(c);
+    if(!state.drag)return;
+    const dx=x-state.drag.x,dy=y-state.drag.y,axis=state.drag.axis;
+    state.drag=null;card.style.transition="";
+    if(axis==="y"&&dy<-95)return handleSave(card);
+    if(axis==="x"&&dx<-95)return handleKnown(card);
+    if(axis==="x"&&dx>95)return openDetail(currentArticle(),card);
+    resetCard(card);
   };
-  c.addEventListener('touchstart',e=>{const t=e.touches[0];start(t.clientX,t.clientY,'t')},{passive:true});
-  c.addEventListener('touchmove',e=>{const t=e.touches[0];move(t.clientX,t.clientY)},{passive:true});
-  c.addEventListener('touchend',e=>{const t=e.changedTouches[0];end(t.clientX,t.clientY)},{passive:true});
-  c.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')return;start(e.clientX,e.clientY,'m')});
-  window.addEventListener('pointermove',e=>{if(drag?.id==='m')move(e.clientX,e.clientY)});
-  window.addEventListener('pointerup',e=>{if(drag?.id==='m')end(e.clientX,e.clientY)});
+  card.addEventListener("touchstart",e=>{const t=e.touches[0];begin(t.clientX,t.clientY,"touch")},{passive:true});
+  card.addEventListener("touchmove",e=>{const t=e.touches[0];move(t.clientX,t.clientY)},{passive:true});
+  card.addEventListener("touchend",e=>{const t=e.changedTouches[0];end(t.clientX,t.clientY)},{passive:true});
+  card.addEventListener("pointerdown",e=>{if(e.pointerType==="touch")return;begin(e.clientX,e.clientY,"pointer")});
+  const pm=e=>{if(state.drag?.id==="pointer")move(e.clientX,e.clientY)};
+  const pu=e=>{if(state.drag?.id==="pointer"){end(e.clientX,e.clientY);window.removeEventListener("pointermove",pm);window.removeEventListener("pointerup",pu)}};
+  card.addEventListener("pointerdown",e=>{if(e.pointerType!=="touch"){window.addEventListener("pointermove",pm);window.addEventListener("pointerup",pu)}});
 }
+function snapshot(){state.history.push({processed:[...state.processed],saved:[...state.saved],liked:[...state.liked]});}
+function handleKnown(card=topCard()){
+  const a=currentArticle();if(!a||!card)return;
+  snapshot();state.processed.add(a.id);persist();
+  card.style.transform="translateX(-118vw) rotate(-13deg)";card.style.opacity="0";
+  showToast("知ってるにしました");
+  setTimeout(renderDeck,210);
+}
+function handleSave(card=topCard()){
+  const a=currentArticle();if(!a||!card)return;
+  snapshot();state.saved.add(a.id);state.processed.add(a.id);persist();
+  card.style.transform="translateY(-105vh) scale(.94)";card.style.opacity="0";
+  showToast("あとで読むに保存しました");
+  setTimeout(()=>{renderDeck();renderSavedArchive()},220);
+}
+function handleRead(){const a=currentArticle(),c=topCard();if(a&&c)openDetail(a,c)}
 
-function pushHistory(){history.push({index,understood:[...understood],saved:[...saved]})}
-function acceptKnown(c){pushHistory();c.style.transform='translateX(-120vw) rotate(-15deg)';c.style.opacity='0';showUndo('「知ってる」にしました');setTimeout(()=>{index++;renderDeck()},220)}
-function saveForLater(c){
-  pushHistory();
-  const d=cards[index];saved.add(d.id);persistSaved();
-  c.style.transform='translateY(-105vh) scale(.96)';c.style.opacity='0';showUndo('あとで読むに保存しました');
-  setTimeout(()=>{index++;renderDeck()},230);
+function fillDetail(a){
+  $("#detailHero").innerHTML=imageMarkup(a);
+  $("#detailMeta").textContent=`${a.tags.join(" · ")} · ${a.source}`;
+  $("#detailTitle").textContent=a.title;
+  $("#detailDek").textContent=a.summary;
+  $("#detailArticle").innerHTML=[
+    ...a.body.map(p=>`<p>${p}</p>`),
+    `<div class="article-key">${a.key}</div>`,
+    `<div class="watch"><small>WATCH</small><p>${a.watch}</p></div>`
+  ].join("");
+  $("#detailSource").textContent=`${a.source} · prototype article`;
+  $("#detailLike").classList.toggle("active",state.liked.has(a.id));
+  $("#detailBookmark").classList.toggle("active",state.saved.has(a.id));
 }
-function openMore(c){lastCardRect=c.getBoundingClientRect();c.style.transform='translateX(16px) rotate(1.5deg)';setTimeout(()=>{reset(c);openDetail(c)},80)}
-
-function fillDetail(){
-  const d=cards[index];
-  $('#detailPosition').textContent=`${index+1} / ${cards.length}`;
-  $('#detailCountry').textContent=d.country;
-  $('#detailTags').innerHTML=d.tags.map(t=>`<span class="tag">${t}</span>`).join('');
-  $('#detailTitle').textContent=d.title;$('#detailDek').textContent=d.summary;$('#detailThree').textContent=d.summary;
-  $('#detailWhat').textContent=d.what;$('#detailWhy').textContent=d.why;$('#detailWatch').textContent=d.watch;$('#detailSource').textContent=d.source;
-  $('#detailHero').innerHTML=mediaHTML(d);$('#detailSave').textContent=saved.has(d.id)?'✓':'↑';
-}
-function setDetailFromRect(rect){
-  const vw=window.innerWidth,vh=window.innerHeight;
+function detailFromRect(rect){
+  const vw=innerWidth,vh=innerHeight;
   detail.style.transform=`translate(${rect.left}px,${rect.top}px) scale(${rect.width/vw},${rect.height/vh})`;
-  detail.style.borderRadius='30px';
+  detail.style.borderRadius="30px";
 }
-function openDetail(c){
-  fillDetail();
-  const rect=lastCardRect||c?.getBoundingClientRect()||{left:0,top:0,width:window.innerWidth,height:window.innerHeight};
-  setDetailFromRect(rect);detail.classList.remove('closing');detail.classList.add('preopen');detail.setAttribute('aria-hidden','false');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>detail.classList.add('open')));
+function openDetail(a,card){
+  if(!a||!card)return;
+  state.detailArticle=a;
+  state.detailRect=card.getBoundingClientRect();
+  fillDetail(a);
+  detailFromRect(state.detailRect);
+  detail.classList.add("preopen");
+  detail.setAttribute("aria-hidden","false");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>detail.classList.add("open")));
 }
-function closeDetail(){
-  if(detailClosing)return;
-  detailClosing=true;
-  const d=cards[index];understood.add(d.id);
-  const target=topCard()?.getBoundingClientRect()||lastCardRect;
-  detail.classList.remove('open');detail.classList.add('closing');if(target)setDetailFromRect(target);
-  setTimeout(()=>{detail.classList.remove('preopen','closing');detail.setAttribute('aria-hidden','true');detail.style.transform='';detail.style.borderRadius='';detailClosing=false;renderDeck()},390);
+function closeDetail(animated=true){
+  if(!state.detailArticle)return;
+  const target=topCard()?.getBoundingClientRect()||state.detailRect;
+  detail.classList.remove("dragging");
+  if(animated&&target){
+    detail.classList.remove("open");
+    detailFromRect(target);
+    setTimeout(finishDetailClose,390);
+  }else finishDetailClose();
 }
-function saveFromDetail(){
-  const d=cards[index];
-  if(saved.has(d.id)){saved.delete(d.id);showUndo('保存を解除しました')}else{saved.add(d.id);showUndo('あとで読むに保存しました')}
-  persistSaved();$('#detailSave').textContent=saved.has(d.id)?'✓':'↑';
+function finishDetailClose(){
+  detail.classList.remove("open","preopen","dragging");
+  detail.style.transform="";
+  detail.style.borderRadius="";
+  detail.setAttribute("aria-hidden","true");
+  state.detailArticle=null;state.detailDrag=null;
+  renderDeck();
 }
+function bindDetailSwipe(){
+  const scroll=$(".detail-scroll",detail);
+  let local=null;
+  scroll.addEventListener("touchstart",e=>{const t=e.touches[0];local={x:t.clientX,y:t.clientY,axis:null}},{passive:true});
+  scroll.addEventListener("touchmove",e=>{
+    if(!local)return;
+    const t=e.touches[0],dx=t.clientX-local.x,dy=t.clientY-local.y;
+    if(!local.axis&&(Math.abs(dx)>8||Math.abs(dy)>8))local.axis=Math.abs(dx)>Math.abs(dy)?"x":"y";
+    if(local.axis==="x"&&dx>0){
+      e.preventDefault();detail.classList.add("dragging");
+      detail.style.transform=`translateX(${dx}px) scale(${1-Math.min(.035,dx/6000)})`;
+    }
+  },{passive:false});
+  scroll.addEventListener("touchend",e=>{
+    if(!local)return;
+    const t=e.changedTouches[0],dx=t.clientX-local.x;
+    const axis=local.axis;local=null;
+    if(axis==="x"&&dx>88)return closeDetail(true);
+    detail.classList.remove("dragging");detail.style.transform="";
+  },{passive:true});
 
+  detail.addEventListener("pointerdown",e=>{
+    if(e.pointerType==="touch")return;
+    state.detailDrag={x:e.clientX,y:e.clientY,axis:null};
+    detail.setPointerCapture?.(e.pointerId);
+  });
+  detail.addEventListener("pointermove",e=>{
+    if(!state.detailDrag)return;
+    const dx=e.clientX-state.detailDrag.x,dy=e.clientY-state.detailDrag.y;
+    if(!state.detailDrag.axis&&(Math.abs(dx)>8||Math.abs(dy)>8))state.detailDrag.axis=Math.abs(dx)>Math.abs(dy)?"x":"y";
+    if(state.detailDrag.axis==="x"&&dx>0){detail.classList.add("dragging");detail.style.transform=`translateX(${dx}px) scale(${1-Math.min(.035,dx/6000)})`}
+  });
+  detail.addEventListener("pointerup",e=>{
+    if(!state.detailDrag)return;
+    const dx=e.clientX-state.detailDrag.x,axis=state.detailDrag.axis;state.detailDrag=null;
+    if(axis==="x"&&dx>88)return closeDetail(true);
+    detail.classList.remove("dragging");detail.style.transform="";
+  });
+}
+function toggleLike(){
+  const a=state.detailArticle;if(!a)return;
+  if(state.liked.has(a.id))state.liked.delete(a.id);else state.liked.add(a.id);
+  persist();$("#detailLike").classList.toggle("active",state.liked.has(a.id));updateStats();
+}
+function toggleDetailSave(){
+  const a=state.detailArticle;if(!a)return;
+  if(state.saved.has(a.id)){state.saved.delete(a.id);showToast("保存を外しました")}else{state.saved.add(a.id);showToast("あとで読むに保存しました")}
+  persist();$("#detailBookmark").classList.toggle("active",state.saved.has(a.id));renderSavedArchive();updateStats();
+}
 function undo(){
-  const h=history.pop();if(!h)return;
-  index=h.index;understood=new Set(h.understood);saved=new Set(h.saved);persistSaved();
-  clear.classList.add('hidden');stage.classList.remove('hidden');renderDeck();$('#undoToast').classList.remove('show');
+  const h=state.history.pop();if(!h)return;
+  state.processed=new Set(h.processed);state.saved=new Set(h.saved);state.liked=new Set(h.liked);persist();
+  $("#undoToast").classList.remove("show");renderDeck();renderSavedArchive();
 }
-function showUndo(t){$('#undoText').textContent=t;$('#undoToast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#undoToast').classList.remove('show'),4500)}
+function showToast(text){
+  $("#undoText").textContent=text;
+  $("#undoToast").classList.add("show");
+  clearTimeout(state.toastTimer);
+  state.toastTimer=setTimeout(()=>$("#undoToast").classList.remove("show"),4200);
+}
 
-function openMenu(){$('#menu').classList.add('open');$('#menuScrim').classList.add('open');$('#menu').setAttribute('aria-hidden','false');renderSavedList()}
-function closeMenu(){$('#menu').classList.remove('open');$('#menuScrim').classList.remove('open');$('#menu').setAttribute('aria-hidden','true')}
-function renderSavedList(){
-  const box=$('#savedList');const rows=cards.filter(d=>saved.has(d.id));box.classList.remove('hidden');
-  box.innerHTML=rows.length?rows.map(d=>`<button class="saved-card" data-id="${d.id}"><small>${d.country} · ${d.source}</small><strong>${d.title}</strong></button>`).join(''):`<div class="saved-empty">まだ保存した記事はありません。<br>カードを上へスワイプするとここに残ります。</div>`;
-  box.querySelectorAll('.saved-card').forEach(btn=>btn.addEventListener('click',()=>{
-    const i=cards.findIndex(d=>d.id===btn.dataset.id);if(i<0)return;index=i;intro.classList.add('hidden');clear.classList.add('hidden');stage.classList.remove('hidden');renderDeck();closeMenu();setTimeout(()=>openDetail(topCard()),100);
+function switchFeed(feed){
+  state.feed=feed;
+  $$(".feed-tab").forEach(b=>b.classList.toggle("active",b.dataset.feed===feed));
+  renderDeck();
+}
+function switchScreen(id){
+  $$(".screen").forEach(s=>s.classList.toggle("active",s.id===id));
+  $$(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.screen===id));
+  if(id==="savedScreen")renderSavedArchive();
+  if(id==="discoverScreen")renderDiscover();
+  if(id==="meScreen")renderMe();
+}
+function renderDiscover(){
+  const hot=articles.filter(a=>a.hot).slice(0,6);
+  $("#hotClusters").innerHTML=hot.map(a=>`
+    <button class="cluster-card" data-id="${a.id}">
+      ${imageMarkup(a)}
+      <div><small>${a.tags.slice(0,2).join(" · ")}</small><strong>${a.title}</strong></div>
+    </button>`).join("");
+  $$(".cluster-card").forEach(b=>b.addEventListener("click",()=>{
+    const a=articleById(b.dataset.id);
+    switchScreen("cardsScreen");state.feed="hot";$$(".feed-tab").forEach(x=>x.classList.toggle("active",x.dataset.feed==="hot"));renderDeck();
+    setTimeout(()=>{const c=$(`.news-card[data-id="${a.id}"]`,deck);if(c)openDetail(a,c)},80);
+  }));
+  const tags={};
+  articles.filter(a=>a.hot||a.must).forEach(a=>a.tags.forEach(t=>tags[t]=(tags[t]||0)+1));
+  $("#radarTopics").innerHTML=Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([t,n],i)=>`<button class="radar-topic ${i<4?"hot":""}">${t}<sup>${n}</sup></button>`).join("");
+}
+function groupSaved(){
+  const rows=articles.filter(a=>state.saved.has(a.id));
+  const groups={};
+  rows.forEach(a=>{
+    const key=state.archiveMode==="date"?a.month:a.topic;
+    (groups[key] ||= []).push(a);
+  });
+  return groups;
+}
+function renderSavedArchive(){
+  $$(".archive-switch button").forEach(b=>b.classList.toggle("active",b.dataset.archive===state.archiveMode));
+  const groups=groupSaved(),keys=Object.keys(groups);
+  if(!keys.length){
+    $("#savedArchive").innerHTML=`<div class="archive-empty"><svg viewBox="0 0 32 32"><path d="M9 5h14v22l-7-5-7 5z"/></svg><span>EMPTY</span></div>`;
+    return;
+  }
+  $("#savedArchive").innerHTML=keys.sort().map(key=>`
+    <section class="archive-group"><h3>${key.toUpperCase()}</h3>
+    ${groups[key].map(a=>`<button class="archive-item" data-id="${a.id}">
+      <span class="archive-thumb">${imageMarkup(a)}</span>
+      <span><small>${a.tags.slice(0,2).join(" · ")}</small><strong>${a.title}</strong></span>
+    </button>`).join("")}</section>`).join("");
+  $$(".archive-item").forEach(b=>b.addEventListener("click",()=>{
+    const a=articleById(b.dataset.id);
+    state.processed.delete(a.id);persist();switchScreen("cardsScreen");state.feed="forYou";renderDeck();
+    setTimeout(()=>{const c=$(`.news-card[data-id="${a.id}"]`,deck);if(c)openDetail(a,c)},80);
   }));
 }
+function renderMe(){
+  $("#interestChips").innerHTML=state.interests.map((x,i)=>`<button class="interest-chip" data-index="${i}" title="タップで削除">${x}</button>`).join("");
+  $$(".interest-chip").forEach(b=>b.addEventListener("click",()=>{state.interests.splice(Number(b.dataset.index),1);persist();renderMe();renderDeck()}));
+  updateStats();applyTheme();
+}
+function updateStats(){
+  $("#screenedStat").textContent=state.processed.size;
+  $("#savedStat").textContent=state.saved.size;
+  $("#likedStat").textContent=state.liked.size;
+}
 
-$('#startBatch').addEventListener('click',()=>{intro.classList.add('hidden');stage.classList.remove('hidden');renderDeck()});
-$('#detailBack').addEventListener('click',closeDetail);$('#detailSave').addEventListener('click',saveFromDetail);
-$('#undoBtn').addEventListener('click',undo);$('#undoTop').addEventListener('click',undo);
-$('#menuOpen').addEventListener('click',openMenu);$('#menuClose').addEventListener('click',closeMenu);$('#menuScrim').addEventListener('click',closeMenu);$('#menuNow').addEventListener('click',closeMenu);$('#menuSaved').addEventListener('click',renderSavedList);
-detail.addEventListener('touchstart',e=>{detailStartX=e.touches[0].clientX},{passive:true});
-detail.addEventListener('touchend',e=>{if(e.changedTouches[0].clientX-detailStartX<-70)closeDetail()},{passive:true});
+function showAppAfterSplash(){
+  app.classList.remove("hidden");
+  if(localStorage.getItem("kawasemiTutorialDone")==="1"){
+    renderAll();
+  }else{
+    tutorial.classList.remove("hidden");tutorial.setAttribute("aria-hidden","false");
+  }
+}
+function enterSplash(){
+  splash.classList.add("launched");
+  setTimeout(()=>splash.classList.add("fade-out"),700);
+  setTimeout(()=>{splash.classList.add("hidden");showAppAfterSplash()},1080);
+}
+function bindSplash(){
+  let start=null;
+  const begin=(x,y)=>{start={x,y};$("#splashBird").style.transition="none"};
+  const move=(x,y)=>{
+    if(!start)return;
+    const dy=Math.min(0,y-start.y);
+    const p=Math.min(1,Math.abs(dy)/250);
+    $("#splashBird").style.transform=`translateX(-50%) translateY(${dy*.7}px) scale(${1-p*.45})`;
+    $(".splash-photo").style.transform=`scale(${1.04+p*.045})`;
+  };
+  const end=(x,y)=>{
+    if(!start)return;const dy=y-start.y;start=null;
+    $("#splashBird").style.transition="";
+    if(dy<-120)return enterSplash();
+    $("#splashBird").style.transform="";
+    $(".splash-photo").style.transform="";
+  };
+  splash.addEventListener("touchstart",e=>{const t=e.touches[0];begin(t.clientX,t.clientY)},{passive:true});
+  splash.addEventListener("touchmove",e=>{const t=e.touches[0];move(t.clientX,t.clientY)},{passive:true});
+  splash.addEventListener("touchend",e=>{const t=e.changedTouches[0];end(t.clientX,t.clientY)},{passive:true});
+  splash.addEventListener("pointerdown",e=>{if(e.pointerType!=="touch"){begin(e.clientX,e.clientY);splash.setPointerCapture?.(e.pointerId)}});
+  splash.addEventListener("pointermove",e=>{if(start&&e.pointerType!=="touch")move(e.clientX,e.clientY)});
+  splash.addEventListener("pointerup",e=>{if(start&&e.pointerType!=="touch")end(e.clientX,e.clientY)});
+}
+function renderAll(){renderDeck();renderDiscover();renderSavedArchive();renderMe()}
+function finishTutorial(){
+  localStorage.setItem("kawasemiTutorialDone","1");
+  tutorial.classList.add("hidden");tutorial.setAttribute("aria-hidden","true");renderAll();
+}
 
-$('#batchCount').textContent=cards.length;$('#total').textContent=cards.length;updateSavedCount();
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+$$(".feed-tab").forEach(b=>b.addEventListener("click",()=>switchFeed(b.dataset.feed)));
+$$(".action-circle").forEach(b=>b.addEventListener("click",()=>{
+  if(b.dataset.action==="known")handleKnown();
+  if(b.dataset.action==="save")handleSave();
+  if(b.dataset.action==="read")handleRead();
+}));
+$$(".nav-btn").forEach(b=>b.addEventListener("click",()=>switchScreen(b.dataset.screen)));
+$$(".archive-switch button").forEach(b=>b.addEventListener("click",()=>{state.archiveMode=b.dataset.archive;renderSavedArchive()}));
+$$("[data-theme-choice]").forEach(b=>b.addEventListener("click",()=>{
+  state.themeChoice=b.dataset.themeChoice;localStorage.setItem("kawasemiTheme",state.themeChoice);applyTheme();
+}));
+$("#interestForm").addEventListener("submit",e=>{
+  e.preventDefault();const input=$("#interestInput"),v=input.value.trim();if(!v)return;
+  if(!state.interests.some(x=>x.toLowerCase()===v.toLowerCase()))state.interests.push(v);
+  input.value="";persist();renderMe();renderDeck();
+});
+$("#detailLike").addEventListener("click",toggleLike);
+$("#detailBookmark").addEventListener("click",toggleDetailSave);
+$("#undoBtn").addEventListener("click",undo);
+$("#tutorialDone").addEventListener("click",finishTutorial);
+
+applyTheme();
+bindSplash();
+bindDetailSwipe();
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
