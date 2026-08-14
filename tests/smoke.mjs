@@ -18,7 +18,10 @@ const drag = async (page, selector, dx, dy, duration=180) => {
 async function enterApp(page,{tutorial=true}={}){
   await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
   await page.evaluate(()=>localStorage.clear());
-  if(!tutorial) await page.evaluate(()=>localStorage.setItem('kingfisherTutorialDone','1'));
+  if(!tutorial) await page.evaluate(()=>{
+    localStorage.setItem('kingfisherIntroVersion','kingfisher-intro-v4');
+    localStorage.setItem('kingfisherTutorialDone','1');
+  });
   await page.reload({waitUntil:'domcontentloaded'});
   await page.waitForSelector('#splash:not(.hidden)');
   assert.equal(await page.locator('#splashBird').evaluate(el=>getComputedStyle(el).opacity),'1');
@@ -34,6 +37,8 @@ async function enterApp(page,{tutorial=true}={}){
     await drag(page,'#tutorialCard',100,0); await page.waitForTimeout(360);
     await drag(page,'#tutorialCard',0,-110);
     await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1600});
+  }else{
+    assert(await page.locator('#tutorial').evaluate(el=>el.classList.contains('hidden')),'tutorial unexpectedly visible in skipped state');
   }
 }
 
@@ -47,10 +52,10 @@ async function core(page,label){
   const card=await page.locator('.news-card[data-pos="0"]').boundingBox(),title=await page.locator('.news-card[data-pos="0"] h2').boundingBox();assert(card&&title);const lm=title.x-card.x,rm=(card.x+card.width)-(title.x+title.width);assert(Math.abs(lm-rm)<2.5,`${label}: title margins not balanced`);
   const transforms=await page.locator('.news-card').evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).transform));assert(new Set(transforms).size>1,`${label}: stacked cards have identical transforms`);
   assert((await page.locator('.card-source-row').first().innerText()).length>2,`${label}: source missing on card`);
+  await page.screenshot({path:'test-output/390-card.png',fullPage:false});
 
   await drag(page,'.news-card[data-pos="0"]',105,0);await page.waitForSelector('#detail.open');
   assert((await page.locator('#detailScroll').evaluate(el=>el.scrollTop))<4,`${label}: detail did not open at top`);
-  await page.locator('#detailScroll').evaluate(el=>{el.scrollTop=320});await page.waitForTimeout(300);assert((await page.locator('#detailScroll').evaluate(el=>el.scrollTop))>240,`${label}: detail scroll reset`);
   assert.equal(await page.locator('#detailDek').count(),0,`${label}: duplicate detail dek remains in DOM`);
   assert.equal(await page.locator('.news-brief').count(),0,`${label}: obsolete duplicate news brief remains`);
   assert.equal(await page.locator('.news-section.overview').count(),1,`${label}: overview count not 1`);
@@ -58,11 +63,13 @@ async function core(page,label){
   assert.equal(await page.locator('.quoted-news a').count(),1,`${label}: original source link missing`);
   assert.equal(await page.locator('#detailSwipeBar').count(),1,`${label}: swipe bar missing`);
   assert.equal(await page.locator('#detailBackHint').count(),0,`${label}: old textual return hint remains`);
+  await page.screenshot({path:'test-output/390-detail.png',fullPage:false});
+  await page.locator('#detailScroll').evaluate(el=>{el.scrollTop=320});await page.waitForTimeout(300);assert((await page.locator('#detailScroll').evaluate(el=>el.scrollTop))>240,`${label}: detail scroll reset`);
   await drag(page,'#detailSwipeBar',105,0);await page.waitForFunction(()=>!document.querySelector('#detail')?.classList.contains('open'),null,{timeout:1500});
 
   const savedId=await page.locator('.news-card[data-pos="0"]').getAttribute('data-id');await drag(page,'.news-card[data-pos="0"]',0,-110);await page.waitForTimeout(380);const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'));assert(saved.includes(savedId),`${label}: upward save swipe failed`);
 
-  await page.click('#menuButton');await page.waitForSelector('#drawer.open');let text=await page.locator('#drawerBody').innerText();assert(text.includes('設定'),`${label}: settings entry missing`);assert(text.includes('履歴'),`${label}: history missing`);await page.locator('[data-view="settings"]').click();text=await page.locator('#drawerBody').innerText();for(const s of ['言語','興味・好み','デザイン'])assert(text.includes(s),`${label}: settings missing ${s}`);await page.locator('[data-lang="ru"]').click();assert.equal(await page.evaluate(()=>localStorage.getItem('kingfisherLanguage')),'ru');await page.locator('.drawer-back').click();await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
+  await page.click('#menuButton');await page.waitForSelector('#drawer.open');let text=await page.locator('#drawerBody').innerText();assert(text.includes('設定'),`${label}: settings entry missing`);assert(text.includes('履歴'),`${label}: history missing`);await page.locator('[data-view="settings"]').click();text=await page.locator('#drawerBody').innerText();for(const s of ['言語','興味・好み','デザイン'])assert(text.includes(s),`${label}: settings missing ${s}`);await page.screenshot({path:'test-output/390-settings.png',fullPage:false});await page.locator('[data-lang="ru"]').click();assert.equal(await page.evaluate(()=>localStorage.getItem('kingfisherLanguage')),'ru');await page.locator('.drawer-back').click();await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
 
   await page.mouse.move(3,300);await page.mouse.down();await page.mouse.move(115,300,{steps:8});await page.mouse.up();await page.waitForSelector('#drawer.open');await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
 
