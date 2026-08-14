@@ -13,7 +13,10 @@ jobs:
         with:
           node-version: 22
       - name: Syntax check
-        run: node --check kingfisher.js
+        run: |
+          node --check kingfisher.js
+          node --check tests/smoke.mjs
+          node --check tests/untouched-regression.mjs
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
@@ -26,6 +29,8 @@ jobs:
           sleep 2
       - name: Browser smoke
         run: node tests/smoke.mjs
+      - name: Untouched feature regression
+        run: node tests/untouched-regression.mjs
       - name: Upload visual checks
         if: always()
         uses: actions/upload-artifact@v4
