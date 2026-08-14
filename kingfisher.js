@@ -38,7 +38,7 @@
 
   const DIGITS = {
     0:[1,1,1,1,1,1,0],1:[0,1,1,0,0,0,0],2:[1,1,0,1,1,0,1],3:[1,1,1,1,0,0,1],4:[0,1,1,0,0,1,1],
-    5:[1,0,1,1,1,1,1],6:[1,0,1,1,1,1,1],7:[1,1,1,0,0,0,0],8:[1,1,1,1,1,1,1],9:[1,1,1,1,0,1,1]
+    5:[1,0,1,1,0,1,1],6:[1,0,1,1,1,1,1],7:[1,1,1,0,0,0,0],8:[1,1,1,1,1,1,1],9:[1,1,1,1,0,1,1]
   };
   const LINES = [[5,4,19,4],[21,6,21,19],[21,22,21,35],[5,37,19,37],[3,22,3,35],[3,6,3,19],[5,20.5,19,20.5]];
   const digitSvg = d => `<svg viewBox="0 0 24 42" aria-hidden="true">${LINES.map((l,i)=>`<line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" opacity="${DIGITS[d]?.[i] ? 1 : .08}"/>`).join('')}<path d="M0 26 L8 19" opacity=".28"/></svg>`;
@@ -244,10 +244,9 @@
     $('#detailHero').innerHTML=imageMarkup(a);bindImageFallback($('#detailHero'));
     $('#detailMeta').textContent=`${(a.tags||[]).join(' · ')}${a.source?' · '+displaySource(a.source):''}`;
     $('#detailTitle').textContent=a.title;
-    $('#detailDek').textContent=a.summary;
     const body=a.body||[],source=displaySource(a.source||'KINGFISHER'),sourceTitle=a.sourceTitle||a.title,sourceUrl=a.sourceUrl||'',demo=/DEMO/i.test(source);
-    const overview=body[0]?`<section class="news-section overview"><h2>${detailSectionLabel(0)}</h2><p>${esc(body[0])}</p></section>`:'';
-    const rest=body.slice(1).map((p,i)=>`<section class="news-section"><h2>${detailSectionLabel(i+1)}</h2><p>${esc(p)}</p></section>`).join('');
+    const overview=`<section class="news-section overview"><h2>${detailSectionLabel(0)}</h2><p>${esc(a.summary)}</p></section>`;
+    const rest=body.map((p,i)=>`<section class="news-section"><h2>${detailSectionLabel(i+1)}</h2><p>${esc(p)}</p></section>`).join('');
     const hook=a.key?`<aside class="news-hook"><small>${tr('読むポイント','КЛЮЧЕВОЙ МОМЕНТ')}</small><strong>${esc(a.key)}</strong></aside>`:'';
     const quote=`<figure class="quoted-news"><figcaption>${tr('引用元の見出し','ЗАГОЛОВОК ИСТОЧНИКА')}${demo?' · DEMO':''}</figcaption><blockquote>${esc(sourceTitle)}</blockquote><cite>${sourceUrl?`<a href="${esc(sourceUrl)}" target="_blank" rel="noopener">${esc(source)} ↗</a>`:esc(source)}</cite></figure>`;
     const watch=a.watch?`<section class="news-section"><h2>${tr('次に見ること','ЧТО ДАЛЬШЕ')}</h2><p>${esc(a.watch)}</p></section>`:'';
