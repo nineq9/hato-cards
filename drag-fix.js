@@ -1,45 +1,24 @@
 (()=>{
-  const detail=document.querySelector('#detail');
-  const scroll=detail?.querySelector('.detail-scroll');
-  if(!detail||!scroll)return;
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const css=document.createElement('style');css.textContent=`
+.feed-tabs-hidden{display:none!important}.main{padding-top:8px}.deck{margin-top:2px}.topbar{grid-template-columns:74px 1fr 92px;height:74px}.brand-mark,.brand-word{cursor:pointer}.brand-mark{width:38px;height:38px}.geo-counter{position:absolute;right:18px;top:17px;min-width:54px;justify-content:flex-end}.geo-digit{font-size:39px;min-width:27px;height:42px;animation:counterImpact .34s cubic-bezier(.16,.9,.25,1)}@keyframes counterImpact{0%{transform:scale(1.28) translateY(-4px) skewX(-6deg);filter:blur(.6px)}45%{transform:scale(.94) translateY(2px) skewX(-6deg)}100%{transform:scale(1) translateY(0) skewX(-6deg);filter:none}}.top-tools{position:absolute;left:58px;top:18px;display:flex;gap:2px}.top-tool{width:34px;height:34px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;padding:7px}.top-tool svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}.card-title{font-size:28px;line-height:1.2;letter-spacing:-.035em;word-break:auto-phrase;line-break:strict;text-wrap:pretty;max-width:100%}.card-copy{top:24px}.card-summary{margin-top:2px}.news-card:before,.news-card:after{position:absolute;z-index:6;bottom:18px;color:rgba(255,255,255,.64);font-size:24px;font-weight:300;line-height:1;pointer-events:none;text-shadow:0 2px 12px rgba(0,0,0,.25)}.news-card:before{content:'←';left:19px}.news-card:after{content:'→';right:19px}.bottom-nav{grid-template-columns:1.2fr .8fr 1.2fr;height:72px;padding:0 18px;gap:4px}.feed-nav{height:44px;border:0;background:transparent;color:var(--muted);font-size:10px;font-weight:780;letter-spacing:.11em;position:relative;border-radius:999px}.feed-nav.active{color:var(--ink);background:color-mix(in srgb,var(--jade) 10%,transparent)}.feed-nav.active:after{content:'';position:absolute;left:34%;right:34%;bottom:5px;height:2px;background:var(--jade);border-radius:2px}.feed-nav[data-feed-v2='hot'] i{position:absolute;width:4px;height:4px;border-radius:50%;background:#d37a62;right:19%;top:10px}.detail-scroll{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','Noto Sans JP',sans-serif}.detail-body{padding-left:25px;padding-right:25px}.detail h1{font-family:inherit;font-size:34px;line-height:1.25;letter-spacing:-.035em;word-break:auto-phrase;line-break:strict;text-wrap:pretty}.detail-dek{font-family:inherit!important;font-size:16px!important;line-height:1.8!important;font-weight:560;color:var(--ink)!important}.article-copy{font-family:inherit!important}.article-copy p{font-family:inherit!important;font-size:16px!important;line-height:1.92!important;letter-spacing:.01em;color:color-mix(in srgb,var(--ink) 88%,var(--muted));margin:0 0 34px!important}.article-section-label{font-family:inherit;font-size:12px;line-height:1.3;letter-spacing:.08em;color:var(--jade);margin:36px 0 12px;padding-top:17px;border-top:1px solid var(--line);font-weight:820}.article-section-label:first-child{margin-top:26px}.detail-return-cue{margin:42px 0 20px;padding:22px 0;border-top:1px solid var(--line);display:flex;align-items:center;gap:14px;color:var(--muted)}.detail-return-cue b{font-size:30px;font-weight:300;color:var(--jade);animation:returnNudge 1.8s ease-in-out infinite}.detail-return-cue span{font-size:11px;letter-spacing:.04em}@keyframes returnNudge{0%,100%{transform:translateX(5px);opacity:.45}50%{transform:translateX(-5px);opacity:1}}.topic-fallback{position:absolute;inset:0;overflow:hidden;background:linear-gradient(145deg,#063d48,#0b8f99 58%,#87c7c4);display:grid;place-items:center}.topic-fallback i{position:absolute;width:70%;height:70%;clip-path:polygon(50% 0,100% 100%,0 100%);background:rgba(255,255,255,.08)}.topic-fallback i:nth-child(1){left:-18%;top:-8%;transform:rotate(22deg)}.topic-fallback i:nth-child(2){right:-22%;bottom:-8%;transform:rotate(-18deg);background:rgba(3,31,37,.22)}.topic-fallback i:nth-child(3){left:25%;top:28%;transform:rotate(88deg);background:rgba(213,160,137,.10)}.topic-fallback span{z-index:2;color:rgba(255,255,255,.78);font-size:10px;letter-spacing:.24em;font-weight:800}.tutorial{padding:0}.tutorial-v2{position:relative;width:100%;height:100%;display:grid;place-items:center}.tutorial-mini-card{width:min(64vw,300px);height:min(50vh,440px);border-radius:30px;background:linear-gradient(165deg,#073b43,#0b8f99 65%,#85c8c5);box-shadow:var(--shadow);padding:25px;color:white;display:flex;flex-direction:column;justify-content:flex-start}.tutorial-mini-card span{font-size:9px;letter-spacing:.22em;opacity:.72}.tutorial-mini-card strong{margin-top:14px;font-size:24px;line-height:1.25;letter-spacing:-.03em}.tutorial-gesture{position:absolute;display:flex;align-items:center;gap:8px;color:var(--ink)}.tutorial-gesture b{font-size:29px;font-weight:300;color:var(--jade)}.tutorial-gesture span{font-size:11px;font-weight:720}.tg-left{left:5vw;top:50%}.tg-right{right:5vw;top:50%}.tg-up{left:50%;top:8%;transform:translateX(-50%);flex-direction:column;gap:2px}.tutorial-start{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:12px 24px;font-size:12px;font-weight:750}.splash-photo{background-image:linear-gradient(180deg,rgba(1,20,24,.05),rgba(3,36,41,.10) 38%,rgba(4,54,59,.34) 100%),url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=90');background-position:center 55%}.splash.launched .splash-bird{animation:birdDiveV2 1.02s cubic-bezier(.12,.78,.18,1) forwards!important}@keyframes birdDiveV2{0%{transform:translateX(-50%) translateY(var(--release-y,0)) scale(1)}42%{transform:translateX(-50%) translateY(-43vh) scale(.45)}78%{transform:translateX(-50%) translateY(-68vh) scale(.14)}100%{transform:translateX(-50%) translateY(-82vh) scale(.025);opacity:0}}
+`;
+document.head.appendChild(css);
 
-  let touch=null;
-  scroll.addEventListener('touchstart',e=>{
-    const t=e.touches[0];
-    touch={x:t.clientX,y:t.clientY,axis:null};
-  },{passive:true});
-  scroll.addEventListener('touchmove',e=>{
-    if(!touch||!detail.classList.contains('open'))return;
-    const t=e.touches[0],dx=t.clientX-touch.x,dy=t.clientY-touch.y;
-    if(!touch.axis&&(Math.abs(dx)>8||Math.abs(dy)>8))touch.axis=Math.abs(dx)>Math.abs(dy)?'x':'y';
-    if(touch.axis==='x'&&dx>0){
-      detail.style.setProperty('transform',`translateX(${dx}px) scale(${1-Math.min(.035,dx/6000)})`,'important');
-    }
-  },{passive:true});
-  scroll.addEventListener('touchend',()=>{
-    detail.style.removeProperty('transform');
-  },{capture:true,passive:true});
-  scroll.addEventListener('touchcancel',()=>{
-    detail.style.removeProperty('transform');touch=null;
-  },{capture:true,passive:true});
+const tutorial=$('#tutorial');if(tutorial){tutorial.innerHTML=`<div class="tutorial-v2"><div class="tutorial-mini-card"><span>KAWASEMI</span><strong>一枚ずつ、世界へ。</strong></div><div class="tutorial-gesture tg-left"><b>←</b><span>知ってる</span></div><div class="tutorial-gesture tg-up"><b>↑</b><span>あとで読む</span></div><div class="tutorial-gesture tg-right"><span>記事を読む</span><b>→</b></div><button id="tutorialDoneV2" class="tutorial-start">はじめる</button></div>`;$('#tutorialDoneV2')?.addEventListener('click',finishTutorial)}
 
-  let pointer=null;
-  detail.addEventListener('pointerdown',e=>{
-    if(e.pointerType==='touch')return;
-    pointer={x:e.clientX,y:e.clientY,axis:null};
-  });
-  detail.addEventListener('pointermove',e=>{
-    if(!pointer||!detail.classList.contains('open'))return;
-    const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;
-    if(!pointer.axis&&(Math.abs(dx)>8||Math.abs(dy)>8))pointer.axis=Math.abs(dx)>Math.abs(dy)?'x':'y';
-    if(pointer.axis==='x'&&dx>0){
-      detail.style.setProperty('transform',`translateX(${dx}px) scale(${1-Math.min(.035,dx/6000)})`,'important');
-    }
-  });
-  detail.addEventListener('pointerup',()=>{
-    detail.style.removeProperty('transform');pointer=null;
-  },{capture:true});
-  detail.addEventListener('pointercancel',()=>{
-    detail.style.removeProperty('transform');pointer=null;
-  },{capture:true});
+const oldNav=$('.bottom-nav');if(oldNav){oldNav.innerHTML=`<button class="feed-nav active" data-feed-v2="forYou">FOR YOU</button><button class="feed-nav" data-feed-v2="hot">HOT<i></i></button><button class="feed-nav" data-feed-v2="must">MUST</button>`;$$('.feed-nav').forEach(b=>b.addEventListener('click',()=>{switchScreen('cardsScreen');switchFeed(b.dataset.feedV2);$$('.feed-nav').forEach(x=>x.classList.toggle('active',x===b))}))}$('.feed-tabs')?.classList.add('feed-tabs-hidden');
+
+const topbar=$('.topbar');if(topbar){const tools=document.createElement('div');tools.className='top-tools';tools.innerHTML=`<button class="top-tool" data-go="savedScreen" aria-label="保存"><svg viewBox="0 0 24 24"><path d="M7 3h10v18l-5-3.5L7 21z"/></svg></button><button class="top-tool" data-go="meScreen" aria-label="設定"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button>`;topbar.appendChild(tools);$$('.top-tool',tools).forEach(b=>b.addEventListener('click',()=>switchScreen(b.dataset.go)))}
+['.brand-mark','.brand-word'].forEach(sel=>{const el=$(sel);if(!el)return;el.setAttribute('role','button');el.setAttribute('tabindex','0');const home=()=>{switchScreen('cardsScreen');switchFeed('forYou');$$('.feed-nav').forEach(x=>x.classList.toggle('active',x.dataset.feedV2==='forYou'))};el.addEventListener('click',home);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')home()})});
+
+const detail=$('#detail'),scroll=$('.detail-scroll',detail),box=$('#detailArticle');new MutationObserver(()=>{if(detail.classList.contains('open')){scroll.scrollTop=0;requestAnimationFrame(()=>{scroll.scrollTop=0})}}).observe(detail,{attributes:true,attributeFilter:['class']});
+new MutationObserver(()=>{const labels=['何が起きている？','なぜ重要？','背景','これから'];$$('p',box).forEach((p,i)=>{if(p.previousElementSibling?.classList.contains('article-section-label'))return;const h=document.createElement('h2');h.className='article-section-label';h.textContent=labels[i]||'ポイント';p.before(h)});if(!$('.detail-return-cue',$('.detail-body'))){const cue=document.createElement('div');cue.className='detail-return-cue';cue.innerHTML='<b>←</b><span>左へスワイプしてカードへ戻る</span>';$('#detailSource')?.after(cue)}}).observe(box,{childList:true});
+
+let back=null;scroll.addEventListener('touchstart',e=>{const t=e.touches[0];back={x:t.clientX,y:t.clientY,axis:null}},{capture:true,passive:true});scroll.addEventListener('touchmove',e=>{if(!back||!detail.classList.contains('open'))return;const t=e.touches[0],dx=t.clientX-back.x,dy=t.clientY-back.y;if(!back.axis&&(Math.abs(dx)>9||Math.abs(dy)>9))back.axis=Math.abs(dx)>Math.abs(dy)?'x':'y';if(back.axis==='x'&&dx<0){detail.style.setProperty('transform',`translateX(${dx}px) scale(${1-Math.min(.025,Math.abs(dx)/7000)})`,'important')}},{capture:true,passive:true});scroll.addEventListener('touchend',e=>{if(!back)return;const t=e.changedTouches[0],dx=t.clientX-back.x,axis=back.axis;back=null;detail.style.removeProperty('transform');if(axis==='x'&&dx<-78)closeDetail(false)},{capture:true,passive:true});
+
+let sy=null;const splash=$('#splash');splash?.addEventListener('touchstart',e=>sy=e.touches[0].clientY,{capture:true,passive:true});splash?.addEventListener('touchend',e=>{if(sy==null)return;const dy=e.changedTouches[0].clientY-sy;sy=null;if(dy<-45&&!splash.classList.contains('launched'))enterSplash()},{capture:true,passive:true});
+
+function fallback(root=document){$$('img',root).forEach(img=>{if(img.dataset.fb)return;img.dataset.fb='1';img.addEventListener('error',()=>{const host=img.parentElement;if(!host)return;const a=state.detailArticle||articleById(img.closest('[data-id]')?.dataset.id);host.innerHTML=`<div class="topic-fallback"><i></i><i></i><i></i><span>${(a?.tags?.[0]||'WORLD').toUpperCase()}</span></div>`},{once:true})})}new MutationObserver(m=>m.forEach(x=>x.addedNodes.forEach(n=>{if(n.nodeType===1)fallback(n)}))).observe(document.body,{childList:true,subtree:true});fallback();
+document.addEventListener('click',()=>requestAnimationFrame(()=>$$('.feed-nav').forEach(x=>x.classList.toggle('active',x.dataset.feedV2===state.feed))));
 })();
