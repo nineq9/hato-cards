@@ -41,18 +41,13 @@
       </svg>
     </div>
   </section>
-
   <section id="tutorial" class="tutorial hidden" aria-hidden="true"></section>
-
   <div id="app" class="app hidden">
     <header class="topbar">
       <button id="menuButton" class="menu-button" aria-label="メニューを開く"><span class="hamburger"><i></i></span></button>
-      <span class="top-mark" aria-hidden="true">
-        <svg viewBox="0 0 44 36"><polygon points="5,21 20,8 23,18 39,14 26,26 18,32" fill="currentColor"/><polygon points="20,8 30,5 23,18" fill="currentColor" opacity=".55"/><polygon points="18,32 26,26 30,34" fill="currentColor" opacity=".72"/></svg>
-      </span>
+      <span class="top-mark" aria-hidden="true"><svg viewBox="0 0 44 36"><polygon points="5,21 20,8 23,18 39,14 26,26 18,32" fill="currentColor"/><polygon points="20,8 30,5 23,18" fill="currentColor" opacity=".55"/><polygon points="18,32 26,26 30,34" fill="currentColor" opacity=".72"/></svg></span>
       <span class="topbar-spacer"></span>
     </header>
-
     <main class="main">
       <section id="cardsScreen" class="screen cards-screen active">
         <div id="deck" class="deck" aria-live="polite"></div>
@@ -62,56 +57,22 @@
           <button class="action-button read" data-action="read" aria-label="記事を読む"><svg viewBox="0 0 30 30"><path d="m10.5 6.5 8.5 8.5-8.5 8.5"/><path d="M5 15h13.5"/></svg></button>
         </div>
       </section>
-
       <section id="diveScreen" class="screen dive-screen" style="--surface-pull:0">
         <div id="diveStage" class="dive-stage">
-          <div class="dive-depth" aria-label="深度" style="display:flex;align-items:flex-start;gap:1px">
-            <span class="geo-number" aria-hidden="true"><svg viewBox="0 0 24 42"><line x1="5" y1="4" x2="19" y2="4"/><line x1="21" y1="6" x2="21" y2="19"/><line x1="21" y1="22" x2="21" y2="35"/><line x1="5" y1="37" x2="19" y2="37"/><line x1="3" y1="22" x2="3" y2="35"/><line x1="3" y1="6" x2="3" y2="19"/><line x1="5" y1="20.5" x2="19" y2="20.5" opacity=".08"/><path d="M0 26 L8 19" opacity=".28"/></svg></span>
-            <span id="diveDepth"></span>
-          </div>
+          <div class="dive-depth" aria-label="深度" style="display:flex;align-items:flex-start;gap:1px"><span class="geo-number" aria-hidden="true"><svg viewBox="0 0 24 42"><line x1="5" y1="4" x2="19" y2="4"/><line x1="21" y1="6" x2="21" y2="19"/><line x1="21" y1="22" x2="21" y2="35"/><line x1="5" y1="37" x2="19" y2="37"/><line x1="3" y1="22" x2="3" y2="35"/><line x1="3" y1="6" x2="3" y2="19"/><line x1="5" y1="20.5" x2="19" y2="20.5" opacity=".08"/><path d="M0 26 L8 19" opacity=".28"/></svg></span><span id="diveDepth"></span></div>
           <div id="diveRail" class="dive-rail" aria-hidden="true"></div>
           <div class="dive-copy"><small>DIVE</small><h2 id="diveTheme"></h2><p id="diveText"></p></div>
-          <div id="diveChoices" class="dive-choices"></div>
-          <div id="diveEnd" class="dive-end">⌄</div>
-        </div>
-        <div class="dive-surface-cue" aria-hidden="true">⌄</div>
+          <div id="diveChoices" class="dive-choices"></div><div id="diveEnd" class="dive-end">⌄</div>
+        </div><div class="dive-surface-cue" aria-hidden="true">⌄</div>
       </section>
     </main>
-
-    <nav class="feed-nav" aria-label="フィード">
-      <button class="feed-tab active" data-tab="forYou">FOR YOU</button>
-      <button class="feed-tab" data-tab="hot">HOT</button>
-      <button class="feed-tab" data-tab="dive">DIVE</button>
-    </nav>
+    <nav class="feed-nav" aria-label="フィード"><button class="feed-tab active" data-tab="forYou">FOR YOU</button><button class="feed-tab" data-tab="hot">HOT</button><button class="feed-tab" data-tab="dive">DIVE</button></nav>
   </div>
-
   <div id="drawerBackdrop" class="drawer-backdrop"></div>
-  <aside id="drawer" class="drawer" aria-label="KINGFISHERメニュー">
-    <div class="drawer-head"><span class="drawer-wordmark">KINGFISHER</span><button id="drawerMenuButton" class="drawer-menu-button" aria-label="メニューを閉じる"><span class="hamburger"><i></i></span></button></div>
-    <div id="drawerBody" class="drawer-body"></div>
-  </aside>
-
-  <article id="detail" class="detail" aria-hidden="true">
-    <div id="detailScroll" class="detail-scroll">
-      <div id="detailHero" class="detail-hero"></div>
-      <div class="detail-body">
-        <div id="detailMeta" class="detail-meta"></div>
-        <h1 id="detailTitle"></h1>
-        <p id="detailDek" class="detail-dek"></p>
-        <div id="detailArticle" class="article-copy"></div>
-        <div class="article-end-actions">
-          <button id="detailLike" class="end-action" aria-label="いいね"><svg viewBox="0 0 34 34"><path d="M17 29S5.5 22.2 5.5 13.4C5.5 9 8.3 6.5 11.7 6.5c2.4 0 4.4 1.3 5.3 3.2.9-1.9 2.9-3.2 5.3-3.2 3.4 0 6.2 2.5 6.2 6.9C28.5 22.2 17 29 17 29z"/></svg></button>
-          <button id="detailBookmark" class="end-action" aria-label="保存"><svg viewBox="0 0 34 34"><path d="M10 5.5h14v23l-7-5-7 5z"/></svg></button>
-        </div>
-        <div id="detailSource" class="detail-source"></div>
-      </div>
-    </div>
-    <button id="detailBackHint" class="detail-back-hint" aria-label="右にスワイプして記事一覧へ戻る"><span>CARDS</span><b>→</b></button>
-  </article>
-
+  <aside id="drawer" class="drawer" aria-label="KINGFISHERメニュー"><div class="drawer-head"><span class="drawer-wordmark">KINGFISHER</span><button id="drawerMenuButton" class="drawer-menu-button" aria-label="メニューを閉じる"><span class="hamburger"><i></i></span></button></div><div id="drawerBody" class="drawer-body"></div></aside>
+  <article id="detail" class="detail" aria-hidden="true"><div id="detailScroll" class="detail-scroll"><div id="detailHero" class="detail-hero"></div><div class="detail-body"><div id="detailMeta" class="detail-meta"></div><h1 id="detailTitle"></h1><p id="detailDek" class="detail-dek"></p><div id="detailArticle" class="article-copy"></div><div class="article-end-actions"><button id="detailLike" class="end-action" aria-label="いいね"><svg viewBox="0 0 34 34"><path d="M17 29S5.5 22.2 5.5 13.4C5.5 9 8.3 6.5 11.7 6.5c2.4 0 4.4 1.3 5.3 3.2.9-1.9 2.9-3.2 5.3-3.2 3.4 0 6.2 2.5 6.2 6.9C28.5 22.2 17 29 17 29z"/></svg></button><button id="detailBookmark" class="end-action" aria-label="保存"><svg viewBox="0 0 34 34"><path d="M10 5.5h14v23l-7-5-7 5z"/></svg></button></div><div id="detailSource" class="detail-source"></div></div></div><button id="detailBackHint" class="detail-back-hint" aria-label="右にスワイプして記事一覧へ戻る"><span>CARDS</span><b>→</b></button></article>
   <div id="undoToast" class="undo-toast" role="status"><button id="undoBtn" aria-label="元に戻す">↶</button></div>
-
-  <script src="./articles.js" defer></script>
-  <script src="./kingfisher-v12.js" defer></script>
+  <script src="./news-v13.js?v=13" defer></script>
+  <script src="./kingfisher-v12.js?v=13" defer></script>
 </body>
 </html>
