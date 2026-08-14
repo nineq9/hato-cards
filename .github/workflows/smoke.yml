@@ -1,7 +1,5 @@
 name: KINGFISHER smoke
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 jobs:
   smoke:
