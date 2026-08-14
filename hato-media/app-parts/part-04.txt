@@ -1,0 +1,42 @@
+":"確認度が重要な記事だけ表示します。単一投稿や未確認情報は、確認済み情報と混ぜません。","previous":"8/12　前提となる動き\n8/13　前日の更新\nTODAY　今日、新しく確認できた点","watch":"次に確認すべき公式発表、追加資料、現地確認などを短く示します。"},{"id":43,"category":"OSINT","title":"駅周辺の映像を位置特定　撮影時刻はまだ未確認","summary":"場所が分かっても時刻が分からなければ断定しない。","source":"HATO DEMO","time":"06:01","why":"この出来事が政策・生活・戦況・経済のどこに影響するのかを、ニュースそのものとは分けて説明します。","details":"これは表示確認用のデモ記事です。本番では当日の実際の一次資料・現地報道・国際報道から取得した情報に差し替わります。「駅周辺の映像を位置特定　撮影時刻はまだ未確認」について、数字・場所・時刻・発言者を分離し、確認できた事実だけを本文に残す設計です。","statements":"","reality":"確認度が重要な記事だけ表示します。単一投稿や未確認情報は、確認済み情報と混ぜません。","previous":"8/12　前提となる動き\n8/13　前日の更新\nTODAY　今日、新しく確認できた点","watch":"次に確認すべき公式発表、追加資料、現地確認などを短く示します。"},{"id":44,"category":"OSINT","title":"衛星画像で施設の損傷を確認　原因は特定できず","summary":"見えるものと推測を分離する。","source":"HATO DEMO","time":"07:08","why":"この出来事が政策・生活・戦況・経済のどこに影響するのかを、ニュースそのものとは分けて説明します。","details":"これは表示確認用のデモ記事です。本番では当日の実際の一次資料・現地報道・国際報道から取得した情報に差し替わります。「衛星画像で施設の損傷を確認　原因は特定できず」について、数字・場所・時刻・発言者を分離し、確認できた事実だけを本文に残す設計です。","statements":"","reality":"確認度が重要な記事だけ表示します。単一投稿や未確認情報は、確認済み情報と混ぜません。","previous":"8/12　前提となる動き\n8/13　前日の更新\nTODAY　今日、新しく確認できた点","watch":"次に確認すべき公式発表、追加資料、現地確認などを短く示します。"},{"id":45,"category":"OSINT","title":"同じ攻撃を国内紙と海外紙が別の角度で報道","summary":"見出しと引用対象の違いから、報道フレームを比較。","source":"HATO DEMO","time":"08:15","why":"この出来事が政策・生活・戦況・経済のどこに影響するのかを、ニュースそのものとは分けて説明します。","details":"これは表示確認用のデモ記事です。本番では当日の実際の一次資料・現地報道・国際報道から取得した情報に差し替わります。「同じ攻撃を国内紙と海外紙が別の角度で報道」について、数字・場所・時刻・発言者を分離し、確認できた事実だけを本文に残す設計です。","statements":"","reality":"確認度が重要な記事だけ表示します。単一投稿や未確認情報は、確認済み情報と混ぜません。","previous":"8/12　前提となる動き\n8/13　前日の更新\nTODAY　今日、新しく確認できた点","watch":"次に確認すべき公式発表、追加資料、現地確認などを短く示します。"},{"id":46,"category":"OSINT","title":"SNSで拡散した「新兵器」映像、過去映像の再投稿と判明","summary":"古い映像の再利用を時系列で検証。","source":"HATO DEMO","time":"09:22","why":"この出来事が政策・生活・戦況・経済のどこに影響するのかを、ニュースそのものとは分けて説明します。","details":"これは表示確認用のデモ記事です。本番では当日の実際の一次資料・現地報道・国際報道から取得した情報に差し替わります。「SNSで拡散した「新兵器」映像、過去映像の再投稿と判明」について、数字・場所・時刻・発言者を分離し、確認できた事実だけを本文に残す設計です。","statements":"","reality":"確認度が重要な記事だけ表示します。単一投稿や未確認情報は、確認済み情報と混ぜません。","previous":"8/12　前提となる動き\n8/13　前日の更新\nTODAY　今日、新しく確認できた点","watch":"次に確認すべき公式発表、追加資料、現地確認などを短く示します。"},{"id":47,"category":"OSINT","title":"複数の公開情報から部隊移動を確認　目的は未確定","summary":"複数ソースで一致した事実だけを示す。","source":"HATO DEMO","time":"10:29","why":"この出来事が政策・生活・戦況・経済のどこに影響するのかを、ニュースそのものとは分けて説明します。","details":"これは表示確認用のデモ記事です。本番では当日の実際の一次資料・現地報道・国際報道から取得した情報に差し替わります。「複数の公開情報から部隊移動を確認　目的は未確定」について、数字・場所・時刻・発言者を分離し、確認できた事実だけを本文に残す設計です。","statements":"","reality":"確認度が重要な記事だけ表示します。単一投稿や未確認情報は、確認済み情報と混ぜません。","previous":"8/12　前提となる動き\n8/13　前日の更新\nTODAY　今日、新しく確認できた点","watch":"次に確認すべき公式発表、追加資料、現地確認などを短く示します。"}];
+const FORCE_COMPLETE = false;
+const STORAGE_KEY = 'hato-read-v1';
+let readSet = new Set();
+try { readSet = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')); } catch(e) {}
+if (FORCE_COMPLETE) readSet = new Set(ARTICLES.map(a=>a.id));
+let currentCategory = 'TOP';
+const TOP_IDS = [3,20,28,27,7,29,14,36,42];
+const CONTENT_CATEGORIES = ['UKRAINE','LIFE','REGIONS','WAR','WORLD','TECH','OSINT'];
+let query = '';
+let listScroll = 0;
+let articleId = null;
+let speechState = {active:false,paused:false,mode:null,text:'',duration:0,position:0,charIndex:0,startedAt:0,utterance:null,raf:0};
+let audioCtx = null;
+let meterPlayed = false;
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function saveRead(){ if(!FORCE_COMPLETE){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify([...readSet])); }catch(e){} } }
+function esc(s){return String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));}
+
+function artSVG(a, displayNo=a.id){
+  const c=a.category, label=esc(c), orange='#ff5a00', white='#f5f5f2', gray='#8c8c8c', dark='#111111';
+  let scene='';
+  if(c==='LIFE') scene=`<rect x="90" y="120" width="190" height="210" fill="#303030"/><rect x="305" y="75" width="235" height="255" fill="#202020"/><g fill="${white}">${[0,1,2].map(r=>[0,1,2,3].map(k=>`<rect x="${330+k*43}" y="${105+r*57}" width="20" height="30" opacity="${.28+(r+k)%3*.18}"/>`).join('')).join('')}</g><path d="M60 360 H730" stroke="${white}" opacity=".4"/><path d="M180 390 C330 330 490 330 690 390" fill="none" stroke="${orange}" stroke-width="13"/>`;
+  else if(c==='REGIONS') scene=`<path d="M70 330 L140 270 205 318 280 175 350 315 430 230 500 318 585 145 665 325 740 270 V420 H70Z" fill="#2a2a2a"/><g stroke="${white}" opacity=".42">${[130,230,330,430,530,630].map(x=>`<path d="M${x} 95 V390"/>`).join('')}</g><circle cx="585" cy="145" r="18" fill="${orange}"/>`;
+  else if(c==='WAR') scene=`<circle cx="410" cy="225" r="150" fill="none" stroke="#3a3a3a" stroke-width="2"/><circle cx="410" cy="225" r="95" fill="none" stroke="#555" stroke-width="2"/><path d="M410 225 L690 105" stroke="${orange}" stroke-width="9"/><path d="M120 330 L265 245 350 300 490 190 650 245" fill="none" stroke="${white}" stroke-width="3" opacity=".55"/><circle cx="690" cy="105" r="13" fill="${orange}"/>`;
+  else if(c==='TECH') scene=`<g fill="none" stroke="${white}" opacity=".5" stroke-width="3"><path d="M90 105 H270 V180 H410 V95 H690"/><path d="M105 330 H245 V250 H520 V330 H700"/><path d="M180 75 V370"/><path d="M585 75 V370"/></g><g fill="${orange}"><circle cx="270" cy="180" r="14"/><circle cx="410" cy="95" r="14"/><circle cx="520" cy="250" r="14"/></g><rect x="315" y="155" width="155" height="145" fill="#262626" stroke="#777"/>`;
+  else if(c==='OSINT') scene=`<g fill="none" stroke="${white}" opacity=".6"><circle cx="405" cy="225" r="138"/><circle cx="405" cy="225" r="72"/><path d="M405 48 V402 M228 225 H582"/></g><rect x="86" y="78" width="112" height="80" fill="#2b2b2b"/><rect x="612" y="294" width="105" height="74" fill="#333"/><circle cx="405" cy="225" r="17" fill="${orange}"/><path d="M405 225 L655 331" stroke="${orange}" stroke-width="7"/>`;
+  else scene=`<circle cx="405" cy="225" r="155" fill="#252525"/><path d="M278 177 C335 106 438 102 510 161 C545 190 559 252 522 303 C475 366 354 366 292 292 C255 248 250 215 278 177Z" fill="#444"/><path d="M190 340 C300 260 410 305 610 150" fill="none" stroke="${orange}" stroke-width="12"/><circle cx="610" cy="150" r="16" fill="${orange}"/>`;
+  return `<svg viewBox="0 0 800 450" role="img" aria-label="${label} の記事ビジュアル"><rect width="800" height="450" fill="${dark}"/>${scene}<rect x="46" y="36" width="8" height="48" fill="${orange}"/><text x="72" y="66" fill="${white}" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="3">HATO / ${label}</text><text x="720" y="408" fill="${gray}" font-family="Arial, sans-serif" font-size="18" text-anchor="end">${String(displayNo).padStart(2,'0')}</text></svg>`;
+}
+
+function categoryItems(cat){
+  if(cat==='TOP') return TOP_IDS.map(id=>ARTICLES.find(a=>a.id===id)).filter(Boolean);
+  return ARTICLES.filter(a=>a.category===cat);
+}
+function chapterItems(cat){
+  if(cat==='TOP') return categoryItems('TOP');
+  return categoryItems(cat).filter(a=>!TOP_IDS.includes(a.id));
+}
+function categoryReadCount(
