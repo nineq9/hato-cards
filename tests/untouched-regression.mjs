@@ -1,0 +1,17 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+async function drag(sel,dx,dy){const b=await page.locator(sel).boundingBox();assert(b);const x=b.x+b.width/2,y=b.y+b.height/2;await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+dx,y+dy,{steps:8});await page.mouse.up()}
+await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});await page.evaluate(()=>{localStorage.clear();localStorage.setItem('kingfisherIntroVersion','kingfisher-intro-v4');localStorage.setItem('kingfisherTutorialDone','1')});await page.reload({waitUntil:'domcontentloaded'});const bird=await page.locator('#splashBird').boundingBox();assert(bird);await page.mouse.move(bird.x+bird.width/2,bird.y+bird.height/2);await page.mouse.down();await page.mouse.move(bird.x+bird.width/2,bird.y+bird.height/2-140,{steps:8});await page.mouse.up();await page.waitForFunction(()=>document.querySelector('#splash')?.classList.contains('hidden'),null,{timeout:5500});
+
+await page.click('[data-tab="hot"]');assert(await page.locator('[data-tab="hot"]').evaluate(e=>e.classList.contains('active')));assert(await page.locator('.news-card[data-pos="0"],.clear-card').first().isVisible());await page.click('[data-tab="forYou"]');
+const id=await page.locator('.news-card[data-pos="0"]').getAttribute('data-id');await drag('.news-card[data-pos="0"]',105,0);await page.waitForSelector('#detail.open');await page.waitForTimeout(400);
+await page.click('#detailLike');assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherLiked')||'[]'))).includes(id));assert(await page.locator('#detailLike').evaluate(e=>e.classList.contains('active')));
+await page.click('#detailBookmark');assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id));assert(await page.locator('#detailBookmark').evaluate(e=>e.classList.contains('active')));
+await drag('#detailSwipeBar',105,0);await page.waitForFunction(()=>!document.querySelector('#detail')?.classList.contains('open'));
+
+await page.click('#menuButton');await page.locator('[data-view="settings"]').click();await page.locator('[data-theme="light"]').click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'light');await page.locator('[data-theme="dark"]').click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'dark');await page.locator('.drawer-back').click();await page.click('#drawerBackdrop',{position:{x:380,y:200}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
+
+const before=await page.locator('.news-card[data-pos="0"]').getAttribute('data-id');await drag('.news-card[data-pos="0"]',-105,0);await page.waitForTimeout(280);assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherProcessed')||'[]'))).includes(before));await page.click('#undoBtn');await page.waitForTimeout(120);assert.equal(await page.locator('.news-card[data-pos="0"]').getAttribute('data-id'),before);
+console.log('KINGFISHER untouched regression: PASS');await browser.close();
