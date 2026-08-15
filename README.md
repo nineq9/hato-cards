@@ -16,11 +16,14 @@ The current prototype is implemented as a web app / PWA in this repository.
 
 Start here:
 
+- [Project Status](docs/PROJECT_STATUS.md)
 - [Project Overview](docs/PROJECT_OVERVIEW.md)
 - [Feature Map](docs/FEATURE_MAP.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Decision Log](docs/DECISION_LOG.md)
+- [Product Development Process](docs/PRODUCT_DEVELOPMENT_PROCESS.md)
+- [Workstream Handoff Protocol](docs/WORKSTREAM_HANDOFF_PROTOCOL.md)
 
 Permanent product rules:
 
@@ -58,5 +61,9 @@ Before changing core UX or information-selection behavior, read:
 1. `PRODUCT_PRINCIPLES.md`
 2. `UX_RULES.md`
 3. `QA_CHECKLIST.md`
+4. `docs/PRODUCT_DEVELOPMENT_PROCESS.md`
+5. `docs/WORKSTREAM_HANDOFF_PROTOCOL.md`
 
 After changes, run the relevant QA checklist sections and report PASS / FAIL / NOT TESTED accurately.
+
+Important specialist results must be persisted to GitHub so Product HQ can reconstruct project state without requiring the product owner to relay long chat outputs manually.
