@@ -114,7 +114,7 @@
 <script>
 (async()=>{
   const loadParts=async (dir,count)=>{
-    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean2`);
+    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean3`);
     const responses=await Promise.all(urls.map(u=>fetch(u,{cache:'default'})));
     responses.forEach((r,i)=>{if(!r.ok)throw new Error(`${urls[i]} ${r.status}`)});
     return (await Promise.all(responses.map(r=>r.text()))).join('');
