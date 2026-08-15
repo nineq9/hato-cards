@@ -9,7 +9,7 @@ on:
     types: [completed]
 
 permissions:
-  contents: read
+  contents: write
   actions: read
   issues: write
   pull-requests: write
@@ -81,7 +81,7 @@ jobs:
 
             await upsertPrComment(`${marker}\n## Chief\n- State: QA_QUEUED\n- PR: #${pr.number} — ${pr.title}\n- Next automatic step: KINGFISHER smoke\n- Owner action: none\n\nChief will use automated QA results before asking for human attention.`);
 
-            await updateControl(`## Current status\n- Phase: Event-driven development\n- State: QA_QUEUED\n- Current task: PR #${pr.number} — ${pr.title}\n- Owner action: none\n- Next automatic step: run KINGFISHER smoke`);
+            await updateControl(`## Current status\n- Phase: Event-driven development\n- State: WAITING_EXTERNAL\n- Current task: PR #${pr.number} — ${pr.title}\n- Owner action: none\n- Next automatic step: run KINGFISHER smoke`);
 
   qa-route:
     if: github.event_name == 'workflow_run'
@@ -97,10 +97,6 @@ jobs:
             const prs = run.pull_requests || [];
             const pr = prs[0];
             const passed = run.conclusion === 'success';
-            const state = passed ? 'AUTOMATED_QA_PASS' : 'REWORK_REQUIRED';
-            const next = passed
-              ? 'Product/UX review gate, then continue automatically when an AI worker is configured'
-              : 'Build rework. Automatic AI repair is intentionally disabled until a quality-approved provider is configured';
 
             async function updateControl(statusBlock) {
               const issue = await github.rest.issues.get({
@@ -125,7 +121,29 @@ jobs:
               });
             }
 
+            async function notifyOwner(title, detail) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: CONTROL_ISSUE,
+                body: `@${context.repo.owner} **${title}**\n\n${detail}`,
+              });
+            }
+
+            async function dispatchWorker(taskType, taskRef) {
+              await github.rest.repos.createDispatchEvent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                event_type: 'kingfisher-worker',
+                client_payload: { task_type: taskType, task_ref: taskRef },
+              });
+            }
+
             if (pr) {
+              const state = passed ? 'AUTOMATED_QA_PASS' : 'REWORKING';
+              const next = passed
+                ? 'Product/UX review via worker adapter'
+                : 'Build diagnosis/rework via worker adapter';
               const comments = await github.paginate(github.rest.issues.listComments, {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -133,7 +151,7 @@ jobs:
                 per_page: 100,
               });
               const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
-              const body = `${marker}\n## Chief\n- State: ${state}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Run: ${run.html_url}\n- Next: ${next}\n- Owner action: none unless Chief explicitly marks OWNER_ACTION_REQUIRED`;
+              const body = `${marker}\n## Chief\n- State: ${state}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Run: ${run.html_url}\n- Next: ${next}\n- Owner action: none unless the worker adapter reaches a policy gate`;
               if (existing) {
                 await github.rest.issues.updateComment({
                   owner: context.repo.owner,
@@ -151,6 +169,11 @@ jobs:
               }
 
               await updateControl(`## Current status\n- Phase: Event-driven development\n- State: ${state}\n- Current task: PR #${pr.number}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Owner action: none\n- Next automatic step: ${next}`);
+              await dispatchWorker(passed ? 'product-review' : 'rework', `PR #${pr.number}`);
+            } else if (passed) {
+              await updateControl(`## Current status\n- Phase: Main-branch verification\n- State: DONE\n- Current task: main branch ${run.head_sha.slice(0, 7)}\n- Automated QA: PASS\n- Owner action: none\n- Next automatic step: continue roadmap`);
+              await notifyOwner('Chief stage completed', `Main-branch QA passed for \`${run.head_sha.slice(0, 7)}\`. Chief is healthy and can continue the roadmap. No action is required from you.`);
             } else {
-              await updateControl(`## Current status\n- Phase: Main-branch verification\n- State: ${passed ? 'POST_MERGE_QA_PASS' : 'POST_MERGE_QA_FAIL'}\n- Current task: main branch ${run.head_sha.slice(0, 7)}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Owner action: ${passed ? 'none' : 'none yet; Chief should diagnose first'}\n- Next automatic step: ${passed ? 'continue roadmap' : 'diagnose regression'}`);
+              await updateControl(`## Current status\n- Phase: Main-branch verification\n- State: REWORKING\n- Current task: main branch ${run.head_sha.slice(0, 7)}\n- Automated QA: FAIL (${run.conclusion || 'unknown'})\n- Owner action: none yet\n- Next automatic step: diagnose regression via worker adapter`);
+              await dispatchWorker('diagnose', `main ${run.head_sha.slice(0, 7)}`);
             }
