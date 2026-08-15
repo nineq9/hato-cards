@@ -38,4 +38,12 @@
 
   fix();
   new MutationObserver(()=>requestAnimationFrame(fix)).observe(document.body,{childList:true,subtree:true});
+
+  if(!document.getElementById('hatoRuntime20260816')){
+    const script=document.createElement('script');
+    script.id='hatoRuntime20260816';
+    script.src='./hato-runtime-20260816.js?v=1';
+    script.defer=true;
+    document.head.appendChild(script);
+  }
 })();
