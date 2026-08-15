@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#081113" />
+  <title>KAWASEMI LIVE TRACE — Interaction Demo</title>
+  <style>
+    :root{
+      --bg:#081113;--bg2:#0b1517;--surface:#101d20;--surface2:#142427;
+      --text:#f3f1ec;--text2:#c7cdca;--muted:#82908d;--line:rgba(243,241,236,.11);
+      --line2:rgba(243,241,236,.18);--teal:#1597a3;--teal2:#0d6972;--beige:#bca98e;
+      --accent:#b87950;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#050b0d;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    button,a{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}.hidden{display:none!important}
+    body{display:flex;justify-content:center}
+    .shell{width:min(100%,520px);min-height:100dvh;background:var(--bg);border-inline:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden}
+    .topbar{position:sticky;top:0;z-index:20;padding:calc(15px + var(--safe-top)) 18px 13px;background:rgba(8,17,19,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .eyebrow-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{font-size:10px;letter-spacing:.18em;color:var(--beige);font-weight:760}.demo-label{font-size:8px;letter-spacing:.16em;color:var(--muted);border:1px solid var(--line);padding:5px 7px;border-radius:999px}
+    .title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:8px}
+    h1{margin:0;font-size:27px;letter-spacing:-.045em;line-height:1;font-weight:760}.clock{font-variant-numeric:tabular-nums;font-size:12px;letter-spacing:.06em;color:var(--text2)}
+    .subline{margin-top:10px;font-size:11px;line-height:1.55;color:var(--muted);max-width:390px}
+    .controls{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+    .segmented{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line2);border-radius:999px;padding:3px;background:rgba(255,255,255,.018)}
+    .segmented button{height:34px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:9px;letter-spacing:.13em;font-weight:760}
+    .segmented button.active{background:rgba(243,241,236,.07);color:var(--text)}
+    .pause-btn{min-width:44px;height:42px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);font-size:11px}
+    .since{margin:4px 18px 0;padding:14px 0 15px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+    .since small{display:block;font-size:8px;letter-spacing:.16em;color:var(--beige);font-weight:760}.since strong{display:block;margin-top:5px;font-size:14px;font-weight:620;letter-spacing:-.01em}.since span{color:var(--muted);font-size:10px}.since button{border:0;background:transparent;padding:10px 0;color:var(--text2);font-size:9px;letter-spacing:.12em}
+    .timeline-wrap{position:relative;padding:18px 18px calc(90px + var(--safe-bottom)) 18px;min-height:70vh}
+    .now-marker{display:grid;grid-template-columns:58px 18px 1fr;gap:7px;align-items:center;margin:3px 0 10px}
+    .now-marker .time{font-size:9px;letter-spacing:.14em;color:var(--beige);text-align:right}.now-dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 5px rgba(21,151,163,.08);justify-self:center}.now-label{font-size:10px;letter-spacing:.18em;font-weight:800}
+    .timeline{position:relative}.timeline:before{content:"";position:absolute;left:73px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,rgba(21,151,163,.42),rgba(243,241,236,.10) 18%,rgba(243,241,236,.05))}
+    .entry{position:relative;display:grid;grid-template-columns:58px 18px 1fr;gap:7px;padding:10px 0 12px;animation:enter .42s cubic-bezier(.2,.75,.2,1)}
+    @keyframes enter{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+    .entry-time{text-align:right;font-variant-numeric:tabular-nums;font-size:9px;letter-spacing:.05em;color:var(--muted);padding-top:8px}.entry-axis{display:flex;justify-content:center;padding-top:8px}.axis-dot{width:7px;height:7px;border-radius:50%;background:#7e8987;border:1px solid var(--bg);box-shadow:0 0 0 3px var(--bg)}
+    .entry.new .axis-dot{background:var(--teal)}.entry-card{width:100%;border:0;border-top:1px solid var(--line);background:transparent;text-align:left;padding:9px 0 14px;min-width:0}.entry:first-child .entry-card{border-top:0}
+    .meta-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.kind{font-size:7.5px;letter-spacing:.14em;font-weight:780;color:var(--beige)}.source-count{font-size:8px;color:var(--muted)}.new-tag{font-size:7px;letter-spacing:.12em;border:1px solid rgba(21,151,163,.38);color:#83d5dc;border-radius:999px;padding:3px 6px}.queue{margin-left:auto;font-size:7.5px;letter-spacing:.10em;color:var(--muted)}.queue.available{color:#d7d1c6}.queue.not{color:#8d9694}
+    .entry-title{display:block;margin-top:8px;font-size:16px;line-height:1.32;letter-spacing:-.026em;font-weight:650;text-wrap:pretty}.entry-summary{display:block;margin-top:7px;color:var(--text2);font-size:11px;line-height:1.55}.entry-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}.sources-mini{font-size:8.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.open-cue{font-size:12px;color:var(--muted)}
+    .signal .entry-title{font-size:13px;font-weight:590}.signal .entry-summary{font-size:10.5px}.signal .kind{color:#9aa5a2}.signal .source-name{font-size:8px;letter-spacing:.08em;color:var(--beige);font-weight:700}
+    .ungrouped .axis-dot{background:#5e6867}.ungrouped .kind{color:#7f8a87}
+    .empty{padding:44px 20px;text-align:center;color:var(--muted);font-size:11px;line-height:1.8}
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.54);opacity:0;pointer-events:none;transition:opacity .18s linear;z-index:80}.backdrop.open{opacity:1;pointer-events:auto}
+    .sheet{position:fixed;z-index:90;left:50%;bottom:0;width:min(100%,520px);max-height:88dvh;transform:translate(-50%,102%);transition:transform .28s cubic-bezier(.18,.82,.2,1);background:#0d1719;border:1px solid var(--line2);border-bottom:0;border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 -24px 80px rgba(0,0,0,.42)}
+    .sheet.open{transform:translate(-50%,0)}.handle{width:36px;height:3px;background:rgba(243,241,236,.18);border-radius:999px;margin:9px auto 3px}.sheet-head{display:flex;align-items:center;justify-content:space-between;padding:10px 18px 12px;border-bottom:1px solid var(--line)}.sheet-head small{font-size:8px;letter-spacing:.18em;color:var(--beige);font-weight:780}.close{width:38px;height:38px;border:0;background:transparent;color:var(--muted);font-size:23px;line-height:1}.sheet-body{overflow:auto;max-height:calc(88dvh - 63px);padding:20px 18px calc(28px + var(--safe-bottom));-webkit-overflow-scrolling:touch}
+    .cluster-kicker{font-size:8px;letter-spacing:.15em;color:var(--muted)}.cluster-title{margin:7px 0 0;font-size:25px;line-height:1.18;letter-spacing:-.04em;font-weight:720}.cluster-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:9px}.ai-note{margin:18px 0 0;padding:12px 13px;border-left:1px solid var(--teal);background:rgba(21,151,163,.04);font-size:10px;line-height:1.55;color:var(--text2)}
+    .section{padding:22px 0;border-top:1px solid var(--line)}.section:first-of-type{margin-top:22px}.section-label{display:block;margin-bottom:12px;font-size:8px;letter-spacing:.17em;color:var(--beige);font-weight:780}.claim{padding:13px 0;border-top:1px solid var(--line)}.claim:first-of-type{border-top:0}.claim-actor{font-size:9px;letter-spacing:.09em;font-weight:760}.claim-text{margin-top:7px;font-size:13px;line-height:1.58;color:var(--text)}.claim-state{margin-top:7px;color:var(--muted);font-size:9px}.source-row{width:100%;display:grid;grid-template-columns:1fr auto;gap:10px;border:0;border-top:1px solid var(--line);background:transparent;padding:14px 0;text-align:left}.source-row:first-of-type{border-top:0}.source-row strong{display:block;font-size:12px}.source-row span{display:block;margin-top:5px;color:var(--muted);font-size:9px}.source-row b{font-size:12px;color:var(--muted);font-weight:400;align-self:center}
+    .queue-box{border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;background:rgba(255,255,255,.015)}.queue-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.queue-row strong{font-size:11px;letter-spacing:.10em}.queue-detail-btn{border:0;background:transparent;color:var(--muted);padding:8px 0;font-size:9px}.queue-reason{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:10px;line-height:1.55;color:var(--text2)}
+    .source-title{margin:4px 0 0;font-size:22px;line-height:1.25;letter-spacing:-.035em}.source-meta{margin-top:8px;color:var(--muted);font-size:9px}.source-excerpt{margin-top:18px;font-size:13px;line-height:1.72;color:var(--text2)}.external{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;font-size:9px;letter-spacing:.13em}.demo-warning{margin-top:14px;font-size:9px;line-height:1.5;color:var(--muted)}
+    .new-list-row{padding:13px 0;border-top:1px solid var(--line)}.new-list-row:first-child{border-top:0}.new-list-row small{font-size:8px;color:var(--beige)}.new-list-row strong{display:block;margin-top:5px;font-size:13px;line-height:1.4}.new-list-row span{display:block;margin-top:5px;color:var(--muted);font-size:9px}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.entry{animation:none}.sheet,.backdrop{transition:none}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="eyebrow-row"><span class="brand">KAWASEMI</span><span class="demo-label">LIVE TRACE · DEMO</span></div>
+      <div class="title-row"><h1>LIVE</h1><span id="clock" class="clock">--:--:--</span></div>
+      <div class="subline">今入ってきている情報を、時間の中で観測する。並び順は重要度ではなく到着時刻です。</div>
+    </header>
+    <section class="controls" aria-label="表示切替">
+      <div class="segmented"><button id="groupedBtn" class="active" type="button">GROUPED</button><button id="allBtn" type="button">ALL SIGNALS</button></div>
+      <button id="pauseBtn" class="pause-btn" type="button" aria-label="ライブ追加を一時停止">Ⅱ</button>
+    </section>
+    <section class="since">
+      <div><small>SINCE YOU LAST CHECKED</small><strong id="sinceSummary">4 SIGNALS · 2 CLUSTERS CHANGED</strong><span id="sinceDetail">前回確認 14:31</span></div>
+      <button id="newInfoBtn" type="button">VIEW NEW →</button>
+    </section>
+    <section class="timeline-wrap">
+      <div class="now-marker"><span class="time">NOW</span><span class="now-dot"></span><span class="now-label">INCOMING</span></div>
+      <div id="timeline" class="timeline" aria-live="polite"></div>
+    </section>
+  </main>
+  <div id="backdrop" class="backdrop"></div>
+  <section id="detailSheet" class="sheet" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="handle"></div><div class="sheet-head"><small id="sheetLabel">EVENT CLUSTER</small><button class="close" id="closeSheet" aria-label="閉じる">×</button></div>
+    <div id="sheetBody" class="sheet-body"></div>
+  </section>
+  <script>
+    const baseTime = new Date();
+    const minuteTime = minsAgo => new Date(baseTime.getTime() - minsAgo * 60000);
+    const fmt = d => d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',hour12:false});
+    const fmtSeconds = d => d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    const state = {
+      mode:'grouped', paused:false, injected:0,
+      clusters:[
+        {id:'power-grid', time:minuteTime(3), title:'キーウ周辺の電力設備について複数ソースが相次いで言及',summary:'公式発表、通信社、現地投稿が同じ時間帯の出来事に言及しています。内容には一致しない部分があります。',changed:true, card:'available',signals:[
+          {id:'s1',time:minuteTime(3.9),source:'Kyiv City Administration',actor:'KYIV CITY ADMINISTRATION',text:'市内の一部地域で停電が発生したと発表。',claim:'市内の一部地域で停電が発生したとしています。',state:'Official claim · independently unconfirmed',url:'https://example.com/kyiv-city'},
+          {id:'s2',time:minuteTime(3.4),source:'Reuters Demo Wire',actor:'REUTERS DEMO WIRE',text:'現地当局の発表を引用し、停電と爆発音を報道。',claim:'現地当局を引用し、停電と爆発音があったと報じています。',state:'Secondary reporting',url:'https://example.com/reuters-demo'},
+          {id:'s3',time:minuteTime(3.0),source:'Local Monitor',actor:'LOCAL MONITOR',text:'市北部で閃光を見たと投稿。',claim:'市北部で閃光を見たとしています。',state:'Unverified local observation',url:'https://example.com/local-monitor'},
+          {id:'s4',time:minuteTime(2.6),source:'Ukraine Energy Demo',actor:'UKRAINE ENERGY OPERATOR',text:'設備の一部が停止したと発表。原因は調査中。',claim:'設備の一部停止を確認し、原因を調査中としています。',state:'Official claim · cause unknown',url:'https://example.com/energy-demo'}]},
+        {id:'border-claim', time:minuteTime(8), title:'国境付近の無人機活動をめぐり異なる主体が別々の説明',summary:'二つの当事者発表は同じ時間帯を指している可能性がありますが、対象・結果の説明は一致していません。',changed:true, card:'not',queueReason:'現時点では独立確認が不足し、CARDSのレビュー対象にはまだ入れていないデモ状態です。',signals:[
+          {id:'s5',time:minuteTime(8.8),source:'Ukraine Air Command Demo',actor:'UKRAINE AIR COMMAND',text:'複数の無人機を迎撃したと発表。',claim:'複数の無人機を迎撃したと主張しています。',state:'Party claim · not independently confirmed',url:'https://example.com/ua-command'},
+          {id:'s6',time:minuteTime(8.2),source:'Russian MOD Demo',actor:'RUSSIAN MOD',text:'指定した目標に到達したと発表。',claim:'指定した目標に到達したと主張しています。',state:'Party claim · not independently confirmed',url:'https://example.com/ru-mod'},
+          {id:'s7',time:minuteTime(7.7),source:'OSINT Desk Demo',actor:'OSINT DESK',text:'公開映像の撮影地点を確認中。',claim:'公開映像の位置情報を検証中で、結論はまだ出していません。',state:'Verification in progress',url:'https://example.com/osint'}]},
+        {id:'port', time:minuteTime(14), title:'黒海沿岸の港湾運用に小さな変化',summary:'港湾当局の運用通知と船舶追跡情報に変化。現時点では大きな事件かどうか不明です。',changed:false,card:'not',queueReason:'変化は観測されていますが、影響範囲がまだ小さく、CARDSには入っていないデモ状態です。',signals:[
+          {id:'s8',time:minuteTime(14.5),source:'Port Authority Demo',actor:'PORT AUTHORITY',text:'一部バースの運用を一時変更。',claim:'一部バースの運用変更を告知しています。',state:'Official notice',url:'https://example.com/port'},
+          {id:'s9',time:minuteTime(13.8),source:'Marine Tracker Demo',actor:'MARINE TRACKER',text:'入港待ち船舶が通常より増加。',claim:'公開船舶データ上、待機船が増えているとしています。',state:'Open-source observation',url:'https://example.com/marine'}]}
+      ],
+      ungrouped:[
+        {id:'u1',time:minuteTime(5),source:'Regional Rail Demo',actor:'REGIONAL RAIL',text:'夜間列車の一部遅延を告知。',claim:'一部列車の遅延を告知しています。',state:'Ungrouped incoming signal',url:'https://example.com/rail'},
+        {id:'u2',time:minuteTime(11),source:'Weather Service Demo',actor:'WEATHER SERVICE',text:'南部で強風警報を更新。',claim:'強風警報を更新しています。',state:'Ungrouped incoming signal',url:'https://example.com/weather'}
+      ],
+      newSince:[
+        {time:minuteTime(7.7),label:'OSINT Desk Demo',detail:'border-claim に新しい検証シグナル'},
+        {time:minuteTime(3.0),label:'Local Monitor',detail:'power-grid に現地観測が追加'},
+        {time:minuteTime(2.6),label:'Ukraine Energy Demo',detail:'power-grid に公式発表が追加'},
+        {time:minuteTime(5),label:'Regional Rail Demo',detail:'未クラスタの新規Signal'}
+      ]
+    };
+    const incoming = [
+      {cluster:'power-grid', source:'Emergency Service Demo', actor:'EMERGENCY SERVICE', text:'現場対応を開始したと発表。被害規模は未確定。', claim:'現場対応を開始し、被害規模はまだ確定していないとしています。', state:'Official claim · new information', url:'https://example.com/emergency'},
+      {cluster:'border-claim', source:'AP Demo Desk', actor:'AP DEMO DESK', text:'双方の発表を確認したが、独立検証はできていないと報道。', claim:'双方の発表を伝えつつ、独立確認はできていないとしています。', state:'Secondary reporting · uncertainty preserved', url:'https://example.com/ap-demo'},
+      {cluster:null, source:'Regional Telegram Demo', actor:'REGIONAL TELEGRAM', text:'遠方で爆発音を聞いたとの未確認投稿。', claim:'遠方で爆発音を聞いたと投稿しています。', state:'Unverified · ungrouped', url:'https://example.com/telegram-demo'},
+      {cluster:'port', source:'Shipping Company Demo', actor:'SHIPPING COMPANY', text:'到着予定を数時間後ろ倒し。理由は明示せず。', claim:'到着予定の変更を通知していますが、理由は示していません。', state:'Company notice', url:'https://example.com/shipping'}
+    ];
+    const timeline = document.getElementById('timeline');
+    const groupedBtn = document.getElementById('groupedBtn');
+    const allBtn = document.getElementById('allBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const backdrop = document.getElementById('backdrop');
+    const sheet = document.getElementById('detailSheet');
+    const sheetBody = document.getElementById('sheetBody');
+    const sheetLabel = document.getElementById('sheetLabel');
+    function allSignals(){const fromClusters=state.clusters.flatMap(c=>c.signals.map(s=>({...s,clusterId:c.id,clusterTitle:c.title,card:c.card})));return [...fromClusters,...state.ungrouped.map(s=>({...s,clusterId:null,card:'not'}))].sort((a,b)=>b.time-a.time)}
+    function render(){groupedBtn.classList.toggle('active',state.mode==='grouped');allBtn.classList.toggle('active',state.mode==='all');pauseBtn.textContent=state.paused?'▶':'Ⅱ';pauseBtn.setAttribute('aria-label',state.paused?'ライブ追加を再開':'ライブ追加を一時停止');if(state.mode==='grouped')renderGrouped();else renderAll();updateSince()}
+    function renderGrouped(){const rows=[...state.clusters.map(c=>({type:'cluster',time:c.time,data:c})),...state.ungrouped.map(s=>({type:'signal',time:s.time,data:s}))].sort((a,b)=>b.time-a.time);timeline.innerHTML=rows.map(row=>row.type==='cluster'?clusterHTML(row.data):signalHTML(row.data,true)).join('')||'<div class="empty">No incoming signals.</div>';timeline.querySelectorAll('[data-cluster]').forEach(el=>el.addEventListener('click',()=>openCluster(el.dataset.cluster)));timeline.querySelectorAll('[data-source]').forEach(el=>el.addEventListener('click',()=>openSourceById(el.dataset.source)))}
+    function renderAll(){timeline.innerHTML=allSignals().map(s=>signalHTML(s,false)).join('')||'<div class="empty">No incoming signals.</div>';timeline.querySelectorAll('[data-source]').forEach(el=>el.addEventListener('click',()=>openSourceById(el.dataset.source)))}
+    function clusterHTML(c){const recent=c.changed||c.signals.some(s=>Date.now()-s.time.getTime()<8*60000);const sourceNames=c.signals.slice(-3).map(s=>s.source).join(' · ');const queue=c.card==='available'?'<span class="queue available">CARD AVAILABLE</span>':'<span class="queue not">Not queued</span>';return `<article class="entry ${recent?'new':''}"><div class="entry-time">${fmt(c.time)}</div><div class="entry-axis"><span class="axis-dot"></span></div><button class="entry-card" type="button" data-cluster="${c.id}"><span class="meta-row"><span class="kind">LIKELY SAME EVENT</span><span class="source-count">${c.signals.length} signals · ${new Set(c.signals.map(s=>s.source)).size} sources</span>${recent?'<span class="new-tag">+NEW</span>':''}${queue}</span><span class="entry-title">${c.title}</span><span class="entry-summary">${c.summary}</span><span class="entry-foot"><span class="sources-mini">${sourceNames}</span><span class="open-cue">↗</span></span></button></article>`}
+    function signalHTML(s,ungrouped){const isNew=state.newSince.some(n=>n.label===s.source)||Date.now()-s.time.getTime()<5*60000;const clusterHint=s.clusterId?` · likely ${s.clusterTitle?'grouped':'same event'}`:'';return `<article class="entry signal ${ungrouped?'ungrouped':''} ${isNew?'new':''}"><div class="entry-time">${fmt(s.time)}</div><div class="entry-axis"><span class="axis-dot"></span></div><button class="entry-card" type="button" data-source="${s.id}"><span class="meta-row"><span class="kind">${ungrouped?'UNGROUPED SIGNAL':'SIGNAL'}</span>${isNew?'<span class="new-tag">NEW</span>':''}<span class="queue ${s.card==='available'?'available':'not'}">${s.card==='available'?'CARD AVAILABLE':'Not queued'}</span></span><span class="source-name">${s.source}</span><span class="entry-title">${s.text}</span><span class="entry-summary">${s.state}${clusterHint}</span></button></article>`}
+    function openSheet(label,html){sheetLabel.textContent=label;sheetBody.innerHTML=html;sheet.classList.add('open');backdrop.classList.add('open');sheet.setAttribute('aria-hidden','false')}
+    function closeSheet(){sheet.classList.remove('open');backdrop.classList.remove('open');sheet.setAttribute('aria-hidden','true')}
+    function openCluster(id){const c=state.clusters.find(x=>x.id===id);if(!c)return;const actors=c.signals.map(s=>`<div class="claim"><div class="claim-actor">${s.actor}</div><div class="claim-text">${s.claim}</div><div class="claim-state">${s.state}</div></div>`).join('');const sources=c.signals.slice().sort((a,b)=>b.time-a.time).map(s=>`<button class="source-row" data-open-source="${s.id}" type="button"><span><strong>${s.source}</strong><span>${fmt(s.time)} · ${s.state}</span></span><b>↗</b></button>`).join('');const queue=c.card==='available'?`<div class="queue-box"><div class="queue-row"><strong>CARD AVAILABLE</strong><span>→ CARDS</span></div><div class="queue-reason">Structured Cardへ移る入口のデモです。本番CARDSには接続していません。</div></div>`:`<div class="queue-box"><div class="queue-row"><strong>Not queued</strong><button class="queue-detail-btn" id="queueReasonBtn" type="button">WHY?</button></div><div class="queue-reason hidden" id="queueReason">${c.queueReason||'CARDSにはまだ入っていないデモ状態です。'}</div></div>`;openSheet('EVENT CLUSTER',`<div class="cluster-kicker">LIKELY SAME EVENT · ${fmt(c.time)}</div><h2 class="cluster-title">${c.title}</h2><div class="cluster-meta"><span>${c.signals.length} signals</span><span>${new Set(c.signals.map(s=>s.source)).size} sources</span><span>${c.changed?'changed since last check':'no new change marker'}</span></div><div class="ai-note">AI grouped ${c.signals.length} signals as a likely same event. This is a grouping hypothesis, not a statement that every claim is true or that all signals describe exactly the same event.</div><section class="section"><span class="section-label">CLAIMS · KEPT SEPARATE</span>${actors}</section><section class="section"><span class="section-label">SOURCES</span>${sources}</section><section class="section"><span class="section-label">CARDS STATUS</span>${queue}</section>`);sheetBody.querySelectorAll('[data-open-source]').forEach(el=>el.addEventListener('click',()=>openSourceById(el.dataset.openSource)));const why=document.getElementById('queueReasonBtn');if(why)why.addEventListener('click',()=>document.getElementById('queueReason').classList.toggle('hidden'))}
+    function findSignal(id){return allSignals().find(s=>s.id===id)}
+    function openSourceById(id){const s=findSignal(id);if(!s)return;openSheet('SOURCE',`<div class="cluster-kicker">${s.source}</div><h2 class="source-title">${s.text}</h2><div class="source-meta">${fmt(s.time)} · DEMO SOURCE</div><div class="source-excerpt">${s.claim}<br><br><strong>STATUS</strong><br>${s.state}</div><a class="external" href="${s.url}" target="_blank" rel="noopener"><span>VIEW ORIGINAL</span><span>↗</span></a><div class="demo-warning">このプロトタイプは架空のデモデータを使用しています。外部リンクは example.com です。</div>`)}
+    function updateSince(){const changedClusters=state.clusters.filter(c=>c.changed).length;document.getElementById('sinceSummary').textContent=`${state.newSince.length} SIGNALS · ${changedClusters} CLUSTERS CHANGED`;document.getElementById('sinceDetail').textContent=`前回確認 14:31 · ${state.ungrouped.length} ungrouped`}
+    function showNewInfo(){const rows=state.newSince.slice().sort((a,b)=>b.time-a.time).map(n=>`<div class="new-list-row"><small>${fmt(n.time)}</small><strong>${n.label}</strong><span>${n.detail}</span></div>`).join('');openSheet('SINCE LAST CHECK',`<div class="cluster-kicker">WHAT CHANGED</div><h2 class="source-title">前回見た時から増えた情報</h2><div class="source-meta">ランキングではなく、追加された順に表示</div><section class="section">${rows}</section>`)}
+    function injectSignal(){if(state.paused||state.injected>=incoming.length)return;const item=incoming[state.injected++];const now=new Date();const s={id:`live-${state.injected}`,time:now,source:item.source,actor:item.actor,text:item.text,claim:item.claim,state:item.state,url:item.url};state.newSince.unshift({time:now,label:item.source,detail:item.cluster?`${item.cluster} cluster に新しいSignal`:'未クラスタの新規Signal'});if(item.cluster){const c=state.clusters.find(x=>x.id===item.cluster);c.signals.push(s);c.time=now;c.changed=true}else{state.ungrouped.unshift(s)}render()}
+    groupedBtn.addEventListener('click',()=>{state.mode='grouped';render()});allBtn.addEventListener('click',()=>{state.mode='all';render()});pauseBtn.addEventListener('click',()=>{state.paused=!state.paused;render()});document.getElementById('newInfoBtn').addEventListener('click',showNewInfo);document.getElementById('closeSheet').addEventListener('click',closeSheet);backdrop.addEventListener('click',closeSheet);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});setInterval(()=>document.getElementById('clock').textContent=fmtSeconds(new Date()),1000);document.getElementById('clock').textContent=fmtSeconds(new Date());render();setTimeout(injectSignal,3500);setTimeout(injectSignal,9000);setTimeout(injectSignal,15000);setTimeout(injectSignal,22000);
+  </script>
+</body>
+</html>
