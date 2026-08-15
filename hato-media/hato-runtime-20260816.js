@@ -13,14 +13,108 @@
   const style=document.createElement('style');
   style.id='hato-runtime-20260816-style';
   style.textContent=`
-    html body #feed article.story{padding-left:16px!important;padding-right:16px!important}
-    html body #feed article.story .story-topline{margin-bottom:4px!important}
-    html body #feed article.story.hato-wrap-title .story-title-flow{margin-top:0!important;min-width:0!important}
-    html body #feed article.story.hato-wrap-title .story-art{float:right!important;width:96px!important;height:72px!important;aspect-ratio:auto!important;margin:0 0 6px 12px!important;padding:0!important;line-height:0!important;background:transparent!important;overflow:hidden!important}
-    html body #feed article.story.hato-wrap-title .story-art img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;margin:0!important}
-    html body #feed article.story.hato-wrap-title h2{font-size:16px!important;line-height:1.26!important;letter-spacing:-.018em!important;margin:0 0 7px!important;font-weight:800!important;overflow:visible!important}
-    html body #feed article.story.hato-wrap-title h2 .open-article{display:inline!important;width:auto!important;line-height:inherit!important}
-    html body #feed article.story.hato-wrap-title .meta{clear:both!important;margin-top:2px!important}
+    html body .feed{padding-left:16px!important;padding-right:16px!important}
+    html body #feed article.story{
+      grid-template-columns:30px minmax(0,1fr)!important;
+      gap:8px!important;
+      padding:15px 0 16px!important;
+      margin:0!important;
+      width:100%!important;
+    }
+    html body #feed article.story .story-num{
+      font-size:13px!important;
+      line-height:1.15!important;
+      padding-top:1px!important;
+      width:30px!important;
+    }
+    html body #feed article.story .story-main{
+      display:block!important;
+      min-width:0!important;
+      width:100%!important;
+      max-width:none!important;
+      overflow:visible!important;
+    }
+    html body #feed article.story .story-topline{
+      margin:0 0 4px!important;
+      min-height:16px!important;
+    }
+    html body #feed article.story .story-cat{
+      font-size:10px!important;
+      line-height:1.15!important;
+      letter-spacing:.07em!important;
+    }
+    html body #feed article.story.hato-wrap-title .story-title-flow{
+      display:block!important;
+      width:100%!important;
+      max-width:none!important;
+      min-width:0!important;
+      margin:0!important;
+      padding:0!important;
+      overflow:visible!important;
+    }
+    html body #feed article.story.hato-wrap-title .story-title-flow::after{
+      content:""!important;
+      display:block!important;
+      clear:both!important;
+    }
+    html body #feed article.story.hato-wrap-title .story-art{
+      float:right!important;
+      clear:none!important;
+      width:92px!important;
+      height:64px!important;
+      min-width:92px!important;
+      aspect-ratio:auto!important;
+      margin:0 0 5px 10px!important;
+      padding:0!important;
+      line-height:0!important;
+      background:transparent!important;
+      overflow:hidden!important;
+    }
+    html body #feed article.story.hato-wrap-title .story-art img,
+    html body #feed article.story.hato-wrap-title .story-art .hato-news-photo{
+      display:block!important;
+      width:100%!important;
+      height:100%!important;
+      object-fit:cover!important;
+      margin:0!important;
+    }
+    html body #feed article.story.hato-wrap-title h2{
+      display:block!important;
+      clear:none!important;
+      width:auto!important;
+      max-width:none!important;
+      font-size:15px!important;
+      line-height:1.24!important;
+      letter-spacing:-.012em!important;
+      margin:0!important;
+      padding:0!important;
+      font-weight:800!important;
+      overflow:visible!important;
+      overflow-wrap:normal!important;
+      word-break:normal!important;
+      hyphens:auto!important;
+    }
+    html body #feed article.story.hato-wrap-title h2 .open-article{
+      display:inline!important;
+      width:auto!important;
+      max-width:none!important;
+      line-height:inherit!important;
+      margin:0!important;
+      padding:0!important;
+      text-align:left!important;
+    }
+    html body #feed article.story.hato-wrap-title .meta{
+      clear:both!important;
+      margin-top:7px!important;
+      padding-top:0!important;
+    }
+    html body #feed article.story p{
+      font-size:12.5px!important;
+      line-height:1.42!important;
+      margin:7px 0 8px!important;
+    }
+    html body #feed .timeline-chapter article.story:last-child{border-bottom:0!important}
+
     html body .article-hero-art{overflow:hidden!important;line-height:0!important}
     html body .article-hero-art img{display:block!important;width:100%!important;height:auto!important;aspect-ratio:3/2!important;object-fit:cover!important}
 
@@ -38,8 +132,10 @@
     .hato-speed-control select{appearance:auto;border:1px solid #d8d8d5;background:#fff;color:#111;border-radius:7px;padding:4px 5px;font:800 11px/1 system-ui,-apple-system,sans-serif;min-width:58px}
     .hato-speed-control select:focus{outline:2px solid rgba(255,90,0,.24);outline-offset:1px}
     @media(min-width:521px){
-      html body #feed article.story.hato-wrap-title .story-art{width:104px!important;height:78px!important;margin-left:14px!important}
-      html body #feed article.story.hato-wrap-title h2{font-size:17px!important}
+      html body #feed article.story{grid-template-columns:34px minmax(0,1fr)!important;gap:10px!important;padding-top:17px!important;padding-bottom:18px!important}
+      html body #feed article.story .story-num{width:34px!important;font-size:13px!important}
+      html body #feed article.story.hato-wrap-title .story-art{width:104px!important;height:72px!important;margin-left:12px!important}
+      html body #feed article.story.hato-wrap-title h2{font-size:16px!important;line-height:1.25!important}
     }
   `;
   document.head.appendChild(style);
@@ -131,23 +227,19 @@
   const imageHTML=id=>`<img src="${imageUrl(id)}" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.closest('.story-art,.article-hero-art')?.setAttribute('hidden','')">`;
 
   const decorateImages=()=>{
-    document.querySelectorAll('#feed article.story[data-id] .story-art').forEach(art=>{
-      const card=art.closest('article.story[data-id]');
-      if(!card)return;
-      const id=Number(card.dataset.id)||1;
-      if(art.dataset.hatoImageId===String(id)&&art.querySelector('img'))return;
-      art.dataset.hatoImageId=String(id);
-      art.removeAttribute('hidden');
-      art.innerHTML=imageHTML(id);
+    document.querySelectorAll('#feed article.story[data-id] .story-art img').forEach(img=>{
+      img.loading='lazy';img.decoding='async';img.fetchPriority='low';
+      img.onerror=()=>img.closest('.story-art')?.setAttribute('hidden','');
     });
     const hero=document.querySelector('#articleContent .article-hero-art');
     if(hero){
-      const title=document.querySelector('#articleContent .article-title')?.textContent?.trim();
-      const app=window.__HATO_BRIDGE__;
-      const article=app?.articles?.find(a=>String(a.title||'').trim()===title);
-      const id=Number(article?.id)||1;
-      if(hero.dataset.hatoImageId!==String(id)||!hero.querySelector('img')){
-        hero.dataset.hatoImageId=String(id);hero.removeAttribute('hidden');hero.innerHTML=imageHTML(id);
+      const img=hero.querySelector('img');
+      if(img){img.loading='lazy';img.decoding='async';img.fetchPriority='low';img.onerror=()=>hero.setAttribute('hidden','');}
+      else{
+        const title=document.querySelector('#articleContent .article-title')?.textContent?.trim();
+        const app=window.__HATO_BRIDGE__;
+        const article=app?.articles?.find(a=>String(a.title||'').trim()===title);
+        hero.innerHTML=imageHTML(Number(article?.id)||1);
       }
     }
   };
