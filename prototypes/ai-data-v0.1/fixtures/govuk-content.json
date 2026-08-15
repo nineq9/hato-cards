@@ -1,0 +1,20 @@
+{
+  "content_id": "synthetic-govuk-content-id",
+  "base_path": "/government/news/example-status-update",
+  "title": "Example status update",
+  "description": "Synthetic fixture representing a short first-party GOV.UK content description.",
+  "locale": "en",
+  "document_type": "news_article",
+  "first_published_at": "2026-08-16T08:00:00Z",
+  "public_updated_at": "2026-08-16T08:05:00Z",
+  "links": {
+    "organisations": [
+      {
+        "title": "Example Government Organisation"
+      }
+    ]
+  },
+  "details": {
+    "body": "<p>This synthetic body is intentionally not stored by the adapter prototype.</p>"
+  }
+}
