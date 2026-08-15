@@ -4,16 +4,18 @@
 
   const style=document.createElement('style');
   style.textContent=`
-    #feed article.story.hato-wrap-title .story-main{display:block!important;min-width:0!important}
-    #feed article.story.hato-wrap-title .story-title-flow{display:block!important;min-width:0!important;margin-top:0!important}
+    #feed article.story{grid-template-columns:30px minmax(0,1fr)!important;gap:8px!important;padding-left:0!important;padding-right:0!important}
+    #feed article.story.hato-wrap-title .story-main{display:block!important;min-width:0!important;width:100%!important;max-width:none!important;overflow:visible!important}
+    #feed article.story.hato-wrap-title .story-title-flow{display:block!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;overflow:visible!important}
     #feed article.story.hato-wrap-title .story-title-flow::after{content:"";display:block;clear:both}
-    #feed article.story.hato-wrap-title .story-art{float:right!important;width:88px!important;aspect-ratio:1.35/1!important;margin:0 0 8px 12px!important;display:block!important;overflow:hidden!important;background:#ececea!important}
-    #feed article.story.hato-wrap-title h2{font-size:18px!important;line-height:1.14!important;letter-spacing:-.022em!important;margin:0 0 8px!important;font-weight:820!important;clear:none!important;overflow:visible!important}
-    #feed article.story.hato-wrap-title h2 .open-article{display:inline!important;width:auto!important;clear:none!important}
-    #feed article.story.hato-wrap-title .meta{clear:both!important;margin-top:2px!important}
+    #feed article.story.hato-wrap-title .story-art{float:right!important;clear:none!important;width:92px!important;height:64px!important;aspect-ratio:auto!important;margin:0 0 5px 10px!important;padding:0!important;display:block!important;overflow:hidden!important;background:#111!important}
+    #feed article.story.hato-wrap-title h2{display:block!important;width:auto!important;max-width:none!important;font-size:15px!important;line-height:1.24!important;letter-spacing:-.012em!important;margin:0!important;padding:0!important;font-weight:800!important;clear:none!important;overflow:visible!important;word-break:normal!important;overflow-wrap:normal!important}
+    #feed article.story.hato-wrap-title h2 .open-article{display:inline!important;width:auto!important;max-width:none!important;clear:none!important;margin:0!important;padding:0!important}
+    #feed article.story.hato-wrap-title .meta{clear:both!important;margin-top:7px!important;padding-top:0!important}
     @media(min-width:521px){
-      #feed article.story.hato-wrap-title .story-art{width:96px!important;margin-left:14px!important}
-      #feed article.story.hato-wrap-title h2{font-size:19px!important}
+      #feed article.story{grid-template-columns:34px minmax(0,1fr)!important;gap:10px!important}
+      #feed article.story.hato-wrap-title .story-art{width:104px!important;height:72px!important;margin-left:12px!important}
+      #feed article.story.hato-wrap-title h2{font-size:16px!important}
     }
   `;
   document.head.appendChild(style);
@@ -42,7 +44,7 @@
   if(!document.getElementById('hatoRuntime20260816')){
     const script=document.createElement('script');
     script.id='hatoRuntime20260816';
-    script.src='./hato-runtime-20260816.js?v=1';
+    script.src='./hato-runtime-20260816.js?v=2';
     script.defer=true;
     document.head.appendChild(script);
   }
