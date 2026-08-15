@@ -41,7 +41,11 @@ function init(){
   $('#miniSeek').addEventListener('change',e=>seekSpeechToFraction(Number(e.target.value)/1000));
   $$('.menu-link').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
   document.addEventListener('pointerdown',()=>{primeAudio(); if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();},{once:true});
-  window.addEventListener('scroll',()=>requestAnimationFrame(()=>{syncCurrentChapter();}),{passive:true});
+  let chapterScrollRaf=0;
+  window.addEventListener('scroll',()=>{
+    if(chapterScrollRaf)return;
+    chapterScrollRaf=requestAnimationFrame(()=>{chapterScrollRaf=0;syncCurrentChapter();});
+  },{passive:true});
 }
 
 document.addEventListener('DOMContentLoaded',init);
@@ -67,4 +71,4 @@ const loadAddon=async(src,label)=>{
 };
 
 loadAddon('./ru.js?v=20260816-1','Russian localization').then(()=>loadAddon('./ru-fix.js?v=20260816-1','Russian dynamic fix'));
-loadAddon('./hato-inbox.js?v=20260816-7','inbox').then(()=>loadAddon('./hato-lean.js?v=20260816-1','lean runtime'));
+loadAddon('./hato-inbox.js?v=20260816-7','inbox').then(()=>loadAddon('./hato-lean.js?v=20260816-2','lean runtime'));
