@@ -8,6 +8,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/hato-hourly.yml'
+      - 'scripts/hato_hourly.py'
+      - 'scripts/hato_hourly_v2.py'
 
 permissions:
   contents: write
@@ -45,7 +47,7 @@ jobs:
           fi
 
       - name: Collect, deduplicate and select HATO news
-        run: python scripts/hato_hourly.py
+        run: python scripts/hato_hourly_v2.py
 
       - name: Validate live data
         shell: bash
@@ -57,7 +59,7 @@ jobs:
           data=json.loads(p.read_text(encoding='utf-8'))
           articles=data.get('articles', [])
           assert isinstance(articles, list)
-          assert len(articles) <= 50
+          assert 12 <= len(articles) <= 50, f'unsafe edition size: {len(articles)}'
           ids=[int(a['id']) for a in articles]
           assert len(ids) == len(set(ids))
           for a in articles:
