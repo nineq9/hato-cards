@@ -435,9 +435,9 @@
       if(article){focusArticle(article.dataset.id);return;}
       const chip=e.target.closest('.interest-chip');
       if(chip){const y=$('#articleScroll')?.scrollTop||0;state.interests.splice(Number(chip.dataset.i),1);persist();renderDrawer();renderReader({resetScroll:false,scrollTop:y});return;}
-      const theme=e.target.closest('[data-theme]');
+      const theme=e.target.closest('button[data-theme]');
       if(theme){state.themeChoice=theme.dataset.theme;localStorage.setItem('kingfisherTheme',state.themeChoice);applyTheme();return;}
-      const language=e.target.closest('[data-lang]');
+      const language=e.target.closest('button[data-lang]');
       if(language){const y=$('#articleScroll')?.scrollTop||0;localStorage.setItem('kingfisherLanguage',language.dataset.lang);document.documentElement.lang=language.dataset.lang;renderDrawer();renderReader({resetScroll:false,scrollTop:y});}
     });
     body.addEventListener('submit',e=>{
