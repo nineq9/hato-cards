@@ -29,6 +29,20 @@ h.QUERIES = [
     {"name":"osint","category":"OSINT","weight":9,"q":"Украина (OSINT OR спутниковые снимки OR геолокация OR разведка OR кибербезопасность)"},
 ]
 
+_original_load_state = h.load_state
+
+def load_state():
+    state = _original_load_state()
+    # A broken/under-filled edition must never become the stable base for the day.
+    # Force a fresh baseline on the next run instead.
+    articles = state.get("articles", []) if isinstance(state, dict) else []
+    if len(articles) < 12:
+        state["edition_date"] = None
+        state["articles"] = []
+    return state
+
+h.load_state = load_state
+
 _original_article = h.article_from_candidate
 
 def article_from_candidate(candidate, article_id, now_local):
