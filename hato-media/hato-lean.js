@@ -207,7 +207,6 @@
       speechState.duration=Math.max(.1,speechState.hatoLeanBaseDuration/rate);
       speechState.position=Math.min(oldPos,speechState.duration);
       speechState.startedAt=performance.now()-speechState.position*1000;
-      if(typeof updateSpeechUI==='function')updateSpeechUI();
     }catch(e){}
   };
 
@@ -226,7 +225,6 @@
       speechState.position=Math.min(speechState.duration-.01,fraction*speechState.duration);
       speechState.startedAt=performance.now()-speechState.position*1000;
       if(typeof speakFromPosition==='function')speakFromPosition(Math.max(0,speechState.position),!!speechState.paused);
-      if(typeof updateSpeechUI==='function'&&!speechState.paused)updateSpeechUI();
     }catch(e){}
   };
 
