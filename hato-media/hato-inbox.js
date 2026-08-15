@@ -2,63 +2,191 @@
   let attempts=0;
   const boot=()=>{
     const app=window.__HATO_BRIDGE__;
-    if((!app||!Array.isArray(app.articles))&&attempts++<80){setTimeout(boot,50);return;}
+    if((!app||!Array.isArray(app.articles))&&attempts++<100){setTimeout(boot,50);return;}
     if(!app||!Array.isArray(app.articles)){console.error('HATO inbox bridge unavailable');return;}
-    if(window.__HATO_INBOX_V4__)return;
-    window.__HATO_INBOX_V4__=true;
+    if(window.__HATO_INBOX_V5__)return;
+    window.__HATO_INBOX_V5__=true;
 
     const articles=app.articles;
-    const css=document.createElement('style');
-    css.textContent=`
-      .hato-inbox-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:11px 16px 10px;border-bottom:1px solid var(--line);background:#fff}
-      .hato-inbox-main{display:flex;align-items:baseline;gap:8px}.hato-inbox-label{font-size:11px;font-weight:900;letter-spacing:.11em}.hato-inbox-count{font-size:18px;font-weight:900;color:var(--orange)}
-      .hato-inbox-hint{font-size:10px;color:#777;text-align:right;white-space:nowrap}
-      #feed article[data-id]{position:relative;will-change:transform}
-      #feed article.hato-swiping{z-index:3;transition:none!important;box-shadow:100vw 0 0 #f7eeee}
-      #feed article.hato-swiping::after{content:'捨てる';position:absolute;left:calc(100% + 18px);top:50%;transform:translateY(-50%);font-size:12px;font-weight:900;color:#9b3030;white-space:nowrap}
-      #feed article.hato-dismiss-out{transition:transform .22s ease,opacity .18s ease!important;pointer-events:none}
-      #feed .timeline-chapter.hato-empty-chapter{display:none}
-      .hato-undo{position:fixed;left:16px;right:16px;bottom:calc(18px + var(--safe-bottom));z-index:220;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#111;color:#fff;border-radius:12px;padding:13px 14px 13px 16px;box-shadow:0 8px 28px rgba(0,0,0,.22);opacity:0;transform:translateY(18px);pointer-events:none;transition:.18s ease}
-      .hato-undo.show{opacity:1;transform:translateY(0);pointer-events:auto}.hato-undo span{font-size:12px;font-weight:700}.hato-undo button{color:#fff;font-size:12px;font-weight:900;border-bottom:1px solid rgba(255,255,255,.75);padding:4px 0}
-    `;
-    document.head.appendChild(css);
-
-    const key='hato-inbox-dismissed-v4';
+    const total=articles.length;
+    const categories=['UKRAINE','LIFE','REGIONS','WAR','WORLD','TECH','OSINT'].filter(cat=>articles.some(a=>a.category===cat));
     const valid=new Set(articles.map(a=>Number(a.id)));
+    const order=new Map(articles.map((a,i)=>[Number(a.id),i]));
+
+    const style=document.createElement('style');
+    style.textContent=`
+      .utility{display:none!important}
+      #hatoFixedControls{position:sticky;top:58px;z-index:45;background:#fff;border-bottom:1px solid var(--line);transition:opacity .2s ease,transform .2s ease}
+      body.completion-mode #hatoFixedControls{opacity:0;pointer-events:none;transform:translateY(-110%)}
+      .hato-inbox-panel{padding:10px 16px 8px;background:#fff}
+      .hato-inbox-title{display:flex;align-items:baseline;gap:8px;height:25px}
+      .hato-inbox-label{font-size:11px;font-weight:900;letter-spacing:.11em}
+      .hato-inbox-count{font-size:18px;line-height:1;font-weight:900;color:var(--orange);font-variant-numeric:tabular-nums}
+      .hato-progress-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;margin-top:7px}
+      .hato-progress-track{height:4px;background:#e6e6e4;overflow:hidden}
+      .hato-progress-fill{height:100%;width:100%;background:var(--orange);transform-origin:left center;transition:width .28s cubic-bezier(.2,.75,.25,1)}
+      .hato-progress-text{min-width:45px;text-align:right;font-size:10px;line-height:1;font-weight:850;color:#555;font-variant-numeric:tabular-nums;white-space:nowrap}
+      .hato-progress-text.complete{color:var(--orange);letter-spacing:.055em;font-size:10px}
+      .hato-audio-row{display:flex;justify-content:center;align-items:center;gap:13px;padding:9px 0 1px}
+      .hato-audio-btn{position:relative;width:31px;height:31px;border:1px solid #bdbdbd;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--orange)}
+      .hato-audio-btn::before{content:'▶';font-size:9px;line-height:1;margin-left:2px}
+      .hato-audio-btn.long::after{content:'';position:absolute;inset:3px;border:1px solid #bdbdbd;border-radius:50%;pointer-events:none}
+      #hatoFixedControls .category-selector{position:relative!important;top:auto!important;z-index:4;border-top:1px solid #f0f0ee}
+      #hatoFixedControls .search-panel{position:relative!important;top:auto!important;z-index:3}
+      .cat-btn[data-cat="TOP"]{display:none!important}
+      #feed .timeline-chapter:first-child{margin-top:0!important}
+      #feed .timeline-chapter article.story:last-child{border-bottom:0!important}
+      #feed article[data-id]{position:relative;z-index:2;background:#fff;will-change:transform}
+      #feed article.hato-swiping{transition:none!important;z-index:3}
+      #feed article.hato-dismiss-out{transition:transform .22s cubic-bezier(.2,.75,.25,1),opacity .18s ease!important;pointer-events:none}
+      #feed .timeline-chapter.hato-empty-chapter{display:none}
+      .hato-swipe-reveal{position:fixed;background:var(--orange);z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:flex-end;padding-right:22px;overflow:hidden}
+      .hato-swipe-reveal span,.hato-detail-reveal span{color:#fff;font-size:27px;line-height:1;font-weight:900;transform:scale(.92);transition:transform .12s ease}
+      .hato-swipe-reveal.ready span,.hato-detail-reveal.ready span{transform:scale(1.12)}
+      .hato-detail-reveal{position:fixed;inset:0;background:var(--orange);z-index:119;pointer-events:none;display:flex;align-items:center;justify-content:flex-end;padding-right:28px}
+      .hato-undo{position:fixed;left:16px;right:16px;bottom:calc(18px + var(--safe-bottom));z-index:220;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#111;color:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 8px 28px rgba(0,0,0,.22);opacity:0;transform:translateY(18px);pointer-events:none;transition:.18s ease}
+      .hato-undo.show{opacity:1;transform:translateY(0);pointer-events:auto}.hato-undo span{font-size:16px;font-weight:900}.hato-undo button{color:#fff;font-size:11px;font-weight:900;border-bottom:1px solid rgba(255,255,255,.75);padding:4px 0;letter-spacing:.05em}
+    `;
+    document.head.appendChild(style);
+
+    const key='hato-inbox-dismissed-v5';
     let dismissed=new Set();
-    try{dismissed=new Set(JSON.parse(localStorage.getItem(key)||'[]').map(Number).filter(id=>valid.has(id)));}catch(e){}
+    try{
+      const raw=localStorage.getItem(key) ?? localStorage.getItem('hato-inbox-dismissed-v4') ?? '[]';
+      dismissed=new Set(JSON.parse(raw).map(Number).filter(id=>valid.has(id)));
+    }catch(e){}
     const save=()=>{try{localStorage.setItem(key,JSON.stringify([...dismissed]));}catch(e){}};
 
-    const ensureBar=()=>{
-      let bar=document.getElementById('hatoInboxBar');
-      if(bar)return;
-      const anchor=document.getElementById('categorySelector');
-      if(!anchor)return;
-      bar=document.createElement('div');
-      bar.id='hatoInboxBar';bar.className='hato-inbox-bar';
-      bar.innerHTML='<div class="hato-inbox-main"><span class="hato-inbox-label">INBOX</span><strong id="hatoInboxCount" class="hato-inbox-count">0</strong></div><span class="hato-inbox-hint">← スワイプで捨てる</span>';
-      anchor.parentNode.insertBefore(bar,anchor);
+    const totalFor=cat=>articles.filter(a=>a.category===cat).length;
+    const remainingFor=cat=>articles.filter(a=>a.category===cat&&!dismissed.has(Number(a.id))).length;
+    const remainingTotal=()=>Math.max(0,total-dismissed.size);
+
+    const ensureFixedControls=()=>{
+      if(document.getElementById('hatoFixedControls'))return;
+      const selector=document.getElementById('categorySelector');
+      if(!selector)return;
+      const search=document.getElementById('searchPanel');
+      const fixed=document.createElement('div');fixed.id='hatoFixedControls';
+      fixed.innerHTML=`<div class="hato-inbox-panel">
+        <div class="hato-inbox-title"><span class="hato-inbox-label">INBOX</span><strong id="hatoInboxCount" class="hato-inbox-count">${total}</strong></div>
+        <div class="hato-progress-row"><div class="hato-progress-track"><div id="hatoProgressFill" class="hato-progress-fill"></div></div><span id="hatoProgressText" class="hato-progress-text">${total} / ${total}</span></div>
+        <div class="hato-audio-row"><button id="hatoAudioShort" class="hato-audio-btn short" type="button" aria-label="12 min"></button><button id="hatoAudioLong" class="hato-audio-btn long" type="button" aria-label="25 min"></button></div>
+      </div>`;
+      selector.parentNode.insertBefore(fixed,selector);
+      fixed.appendChild(selector);
+      if(search)fixed.appendChild(search);
+      document.getElementById('hatoAudioShort')?.addEventListener('click',()=>document.querySelector('.audio-option[data-mode="digest"]')?.click());
+      document.getElementById('hatoAudioLong')?.addEventListener('click',()=>document.querySelector('.audio-option[data-mode="all"]')?.click());
     };
-    const updateCount=()=>{ensureBar();const el=document.getElementById('hatoInboxCount');if(el)el.textContent=String(Math.max(0,articles.length-dismissed.size));};
-    const prune=()=>{
-      const feed=document.getElementById('feed');if(!feed)return;
-      feed.querySelectorAll('article[data-id]').forEach(card=>{if(dismissed.has(Number(card.dataset.id)))card.remove();});
-      feed.querySelectorAll('.timeline-chapter').forEach(s=>s.classList.toggle('hato-empty-chapter',!s.querySelector('article[data-id]')));
-      updateCount();
+
+    const visibleCategory=()=>{
+      const threshold=58+(document.getElementById('hatoFixedControls')?.offsetHeight||0)+8;
+      let best=categories[0]||null;
+      categories.forEach(cat=>{
+        const section=document.getElementById(`chapter-${cat}`);
+        if(section&&section.getBoundingClientRect().top<=threshold)best=cat;
+      });
+      return best;
     };
+
+    const updateCounts=()=>{
+      ensureFixedControls();
+      const remain=remainingTotal();
+      const count=document.getElementById('hatoInboxCount');if(count)count.textContent=String(remain);
+      const fill=document.getElementById('hatoProgressFill');if(fill)fill.style.width=`${total?remain/total*100:0}%`;
+      const progress=document.getElementById('hatoProgressText');
+      if(progress){progress.textContent=remain===0?'COMPLETE!!':`${remain} / ${total}`;progress.classList.toggle('complete',remain===0);}
+
+      document.querySelectorAll('.cat-btn[data-cat]').forEach(btn=>{
+        const cat=btn.dataset.cat;if(cat==='TOP'){btn.style.display='none';return;}
+        const t=totalFor(cat),r=remainingFor(cat);let status=btn.querySelector('.cat-status');
+        if(!status){status=document.createElement('span');status.className='cat-status';btn.appendChild(status);}
+        status.textContent=`${r} / ${t}`;
+      });
+      categories.forEach(cat=>{
+        const section=document.getElementById(`chapter-${cat}`);if(!section)return;
+        const countEl=section.querySelector('.chapter-count');if(countEl)countEl.textContent=`${remainingFor(cat)} / ${totalFor(cat)}`;
+        section.classList.toggle('chapter-done',remainingFor(cat)===0);
+      });
+
+      const cat=visibleCategory();
+      if(cat){
+        const btn=document.querySelector(`.cat-btn[data-cat="${cat}"]`);
+        const label=btn?.querySelector('.cat-label')?.textContent?.trim()||cat;
+        const current=document.getElementById('categoryCurrent');if(current)current.textContent=label;
+        const currentStatus=document.getElementById('categoryCurrentStatus');if(currentStatus)currentStatus.textContent=`${remainingFor(cat)} / ${totalFor(cat)}`;
+        document.querySelectorAll('.cat-btn[data-cat]').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));
+      }
+    };
+
+    const makeStoryFromLead=(card,a)=>{
+      const visual=card.querySelector('.lead-art')?.innerHTML||'';
+      const node=document.createElement('article');node.className=`story ${card.classList.contains('read')?'read':''}`;node.dataset.id=String(a.id);
+      node.innerHTML=`<div class="story-num">01</div><div class="story-main"><div class="story-topline"><span class="story-cat">${a.category}</span><span class="read-check">✓ READ</span></div><h2><button class="open-article" data-id="${a.id}">${app.escape(a.title)}</button></h2><p>${app.escape(a.summary)}</p><div class="meta"><a class="source-link" href="#" onclick="return false">${app.escape(a.source)}</a><span>${app.escape(a.time)}</span></div></div><button class="open-article story-art" data-id="${a.id}" aria-label="Open">${visual}</button>`;
+      node.querySelectorAll('.open-article').forEach(b=>b.addEventListener('click',()=>app.openArticle(a.id)));
+      return node;
+    };
+
+    let normalizing=false;
+    const normalizeFeed=()=>{
+      if(normalizing)return;normalizing=true;
+      const feed=document.getElementById('feed');
+      if(feed){
+        const top=feed.querySelector('#chapter-TOP');
+        if(top){
+          [...top.querySelectorAll('article[data-id]')].forEach(original=>{
+            const id=Number(original.dataset.id),a=articles.find(x=>Number(x.id)===id);if(!a)return;
+            const target=feed.querySelector(`#chapter-${a.category}`);if(!target)return;
+            const card=original.classList.contains('lead')?makeStoryFromLead(original,a):original;
+            target.appendChild(card);
+          });
+          top.remove();
+        }
+        categories.forEach(cat=>{
+          const section=feed.querySelector(`#chapter-${cat}`);if(!section)return;
+          const cards=[...section.children].filter(el=>el.matches?.('article[data-id]'));
+          cards.sort((a,b)=>(order.get(Number(a.dataset.id))??0)-(order.get(Number(b.dataset.id))??0));
+          let shown=0;
+          cards.forEach(card=>{
+            const id=Number(card.dataset.id);
+            if(dismissed.has(id)){card.remove();return;}
+            shown++;
+            const num=card.querySelector('.story-num');if(num)num.textContent=String(shown).padStart(2,'0');
+            section.appendChild(card);
+          });
+          section.classList.toggle('hato-empty-chapter',shown===0);
+        });
+        if(!feed.querySelector('.timeline-chapter'))feed.querySelectorAll('article[data-id]').forEach(card=>{if(dismissed.has(Number(card.dataset.id)))card.remove();});
+      }
+      updateCounts();normalizing=false;
+    };
+
     const feed=document.getElementById('feed');
-    if(feed)new MutationObserver(()=>requestAnimationFrame(prune)).observe(feed,{childList:true,subtree:true});
+    if(feed)new MutationObserver(()=>requestAnimationFrame(normalizeFeed)).observe(feed,{childList:true,subtree:true});
+    window.addEventListener('scroll',()=>requestAnimationFrame(updateCounts),{passive:true});
 
     let undo=document.getElementById('hatoUndo');
-    if(!undo){undo=document.createElement('div');undo.id='hatoUndo';undo.className='hato-undo';undo.innerHTML='<span>INBOXから捨てました</span><button type="button">元に戻す</button>';document.body.appendChild(undo);}
+    if(!undo){undo=document.createElement('div');undo.id='hatoUndo';undo.className='hato-undo';undo.innerHTML='<span>✓</span><button type="button">UNDO</button>';document.body.appendChild(undo);}
     let last=null,timer=0;
-    const showUndo=id=>{last=id;undo.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>{undo.classList.remove('show');last=null;},4500);};
-    const dismissId=id=>{id=Number(id);if(dismissed.has(id))return false;dismissed.add(id);save();showUndo(id);updateCount();return true;};
-    const restore=id=>{dismissed.delete(Number(id));save();app.rerender?.();requestAnimationFrame(prune);};
+    const showUndo=id=>{last=id;undo.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>{undo.classList.remove('show');last=null;},4200);};
+    const dismissId=id=>{id=Number(id);if(!valid.has(id)||dismissed.has(id))return false;dismissed.add(id);save();showUndo(id);updateCounts();return true;};
+    const restore=id=>{dismissed.delete(Number(id));save();app.rerender?.();setTimeout(normalizeFeed,0);};
     undo.querySelector('button').addEventListener('click',()=>{if(last!==null)restore(last);undo.classList.remove('show');last=null;clearTimeout(timer);});
 
+    let reveal=null;
+    const clearReveal=()=>{reveal?.remove();reveal=null;};
+    const makeListReveal=card=>{
+      clearReveal();const r=card.getBoundingClientRect();
+      reveal=document.createElement('div');reveal.className='hato-swipe-reveal';reveal.innerHTML='<span>✓</span>';
+      reveal.style.left=`${r.left}px`;reveal.style.top=`${r.top}px`;reveal.style.width=`${r.width}px`;reveal.style.height=`${r.height}px`;document.body.appendChild(reveal);
+    };
+
     let swipe=null,suppressUntil=0;
-    const resetList=()=>{if(!swipe)return;const card=swipe.card;card.classList.remove('hato-swiping');card.style.transition='transform .16s ease';card.style.transform='translateX(0)';setTimeout(()=>{card.style.transition='';card.style.transform='';},170);swipe=null;};
+    const resetList=()=>{
+      if(!swipe){clearReveal();return;}
+      const card=swipe.card;card.classList.remove('hato-swiping');card.style.transition='transform .16s ease';card.style.transform='translateX(0)';
+      setTimeout(()=>{card.style.transition='';card.style.transform='';clearReveal();},170);swipe=null;
+    };
     document.addEventListener('touchstart',e=>{
       if(e.touches.length!==1||document.body.classList.contains('article-open'))return;
       const card=e.target.closest?.('#feed article[data-id]');if(!card)return;
@@ -68,27 +196,30 @@
       if(!swipe||e.touches.length!==1)return;
       const t=e.touches[0],dx=t.clientX-swipe.x,dy=t.clientY-swipe.y;swipe.lastX=t.clientX;swipe.lastY=t.clientY;
       if(!swipe.locked&&(Math.abs(dx)>8||Math.abs(dy)>8)){
-        if(dx<0&&Math.abs(dx)>Math.abs(dy)*1.12){swipe.locked=true;swipe.card.classList.add('hato-swiping');}
+        if(dx<0&&Math.abs(dx)>Math.abs(dy)*1.12){swipe.locked=true;swipe.card.classList.add('hato-swiping');makeListReveal(swipe.card);}
         else{swipe=null;return;}
       }
-      if(swipe?.locked){e.preventDefault();swipe.card.style.transform=`translateX(${Math.min(0,dx)}px)`;suppressUntil=Date.now()+450;}
+      if(swipe?.locked){e.preventDefault();swipe.card.style.transform=`translateX(${Math.min(0,dx)}px)`;const threshold=Math.max(72,swipe.card.getBoundingClientRect().width*.22);reveal?.classList.toggle('ready',dx<=-threshold);suppressUntil=Date.now()+450;}
     },{passive:false});
     document.addEventListener('touchend',()=>{
       if(!swipe)return;
       const s=swipe,dx=s.lastX-s.x,threshold=Math.max(72,s.card.getBoundingClientRect().width*.22);
-      if(s.locked&&dx<=-threshold){swipe=null;suppressUntil=Date.now()+500;if(dismissId(s.id)){s.card.classList.remove('hato-swiping');s.card.classList.add('hato-dismiss-out');s.card.style.transform='translateX(-110vw)';s.card.style.opacity='0';setTimeout(()=>{app.rerender?.();requestAnimationFrame(prune);},220);}}
+      if(s.locked&&dx<=-threshold){swipe=null;suppressUntil=Date.now()+500;if(dismissId(s.id)){s.card.classList.remove('hato-swiping');s.card.classList.add('hato-dismiss-out');s.card.style.transform='translateX(-110vw)';s.card.style.opacity='0';setTimeout(()=>{clearReveal();app.rerender?.();setTimeout(normalizeFeed,0);},220);}}
       else resetList();
     },{passive:true});
     document.addEventListener('touchcancel',resetList,{passive:true});
     document.addEventListener('click',e=>{if(Date.now()<suppressUntil&&e.target.closest?.('#feed article[data-id]')){e.preventDefault();e.stopPropagation();}},true);
 
-    let articleSwipe=null;
+    let articleSwipe=null,detailReveal=null;
     const articleView=document.getElementById('articleView');
-    const currentArticleId=()=>{
-      const title=document.getElementById('articleContent')?.querySelector('h1')?.textContent?.trim();
-      const found=articles.find(a=>a.title?.trim()===title);return found?Number(found.id):null;
+    const currentArticleId=()=>{const title=document.getElementById('articleContent')?.querySelector('h1')?.textContent?.trim();const found=articles.find(a=>a.title?.trim()===title);return found?Number(found.id):null;};
+    const showDetailReveal=()=>{if(detailReveal)return;detailReveal=document.createElement('div');detailReveal.className='hato-detail-reveal';detailReveal.innerHTML='<span>✓</span>';document.body.appendChild(detailReveal);};
+    const clearDetailReveal=()=>{detailReveal?.remove();detailReveal=null;};
+    const resetArticle=()=>{
+      if(!articleSwipe||!articleView){clearDetailReveal();return;}
+      articleView.style.transition='transform .16s ease';articleView.style.transform='translateX(0)';
+      setTimeout(()=>{articleView.style.transition='';articleView.style.transform='';clearDetailReveal();},170);articleSwipe=null;
     };
-    const resetArticle=()=>{if(!articleSwipe||!articleView)return;articleView.style.transition='transform .16s ease';articleView.style.transform='translateX(0)';setTimeout(()=>{articleView.style.transition='';articleView.style.transform='';},170);articleSwipe=null;};
     document.addEventListener('touchstart',e=>{
       if(e.touches.length!==1||!document.body.classList.contains('article-open')||!articleView)return;
       const t=e.touches[0];articleSwipe={x:t.clientX,y:t.clientY,lastX:t.clientX,lastY:t.clientY,locked:false};
@@ -97,20 +228,23 @@
       if(!articleSwipe||e.touches.length!==1)return;
       const t=e.touches[0],dx=t.clientX-articleSwipe.x,dy=t.clientY-articleSwipe.y;articleSwipe.lastX=t.clientX;articleSwipe.lastY=t.clientY;
       if(!articleSwipe.locked&&(Math.abs(dx)>8||Math.abs(dy)>8)){
-        if(dx<0&&Math.abs(dx)>Math.abs(dy)*1.12)articleSwipe.locked=true;
+        if(dx<0&&Math.abs(dx)>Math.abs(dy)*1.12){articleSwipe.locked=true;showDetailReveal();}
         else{articleSwipe=null;return;}
       }
-      if(articleSwipe?.locked){e.preventDefault();articleView.style.transition='none';articleView.style.transform=`translateX(${Math.min(0,dx)}px)`;}
+      if(articleSwipe?.locked){e.preventDefault();articleView.style.transition='none';articleView.style.transform=`translateX(${Math.min(0,dx)}px)`;const threshold=Math.max(72,innerWidth*.22);detailReveal?.classList.toggle('ready',dx<=-threshold);}
     },{passive:false});
     document.addEventListener('touchend',()=>{
       if(!articleSwipe)return;
       const s=articleSwipe,dx=s.lastX-s.x,threshold=Math.max(72,innerWidth*.22);
-      if(s.locked&&dx<=-threshold){articleSwipe=null;const id=currentArticleId();if(id!==null)dismissId(id);articleView.style.transition='transform .22s ease,opacity .18s ease';articleView.style.transform='translateX(-110vw)';articleView.style.opacity='0';setTimeout(()=>{articleView.style.transition='';articleView.style.transform='';articleView.style.opacity='';document.getElementById('backArticle')?.click();app.rerender?.();requestAnimationFrame(prune);},220);}
+      if(s.locked&&dx<=-threshold){articleSwipe=null;const id=currentArticleId();if(id!==null)dismissId(id);articleView.style.transition='transform .22s cubic-bezier(.2,.75,.25,1),opacity .18s ease';articleView.style.transform='translateX(-110vw)';articleView.style.opacity='0';setTimeout(()=>{articleView.style.transition='';articleView.style.transform='';articleView.style.opacity='';clearDetailReveal();document.getElementById('backArticle')?.click();app.rerender?.();setTimeout(normalizeFeed,0);},220);}
       else resetArticle();
     },{passive:true});
     document.addEventListener('touchcancel',resetArticle,{passive:true});
 
-    ensureBar();updateCount();prune();
+    ensureFixedControls();
+    normalizeFeed();
+    setTimeout(normalizeFeed,300);
+    setTimeout(normalizeFeed,900);
   };
   boot();
 })();
