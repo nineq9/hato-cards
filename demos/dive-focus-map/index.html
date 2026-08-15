@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#071113" />
+  <title>KAWASEMI DIVE Interaction Demo</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="demo-shell" id="demoShell">
+    <header class="demo-header">
+      <span class="wordmark">KAWASEMI</span>
+      <span class="demo-label">DIVE INTERACTION DEMO</span>
+    </header>
+
+    <main class="workspace">
+      <section class="view cards-view active" id="cardsView" aria-label="CARDS demo">
+        <div class="cards-stage" id="cardsStage">
+          <div class="next-card" aria-hidden="true">
+            <small>WORLD · DEMO</small>
+            <strong>次のカードは常に先頭から始まります。</strong>
+          </div>
+
+          <article class="article-card" id="articleCard" data-article-id="coastal-blast">
+            <div class="card-scroll" id="cardScroll">
+              <section class="cover">
+                <div class="plant-visual" aria-hidden="true">
+                  <div class="horizon"></div>
+                  <div class="stack stack-a"></div>
+                  <div class="stack stack-b"></div>
+                  <div class="flare"></div>
+                  <div class="smoke smoke-a"></div>
+                  <div class="smoke smoke-b"></div>
+                </div>
+                <div class="cover-shade"></div>
+                <div class="cover-meta">
+                  <span>BLACK SEA COAST · 08:42</span>
+                  <span class="status-unverified">UNVERIFIED CAUSE</span>
+                </div>
+                <div class="cover-copy">
+                  <small>ENERGY · SECURITY</small>
+                  <h1>沿岸部の発電施設で大規模な爆発</h1>
+                  <p>政府は無人機攻撃と発表したが、原因は独立確認されていない。現時点では、爆発の発生と施設被害は複数映像で確認できる一方、攻撃主体と手段は未確認のまま。</p>
+                </div>
+                <div class="drag-invitation" id="dragHandle" role="button" tabindex="0" aria-label="長押ししてDIVEへ持ち込む">
+                  <span class="drag-notch" aria-hidden="true"></span>
+                  <span>HOLD · DIVE</span>
+                </div>
+              </section>
+
+              <section class="article-body">
+                <div class="section-kicker">WHAT IS KNOWN</div>
+                <h2>確認されていること</h2>
+                <p>現地時間の朝、沿岸部の火力発電施設で複数回の爆発が発生した。施設の一部で火災が確認され、送電能力が一時低下したと地域当局が発表している。</p>
+                <p>政府当局は「無人機による攻撃」と説明しているが、独立した第三者機関はまだ原因を確認していない。</p>
+
+                <div class="fact-grid">
+                  <div><small>CONFIRMED</small><strong>爆発・火災</strong></div>
+                  <div><small>CLAIM</small><strong>無人機攻撃</strong></div>
+                  <div><small>UNKNOWN</small><strong>攻撃主体</strong></div>
+                </div>
+
+                <div class="section-kicker">WHY IT MATTERS</div>
+                <h2>なぜ重要か</h2>
+                <p>施設は沿岸地域の電力供給だけでなく港湾インフラにも接続している。長期停止になれば電力価格、港湾運用、周辺産業への影響が広がる可能性がある。</p>
+
+                <div class="section-kicker">SOURCE STATE</div>
+                <h2>情報源の状態</h2>
+                <p>政府発表、現地映像、地域電力会社の運転情報が存在する。ただし、映像だけでは飛来物の種類や攻撃主体を確定できない。</p>
+
+                <div class="source-row">
+                  <span>DEMO SOURCE SET</span>
+                  <span>3 items · mixed confidence</span>
+                </div>
+                <div class="article-end-space"></div>
+              </section>
+            </div>
+            <div class="save-feedback" id="saveFeedback" aria-hidden="true">⌑</div>
+          </article>
+        </div>
+        <div class="gesture-status" id="gestureStatus" aria-live="polite"></div>
+      </section>
+
+      <section class="view live-view" id="liveView" aria-label="LIVE demo">
+        <div class="placeholder-panel">
+          <small>LIVE · PLACEHOLDER</small>
+          <h2>Incoming signals</h2>
+          <p>このデモではLIVE本体は実装していません。DIVEとCARDSの関係だけを検証します。</p>
+          <div class="signal-list">
+            <div><span>08:42</span><strong>Local video</strong><em>smoke visible</em></div>
+            <div><span>08:47</span><strong>Government</strong><em>claims drone attack</em></div>
+            <div><span>08:55</span><strong>Grid operator</strong><em>generation reduced</em></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view dive-view" id="diveView" aria-label="DIVE demo">
+        <div class="dive-home" id="diveHome">
+          <small>DIVE HOME</small>
+          <h2>どこから深く知る？</h2>
+          <p>DIVEはAIのおすすめ順ではなく、自分で問いの方向を選ぶための探索空間です。</p>
+          <button class="home-entry" data-home-node="event">
+            <span>START FROM DEMO EVENT</span>
+            <strong>沿岸部の発電施設で大規模な爆発</strong>
+          </button>
+          <button class="home-entry muted" data-home-node="history-root">
+            <span>START FROM A QUESTION</span>
+            <strong>過去の類似事例から見る</strong>
+          </button>
+        </div>
+
+        <div class="focus-shell hidden" id="focusShell">
+          <div class="trail-row">
+            <button class="article-return" id="articleReturn" aria-label="元記事へ戻る">← ARTICLE</button>
+            <nav class="dive-trail" id="diveTrail" aria-label="DIVE trail"></nav>
+          </div>
+
+          <div class="focus-map" id="focusMap">
+            <svg class="edge-layer" id="edgeLayer" aria-hidden="true"></svg>
+            <div class="relation-inspector" id="relationInspector" aria-live="polite">
+              <span>RELATION</span>
+              <strong id="relationName">select an edge</strong>
+              <p id="relationText">線の意味をタップすると、なぜ接続されているか確認できます。</p>
+            </div>
+            <div class="node-layer" id="nodeLayer"></div>
+          </div>
+
+          <div class="focus-footer">
+            <button id="diveBack" class="text-button">← BACK</button>
+            <div class="focus-caption"><small id="focusType"></small><span id="focusQuestion"></span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="editorial-dock" id="editorialDock" aria-label="Editorial Dock">
+      <button data-view="cards" class="dock-item active">CARDS</button>
+      <button data-view="live" class="dock-item">LIVE</button>
+      <button data-view="dive" class="dock-item dive-drop-zone" id="diveDock">DIVE</button>
+    </nav>
+  </div>
+
+  <div class="drag-layer" id="dragLayer" aria-hidden="true">
+    <div class="drag-card" id="dragCard">
+      <small>DRAGGING ARTICLE</small>
+      <strong>沿岸部の発電施設で大規模な爆発</strong>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
