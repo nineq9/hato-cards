@@ -41,11 +41,26 @@
   fix();
   new MutationObserver(()=>requestAnimationFrame(fix)).observe(document.body,{childList:true,subtree:true});
 
-  if(!document.getElementById('hatoRuntime20260816')){
-    const script=document.createElement('script');
-    script.id='hatoRuntime20260816';
-    script.src='./hato-runtime-20260816.js?v=2';
-    script.defer=true;
-    document.head.appendChild(script);
+  const loadAxiosLayout=()=>{
+    if(document.getElementById('hatoAxiosLayout20260816'))return;
+    const s=document.createElement('script');
+    s.id='hatoAxiosLayout20260816';
+    s.src='./hato-axios-layout.js?v=1';
+    s.defer=true;
+    document.head.appendChild(s);
+  };
+
+  let runtime=document.getElementById('hatoRuntime20260816');
+  if(!runtime){
+    runtime=document.createElement('script');
+    runtime.id='hatoRuntime20260816';
+    runtime.src='./hato-runtime-20260816.js?v=2';
+    runtime.defer=true;
+    runtime.addEventListener('load',loadAxiosLayout,{once:true});
+    document.head.appendChild(runtime);
+  }else if(window.__HATO_RUNTIME_20260816__){
+    loadAxiosLayout();
+  }else{
+    runtime.addEventListener('load',loadAxiosLayout,{once:true});
   }
 })();
