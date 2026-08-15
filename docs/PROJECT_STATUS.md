@@ -15,11 +15,11 @@ Production integration of LIVE and DIVE is intentionally blocked until the CARDS
 | Track | Status | Current reality | Next executable action |
 |---|---|---|---|
 | Core / CARDS | REWORKING | Phase 0 refactor exists, but human-visible gesture and tutorial issues remain | Run human-like E2E audit, reproduce diagonal-scroll/NEXT failure, fix and re-run QA |
-| Design System | RUNNING | Visual direction exists but is not yet a formal shared design system | Define shared typography, spacing, surfaces, motion, navigation and epistemic-state grammar |
+| Design System | READY | Visual direction exists but is not yet a formal shared design system | Define shared typography, spacing, surfaces, motion, navigation and epistemic-state grammar |
 | Navigation / Tutorial | REWORKING | Editorial Dock prototype exists; current production tutorial/copy is not acceptable | Refine Editorial Dock and redesign tutorial around real KAWASEMI interaction |
-| LIVE | RUNNING | LIVE TRACE direction and demo work exist; production integration not approved | Make owner-reviewable browser demo and record findings |
-| DIVE | RUNNING | FOCUS MAP direction and DIVE demo branch exist; Drag-to-DIVE is under prototype exploration | Produce owner-reviewable demo including article-to-DIVE entry and record findings |
-| AI / Data | BLOCKED | Architecture can be explored, but production pipeline depends on stable product contracts | Wait for core UX/data contracts before production integration |
+| LIVE | READY | LIVE TRACE direction and demo work exist; production integration not approved | Make owner-reviewable browser demo and record findings |
+| DIVE | READY | FOCUS MAP direction and DIVE demo branch exist; Drag-to-DIVE is under prototype exploration | Produce owner-reviewable demo including article-to-DIVE entry and record findings |
+| AI / Data | READY | Architecture exists; production pipeline waits for stable product contracts | Convert architecture into implementation plan after core UX/data contracts stabilize |
 
 ## Confirmed product direction
 
