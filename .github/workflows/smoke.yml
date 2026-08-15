@@ -27,9 +27,11 @@ jobs:
       - name: Syntax check
         run: |
           node --check kingfisher.js
+          node --check demos/live-trace/live-trace.js
           node --check tests/smoke.mjs
           node --check tests/mobile-e2e.mjs
           node --check tests/untouched-regression.mjs
+          node --check tests/live-trace-demo.mjs
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
@@ -48,6 +50,9 @@ jobs:
       - name: Untouched feature regression
         if: always()
         run: node tests/untouched-regression.mjs
+      - name: LIVE TRACE demo E2E
+        if: always()
+        run: node tests/live-trace-demo.mjs
       - name: Upload visual checks
         if: always()
         uses: actions/upload-artifact@v4
