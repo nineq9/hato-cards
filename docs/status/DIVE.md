@@ -1,14 +1,14 @@
 # DIVE Status
 
 ### Status
-WAITING_EXTERNAL
+DONE — standalone interactive demo only
 
-Standalone demo implementation and local browser interaction QA are complete. GitHub Pages deployment is being verified before this status is promoted to DONE.
+The isolated DIVE prototype is implemented, browser-interaction tested in Portrait and Landscape, committed to `main`, and deployed through GitHub Pages. Production KAWASEMI integration remains intentionally deferred.
 
-### Current goal
-Validate the approved DIVE prototype direction as an isolated, touchable experience without changing production CARDS gesture code.
+### Current goal achieved
+Validate the approved DIVE prototype direction as a touchable experience without changing production CARDS gesture code.
 
-Approved demo direction:
+Validated demo direction:
 - FOCUS MAP
 - QUESTION LABEL
 - Drag to DIVE
@@ -18,16 +18,24 @@ Approved demo direction:
 - Portrait and Landscape comparison
 
 ### Access
-Repository path:
-- `demos/dive-focus-map/`
-
-Intended GitHub Pages URL:
+GitHub Pages:
 - `https://nineq9.github.io/hato-cards/demos/dive-focus-map/`
 
-GitHub Pages is sourced from `main` at `/`. Deployment status must be confirmed before the demo is marked DONE.
+Repository:
+- `demos/dive-focus-map/`
+
+Guide:
+- `demos/dive-focus-map/README.md`
+
+Deployment evidence:
+- GitHub Pages source: `main` at `/`
+- Pages build `1153865937`
+- Build commit: `07320ebdfb5e7aeb9fdc1b41b2ea4f84fe52cefe`
+- Result: `built`
+- Completed: 2026-08-15 23:05:18 UTC
 
 ### Implemented
-- Isolated static demo under `demos/dive-focus-map/`; production `kingfisher.js` / CARDS gesture implementation is untouched.
+- Isolated static demo under `demos/dive-focus-map/`; production CARDS gesture implementation is untouched.
 - CARDS-like article with vertical READ and isolated demo NEXT / SAVE gesture lock.
 - Dedicated `HOLD · DIVE` grab affordance; article-body long press does not enter Drag Mode.
 - Drag Mode lifts a compact article representation and turns Editorial Dock DIVE into a drop target.
@@ -65,7 +73,7 @@ Compared technically:
    - Not selected as the primary path.
    - Reduces availability at the moment curiosity occurs and weakens discoverability.
 
-This is still a prototype decision, not a production interaction contract.
+This remains a prototype decision, not a production interaction contract.
 
 ### QA — local Chromium browser automation
 
@@ -149,7 +157,6 @@ This is an observation from the isolated demo, not a final production orientatio
 - The dedicated grab affordance is a prototype choice; production visual placement still needs hands-on Owner evaluation.
 - Landscape two-pane is promising but is not yet a production orientation rule.
 - Local automated browser QA is not a substitute for physical iPhone Safari testing before production integration.
-- GitHub Pages deployment must finish successfully before owner-facing browser access is considered verified.
 
 ### Production integration cautions
 - Do not attach DIVE Drag Mode to article-body long press.
@@ -169,4 +176,4 @@ Before production integration, Product HQ should decide only after hands-on eval
 - whether Landscape two-pane becomes a supported production layout rather than only a responsive enhancement.
 
 ### Next action
-Confirm the GitHub Pages build that contains the demo and then promote this standalone-demo status to DONE. Production integration remains intentionally deferred.
+Product Owner can now evaluate the deployed standalone demo. Production integration remains intentionally deferred until that evaluation and until the CARDS interaction foundation is stable.
