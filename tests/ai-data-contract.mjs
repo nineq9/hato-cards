@@ -17,6 +17,9 @@ const sample = JSON.parse(
 const govukFixture = JSON.parse(
   await readFile(resolve(root, 'prototypes/ai-data-v0.1/fixtures/govuk-content.json'), 'utf8')
 );
+const govukRedirectFixture = JSON.parse(
+  await readFile(resolve(root, 'prototypes/ai-data-v0.1/fixtures/govuk-redirect.json'), 'utf8')
+);
 
 function allArticleEntries(article) {
   return [
@@ -116,6 +119,20 @@ assert.equal(normalized.originalText, govukFixture.description);
 assert.equal(normalized.originalText?.includes('synthetic body'), false);
 assert.equal(normalized.organization.name, 'Example Government Organisation');
 
+// The official quick-start endpoint currently returns a redirect record with
+// title/description null. That is valid source data and must not be discarded.
+const normalizedRedirect = normalizeGovUkContent(govukRedirectFixture, {
+  observedAt: '2026-08-16T09:00:00Z'
+});
+assert.equal(normalizedRedirect.sourceId, GOVUK_SOURCE.id);
+assert.equal(normalizedRedirect.externalId, 'ddbe46fa-9ca1-44ea-a03c-b2832e357b7c');
+assert.equal(normalizedRedirect.canonicalUrl, 'https://www.gov.uk/take-pet-abroad');
+assert.equal(normalizedRedirect.originalTitle, undefined);
+assert.equal(normalizedRedirect.originalText, undefined);
+assert.equal(normalizedRedirect.originalTextStorage, 'metadata_only');
+assert.equal(normalizedRedirect.publishedAt, '2020-08-10T15:30:03.000Z');
+assert.equal(normalizedRedirect.modifiedAt, '2020-08-10T15:30:03.000Z');
+
 // SourceAdapter cursor behavior: first observation emits; unchanged revision
 // on the next cursor does not. No network is used by this test.
 const fakeFetch = async () => ({
@@ -134,5 +151,22 @@ assert.equal(first.items.length, 1);
 assert.ok(first.nextCursor);
 const second = await adapter.fetch(first.nextCursor);
 assert.equal(second.items.length, 0);
+
+const redirectFetch = async () => ({
+  ok: true,
+  status: 200,
+  async json() {
+    return govukRedirectFixture;
+  }
+});
+const redirectAdapter = new GovUkContentAdapter({
+  monitoredPaths: [govukRedirectFixture.base_path],
+  fetchImpl: redirectFetch
+});
+const redirectFirst = await redirectAdapter.fetch();
+assert.equal(redirectFirst.items.length, 1);
+assert.equal(redirectFirst.items[0].originalTextStorage, 'metadata_only');
+const redirectSecond = await redirectAdapter.fetch(redirectFirst.nextCursor);
+assert.equal(redirectSecond.items.length, 0);
 
 console.log('AI/Data v0.1 contract fixture: PASS');
