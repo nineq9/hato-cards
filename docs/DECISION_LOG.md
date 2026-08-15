@@ -183,3 +183,47 @@ Polishing features independently would create multiple visual languages and incr
 
 Implication:
 Feature-specific designs may extend the system but should not silently contradict it. Owner-taste refinements should be decided from touchable prototypes after the shared grammar is applied.
+
+---
+
+## 2026-08-16 — AI / Data v0.1 uses one provenance-first common substrate
+
+Decision:
+Use one shared data path for future CARDS, LIVE, and DIVE:
+
+`Source → RawItem → Signal → EventCandidate → EventCluster → Observation / Claim / Evidence / Verification → Article → CARDS / LIVE / DIVE`.
+
+Make the following distinctions structural rather than prompt-writing conventions:
+- AI processing confidence is not truth confidence,
+- same-event probability is not claim verification,
+- observation is not proposition,
+- attribution is not verification,
+- conflicting evidence remains separately inspectable,
+- AI alone cannot set a proposition to `confirmed`,
+- generated Article facts must preserve provenance,
+- `historically_similar_to` is contextual and cannot act as supporting evidence.
+
+Reason:
+CARDS, LIVE, and DIVE need different presentations of the same underlying information. Rebuilding separate feature-specific truth/claim/source formats would create contradictions, provenance loss, and repeated AI interpretation. A single epistemically explicit substrate lets each mode project the data without silently changing what the data means.
+
+Implication:
+Concrete v0.1 schemas and interfaces live under `docs/ai-data/` and `docs/AI_DATA_ARCHITECTURE_V0_1.md`. Production code should integrate through those contracts after isolated adapter/projection testing rather than importing vendor-specific model/source payloads directly.
+
+---
+
+## 2026-08-16 — Five-day source path avoids paid, approval-gated, and unresolved-terms dependencies
+
+Decision:
+For the first real-data path, prioritize:
+- GDELT 2.0 / DOC API for broad discovery,
+- Japan Meteorological Agency disaster-prevention XML PULL for first-party Japanese live information,
+- GOV.UK Content API for structured first-party content,
+- a generic RSS / Atom adapter whose individual feeds remain gated by source-specific terms approval.
+
+Do not make the five-day v0.1 depend on X, Telegram, Reddit, YouTube Data API, Reuters, AP, ACLED, ReliefWeb, or unreviewed publisher feeds.
+
+Reason:
+Current official documentation shows that those deferred sources add one or more of: direct usage cost, external account/credential setup, approval/licensing, or material terms/AI-use restrictions. None is required to prove the common foundation or generate a convincing real-data path.
+
+Implication:
+No paid API call, external account creation, licensed content contract, or terms-risk ingestion is authorized by this decision. Enabling such a source requires the Owner decision boundary already defined for cost, accounts, or material terms risk.

@@ -16,6 +16,13 @@
   });
 }
 
+// Lightweight article art: render only one of three cached local images.
+const HATO_ART_IMAGES=['assets/article-1.svg?v=4','assets/article-2.svg?v=4','assets/article-3.svg?v=4'];
+artSVG=(a,displayNo=a.id)=>{
+  const src=HATO_ART_IMAGES[Math.abs(Number(a?.id)||0)%HATO_ART_IMAGES.length];
+  return `<img class="hato-news-photo" src="${src}" alt="" loading="lazy" decoding="async" width="640" height="360">`;
+};
+
 function init(){
   buildMeter(); renderFeed(); updateProgress(); renderArchive();
   $$('.cat-btn').forEach(b=>b.addEventListener('click',()=>setCategory(b.dataset.cat)));
@@ -34,8 +41,11 @@ function init(){
   $('#miniSeek').addEventListener('change',e=>seekSpeechToFraction(Number(e.target.value)/1000));
   $$('.menu-link').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
   document.addEventListener('pointerdown',()=>{primeAudio(); if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();},{once:true});
-  window.addEventListener('scroll',()=>requestAnimationFrame(()=>{completionScroll();syncCurrentChapter();}),{passive:true});
-  if(FORCE_COMPLETE){ setTimeout(()=>{ const old=document.documentElement.style.scrollBehavior; document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,$('#completion').offsetTop); document.documentElement.style.scrollBehavior=old; completionScroll(); },160); }
+  let chapterScrollRaf=0;
+  window.addEventListener('scroll',()=>{
+    if(chapterScrollRaf)return;
+    chapterScrollRaf=requestAnimationFrame(()=>{chapterScrollRaf=0;syncCurrentChapter();});
+  },{passive:true});
 }
 
 document.addEventListener('DOMContentLoaded',init);
@@ -52,13 +62,53 @@ window.__HATO_BRIDGE__={
   markRead:id=>{ const n=Number(id); if(!readSet.has(n)){readSet.add(n);saveRead();updateProgress();renderFeed();} }
 };
 
-fetch('./ru.js?v=ru1',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('ru.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO Russian localization failed',err));
-fetch('./ru-fix.js?v=ru1',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('ru-fix.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO Russian dynamic fix failed',err));
-fetch('./hato-enhance.js?v=2',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-enhance.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO enhance failed',err));
-fetch('./hato-inbox.js?v=20260815-6',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-inbox.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO inbox failed',err));
-fetch('./hato-brand.js?v=20260815-2',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-brand.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO brand polish failed',err));
-fetch('./hato-hotfix.js?v=20260815-1',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-hotfix.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO hotfix failed',err));
-fetch('./hato-title-flow.js?v=20260816-2',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-title-flow.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO title flow failed',err));
-setTimeout(()=>{
-  fetch('./hato-final.js?v=20260816-3',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-final.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO final refinements failed',err));
-},800);
+const loadAddon=async(src,label)=>{
+  try{
+    const r=await fetch(src,{cache:'default'});
+    if(!r.ok)throw new Error(`${src} ${r.status}`);
+    (0,eval)(await r.text());
+  }catch(err){console.error(`HATO ${label} failed`,err);}
+};
+
+const installInlineProgressAudio=()=>{
+  if(document.getElementById('hatoInlineProgressAudioStyle'))return;
+  const style=document.createElement('style');
+  style.id='hatoInlineProgressAudioStyle';
+  style.textContent=`
+    .hato-inbox-panel{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) auto!important;
+      grid-template-rows:auto auto!important;
+      column-gap:15px!important;
+      row-gap:7px!important;
+      align-items:center!important;
+    }
+    .hato-inbox-title{grid-column:1/-1!important;grid-row:1!important}
+    .hato-progress-row{
+      grid-column:1!important;
+      grid-row:2!important;
+      display:block!important;
+      min-width:0!important;
+      width:100%!important;
+      margin:0!important;
+    }
+    .hato-progress-track{width:100%!important}
+    .hato-progress-text{display:none!important}
+    .hato-audio-row{
+      grid-column:2!important;
+      grid-row:2!important;
+      display:flex!important;
+      width:auto!important;
+      min-width:45px!important;
+      align-items:center!important;
+      justify-content:flex-end!important;
+      gap:9px!important;
+      padding:0!important;
+      margin:0!important;
+    }
+  `;
+  document.head.appendChild(style);
+};
+
+loadAddon('./ru.js?v=20260816-1','Russian localization').then(()=>loadAddon('./ru-fix.js?v=20260816-1','Russian dynamic fix'));
+loadAddon('./hato-inbox.js?v=20260816-7','inbox').then(()=>loadAddon('./hato-lean.js?v=20260816-2','lean runtime')).then(installInlineProgressAudio);

@@ -216,3 +216,41 @@ Separate tests for:
 - user review-count logic.
 
 UX regression requirements live in `QA_CHECKLIST.md`.
+
+## 13. Concrete AI / Data common contract v0.1
+
+The abstract architecture above is concretized in:
+- `docs/AI_DATA_ARCHITECTURE_V0_1.md`
+- `docs/ai-data/schema-v0.1.md`
+- `docs/ai-data/interfaces-v0.1.ts`
+- `docs/ai-data/sample-v0.1.json`
+- `docs/ai-data/SOURCE_FEASIBILITY_V0_1.md`
+
+The common substrate is:
+
+```text
+Source
+→ RawItem
+→ Signal
+→ EventCandidate
+→ EventCluster
+→ Observation / Claim / Evidence / Verification
+→ Article
+├─→ CARDS
+├─→ LIVE
+└─→ DIVE Node / DIVE Relation
+```
+
+Critical invariants:
+- AI processing confidence is not truth confidence; there is no `truth_probability` field.
+- Same-event probability is a grouping judgment only and is separate from Claim Verification.
+- Observation, attribution, proposition-level Claim, Evidence, and Verification are separate records/concepts.
+- A first-party source can confirm that it issued a statement without automatically confirming the statement's proposition.
+- AI alone cannot set a Claim to `confirmed`; any model judgment remains an auditable suggestion until a non-AI verification policy or human/external authority establishes state.
+- Raw source material and revisions retain provenance rather than being overwritten by AI summaries.
+- CARDS factual entries must keep source/evidence refs back to common data.
+- LIVE may display an ungrouped Signal when enrichment fails; grouping is not a prerequisite for visibility.
+- DIVE relationships are typed; `historically_similar_to` is contextual and cannot be treated as supporting Evidence.
+- AI providers are accessed server-side through a provider/task abstraction. Browser/UI code must not contain provider credentials or vendor response assumptions.
+
+This v0.1 contract is intentionally isolated from current production CARDS / LIVE / DIVE code until its adapters and projections are tested against real data.

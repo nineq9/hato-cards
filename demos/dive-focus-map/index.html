@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#071214" />
+  <title>KAWASEMI DIVE — FOCUS MAP Demo</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="topbar-left"><span class="eyebrow">ISOLATED PROTOTYPE</span><span class="screen-title" id="screenTitle">CARDS → DIVE</span></div>
+    <button class="info-button" id="infoButton" type="button" aria-label="デモの使い方">ⓘ</button>
+  </header>
+
+  <main class="workspace">
+    <section class="view cards-view active" id="cardsView" aria-label="CARDS demo">
+      <div class="card-stage">
+        <div class="next-flash">NEXT ARTICLE · starts at top</div>
+        <article class="article-card" id="articleCard">
+          <div class="article-scroll" id="articleScroll" tabindex="0" aria-label="ニュース記事">
+            <section class="cover">
+              <div class="cover-meta"><span>COASTAL REGION · 08:42</span><span class="state-label">CAUSE UNVERIFIED</span></div>
+              <h1>沿岸部の発電施設で大規模爆発</h1>
+              <p class="deck">政府は無人機攻撃と発表したが、原因は独立確認されていない。爆発と施設被害は確認できる一方、攻撃主体と手段は未確認のまま。</p>
+            </section>
+            <div class="article-body">
+              <section class="section"><small>CONFIRMED</small><h2>確認されていること</h2><p>現地時間の朝、沿岸部の発電施設で複数回の爆発が発生した。施設の一部で火災が確認され、地域の送電能力は一時的に低下した。</p><p>現地映像、衛星画像、系統運用情報は、爆発と被害の発生時刻について概ね整合している。</p></section>
+              <div class="fact-row"><div class="fact"><small>CONFIRMED</small><strong>爆発・火災</strong></div><div class="fact"><small>CLAIM</small><strong>無人機攻撃</strong></div><div class="fact"><small>UNKNOWN</small><strong>攻撃主体</strong></div></div>
+              <section class="section"><small>CLAIM</small><h2>政府が主張していること</h2><p>政府当局は「無人機による攻撃」と説明している。ただし、公開された資料だけでは飛来物の種類や発射主体を独立確認できない。</p></section>
+              <section class="section"><small>WHY IT MATTERS</small><h2>なぜ気になるのか</h2><p>施設は沿岸地域の電力供給だけでなく港湾インフラにも接続している。停止が長引けば、電力価格、港湾運用、周辺産業へ影響が広がる可能性がある。</p></section>
+              <section class="section"><small>UNKNOWN</small><h2>まだ分からないこと</h2><p>爆発の直接原因、攻撃主体、兵器の種類、損傷の長期影響は確認されていない。似た過去事例は比較材料にはなるが、今回の原因を証明するものではない。</p></section>
+              <div class="article-end"><button class="heart" id="heartButton" type="button" aria-label="LIKE">♡</button><small>LIKE</small></div>
+            </div>
+          </div>
+          <div class="save-feedback" id="saveFeedback">SAVED</div>
+          <div class="gesture-hint">READ ↓ · NEXT ← · SAVE →</div>
+          <button class="dive-grab" id="diveGrab" type="button" aria-label="長押しして記事をDIVEへドラッグ" aria-describedby="dragHelp"><span class="grip" aria-hidden="true"><i></i><i></i><i></i></span><span>HOLD · DIVE</span></button>
+          <button class="sr-only" id="accessibleDirectDive" type="button">この記事からDIVEを開始</button>
+          <span class="sr-only" id="dragHelp">このハンドルだけがドラッグ開始領域です。通常の記事スクロール、NEXT、SAVEとは分離されています。</span>
+        </article>
+        <div class="screen-toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="view" id="diveHomeView" aria-label="DIVE Home">
+      <div class="dive-home">
+        <span class="eyebrow">USER-DIRECTED EXPLORATION</span><h2>DIVE</h2><p>読む順番をAIに決めてもらう場所ではありません。気になる対象を選び、そこから自分で深く・横へ進みます。</p>
+        <section class="home-section"><small>RECENT EXPLORATIONS</small><button class="home-entry" data-home-node="event" type="button"><span>EVENT</span><strong>発電施設爆発</strong><em>EVIDENCE › 衛星画像</em></button></section>
+        <section class="home-section"><small>EXPLORE</small><button class="home-entry" data-home-node="event" type="button"><span>EVENT</span><strong>発電施設爆発</strong><em>7 directions</em></button><button class="home-entry" data-home-node="technology" type="button"><span>TECHNOLOGY</span><strong>無人機と航法</strong><em>4 directions</em></button><button class="home-entry" data-home-node="history" type="button"><span>HISTORY</span><strong>重要インフラ攻撃の比較</strong><em>3 directions</em></button></section>
+      </div>
+    </section>
+
+    <section class="view focus-view" id="focusView" aria-label="DIVE FOCUS MAP">
+      <div class="focus-top"><button class="back-article" id="returnArticle" type="button">← ARTICLE</button><nav class="trail" id="trail" aria-label="DIVE TRAIL"></nav></div>
+      <div class="dive-stage">
+        <aside class="context-pane" aria-label="元記事のコンテキスト"><div class="context-scroll" id="contextScroll"><small>ORIGIN ARTICLE · CONTEXT</small><h3>沿岸部の発電施設で大規模爆発</h3><p>政府は無人機攻撃と発表したが、原因は独立確認されていない。Landscapeでは、元記事の文脈を左に残したまま右側でDIVEを探索できます。</p><div class="context-state"><div><span>CONFIRMED</span><strong>爆発・火災・出力低下</strong></div><div><span>CLAIM</span><strong>政府「無人機攻撃」</strong></div><div><span>UNKNOWN</span><strong>原因・攻撃主体</strong></div></div><section class="section"><small>CONTEXT NOTE</small><p>過去の類似攻撃は比較材料ですが、今回の事件の証拠ではありません。DIVEではこの違いをRelation型として保持します。</p></section></div></aside>
+        <div class="map-pane"><div class="map-canvas" id="mapCanvas"><svg class="edge-svg" id="edgeSvg" aria-hidden="true"></svg><div class="relation-layer" id="relationLayer"></div><div class="node-layer" id="nodeLayer"></div><button class="arrival-relation" id="arrivalRelation" type="button" hidden></button></div></div>
+      </div>
+      <footer class="focus-bottom"><button id="diveBack" type="button">← BACK</button><div class="focus-summary"><small id="focusType">EVENT</small><strong id="focusLabel">発電施設爆発</strong><span id="focusQuestion">何が起き、何がまだ分からない？</span></div><button id="sourcesButton" type="button">SOURCES</button></footer>
+    </section>
+
+    <section class="view" id="liveView" aria-label="LIVE placeholder"><div class="placeholder"><div class="placeholder-inner"><small>LIVE · OUT OF SCOPE</small><h2>Incoming signals</h2><p>この独立DIVEデモではLIVE本体は変更しません。Dockの意味と画面遷移だけを保っています。</p></div></div></section>
+  </main>
+
+  <nav class="dock" aria-label="Editorial Dock"><button class="active" data-nav="cards" type="button">CARDS</button><button data-nav="live" type="button">LIVE</button><button class="dive-target" id="diveDock" data-nav="dive" type="button">DIVE</button></nav>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sheetTitle"><div class="sheet-grip" aria-hidden="true"></div><div class="sheet-head"><small id="sheetKicker">RELATION</small><button id="sheetClose" type="button" aria-label="閉じる">×</button></div><h2 id="sheetTitle"></h2><div id="sheetBody"></div></section>
+
+<script src="./app.js"></script>
+</body>
+</html>
