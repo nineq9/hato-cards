@@ -1,7 +1,7 @@
 # AI / Data Status
 
 ### Status
-DONE — AI/Data common foundation v0.1 contracts and current source/provider feasibility are persisted. Production ingestion and CARDS/LIVE/DIVE integration remain intentionally **NOT TESTED**.
+DONE — AI/Data common foundation v0.1 contracts, source/provider feasibility, and an isolated no-secret source-adapter fixture are persisted. Production ingestion and CARDS/LIVE/DIVE integration remain intentionally **NOT TESTED**.
 
 ### Current goal
 Provide one provenance-first shared data contract that future CARDS, LIVE TRACE, and DIVE FOCUS MAP integrations can consume without rebuilding the same information into feature-specific formats.
@@ -24,6 +24,9 @@ Provide one provenance-first shared data contract that future CARDS, LIVE TRACE,
 - Deferred X, Telegram, Reddit, YouTube API, Reuters, AP, ACLED, ReliefWeb, and unreviewed publisher feeds from the first path because they currently introduce payment, credentials/accounts, approval/licensing, or material terms review.
 - Defined error handling, retry/quarantine behavior, source enablement gates, observability, token/cost accounting, and server-side secret rules.
 - Added a synthetic sample that demonstrates a **confirmed observation of a statement** coexisting with a **disputed embedded claim**.
+- Added an isolated GOV.UK Content API adapter prototype that emits the common RawItem input shape, keeps a per-path revision cursor, requires no secret, and defaults to metadata/description storage rather than full body retention.
+- Added an offline fixture test for the epistemic invariants, Article provenance, LIVE newness, DIVE historical-similarity semantics, and GOV.UK adapter normalization/cursor behavior.
+- The AI/Data contract fixture passed in PR CI.
 - No production CARDS/LIVE/DIVE code was changed.
 - No paid AI/source API call was executed and no external account was created.
 
@@ -33,6 +36,9 @@ Provide one provenance-first shared data contract that future CARDS, LIVE TRACE,
 - `docs/ai-data/interfaces-v0.1.ts`
 - `docs/ai-data/sample-v0.1.json`
 - `docs/ai-data/SOURCE_FEASIBILITY_V0_1.md`
+- `prototypes/ai-data-v0.1/govuk-content-adapter.mjs`
+- `prototypes/ai-data-v0.1/fixtures/govuk-content.json`
+- `tests/ai-data-contract.mjs`
 - `PRODUCT_PRINCIPLES.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DECISION_LOG.md`
@@ -64,7 +70,7 @@ Source
 
 ### Recommended first real-data adapters
 1. **JMA disaster-prevention XML PULL** — first-party, structured, time-sensitive, no user registration required.
-2. **GOV.UK Content API** — structured first-party JSON, no auth/onboarding, documented 10 requests/sec/client.
+2. **GOV.UK Content API** — structured first-party JSON, no auth/onboarding, documented 10 requests/sec/client. An isolated adapter scaffold + offline fixture now exists.
 3. **GDELT 2.0 / DOC API** — broad free/open discovery layer; not a truth authority.
 4. **Generic RSS/Atom adapter** — code can be shared; each actual feed remains disabled until its terms/storage policy are approved.
 
@@ -112,6 +118,7 @@ Owner decision becomes necessary only before:
 - DIVE has typed relations with historical similarity explicitly contextual.
 - Provider boundary and usage accounting are server-side contracts.
 - Synthetic sample exercises contradictory evidence without forcing one narrative.
+- Isolated GOV.UK adapter normalization/cursor fixture passes without network or secrets.
 - Existing CARDS / LIVE / DIVE production code remains untouched.
 
 ### NOT TESTED
@@ -126,4 +133,4 @@ Owner decision becomes necessary only before:
 - production commercial-rights/legal review
 
 ### Next executable action
-Build an isolated, no-secret source-adapter fixture against one approved first-party endpoint (prefer JMA XML PULL or GOV.UK Content API), emit the v0.1 RawItem/Signal contract, and validate lineage before any production integration. This can proceed without changing CARDS/LIVE/DIVE.
+After this contract PR is merged, run a one-request no-secret live smoke against the GOV.UK Content API (or JMA XML PULL), validate the emitted RawItem/Signal lineage, and keep that adapter isolated until the CARDS/LIVE/DIVE integration point is explicitly scheduled.
