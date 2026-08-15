@@ -1,48 +1,64 @@
 # KAWASEMI DIVE Focus Map Demo
 
-This directory is an isolated interaction prototype. It does not import or modify the production CARDS implementation.
+Independent static prototype for DIVE UX. It intentionally does **not** import or modify production KAWASEMI code.
 
-## Run locally
+## Run
 
-From the repository root:
+From repository root:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Then open:
+Open:
 
 `http://127.0.0.1:4173/demos/dive-focus-map/`
 
-## What this prototype includes
+## Scope
 
-- CARDS-like article with vertical READ, left NEXT, right SAVE semantics
-- Explicit `HOLD · DIVE` long-press handle to enter drag mode without redefining normal CARDS gestures
-- Editorial Dock: `CARDS / LIVE / DIVE`
-- Tapping DIVE opens DIVE Home
-- Dragging the article to DIVE opens the article directly as the FOCUS MAP center
-- FOCUS MAP with up to seven surrounding nodes and question labels
-- Typed relationships: `supports`, `contradicts`, `claims`, `confirms`, `context_for`, `historically_similar_to`, `affects`, `explains`
-- Node-to-center transition
-- DIVE TRAIL with clickable history
-- Back navigation
-- Relationship inspection
-- Returning from article-origin DIVE restores the article scroll position
-- LIVE is intentionally a placeholder
+- CARDS-style article reading surface
+- `vertical = READ`, `← = NEXT`, `→ = SAVE`, article-end heart = LIKE
+- Editorial Dock: `CARDS / LIVE / DIVE / SAVED`
+- DIVE tap → DIVE Home
+- Article drag → Article-centered FOCUS MAP
+- Dedicated grab-handle hold is default activation mode (B)
+- Demo Controls can compare:
+  - A: Article body long press (conflict-testing only; not recommended)
+  - B: Dedicated grab handle hold (default)
+  - C: DIVE dock hold
+- Typed relationship labels and relation sheet
+- Provenance/source metadata for factual nodes and edges
+- DIVE TRAIL, one-step Back, direct trail navigation
+- Article-origin return restores article id/index/scroll position
+- Static demo data only
 
-## Demo data
+## Mandatory exploration path
 
-All content in this prototype is synthetic. The example event is not presented as a real-world report.
+`発電施設爆発 → EVIDENCE → 衛星画像 → HISTORY`
+
+The `衛星画像 → HISTORY` edge is `historically_similar_to`. The relation sheet explicitly states that historical similarity is not evidence for the current incident.
 
 ## Production boundary
 
-This prototype does not change:
+This demo must stay isolated from production. It does not change or import:
 
 - root `index.html`
 - `kingfisher.js`
 - `kingfisher.css`
 - production gesture controller
 - production DIVE implementation
-- LIVE / API code
+- LIVE backend/UI implementation
+- API / database code
 
-No Product HQ decision should be inferred from this prototype unless it is explicitly approved later.
+## Out of scope
+
+- production integration
+- real AI node generation
+- backend / OpenAI API
+- production database
+- full knowledge graph
+- personalization
+- analytics
+- final tutorial integration
+
+All event/source content is synthetic demo data.
