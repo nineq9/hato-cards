@@ -1,0 +1,425 @@
+{
+  "schemaVersion": "0.1",
+  "scenario": "Synthetic example only. No real-world factual claim is represented.",
+  "sources": [
+    {
+      "id": "src-transport-authority",
+      "name": "Example City Transport Authority",
+      "sourceType": "government_api",
+      "role": "official_actor",
+      "homepageUrl": "https://example.invalid/transport",
+      "organization": "Example City Transport Authority",
+      "languages": ["en"],
+      "authorityScopes": ["statements and notices issued by the authority itself"],
+      "ingestion": { "method": "http_json", "auth": "none" },
+      "rights": { "termsStatus": "approved", "storeOriginalText": "allowed" },
+      "createdAt": "2026-08-16T00:00:00Z",
+      "updatedAt": "2026-08-16T00:00:00Z"
+    },
+    {
+      "id": "src-sensor-feed",
+      "name": "Example Bridge Sensor Feed",
+      "sourceType": "government_api",
+      "role": "dataset",
+      "homepageUrl": "https://example.invalid/sensors",
+      "organization": "Example City Infrastructure Lab",
+      "languages": ["en"],
+      "authorityScopes": ["its own sensor measurements"],
+      "ingestion": { "method": "http_json", "auth": "none" },
+      "rights": { "termsStatus": "approved", "storeOriginalText": "allowed" },
+      "createdAt": "2026-08-16T00:00:00Z",
+      "updatedAt": "2026-08-16T00:00:00Z"
+    }
+  ],
+  "rawItems": [
+    {
+      "id": "raw-authority-001",
+      "sourceId": "src-transport-authority",
+      "externalId": "notice-001",
+      "canonicalUrl": "https://example.invalid/transport/notices/001",
+      "publishedAt": "2026-08-16T09:01:00Z",
+      "observedAt": "2026-08-16T09:01:20Z",
+      "organization": { "name": "Example City Transport Authority", "entityId": "ent-authority" },
+      "originalTitle": "East Bridge status update",
+      "originalText": "The East Bridge reopened to traffic at 09:00.",
+      "originalTextStorage": "full",
+      "language": "en",
+      "contentHash": "synthetic-authority-001",
+      "retrieval": {
+        "fetchedAt": "2026-08-16T09:01:20Z",
+        "httpStatus": 200,
+        "adapterVersion": "official-json-v0.1"
+      }
+    },
+    {
+      "id": "raw-sensor-001",
+      "sourceId": "src-sensor-feed",
+      "externalId": "east-bridge-0904",
+      "canonicalUrl": "https://example.invalid/sensors/east-bridge/0904",
+      "publishedAt": "2026-08-16T09:04:00Z",
+      "observedAt": "2026-08-16T09:04:10Z",
+      "organization": { "name": "Example City Infrastructure Lab", "entityId": "ent-lab" },
+      "originalTitle": "East Bridge sensor reading",
+      "originalText": "Barrier state: CLOSED. Vehicle flow: 0.",
+      "originalTextStorage": "full",
+      "language": "en",
+      "contentHash": "synthetic-sensor-001",
+      "retrieval": {
+        "fetchedAt": "2026-08-16T09:04:10Z",
+        "httpStatus": 200,
+        "adapterVersion": "sensor-json-v0.1"
+      }
+    }
+  ],
+  "signals": [
+    {
+      "id": "sig-authority-001",
+      "rawItemId": "raw-authority-001",
+      "sourceId": "src-transport-authority",
+      "canonicalUrl": "https://example.invalid/transport/notices/001",
+      "signalType": "official_statement",
+      "publishedAt": "2026-08-16T09:01:00Z",
+      "observedAt": "2026-08-16T09:01:20Z",
+      "normalizedTitle": "Authority says East Bridge reopened",
+      "normalizedExcerpt": "Authority states that the East Bridge reopened at 09:00.",
+      "language": "en",
+      "topics": ["transport", "infrastructure"],
+      "entities": [
+        { "id": "ent-authority", "type": "organization", "name": "Example City Transport Authority" },
+        { "id": "ent-east-bridge", "type": "facility", "name": "East Bridge" }
+      ],
+      "locations": [{ "name": "Example City", "countryCode": "EX", "precision": "region" }],
+      "groupingState": "grouped",
+      "eventCandidateIds": ["candidate-east-bridge"],
+      "eventClusterId": "cluster-east-bridge",
+      "processingConfidence": [
+        { "task": "same_event_matching", "score": 0.93, "method": "heuristic", "explanation": "same facility and narrow time window" }
+      ]
+    },
+    {
+      "id": "sig-sensor-001",
+      "rawItemId": "raw-sensor-001",
+      "sourceId": "src-sensor-feed",
+      "canonicalUrl": "https://example.invalid/sensors/east-bridge/0904",
+      "signalType": "measurement",
+      "publishedAt": "2026-08-16T09:04:00Z",
+      "observedAt": "2026-08-16T09:04:10Z",
+      "normalizedTitle": "Sensor still reports closed barrier",
+      "normalizedExcerpt": "At 09:04 the sensor reports the barrier closed and zero vehicle flow.",
+      "language": "en",
+      "topics": ["transport", "infrastructure"],
+      "entities": [{ "id": "ent-east-bridge", "type": "facility", "name": "East Bridge" }],
+      "locations": [{ "name": "Example City", "countryCode": "EX", "precision": "region" }],
+      "groupingState": "grouped",
+      "eventCandidateIds": ["candidate-east-bridge"],
+      "eventClusterId": "cluster-east-bridge",
+      "processingConfidence": [
+        { "task": "same_event_matching", "score": 0.96, "method": "heuristic", "explanation": "same facility and three-minute separation" }
+      ]
+    }
+  ],
+  "eventCandidates": [
+    {
+      "id": "candidate-east-bridge",
+      "createdAt": "2026-08-16T09:04:12Z",
+      "updatedAt": "2026-08-16T09:04:12Z",
+      "signalIds": ["sig-authority-001", "sig-sensor-001"],
+      "rawItemIds": ["raw-authority-001", "raw-sensor-001"],
+      "timeWindow": { "start": "2026-08-16T09:00:00Z", "end": "2026-08-16T09:05:00Z" },
+      "topics": ["transport", "infrastructure"],
+      "entities": [{ "id": "ent-east-bridge", "type": "facility", "name": "East Bridge" }],
+      "locations": [{ "name": "Example City", "countryCode": "EX", "precision": "region" }],
+      "candidateClusterIds": ["cluster-east-bridge"],
+      "sameEventConfidence": {
+        "task": "same_event_matching",
+        "score": 0.95,
+        "method": "heuristic",
+        "explanation": "same named facility and narrow time window; this is not truth confidence"
+      },
+      "reasons": ["same facility", "same topic", "within five minutes"],
+      "status": "grouped"
+    }
+  ],
+  "eventClusters": [
+    {
+      "id": "cluster-east-bridge",
+      "label": "East Bridge reopening status",
+      "createdAt": "2026-08-16T09:04:12Z",
+      "updatedAt": "2026-08-16T09:04:12Z",
+      "timeWindow": { "start": "2026-08-16T09:00:00Z", "end": "2026-08-16T09:05:00Z" },
+      "signalIds": ["sig-authority-001", "sig-sensor-001"],
+      "rawItemIds": ["raw-authority-001", "raw-sensor-001"],
+      "eventCandidateIds": ["candidate-east-bridge"],
+      "observationIds": ["obs-statement-issued", "obs-sensor-reading"],
+      "claimIds": ["claim-bridge-open"],
+      "articleIds": ["article-east-bridge"],
+      "topics": ["transport", "infrastructure"],
+      "entities": [{ "id": "ent-east-bridge", "type": "facility", "name": "East Bridge" }],
+      "locations": [{ "name": "Example City", "countryCode": "EX", "precision": "region" }],
+      "history": [{ "at": "2026-08-16T09:04:12Z", "type": "created", "reason": "same-event candidate accepted" }]
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-statement-issued",
+      "eventClusterId": "cluster-east-bridge",
+      "type": "statement_issued",
+      "text": "Example City Transport Authority published a notice stating that East Bridge reopened at 09:00.",
+      "observedAt": "2026-08-16T09:01:20Z",
+      "sourceIds": ["src-transport-authority"],
+      "rawItemIds": ["raw-authority-001"],
+      "evidenceIds": ["ev-statement-exists"],
+      "embeddedClaimIds": ["claim-bridge-open"],
+      "verification": {
+        "state": "confirmed",
+        "decidedBy": "deterministic_policy",
+        "evidenceIds": ["ev-statement-exists"],
+        "contradictionEvidenceIds": [],
+        "policyVersion": "source-action-v0.1",
+        "checkedAt": "2026-08-16T09:01:21Z"
+      }
+    },
+    {
+      "id": "obs-sensor-reading",
+      "eventClusterId": "cluster-east-bridge",
+      "type": "measurement_reported",
+      "text": "The bridge sensor feed reported CLOSED barrier state and zero vehicle flow at 09:04.",
+      "observedAt": "2026-08-16T09:04:10Z",
+      "occurredAt": "2026-08-16T09:04:00Z",
+      "sourceIds": ["src-sensor-feed"],
+      "rawItemIds": ["raw-sensor-001"],
+      "evidenceIds": ["ev-sensor-reading"],
+      "embeddedClaimIds": [],
+      "verification": {
+        "state": "confirmed",
+        "decidedBy": "deterministic_policy",
+        "evidenceIds": ["ev-sensor-reading"],
+        "contradictionEvidenceIds": [],
+        "policyVersion": "source-action-v0.1",
+        "checkedAt": "2026-08-16T09:04:11Z"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-bridge-open",
+      "eventClusterId": "cluster-east-bridge",
+      "proposition": "East Bridge was open to traffic at 09:00.",
+      "language": "en",
+      "attribution": {
+        "claimant": { "entityId": "ent-authority", "name": "Example City Transport Authority", "role": "issuing authority" },
+        "sourceId": "src-transport-authority",
+        "rawItemIds": ["raw-authority-001"],
+        "assertedAt": "2026-08-16T09:01:00Z",
+        "attributionText": "The East Bridge reopened to traffic at 09:00."
+      },
+      "assertedAt": "2026-08-16T09:01:00Z",
+      "topics": ["transport", "infrastructure"],
+      "entities": [{ "id": "ent-east-bridge", "type": "facility", "name": "East Bridge" }],
+      "locations": [{ "name": "Example City", "countryCode": "EX", "precision": "region" }],
+      "evidenceIds": ["ev-claim-attribution", "ev-sensor-contradiction"],
+      "verification": {
+        "state": "disputed",
+        "decidedBy": "deterministic_policy",
+        "evidenceIds": ["ev-claim-attribution"],
+        "contradictionEvidenceIds": ["ev-sensor-contradiction"],
+        "policyVersion": "conflict-preservation-v0.1",
+        "checkedAt": "2026-08-16T09:04:15Z"
+      },
+      "extractionConfidence": {
+        "task": "extraction",
+        "score": 0.98,
+        "method": "model",
+        "modelRunId": "synthetic-model-run-001",
+        "explanation": "confidence that the proposition was extracted correctly; not confidence that it is true"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-statement-exists",
+      "target": { "type": "observation", "id": "obs-statement-issued" },
+      "relation": "establishes_observation",
+      "sourceId": "src-transport-authority",
+      "rawItemId": "raw-authority-001",
+      "originalUrl": "https://example.invalid/transport/notices/001",
+      "publishedAt": "2026-08-16T09:01:00Z",
+      "observedAt": "2026-08-16T09:01:20Z",
+      "excerpt": "The East Bridge reopened to traffic at 09:00.",
+      "originType": "first_party",
+      "independenceGroup": "authority-notice-001"
+    },
+    {
+      "id": "ev-claim-attribution",
+      "target": { "type": "claim", "id": "claim-bridge-open" },
+      "relation": "establishes_attribution",
+      "sourceId": "src-transport-authority",
+      "rawItemId": "raw-authority-001",
+      "originalUrl": "https://example.invalid/transport/notices/001",
+      "publishedAt": "2026-08-16T09:01:00Z",
+      "observedAt": "2026-08-16T09:01:20Z",
+      "excerpt": "The East Bridge reopened to traffic at 09:00.",
+      "originType": "first_party",
+      "independenceGroup": "authority-notice-001"
+    },
+    {
+      "id": "ev-sensor-reading",
+      "target": { "type": "observation", "id": "obs-sensor-reading" },
+      "relation": "establishes_observation",
+      "sourceId": "src-sensor-feed",
+      "rawItemId": "raw-sensor-001",
+      "originalUrl": "https://example.invalid/sensors/east-bridge/0904",
+      "publishedAt": "2026-08-16T09:04:00Z",
+      "observedAt": "2026-08-16T09:04:10Z",
+      "excerpt": "Barrier state: CLOSED. Vehicle flow: 0.",
+      "originType": "first_party",
+      "independenceGroup": "sensor-reading-0904"
+    },
+    {
+      "id": "ev-sensor-contradiction",
+      "target": { "type": "claim", "id": "claim-bridge-open" },
+      "relation": "contradicts",
+      "sourceId": "src-sensor-feed",
+      "rawItemId": "raw-sensor-001",
+      "originalUrl": "https://example.invalid/sensors/east-bridge/0904",
+      "publishedAt": "2026-08-16T09:04:00Z",
+      "observedAt": "2026-08-16T09:04:10Z",
+      "excerpt": "Barrier state: CLOSED. Vehicle flow: 0.",
+      "originType": "first_party",
+      "independenceGroup": "sensor-reading-0904"
+    }
+  ],
+  "article": {
+    "id": "article-east-bridge",
+    "eventClusterId": "cluster-east-bridge",
+    "title": "East Bridge reopening status remains unresolved",
+    "conciseSummary": "The transport authority says the bridge reopened at 09:00, while a separate sensor feed still reported a closed barrier at 09:04.",
+    "language": "en",
+    "generatedAt": "2026-08-16T09:05:00Z",
+    "what": [
+      {
+        "id": "article-what-1",
+        "text": "The transport authority published a reopening notice; a sensor feed soon afterward reported a closed barrier.",
+        "supportRefs": [
+          { "type": "observation", "id": "obs-statement-issued" },
+          { "type": "observation", "id": "obs-sensor-reading" }
+        ],
+        "evidenceIds": ["ev-statement-exists", "ev-sensor-reading"],
+        "sourceIds": ["src-transport-authority", "src-sensor-feed"]
+      }
+    ],
+    "certainty": {
+      "confirmed": [
+        {
+          "id": "article-confirmed-1",
+          "text": "The authority published a notice saying the bridge reopened at 09:00.",
+          "supportRefs": [{ "type": "observation", "id": "obs-statement-issued" }],
+          "evidenceIds": ["ev-statement-exists"],
+          "sourceIds": ["src-transport-authority"]
+        }
+      ],
+      "claims": [
+        {
+          "id": "article-claim-1",
+          "text": "The authority claims the East Bridge was open to traffic at 09:00.",
+          "supportRefs": [{ "type": "claim", "id": "claim-bridge-open" }],
+          "evidenceIds": ["ev-claim-attribution", "ev-sensor-contradiction"],
+          "sourceIds": ["src-transport-authority", "src-sensor-feed"]
+        }
+      ],
+      "unknowns": [
+        {
+          "id": "article-unknown-1",
+          "text": "Whether the bridge was actually open to traffic at 09:00 remains unresolved in this dataset.",
+          "supportRefs": [{ "type": "claim", "id": "claim-bridge-open" }],
+          "evidenceIds": ["ev-claim-attribution", "ev-sensor-contradiction"],
+          "sourceIds": ["src-transport-authority", "src-sensor-feed"]
+        }
+      ]
+    },
+    "context": [],
+    "explore": [
+      { "label": "EVIDENCE", "question": "What evidence supports or contradicts the reopening claim?", "diveNodeId": "dive-claim-open", "relationType": "contradicts" },
+      { "label": "HISTORY", "question": "Has a similar closure happened before?", "diveNodeId": "dive-historical-closure", "relationType": "historically_similar_to" }
+    ],
+    "topicTags": ["transport", "infrastructure"],
+    "sourceIds": ["src-transport-authority", "src-sensor-feed"],
+    "rawItemIds": ["raw-authority-001", "raw-sensor-001"],
+    "claimIds": ["claim-bridge-open"],
+    "observationIds": ["obs-statement-issued", "obs-sensor-reading"],
+    "generation": {
+      "status": "validated",
+      "providerRunIds": ["synthetic-model-run-article"],
+      "promptVersion": "synthetic-v0.1",
+      "schemaVersion": "0.1",
+      "provenanceCoverage": 1
+    }
+  },
+  "diveNodes": [
+    {
+      "id": "dive-current-event",
+      "nodeType": "event",
+      "label": "East Bridge reopening status",
+      "questionLabel": "WHAT IS HAPPENING?",
+      "sourceIds": ["src-transport-authority", "src-sensor-feed"],
+      "evidenceIds": ["ev-statement-exists", "ev-sensor-reading"],
+      "backingRefs": [{ "type": "event_cluster", "id": "cluster-east-bridge" }]
+    },
+    {
+      "id": "dive-claim-open",
+      "nodeType": "claim",
+      "label": "Authority says bridge reopened at 09:00",
+      "questionLabel": "WHO CLAIMS WHAT?",
+      "sourceIds": ["src-transport-authority"],
+      "evidenceIds": ["ev-claim-attribution", "ev-sensor-contradiction"],
+      "backingRefs": [{ "type": "claim", "id": "claim-bridge-open" }]
+    },
+    {
+      "id": "dive-historical-closure",
+      "nodeType": "historical_event",
+      "label": "Synthetic prior bridge closure",
+      "questionLabel": "HAS SOMETHING SIMILAR HAPPENED BEFORE?",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "backingRefs": []
+    }
+  ],
+  "diveRelations": [
+    {
+      "id": "rel-authority-claims-open",
+      "fromNodeId": "dive-current-event",
+      "toNodeId": "dive-claim-open",
+      "relationType": "claims",
+      "semanticClass": "attribution",
+      "sourceIds": ["src-transport-authority"],
+      "evidenceIds": ["ev-claim-attribution"]
+    },
+    {
+      "id": "rel-sensor-contradicts-open",
+      "fromNodeId": "dive-current-event",
+      "toNodeId": "dive-claim-open",
+      "relationType": "contradicts",
+      "semanticClass": "evidentiary",
+      "sourceIds": ["src-sensor-feed"],
+      "evidenceIds": ["ev-sensor-contradiction"]
+    },
+    {
+      "id": "rel-history-context",
+      "fromNodeId": "dive-current-event",
+      "toNodeId": "dive-historical-closure",
+      "relationType": "historically_similar_to",
+      "semanticClass": "contextual",
+      "sourceIds": [],
+      "evidenceIds": []
+    }
+  ],
+  "liveCursor": {
+    "userOrDeviceId": "synthetic-device",
+    "lastVisitedAt": "2026-08-16T09:02:00Z",
+    "lastObservedSignalId": "sig-authority-001"
+  },
+  "derivedLiveState": {
+    "newSinceLastVisitSignalIds": ["sig-sensor-001"],
+    "note": "Newness is derived from observedAt and cursor time, not AI importance. Same-event confidence does not imply truth."
+  }
+}
