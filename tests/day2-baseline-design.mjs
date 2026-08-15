@@ -127,8 +127,8 @@ await page.locator('#drawerClose').click();await page.waitForFunction(()=>!docum
 await page.locator('#articleScroll').evaluate(e=>e.scrollTop=0);
 await screenshot(page,'cards-light');
 
-// Ordinary reload after first launch shows Micro Opening and not Tutorial.
-await page.reload({waitUntil:'domcontentloaded'});
+// Ordinary launch after first launch uses the normal URL (without reset=1), so it shows Micro Opening and not Tutorial.
+await page.goto(`${BASE}/demos/day2-baseline/`,{waitUntil:'domcontentloaded'});
 await page.waitForSelector('#opening.show.micro');
 await screenshot(page,'micro-opening');
 await page.waitForFunction(()=>!document.querySelector('#opening')?.classList.contains('show'),null,{timeout:2000});
