@@ -1,282 +1,431 @@
 # KAWASEMI Design System
 
-Status: **v1 owner-confirmed direction**
+Status: **v1 owner-confirmed direction — light + dark modes**
 
-This document defines the visual design baseline for KAWASEMI. It supersedes the earlier dark-first v0.1 grammar where there is a conflict.
+This document defines the visual design baseline for KAWASEMI across light and dark modes.
 
 Canonical product/UX constraints remain in `PRODUCT_PRINCIPLES.md`, `UX_RULES.md`, `QA_CHECKLIST.md`, and the project docs. If a visual choice conflicts with those rules, product/UX rules win.
 
 ---
 
-## 1. Overall character
+## 1. Core design principle
 
-Prioritize:
+> **Less interface, more experience.**
+
+Primary rule:
+
+> Remove what can be removed, but never remove usability.
+
+KAWASEMI should feel:
 
 - quiet,
 - intellectual,
+- precise,
 - premium,
-- trustworthy.
+- trustworthy,
+- intuitive.
 
-Do not aim for:
+Do not pursue minimalism as an aesthetic target by itself. The purpose is to let the user focus on:
 
-- futuristic,
-- obviously AI-styled,
-- flashy/cool for its own sake.
+- reading an article,
+- seeing the next article,
+- saving,
+- observing LIVE,
+- going deeper through DIVE.
 
-A slightly orthodox interface is acceptable if the details are highly finished.
+Use these principles:
 
-KAWASEMI's distinctiveness should come from the CARDS / LIVE / DIVE experiences, not from strange UI conventions.
+- clarity — the next action is understandable,
+- simplicity — unnecessary UI is absent,
+- consistency — the same kind of action behaves the same way,
+- familiarity — use known symbols where possible,
+- hierarchy — important information naturally wins attention,
+- restraint — UI does not compete with content.
 
-Working principle:
+A useful design test for every element:
 
-> Information first. Quiet interface. High finish.
+> If this disappears, will the user lose understanding, control, accessibility, location, feedback, or a way back?
+
+If not, remove it.
+
+KAWASEMI's distinctiveness should come from the CARDS / LIVE / DIVE experiences, not from strange UI conventions or loud branding.
 
 ---
 
-## 2. Color
+## 2. Theme model
 
-### Base
+KAWASEMI supports both a light and dark visual direction using the same information hierarchy, interaction grammar, icon system, spacing, typography logic, and motion language.
 
-Use primarily:
+The modes should feel like the same product, not two separate designs.
+
+### Light mode
+
+Base direction:
 
 - white,
 - off-white,
-- very light gray.
+- very light gray,
+- black through charcoal typography,
+- one strong kingfisher blue-green accent.
 
-Use black through charcoal for:
+### Dark mode
 
-- text,
-- image overlays,
-- natural image-to-text gradients.
+Base direction:
 
-### Brand color
+- deep charcoal / blue-black background,
+- soft white typography,
+- restrained kingfisher teal accent,
+- subtle tonal surface differences rather than obvious boxes,
+- photography fading naturally into the reading surface.
 
-Use one strong kingfisher blue-green / teal as the principal brand color.
+Dark mode must not become:
 
-Use color to communicate:
+- neon,
+- cyberpunk,
+- blue-purple AI styling,
+- glowing HUD/network UI.
+
+### Shared color rule
+
+Color exists to communicate:
 
 - current location,
-- selected state,
-- important action.
+- selection,
+- meaningful action,
+- limited state feedback.
 
-Do not fill a screen with many accent colors.
+Do not use many accent colors in one screen.
 
-### Gradients
-
-Gradients are allowed when they serve structure, especially to connect photography and readable text.
-
-Do not use gradients merely to make controls look impressive.
-
-### Epistemic rule
-
-Color is not truth.
-
-Do not encode confirmed/claim/unknown using green=true or red=false. Wording, attribution, and structure must carry the meaning even in monochrome.
+Color is not truth. Confirmed / claim / unknown must remain understandable in monochrome through wording, attribution, and structure.
 
 ---
 
-## 3. Typography
+## 3. Content-first hierarchy
+
+The visual priority should be:
+
+1. article / information itself,
+2. headline,
+3. summary / body,
+4. necessary metadata and source information,
+5. UI.
+
+KAWASEMI branding and navigation must not visually outrank the article.
+
+Do not create large areas whose primary purpose is to display the app name.
+
+---
+
+## 4. KAWASEMI logotype and brand presence
+
+Do not display a large `KAWASEMI` wordmark at the top of ordinary product screens.
+
+The user already knows which app is open.
+
+The wordmark may appear in:
+
+- launch / opening contexts,
+- product identity contexts,
+- rare brand moments.
+
+A small kingfisher symbol may be used where it earns its place, but it is optional.
+
+Brand should primarily be felt through:
+
+- typography,
+- kingfisher teal,
+- spacing,
+- motion,
+- card behavior,
+- image treatment,
+- interaction quality.
+
+The kingfisher remains a geometric brand mark, not a mascot.
+
+---
+
+## 5. Typography
 
 Typography is a primary visual element.
 
 ### Headline
 
-Large headlines may use a refined serif family where it improves the editorial character.
+Large headlines may use a refined serif where it improves editorial character.
 
-The headline should feel elegant, not like advertising copy shouting for attention.
+Headlines should feel elegant rather than promotional or loud.
 
 ### UI / metadata
 
 Use a highly readable sans-serif for:
 
 - UI,
-- categories,
 - timestamps,
 - metadata,
-- utility labels.
+- utility labels,
+- source information.
 
 ### Hierarchy
 
-The user should understand this hierarchy at a glance:
+At a glance, the user should understand:
 
 1. headline,
 2. summary,
 3. source / time / metadata.
 
-Do not rely on bold weight alone. Use size, spacing, tone, and contrast.
+Do not rely on bold alone. Use:
+
+- size,
+- spacing,
+- contrast,
+- tone,
+- line length.
 
 Avoid excessive bold.
 
-### Implementation note
-
-Typeface selection must preserve Japanese legibility and performance. A branded serif/sans pairing should be validated on real target screens before being locked.
+Typeface selection must preserve Japanese legibility and performance on target iPhones.
 
 ---
 
-## 4. Photography
+## 6. Photography
 
-Large photography is allowed.
-
-But the screen must not depend on photography alone to look good.
+Large photography is allowed, but the UI must still work without a beautiful image.
 
 Rules:
 
-- avoid over-saturated imagery,
-- use a natural dark gradient near the title when needed for legibility,
-- make image → headline → article body feel like one continuous article,
-- do not use misleading imagery that visually implies an unconfirmed claim is established fact.
+- avoid over-saturated photography,
+- use a natural dark gradient when needed for title legibility,
+- make image → headline → body feel like one continuous article,
+- do not use misleading imagery that implies an unconfirmed claim is established fact.
 
-When no suitable image exists, a restrained fallback surface is preferable to a generic or misleading image.
+When no suitable image exists, prefer a restrained fallback surface over generic or misleading imagery.
+
+Dark mode may use a deeper image-to-charcoal fade; the purpose is continuity and readability, not spectacle.
 
 ---
 
-## 5. Icons
+## 7. Icon system
 
-Use conventional symbols for common actions such as:
+Icons should communicate using the minimum necessary geometry.
+
+Required qualities:
+
+- thin but confident,
+- simple,
+- familiar,
+- monochrome by default,
+- consistent stroke width,
+- no decorative detail,
+- no unnecessary circular containers,
+- no playful styling,
+- no custom symbol when a familiar symbol already exists.
+
+Do not confuse “simpler” with “extremely thin”. Icons must remain readable and modern.
+
+Use conventional symbols where possible for:
 
 - back,
 - save,
 - like,
-- search.
+- search,
+- menu,
+- close.
 
-Do not invent custom symbols when they make the meaning less obvious.
+Visible glyphs can be visually small while maintaining comfortable touch targets.
 
-Style:
+---
 
-- slightly thin strokes,
-- not so thin that legibility suffers,
-- consistent icon family.
+## 8. Text labels and discoverability
+
+Remove labels when the icon or structure is already unambiguous.
+
+But do not remove text merely because an icon-only layout looks cleaner.
+
+Before removing a label, verify:
+
+- a first-time user can understand the action,
+- accessibility remains acceptable,
+- the user can identify current location,
+- the system provides adequate feedback.
+
+Onboarding or first-use guidance may temporarily explain unfamiliar interactions; routine use should become quieter after the interaction is learned.
+
+### Main navigation labels
+
+`CARDS / LIVE / DIVE` remain the canonical mode names.
+
+An icon-only bottom-navigation variant may be prototyped, but it is **not automatically approved** simply because it is more minimal.
+
+It may replace persistent text only if prototype testing shows that:
+
+- each icon is understandable without guesswork,
+- the current mode remains obvious,
+- accessibility remains sound,
+- the design does not create a learning burden.
+
+Until that is demonstrated, text labels remain a valid and safer implementation.
+
+---
+
+## 9. Bottom navigation
+
+Main modes only:
+
+- CARDS,
+- LIVE,
+- DIVE.
+
+Utilities such as SAVED / LIKES / HISTORY / SETTINGS remain outside the main navigation.
+
+The bottom navigation should be quiet and structurally simple.
 
 Avoid:
 
-- many colored circular icons,
-- thick/pop icon styles,
-- unnecessary circular icon backgrounds.
+- large selected backgrounds,
+- colorful pills,
+- floating rounded capsules,
+- glow,
+- decorative motion,
+- oversized branding.
 
-Visible icons may be visually light while keeping comfortable touch targets.
+Selected state should use minimal emphasis such as:
 
----
+- a restrained kingfisher-teal shift,
+- subtle typographic emphasis,
+- a fine rule when useful.
 
-## 6. Radius and cards
+If an icon system is prototyped:
 
-Rounded corners are part of KAWASEMI's visual grammar.
+- CARDS should suggest one article/card using minimal geometry,
+- LIVE should suggest current/incoming activity using minimal familiar geometry,
+- DIVE should suggest depth/exploration without becoming a custom puzzle icon.
 
-But:
-
-- not excessively rounded,
-- not overly soft/cute,
-- do not nest rounded box inside rounded box repeatedly.
-
-Prefer card separation through:
-
-- whitespace,
-- subtle background difference,
-- very light rules.
-
-Use shadows sparingly and weakly.
-
-Radius is a supporting detail, not the product identity.
+Do not make these symbols complex merely to make them unique.
 
 ---
 
-## 7. Buttons and controls
+## 10. Radius, cards, surfaces, and lines
 
-A button should look like a button only when it is genuinely actionable.
+Rounded corners are allowed and should feel elegant rather than soft or cute.
 
 Rules:
 
-- do not add meaningless arrows,
-- if text alone is clear, do not add an icon,
-- no flashy gradient CTAs,
-- a primary action does not automatically require a giant colored button,
-- avoid turning every interaction into a pill.
+- avoid excessive radius,
+- avoid rounded box inside rounded box repeatedly,
+- prefer whitespace, tone differences, and very light rules over shadows,
+- keep shadows very weak when used,
+- avoid unnecessary borders and dividers.
+
+Every visible line must have a structural reason.
+
+Dark mode should use subtle tonal separation rather than obvious card outlines.
 
 ---
 
-## 8. Information density
+## 11. Buttons and controls
+
+A button should look like a button only when it genuinely needs to read as an explicit action.
+
+Rules:
+
+- no meaningless arrows,
+- no icon if text alone is clearer,
+- no flashy gradient CTA,
+- no giant colored button by default,
+- no excessive pill controls,
+- no redundant action controls when the gesture already owns the interaction.
+
+---
+
+## 12. Gesture-first CARDS experience
+
+Core interaction contract:
+
+- vertical scroll = READ,
+- right-to-left swipe = NEXT,
+- left-to-right swipe = SAVE,
+- article-end heart = LIKE.
+
+Do not permanently display large NEXT or SAVE controls just to make gestures visible.
+
+But do not make gestures undiscoverable.
+
+The first-run experience should teach these operations through real interaction. Once learned, instruction UI should disappear or become non-intrusive.
+
+Subtle physical cues are allowed, including:
+
+- slight visibility of a background card,
+- restrained drag-follow movement,
+- action feedback at commitment threshold.
+
+Do not use:
+
+- large directional arrows,
+- persistent `SWIPE` labels,
+- decorative gesture diagrams on the normal reading screen.
+
+---
+
+## 13. Information density
 
 Do not reduce information too aggressively.
 
 `Minimal` must not mean empty or sparse.
 
-A news/information product must expose enough useful context while making one current priority obvious.
+A serious news product should expose enough useful context while making the current priority obvious.
 
 Use:
 
-- typography,
+- hierarchy,
 - spacing,
 - alignment,
+- typography,
 - restrained rules,
 
-before adding extra containers or decoration.
+before adding another container or visual element.
 
 ---
 
-## 9. KAWASEMI-specific application
+## 14. CARDS / LIVE / DIVE application
 
-### Navigation
+### CARDS — read
 
-Do not copy news-site category tabs such as `TOP STORIES / LATEST / JAPAN...` into the main product shell.
+- one article at a time,
+- continuous cover → body reading,
+- article and headline dominate the screen,
+- UI remains subordinate,
+- READ / NEXT / SAVE / LIKE interaction contract remains stable.
 
-Main navigation is:
+### LIVE — observe
 
-- `CARDS`
-- `LIVE`
-- `DIVE`
+- chronological and source-visible,
+- current change is structural,
+- not another generic vertical news feed,
+- conflicting claims remain separate,
+- raw/non-promoted material remains inspectable.
 
-The bottom navigation should remain visually quiet, inspired by refined editorial products rather than generic mobile-tab chrome.
+Avoid making LIVE look like a dashboard just because it handles many signals.
 
-`SAVED / LIKES / HISTORY / SETTINGS` are utilities, not main modes.
+### DIVE — explore
 
-### CARDS
+- spatial, directional, user-controlled,
+- current focus is obvious,
+- typed relationships remain understandable,
+- avoid game-tree/network-demo aesthetics,
+- no neon nodes or glowing graph effects.
 
-CARDS focuses on one article at a time.
-
-The article card is not merely a cover that opens a separate detail screen. The user continues vertically from the cover into the article body.
-
-Interaction contract:
-
-- vertical = READ,
-- left = NEXT,
-- right = SAVE,
-- article-end heart = LIKE.
-
-The design should subtly suggest horizontal card movement without instruction-heavy UI.
-
-Allowed cues include:
-
-- a very small glimpse of the next card behind,
-- tiny physical response during touch/drag.
-
-Do not use:
-
-- large swipe arrows,
-- `SWIPE` labels,
-- tutorial-like controls permanently on the reading screen.
-
-### LIVE
-
-LIVE should share KAWASEMI typography, color, icon and information language, but must not become a generic vertical `LATEST NEWS` feed.
-
-Chronology, source identity, incoming change and event grouping are its core structure.
-
-### DIVE
-
-DIVE should share the same design language while remaining spatial and exploratory.
-
-Avoid neon knowledge graphs, game skill trees, glowing nodes or visual effects that make the interface look like an AI demo.
+DIVE can feel distinct without abandoning the shared KAWASEMI visual grammar.
 
 ---
 
-## 10. Motion
+## 15. Motion
 
-Motion should support meaning rather than decorate the interface.
+Motion should explain state change, not decorate the interface.
 
 Working grammar:
 
-1. Observe — UI follows user intent,
+1. Observe — UI follows intent,
 2. Commit — action threshold becomes clear,
-3. Settle — UI returns to a stable state.
+3. Settle — UI becomes quiet again.
 
 Use short, restrained transitions for normal UI.
 
@@ -286,16 +435,16 @@ Avoid:
 - rubber-band theatrics,
 - wobble,
 - looping pulse,
-- neon/glowing trails,
-- dramatic transition for routine navigation.
+- glowing trails,
+- dramatic transitions for routine navigation.
 
-LIKE may use a small fill / scale response. SAVE and NEXT may use physical card movement because that movement explains the action.
+LIKE may use a small fill / scale response. SAVE and NEXT may use physical card movement because the movement explains the result.
 
-Support reduced-motion behavior.
+Support reduced motion.
 
 ---
 
-## 11. Source and truth-state presentation
+## 16. Source and truth-state presentation
 
 Source transparency is a primary information element, not a legal footer.
 
@@ -313,48 +462,85 @@ For information states, use explicit language such as:
 - `CLAIM`,
 - `UNKNOWN` / `UNVERIFIED`.
 
-Competing claims should remain separately attributed instead of being collapsed into one artificial compromise sentence.
+Competing claims should remain separately attributed rather than collapsed into one artificial compromise sentence.
+
+Use words and structure before color.
 
 ---
 
-## 12. Explicit anti-patterns
+## 17. Explicit anti-patterns
 
 Avoid:
 
-- colorful category-button rows,
-- many colored circular icons,
-- neon,
-- vivid blue-purple gradients,
-- every element being a rounded card,
-- unnecessary shadows,
+- large app-name branding,
+- unnecessary labels,
+- decorative icons,
+- redundant arrows,
+- unnecessary borders,
+- excessive dividers,
+- unnecessary buttons,
+- colored icon containers,
+- excessive rounded boxes,
+- thick/playful icons,
 - lines so thin they lose legibility,
-- thick/pop icons,
+- flashy gradients,
+- neon,
+- vivid blue-purple AI styling,
+- generic AI-template UI,
 - Dribbble-first fictional-app styling,
-- generic “AI-generated SaaS” styling,
-- strange operations whose meaning is unclear,
-- screens that succeed only because the photography is attractive,
 - glass-heavy SaaS surfaces,
 - cute/mascot kingfisher treatment,
-- game-like DIVE graphs.
+- game-like DIVE graphs,
+- strange interactions whose meaning is unclear,
+- screens that succeed only because the photography is attractive,
+- minimalism that makes navigation harder.
 
 ---
 
-## 13. What changed from the earlier v0.1 grammar
+## 18. Theme-specific visual direction
 
-The following owner-confirmed direction overrides earlier assumptions:
+### Light mode
 
-- default foundation shifts from dark/deep-teal-first toward white / off-white / light-gray-first,
-- a refined serif headline treatment is now explicitly welcomed,
-- photography may be larger while remaining subordinate to information hierarchy,
-- conventional UI symbols are preferred over custom icon invention,
-- overall target is more classic/editorial and less visibly digital/AI-styled.
+- white / off-white / light-gray foundation,
+- refined editorial tone,
+- strong black/charcoal typography,
+- kingfisher teal used sparingly,
+- larger photography permitted,
+- classic and calm rather than visibly digital/AI-styled.
 
-Dark/charcoal may still be used for text, overlays, article image gradients, selected contextual surfaces, or future dark-theme work; it is no longer the default visual identity for v1.
+### Dark mode
+
+Maintain:
+
+- deep charcoal / blue-black background,
+- soft white typography,
+- restrained kingfisher teal accent,
+- editorial type,
+- generous spacing,
+- one main article card,
+- subtle image gradient,
+- elegant rounded corners,
+- clear information hierarchy.
+
+Dark mode refinement priority:
+
+> Remove every visible element that cannot explain why it exists, while preserving discoverability, accessibility, feedback, current location, and a clear way back.
+
+Target feeling:
+
+- the user barely notices the interface,
+- attention stays on the news,
+- operations feel natural rather than learned through labels,
+- the product feels quiet, precise, and premium.
 
 ---
 
-## 14. Validation rule
+## 19. Validation rule
 
-This document defines the design grammar, not final screen-by-screen approval.
+This document defines the shared grammar, not final approval of each screen.
 
-Feature work should now produce concrete, touchable screens using this system. Owner feedback should be captured from real prototypes/screens rather than abstract token discussions wherever possible.
+Feature work should produce concrete, touchable screens using both theme directions where relevant.
+
+Owner review should happen against real screens and real interactions rather than abstract token discussions wherever possible.
+
+For any proposed removal of text, navigation cues, or controls, validate comprehension and usability before considering the removal final.
