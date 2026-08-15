@@ -221,6 +221,7 @@ When useful, communicate:
 - whether owner action is required.
 
 Use these states accurately:
+- READY — next work is defined but not currently executing,
 - RUNNING — work is genuinely executing,
 - WAITING_EXTERNAL — waiting on an external system,
 - REWORKING — a detected problem is actively being corrected,
@@ -263,3 +264,25 @@ Before starting, answer internally:
 5. What observable output proves this stage is complete?
 
 If those questions cannot be answered, the task is not ready to start.
+
+## 11. Cross-thread handoff rule
+
+The owner should not have to read every specialist ChatGPT thread or copy long replies back into Product HQ.
+
+Product HQ cannot assume it can directly open another ChatGPT thread. Therefore, any specialist workstream that produces an important result must persist that result to GitHub before treating the task as handed off.
+
+The detailed protocol is defined in `docs/WORKSTREAM_HANDOFF_PROTOCOL.md`.
+
+At minimum, specialist work must leave GitHub-visible evidence of:
+- current status,
+- what was completed,
+- commit / branch / preview / test evidence,
+- known issues,
+- decisions genuinely requiring Product HQ,
+- next executable action.
+
+Each specialist owns its status file under `docs/status/`.
+
+Product HQ should reconstruct project state from GitHub first. It should only ask the owner to relay a specialist-thread response when the specialist genuinely could not persist the result to GitHub.
+
+Chat-only work is not durable project state.
