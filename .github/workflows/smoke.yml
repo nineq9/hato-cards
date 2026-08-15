@@ -18,7 +18,7 @@ concurrency:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,6 +30,7 @@ jobs:
           node --check tests/smoke.mjs
           node --check tests/mobile-e2e.mjs
           node --check tests/untouched-regression.mjs
+          node --check tests/day2-design.mjs
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
@@ -48,6 +49,9 @@ jobs:
       - name: Untouched feature regression
         if: always()
         run: node tests/untouched-regression.mjs
+      - name: Day 2 design prototype QA
+        if: always()
+        run: node tests/day2-design.mjs
       - name: Upload visual checks
         if: always()
         uses: actions/upload-artifact@v4
