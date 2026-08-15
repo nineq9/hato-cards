@@ -140,3 +140,46 @@ Record major reversals or new principles in this decision log.
 
 Reason:
 Repeated isolated AI coding instructions caused regressions, duplicated behavior, and inconsistent interaction rules.
+
+---
+
+## 2026-08-15 — Editorial Dock is the primary main-mode navigation direction
+
+Decision:
+Use a persistent, restrained Editorial Dock for the three primary product modes:
+- CARDS
+- LIVE
+- DIVE
+
+The Dock should be text-first and indicate the active mode with typography / a fine rule rather than icon + label tabs, pill backgrounds, or glow.
+
+SAVED / LIKES / HISTORY / SETTINGS are utilities inside the hamburger menu, not peer main modes.
+
+Reason:
+CARDS, LIVE, and DIVE answer three different primary user questions (review, observe, explore), while the other destinations are supporting utilities. The structure should make that hierarchy visible without looking like a generic news-app tab bar.
+
+Implication:
+Legacy FOR YOU / HOT navigation language should be removed during the relevant app-shell work. Mode switching should preserve per-mode context where practical.
+
+---
+
+## 2026-08-15 — Shared KAWASEMI design grammar precedes feature-specific polish
+
+Decision:
+Use `docs/DESIGN_SYSTEM.md` as the shared v0.1 visual/motion grammar for CARDS, LIVE, DIVE, Tutorial, Menu, and common overlays.
+
+Key rules include:
+- quiet by default, sharp on action,
+- information before interface decoration,
+- color is not truth,
+- text/spacing/structure before containers,
+- shared source and epistemic-state presentation,
+- restrained ordinary motion,
+- geometric kingfisher, not mascot treatment,
+- avoid neon/game/SaaS/pill-heavy visual drift.
+
+Reason:
+Polishing features independently would create multiple visual languages and increase integration rework during the sprint.
+
+Implication:
+Feature-specific designs may extend the system but should not silently contradict it. Owner-taste refinements should be decided from touchable prototypes after the shared grammar is applied.
