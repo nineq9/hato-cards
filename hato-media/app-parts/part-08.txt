@@ -40,7 +40,6 @@ function init(){
 
 document.addEventListener('DOMContentLoaded',init);
 
-// Public bridge for optional UI extensions loaded in a separate eval context.
 window.__HATO_BRIDGE__={
   articles:ARTICLES,
   escape:esc,
@@ -59,3 +58,4 @@ fetch('./hato-enhance.js?v=2',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Er
 fetch('./hato-inbox.js?v=20260815-6',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-inbox.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO inbox failed',err));
 fetch('./hato-brand.js?v=20260815-2',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-brand.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO brand polish failed',err));
 fetch('./hato-hotfix.js?v=20260815-1',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-hotfix.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO hotfix failed',err));
+fetch('./hato-title-flow.js?v=20260815-1',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hato-title-flow.js '+r.status);return r.text()}).then(code=>(0,eval)(code)).catch(err=>console.error('HATO title flow failed',err));
