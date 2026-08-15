@@ -267,9 +267,11 @@
     if(g.axis) return g.axis;
     const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
     if(dist<threshold) return null;
-    if(ax>ay*1.22) g.axis='x';
-    else if(ay>ax*1.10) g.axis='y';
-    else if(dist>20) g.axis=ax>ay?'x':'y';
+    // READ is the continuous primary action. A small horizontal wobble at
+    // touch-down must not steal an otherwise clearly vertical gesture.
+    if(ay>=ax*1.12) g.axis='y';
+    else if(ax>=ay*1.45) g.axis='x';
+    else if(dist>=28) g.axis=ay>=ax*.82?'y':'x';
     return g.axis;
   }
 
@@ -281,8 +283,10 @@
       if(e.button!==undefined&&e.button!==0) return;
       if($('#drawer').classList.contains('open')||$('#sourceSheet').classList.contains('open')||state.tab==='dive') return;
       if(e.clientX<=edgeGestureWidth()||state.edgeDrawerPointerId===e.pointerId) return;
+      // A missing terminal event must never poison the next gesture.
+      if(g){g=null;resetReaderVisual();}
       const now=performance.now();
-      g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,vx:0,vy:0,axis:null};
+      g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,vx:0,vy:0,axis:null,startScrollTop:surface.scrollTop,hadHorizontalLead:false,manualRead:false};
     });
 
     surface.addEventListener('pointermove',e=>{
@@ -292,8 +296,20 @@
       g.vx=g.vx*.44+((e.clientX-g.lastX)/dt)*.56;
       g.vy=g.vy*.44+((e.clientY-g.lastY)/dt)*.56;
       g.lastX=e.clientX;g.lastY=e.clientY;g.lastT=now;
+      const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
+      if(!g.axis&&dist>=10&&ax>ay) g.hadHorizontalLead=true;
       decideAxis(g,dx,dy);
-      if(g.axis==='y') return;
+      if(g.axis==='y'){
+        // Chromium/WebKit may decline native vertical panning if the gesture
+        // began slightly horizontal. Only that ambiguous-start case uses a
+        // manual READ fallback; clean vertical gestures stay native.
+        if(g.hadHorizontalLead){
+          g.manualRead=true;
+          e.preventDefault();
+          surface.scrollTop=clamp(g.startScrollTop-dy,0,Math.max(0,surface.scrollHeight-surface.clientHeight));
+        }
+        return;
+      }
       if(g.axis!=='x') return;
 
       surface.setPointerCapture?.(e.pointerId);
@@ -317,7 +333,8 @@
       settleReader();
     };
     surface.addEventListener('pointerup',finish);
-    surface.addEventListener('pointercancel',()=>{if(!g)return;g=null;settleReader();});
+    const cancelReaderPointer=e=>{if(!g||e.pointerId!==g.id)return;g=null;settleReader();};
+    surface.addEventListener('pointercancel',cancelReaderPointer);
 
     surface.addEventListener('click',e=>{
       if(performance.now()>=suppressClickUntil) return;
@@ -418,9 +435,9 @@
       if(article){focusArticle(article.dataset.id);return;}
       const chip=e.target.closest('.interest-chip');
       if(chip){const y=$('#articleScroll')?.scrollTop||0;state.interests.splice(Number(chip.dataset.i),1);persist();renderDrawer();renderReader({resetScroll:false,scrollTop:y});return;}
-      const theme=e.target.closest('[data-theme]');
+      const theme=e.target.closest('button[data-theme]');
       if(theme){state.themeChoice=theme.dataset.theme;localStorage.setItem('kingfisherTheme',state.themeChoice);applyTheme();return;}
-      const language=e.target.closest('[data-lang]');
+      const language=e.target.closest('button[data-lang]');
       if(language){const y=$('#articleScroll')?.scrollTop||0;localStorage.setItem('kingfisherLanguage',language.dataset.lang);document.documentElement.lang=language.dataset.lang;renderDrawer();renderReader({resetScroll:false,scrollTop:y});}
     });
     body.addEventListener('submit',e=>{
@@ -441,10 +458,10 @@
       const drawerOpen=$('#drawer').classList.contains('open');
       if(drawerOpen){
         if(state.drawerView==='home') return;
-        g={mode:'back',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null};
+        g={mode:'back',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null,captureTarget:e.target instanceof Element?e.target:null};
       }else{
         if(!$('#cardsScreen').classList.contains('active')||!$('#tutorial').classList.contains('hidden')) return;
-        g={mode:'open',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null};
+        g={mode:'open',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null,captureTarget:e.target instanceof Element?e.target:null};
       }
       state.edgeDrawerPointerId=e.pointerId;
     },true);
@@ -455,6 +472,7 @@
       decideAxis(g,dx,dy,7);
       const now=performance.now(),dt=Math.max(8,now-g.lastT);g.vx=g.vx*.44+((e.clientX-g.lastX)/dt)*.56;g.lastX=e.clientX;g.lastT=now;
       if(g.axis!=='x')return;
+      try{g.captureTarget?.setPointerCapture?.(g.id);}catch{}
       e.preventDefault();
       if(g.mode==='open'){
         const drawer=$('#drawer'),backdrop=$('#drawerBackdrop'),progress=clamp(dx/Math.max(1,drawer.offsetWidth),0,1);
