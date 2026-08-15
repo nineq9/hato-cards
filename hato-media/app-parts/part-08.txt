@@ -70,5 +70,45 @@ const loadAddon=async(src,label)=>{
   }catch(err){console.error(`HATO ${label} failed`,err);}
 };
 
+const installInlineProgressAudio=()=>{
+  if(document.getElementById('hatoInlineProgressAudioStyle'))return;
+  const style=document.createElement('style');
+  style.id='hatoInlineProgressAudioStyle';
+  style.textContent=`
+    .hato-inbox-panel{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) auto!important;
+      grid-template-rows:auto auto!important;
+      column-gap:15px!important;
+      row-gap:7px!important;
+      align-items:center!important;
+    }
+    .hato-inbox-title{grid-column:1/-1!important;grid-row:1!important}
+    .hato-progress-row{
+      grid-column:1!important;
+      grid-row:2!important;
+      display:block!important;
+      min-width:0!important;
+      width:100%!important;
+      margin:0!important;
+    }
+    .hato-progress-track{width:100%!important}
+    .hato-progress-text{display:none!important}
+    .hato-audio-row{
+      grid-column:2!important;
+      grid-row:2!important;
+      display:flex!important;
+      width:auto!important;
+      min-width:45px!important;
+      align-items:center!important;
+      justify-content:flex-end!important;
+      gap:9px!important;
+      padding:0!important;
+      margin:0!important;
+    }
+  `;
+  document.head.appendChild(style);
+};
+
 loadAddon('./ru.js?v=20260816-1','Russian localization').then(()=>loadAddon('./ru-fix.js?v=20260816-1','Russian dynamic fix'));
-loadAddon('./hato-inbox.js?v=20260816-7','inbox').then(()=>loadAddon('./hato-lean.js?v=20260816-2','lean runtime'));
+loadAddon('./hato-inbox.js?v=20260816-7','inbox').then(()=>loadAddon('./hato-lean.js?v=20260816-2','lean runtime')).then(installInlineProgressAudio);
