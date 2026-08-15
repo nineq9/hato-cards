@@ -70,6 +70,32 @@ const loadAddon=async(src,label)=>{
   }catch(err){console.error(`HATO ${label} failed`,err);}
 };
 
+const loadLiveArticles=async()=>{
+  const liveUrl=`https://raw.githubusercontent.com/nineq9/hato-cards/hato-live/hato-media/data/live-articles.json?t=${Math.floor(Date.now()/60000)}`;
+  try{
+    const r=await fetch(liveUrl,{cache:'no-store',mode:'cors'});
+    if(!r.ok)throw new Error(`live articles ${r.status}`);
+    const payload=await r.json();
+    const incoming=Array.isArray(payload?.articles)?payload.articles:[];
+    if(!incoming.length)return false;
+    const valid=incoming.filter(a=>a&&Number.isFinite(Number(a.id))&&a.title&&a.category);
+    if(!valid.length)return false;
+    ARTICLES.splice(0,ARTICLES.length,...valid);
+    window.__HATO_LIVE_META__={
+      edition_date:payload.edition_date||null,
+      generated_at:payload.generated_at||null,
+      mode:payload.mode||'live'
+    };
+    if(document.readyState!=='loading'){
+      renderFeed();updateProgress();renderArchive();
+    }
+    return true;
+  }catch(err){
+    console.warn('HATO live feed unavailable; using bundled edition',err);
+    return false;
+  }
+};
+
 const installInlineProgressAudio=()=>{
   if(document.getElementById('hatoInlineProgressAudioStyle'))return;
   const style=document.createElement('style');
@@ -111,4 +137,8 @@ const installInlineProgressAudio=()=>{
 };
 
 loadAddon('./ru.js?v=20260816-1','Russian localization').then(()=>loadAddon('./ru-fix.js?v=20260816-1','Russian dynamic fix'));
-loadAddon('./hato-inbox.js?v=20260816-7','inbox').then(()=>loadAddon('./hato-lean.js?v=20260816-2','lean runtime')).then(installInlineProgressAudio);
+loadLiveArticles().finally(()=>{
+  loadAddon('./hato-inbox.js?v=20260816-8','inbox')
+    .then(()=>loadAddon('./hato-lean.js?v=20260816-3','lean runtime'))
+    .then(installInlineProgressAudio);
+});
