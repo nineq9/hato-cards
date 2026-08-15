@@ -14,8 +14,13 @@ Execute Issue #4 (`Day 1: stabilize CARDS with human-like mobile E2E QA`) and re
 - Added `tests/mobile-e2e.mjs` with imperfect diagonal READ, top/middle/end NEXT and SAVE, mixed gestures, menu recovery, tutorial journey, and screenshot capture.
 - Reproduced the owner-visible diagonal READ failure with touch input in CI.
 - Reproduced menu subview edge-return failure with touch input in CI.
-- Applied a shared gesture-direction fix and reader gesture-lifecycle cleanup in `kingfisher.js`.
-- Added explicit `touch-action: pan-y` to `.drawer-body` so horizontal edge-return can coexist with vertical drawer scrolling.
+- Updated `decideAxis()` / `bindReaderGesture()` so an ambiguous horizontal lead can recover into vertical READ without poisoning the next gesture.
+- Added `.drawer-body { touch-action: pan-y; }` and pointer capture for subview edge return.
+- Removed `lostpointercapture` cleanup after it was shown to interfere with Tutorial NEXT.
+- Human-like mobile E2E passed on CI run `31888626520`, including the previously failing diagonal READ → NEXT path, top/middle/end NEXT/SAVE, mixed gestures, menu recovery, tutorial, and screenshots.
+- Screenshot artifact `kingfisher-visual-checks`, artifact ID `9247954765`, was uploaded from CI run `31888626520` with 7 images.
+- Diagnosed RU language switch failure as event-delegation selector leakage: `closest('[data-theme]')` matched the ancestor `<html data-theme>`. Restricted theme/language selectors to their buttons.
+- Diagnosed existing smoke SAVE failure after backdrop close as hit-testing against the still-animating closed drawer. Closed drawer is now immediately `pointer-events:none`.
 
 ### Evidence
 - Issue #4: https://github.com/nineq9/hato-cards/issues/4
@@ -25,21 +30,22 @@ Execute Issue #4 (`Day 1: stabilize CARDS with human-like mobile E2E QA`) and re
 - Reproduction CI run: `31888013108`
   - CRITICAL: imperfect vertical READ was captured as horizontal instead of scrolling.
   - HIGH: Settings edge return failed.
-  - Additional regression signal: RU language switch assertion failed and remains under investigation.
-- Product fix commit on branch: `5d3f0a7a3c4f0b102caf5d74138cec4cc8c5ed16`
-  - `kingfisher.js`: `decideAxis()`, `bindReaderGesture()` lifecycle cleanup.
-  - `kingfisher.css`: `.drawer-body` touch-action policy.
+  - Additional regression: RU language switch assertion failed.
+- First complete human-like post-fix run: `31888626520`
+  - `tests/mobile-e2e.mjs`: PASS.
+  - 7 screenshots retained in artifact `9247954765`.
+  - Existing smoke still failed `non-edge SAVE` after backdrop-close race; fixed after this run.
+  - Untouched regression still failed RU language switching; fixed after this run.
+- Current final product-fix branch head before final QA: `e4c796fdb1dc212df4a111b58ff8079651defea1` plus this status commit.
 
 ### Known issues / limitations
-- Fixes above are implemented but the post-fix human-like E2E run is still pending at the time of this status update. Do not treat them as PASS yet.
-- RU language-switch regression from `tests/untouched-regression.mjs` is not yet classified as product bug vs test issue.
-- Tutorial mechanical journey must still pass the post-fix E2E and screenshots need to be retained as artifacts.
-- Tutorial qualitative clarity remains owner-reported as confusing; mechanical PASS alone will not prove the copy is acceptable.
-- Production navigation still shows legacy `FOR YOU / HOT / DIVE` wording; this is outside the critical gesture fix and remains visible debt.
+- The final all-suite QA run after the last two regression fixes is pending. Do not mark READY/DONE until it passes or remaining failures are classified.
+- Tutorial mechanical journey passed in human-like E2E. Tutorial qualitative clarity remains owner-reported as confusing; automated mechanics do not prove the copy/experience is subjectively clear.
+- Production navigation still shows legacy `FOR YOU / HOT / DIVE` wording. This is visible debt but not part of the confirmed critical gesture fix in Issue #4.
 - Real iPhone/Safari behavior is NOT TESTED in this workstream environment unless separately stated.
 
 ### Product decisions needed
-None for the immediate Issue #4 stabilization pass. Fix confirmed regressions and align with existing UX rules first.
+None for the immediate Issue #4 stabilization pass. Confirmed regressions are being fixed against existing UX contracts only.
 
 ### Next action
-Run PR CI against the post-fix branch head; inspect all smoke / human-like mobile E2E / untouched-regression results; fix any remaining confirmed regressions; retain screenshot artifacts; then persist the final PASS / FAIL / NOT TESTED matrix here and on Issue #4.
+Run all three PR QA suites against the final branch head, verify screenshots/artifacts, update PASS / FAIL / NOT TESTED here and on Issue #4, then merge only if no reproducible CRITICAL failure remains and the PR is conflict-free.
