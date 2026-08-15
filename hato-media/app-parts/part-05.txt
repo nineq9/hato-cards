@@ -33,13 +33,6 @@ function filtered(){
 }
 function storyHTML(a, lead=false, displayNo=a.id){
   const read=readSet.has(a.id);
-  if(lead){return `<article class="lead ${read?'read':''}" data-id="${a.id}">
-    <div class="kicker">TOP · ${a.category}</div>
-    <h1><button class="open-article" data-id="${a.id}">${esc(a.title)}</button></h1>
-    <p class="summary">${esc(a.summary)}</p>
-    <button class="open-article lead-art" data-id="${a.id}" aria-label="記事を開く">${artSVG(a,displayNo)}</button>
-    <div class="meta"><a class="source-link" href="#" onclick="return false">${a.source}</a><span>${a.time}</span>${read?'<span>✓ READ</span>':''}</div>
-  </article>`}
   return `<article class="story ${read?'read':''}" data-id="${a.id}">
     <div class="story-num">${String(displayNo).padStart(2,'0')}</div>
     <div class="story-main">
@@ -83,8 +76,7 @@ function renderFeed(){
   const topItems=chapterItems('TOP');
   let html=`<section id="chapter-TOP" class="timeline-chapter timeline-top">`;
   if(topItems.length){
-    html+=storyHTML(topItems[0],true,1);
-    html+=topItems.slice(1).map((a,i)=>storyHTML(a,false,i+2)).join('');
+    html+=topItems.map((a,i)=>storyHTML(a,false,i+1)).join('');
   }
   html+='</section>';
 
