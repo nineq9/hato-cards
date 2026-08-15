@@ -267,9 +267,11 @@
     if(g.axis) return g.axis;
     const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
     if(dist<threshold) return null;
-    if(ax>ay*1.22) g.axis='x';
-    else if(ay>ax*1.10) g.axis='y';
-    else if(dist>20) g.axis=ax>ay?'x':'y';
+    // READ is the continuous primary action. A small horizontal wobble at
+    // touch-down must not steal an otherwise clearly vertical gesture.
+    if(ay>=ax*1.12) g.axis='y';
+    else if(ax>=ay*1.45) g.axis='x';
+    else if(dist>=28) g.axis=ay>=ax*.82?'y':'x';
     return g.axis;
   }
 
@@ -281,6 +283,8 @@
       if(e.button!==undefined&&e.button!==0) return;
       if($('#drawer').classList.contains('open')||$('#sourceSheet').classList.contains('open')||state.tab==='dive') return;
       if(e.clientX<=edgeGestureWidth()||state.edgeDrawerPointerId===e.pointerId) return;
+      // A missing terminal event must never poison the next gesture.
+      if(g){g=null;resetReaderVisual();}
       const now=performance.now();
       g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,vx:0,vy:0,axis:null};
     });
@@ -317,7 +321,9 @@
       settleReader();
     };
     surface.addEventListener('pointerup',finish);
-    surface.addEventListener('pointercancel',()=>{if(!g)return;g=null;settleReader();});
+    const cancelReaderPointer=e=>{if(!g||e.pointerId!==g.id)return;g=null;settleReader();};
+    surface.addEventListener('pointercancel',cancelReaderPointer);
+    surface.addEventListener('lostpointercapture',cancelReaderPointer);
 
     surface.addEventListener('click',e=>{
       if(performance.now()>=suppressClickUntil) return;
