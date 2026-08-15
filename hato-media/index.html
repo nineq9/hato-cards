@@ -12,7 +12,7 @@
   <div id="todayView">
     <header class="topbar">
       <button id="menuBtn" class="icon-btn menu-open" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      <div class="logo-wrap"><img src="assets/img1.webp" alt="HATO"></div>
+      <div class="logo-wrap"><img src="assets/hato-logo-hq.webp?v=1" alt="HATO" width="112" height="42"></div>
       <button id="searchBtn" class="icon-btn" aria-label="検索"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
     </header>
     <div class="utility">
@@ -69,7 +69,7 @@
   </div>
 
   <section id="archivePage" class="page-section">
-    <div class="sub-topbar"><button class="icon-btn menu-open" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="logo-wrap"><img src="assets/img1.webp" alt="HATO"></div><span></span></div>
+    <div class="sub-topbar"><button class="icon-btn menu-open" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="logo-wrap"><img src="assets/hato-logo-hq.webp?v=1" alt="HATO" width="112" height="42"></div><span></span></div>
     <h1 class="section-title">ARCHIVE</h1>
     <input id="archiveSearch" class="archive-search" type="search" placeholder="過去のHATOを検索">
     <div id="archiveResults" class="archive-results"></div>
@@ -82,12 +82,12 @@
   </section>
 
   <section id="aboutPage" class="page-section">
-    <div class="sub-topbar"><button class="icon-btn menu-open" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="logo-wrap"><img src="assets/img1.webp" alt="HATO"></div><span></span></div>
+    <div class="sub-topbar"><button class="icon-btn menu-open" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="logo-wrap"><img src="assets/hato-logo-hq.webp?v=1" alt="HATO" width="112" height="42"></div><span></span></div>
     <h1 class="section-title about-title">ABOUT HATO</h1>
     <p class="about-copy">世界は広く、知るべきことに終わりはありません。<br>でも、時間は有限です。<br><br>時間の使い方は、人生の使い方。<br>HATOは、ニュースを追い続けるためではなく、今日の世界を必要な深さまで理解して、その先の大切な仕事や暮らしに時間を使うためのデイリーブリーフです。</p>
     <hr class="about-rule">
     <p class="about-small">ニュースを、追い続けるためではなく。<br>今日の世界を理解して、自分の一日へ戻るために。</p>
-    <div class="about-birds"><img src="assets/img6.webp" alt="眠るATTA"></div>
+    <div class="about-birds"><img src="assets/hato-sleep-hq.webp?v=2" alt="眠るATTA" loading="lazy" decoding="async"></div>
   </section>
 </div>
 
@@ -95,7 +95,7 @@
   <div class="overlay-head"><button id="menuClose" class="icon-btn" aria-label="閉じる"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></svg></button><div class="overlay-title">HATO</div><span></span></div>
   <div class="menu-body"><div class="menu-links">
     <button class="menu-link active" data-page="today">TODAY</button><button class="menu-link" data-page="archive">ARCHIVE</button><button class="menu-link" data-page="audio">AUDIO</button><button class="menu-link" data-page="about">ABOUT HATO</button>
-  </div><div class="menu-bottom"><img src="assets/img7.webp" alt="手紙を運ぶATTA"><p>新しい世界をお知らせ</p></div></div>
+  </div><div class="menu-bottom"><img src="assets/img7.webp" alt="手紙を運ぶATTA" loading="lazy" decoding="async"><p>新しい世界をお知らせ</p></div></div>
 </div>
 
 <div id="articleView" class="article-view"><div id="articleProgress" class="article-progress"></div><article id="articleContent" class="article-inner"></article></div><button id="backArticle" class="back-fab" aria-label="戻る"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button>
@@ -114,8 +114,8 @@
 <script>
 (async()=>{
   const loadParts=async (dir,count)=>{
-    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=swipe4`);
-    const responses=await Promise.all(urls.map(u=>fetch(u,{cache:'no-store'})));
+    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean1`);
+    const responses=await Promise.all(urls.map(u=>fetch(u,{cache:'default'})));
     responses.forEach((r,i)=>{if(!r.ok)throw new Error(`${urls[i]} ${r.status}`)});
     return (await Promise.all(responses.map(r=>r.text()))).join('');
   };
