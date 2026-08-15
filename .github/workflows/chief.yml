@@ -1,0 +1,156 @@
+name: KINGFISHER chief
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, ready_for_review]
+  workflow_run:
+    workflows: ["KINGFISHER smoke"]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: kingfisher-chief-${{ github.event.pull_request.number || github.event.workflow_run.id || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  pr-intake:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Register work with Chief
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const CONTROL_ISSUE = 1;
+            const pr = context.payload.pull_request;
+            const marker = '<!-- asumi-chief:pr-state -->';
+
+            async function upsertPrComment(body) {
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                per_page: 100,
+              });
+              const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                  body,
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body,
+                });
+              }
+            }
+
+            async function updateControl(statusBlock) {
+              const issue = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: CONTROL_ISSUE,
+              });
+              const start = '<!-- asumi-chief:status:start -->';
+              const end = '<!-- asumi-chief:status:end -->';
+              const body = issue.data.body || '';
+              const replacement = `${start}\n${statusBlock}\n${end}`;
+              const startAt = body.indexOf(start);
+              const endAt = body.indexOf(end);
+              const nextBody = startAt >= 0 && endAt > startAt
+                ? body.slice(0, startAt) + replacement + body.slice(endAt + end.length)
+                : replacement + '\n\n' + body;
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: CONTROL_ISSUE,
+                body: nextBody,
+              });
+            }
+
+            await upsertPrComment(`${marker}\n## Chief\n- State: QA_QUEUED\n- PR: #${pr.number} — ${pr.title}\n- Next automatic step: KINGFISHER smoke\n- Owner action: none\n\nChief will use automated QA results before asking for human attention.`);
+
+            await updateControl(`## Current status\n- Phase: Event-driven development\n- State: QA_QUEUED\n- Current task: PR #${pr.number} — ${pr.title}\n- Owner action: none\n- Next automatic step: run KINGFISHER smoke`);
+
+  qa-route:
+    if: github.event_name == 'workflow_run'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Route QA result
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const CONTROL_ISSUE = 1;
+            const run = context.payload.workflow_run;
+            const marker = '<!-- asumi-chief:pr-state -->';
+            const prs = run.pull_requests || [];
+            const pr = prs[0];
+            const passed = run.conclusion === 'success';
+            const state = passed ? 'AUTOMATED_QA_PASS' : 'REWORK_REQUIRED';
+            const next = passed
+              ? 'Product/UX review gate, then continue automatically when an AI worker is configured'
+              : 'Build rework. Automatic AI repair is intentionally disabled until a quality-approved provider is configured';
+
+            async function updateControl(statusBlock) {
+              const issue = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: CONTROL_ISSUE,
+              });
+              const start = '<!-- asumi-chief:status:start -->';
+              const end = '<!-- asumi-chief:status:end -->';
+              const body = issue.data.body || '';
+              const replacement = `${start}\n${statusBlock}\n${end}`;
+              const startAt = body.indexOf(start);
+              const endAt = body.indexOf(end);
+              const nextBody = startAt >= 0 && endAt > startAt
+                ? body.slice(0, startAt) + replacement + body.slice(endAt + end.length)
+                : replacement + '\n\n' + body;
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: CONTROL_ISSUE,
+                body: nextBody,
+              });
+            }
+
+            if (pr) {
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                per_page: 100,
+              });
+              const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
+              const body = `${marker}\n## Chief\n- State: ${state}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Run: ${run.html_url}\n- Next: ${next}\n- Owner action: none unless Chief explicitly marks OWNER_ACTION_REQUIRED`;
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                  body,
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body,
+                });
+              }
+
+              await updateControl(`## Current status\n- Phase: Event-driven development\n- State: ${state}\n- Current task: PR #${pr.number}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Owner action: none\n- Next automatic step: ${next}`);
+            } else {
+              await updateControl(`## Current status\n- Phase: Main-branch verification\n- State: ${passed ? 'POST_MERGE_QA_PASS' : 'POST_MERGE_QA_FAIL'}\n- Current task: main branch ${run.head_sha.slice(0, 7)}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Owner action: ${passed ? 'none' : 'none yet; Chief should diagnose first'}\n- Next automatic step: ${passed ? 'continue roadmap' : 'diagnose regression'}`);
+            }
