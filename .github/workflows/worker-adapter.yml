@@ -1,0 +1,77 @@
+name: KINGFISHER worker adapter
+
+on:
+  workflow_dispatch:
+    inputs:
+      task_type:
+        description: Worker task type
+        required: true
+        type: choice
+        options:
+          - diagnose
+          - implement
+          - product-review
+          - rework
+      task_ref:
+        description: Issue/PR/ref to work on
+        required: true
+        type: string
+  repository_dispatch:
+    types: [kingfisher-worker]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+env:
+  CONTROL_ISSUE: '1'
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Route worker request honestly
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const controlIssue = Number(process.env.CONTROL_ISSUE);
+            const taskType = context.eventName === 'workflow_dispatch'
+              ? core.getInput('task_type')
+              : context.payload.client_payload?.task_type || 'unknown';
+            const taskRef = context.eventName === 'workflow_dispatch'
+              ? core.getInput('task_ref')
+              : context.payload.client_payload?.task_ref || 'unknown';
+
+            // Paid/external AI execution is deliberately not faked. Once a quality-approved
+            // provider is configured, replace this gate with the provider call while keeping
+            // the same task contract and state transitions.
+            const providerConfigured = Boolean(process.env.AI_WORKER_CONFIGURED === 'true');
+
+            const issue = await github.rest.issues.get({ owner, repo, issue_number: controlIssue });
+            const start = '<!-- asumi-chief:status:start -->';
+            const end = '<!-- asumi-chief:status:end -->';
+            const current = issue.data.body || '';
+
+            const status = providerConfigured
+              ? `## Current status\n- Phase: AI worker\n- State: RUNNING\n- Current task: ${taskType} — ${taskRef}\n- Owner action: none\n- Next automatic step: execute configured worker`
+              : `## Current status\n- Phase: AI worker\n- State: OWNER_ACTION_REQUIRED\n- Current task: ${taskType} — ${taskRef}\n- Blocker: no quality-approved AI provider is configured\n- Owner action: approve a provider/budget before paid AI execution\n- Next automatic step after approval: configure provider secret and execute worker`;
+
+            const replacement = `${start}\n${status}\n${end}`;
+            const a = current.indexOf(start);
+            const b = current.indexOf(end);
+            const nextBody = a >= 0 && b > a
+              ? current.slice(0, a) + replacement + current.slice(b + end.length)
+              : replacement + '\n\n' + current;
+            await github.rest.issues.update({ owner, repo, issue_number: controlIssue, body: nextBody });
+
+            if (!providerConfigured) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: controlIssue,
+                body: `@${owner} **Chief needs a decision**\n\nAI worker task \`${taskType}\` for \`${taskRef}\` is ready, but no paid/quality-approved AI provider is configured. No AI work is running in the background yet.`,
+              });
+            }
