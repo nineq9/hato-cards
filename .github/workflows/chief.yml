@@ -12,7 +12,7 @@ permissions:
   contents: write
   actions: read
   issues: write
-  pull-requests: write
+  pull-requests: read
 
 concurrency:
   group: kingfisher-chief-${{ github.event.pull_request.number || github.event.workflow_run.id || github.run_id }}
@@ -23,38 +23,12 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - name: Register work with Chief
+      - name: Register work with Chief without comments
         uses: actions/github-script@v7
         with:
           script: |
             const CONTROL_ISSUE = 1;
             const pr = context.payload.pull_request;
-            const marker = '<!-- asumi-chief:pr-state -->';
-
-            async function upsertPrComment(body) {
-              const comments = await github.paginate(github.rest.issues.listComments, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                per_page: 100,
-              });
-              const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
-              if (existing) {
-                await github.rest.issues.updateComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  comment_id: existing.id,
-                  body,
-                });
-              } else {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: pr.number,
-                  body,
-                });
-              }
-            }
 
             async function updateControl(statusBlock) {
               const issue = await github.rest.issues.get({
@@ -79,21 +53,18 @@ jobs:
               });
             }
 
-            await upsertPrComment(`${marker}\n## Chief\n- State: QA_QUEUED\n- PR: #${pr.number} — ${pr.title}\n- Next automatic step: KINGFISHER smoke\n- Owner action: none\n\nChief will use automated QA results before asking for human attention.`);
-
             await updateControl(`## Current status\n- Phase: Event-driven development\n- State: WAITING_EXTERNAL\n- Current task: PR #${pr.number} — ${pr.title}\n- Owner action: none\n- Next automatic step: run KINGFISHER smoke`);
 
   qa-route:
     if: github.event_name == 'workflow_run'
     runs-on: ubuntu-latest
     steps:
-      - name: Route QA result
+      - name: Route QA result without comments or mentions
         uses: actions/github-script@v7
         with:
           script: |
             const CONTROL_ISSUE = 1;
             const run = context.payload.workflow_run;
-            const marker = '<!-- asumi-chief:pr-state -->';
             const prs = run.pull_requests || [];
             const pr = prs[0];
             const passed = run.conclusion === 'success';
@@ -121,15 +92,6 @@ jobs:
               });
             }
 
-            async function notifyOwner(title, detail) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: CONTROL_ISSUE,
-                body: `@${context.repo.owner} **${title}**\n\n${detail}`,
-              });
-            }
-
             async function dispatchWorker(taskType, taskRef) {
               await github.rest.repos.createDispatchEvent({
                 owner: context.repo.owner,
@@ -144,36 +106,15 @@ jobs:
               const next = passed
                 ? 'Product/UX review via worker adapter'
                 : 'Build diagnosis/rework via worker adapter';
-              const comments = await github.paginate(github.rest.issues.listComments, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                per_page: 100,
-              });
-              const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
-              const body = `${marker}\n## Chief\n- State: ${state}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Run: ${run.html_url}\n- Next: ${next}\n- Owner action: none unless the worker adapter reaches a policy gate`;
-              if (existing) {
-                await github.rest.issues.updateComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  comment_id: existing.id,
-                  body,
-                });
-              } else {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: pr.number,
-                  body,
-                });
-              }
 
               await updateControl(`## Current status\n- Phase: Event-driven development\n- State: ${state}\n- Current task: PR #${pr.number}\n- Automated QA: ${passed ? 'PASS' : `FAIL (${run.conclusion || 'unknown'})`}\n- Owner action: none\n- Next automatic step: ${next}`);
               await dispatchWorker(passed ? 'product-review' : 'rework', `PR #${pr.number}`);
             } else if (passed) {
               await updateControl(`## Current status\n- Phase: Main-branch verification\n- State: DONE\n- Current task: main branch ${run.head_sha.slice(0, 7)}\n- Automated QA: PASS\n- Owner action: none\n- Next automatic step: continue roadmap`);
-              await notifyOwner('Chief stage completed', `Main-branch QA passed for \`${run.head_sha.slice(0, 7)}\`. Chief is healthy and can continue the roadmap. No action is required from you.`);
             } else {
               await updateControl(`## Current status\n- Phase: Main-branch verification\n- State: REWORKING\n- Current task: main branch ${run.head_sha.slice(0, 7)}\n- Automated QA: FAIL (${run.conclusion || 'unknown'})\n- Owner action: none yet\n- Next automatic step: diagnose regression via worker adapter`);
               await dispatchWorker('diagnose', `main ${run.head_sha.slice(0, 7)}`);
             }
+
+            // Intentionally no issue/PR comments and no @mentions.
+            // Status lives only in the Chief Control issue body to avoid email notification spam.
