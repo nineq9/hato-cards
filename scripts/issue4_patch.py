@@ -16,8 +16,8 @@ new = '''  function decideAxis(g,dx,dy,threshold=10){
     if(g.axis) return g.axis;
     const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
     if(dist<threshold) return null;
-    // Reading is the primary continuous action. Do not let a tiny horizontal
-    // wobble at touch-down steal an otherwise clear vertical read.
+    // READ is the continuous primary action. A small horizontal wobble at
+    // touch-down must not steal an otherwise clearly vertical gesture.
     if(ay>=ax*1.12) g.axis='y';
     else if(ax>=ay*1.45) g.axis='x';
     else if(dist>=28) g.axis=ay>=ax*.82?'y':'x';
@@ -66,8 +66,8 @@ js.write_text(text)
 
 css = Path('kingfisher.css')
 ct = css.read_text()
-old = '.drawer-body{overflow-y:auto;padding:8px 18px calc(24px + var(--safe-bottom));overscroll-behavior:contain}'
-new = '.drawer-body{overflow-y:auto;padding:8px 18px calc(24px + var(--safe-bottom));overscroll-behavior:contain;touch-action:pan-y}'
+old = '.drawer-body{overflow-y:auto;padding:8px 18px calc(24px + var(--safe-bottom));overscroll-behavior:contain;will-change:transform,opacity}'
+new = '.drawer-body{overflow-y:auto;padding:8px 18px calc(24px + var(--safe-bottom));overscroll-behavior:contain;touch-action:pan-y;will-change:transform,opacity}'
 assert old in ct, 'drawer-body rule changed unexpectedly'
 css.write_text(ct.replace(old,new,1))
 
