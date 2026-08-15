@@ -46,7 +46,13 @@ h.load_state = load_state
 _original_article = h.article_from_candidate
 
 def article_from_candidate(candidate, article_id, now_local):
-    a = _original_article(candidate, article_id, now_local)
+    # IDs include the date, so read/dismissed IDs from yesterday cannot hide
+    # today's new edition. Hourly additions already carry a large daily ID and
+    # therefore remain stable for the rest of the edition.
+    stable_id = article_id
+    if int(article_id) < 1_000_000:
+        stable_id = int(now_local.strftime("%y%m%d")) * 100 + int(article_id)
+    a = _original_article(candidate, stable_id, now_local)
     # Google News descriptions often repeat the headline + publisher. Avoid showing
     # that duplication as if it were a real summary.
     if h.similarity(a.get("summary", ""), a.get("title", "")) >= 0.70:
