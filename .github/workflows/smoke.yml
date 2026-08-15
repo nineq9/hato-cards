@@ -1,6 +1,20 @@
 name: KINGFISHER smoke
+
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, ready_for_review]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kingfisher-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   smoke:
     runs-on: ubuntu-latest
