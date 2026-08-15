@@ -25,10 +25,12 @@ Start here:
 - [Product Development Process](docs/PRODUCT_DEVELOPMENT_PROCESS.md)
 - [Workstream Handoff Protocol](docs/WORKSTREAM_HANDOFF_PROTOCOL.md)
 
-Permanent product rules:
+Permanent product / UX rules:
 
 - [Product Principles](PRODUCT_PRINCIPLES.md)
 - [UX Rules](UX_RULES.md)
+- [Design System](docs/DESIGN_SYSTEM.md)
+- [UI/UX Baseline](docs/UI_UX_BASELINE.md)
 - [QA Checklist](QA_CHECKLIST.md)
 
 ## Current interaction contract
@@ -60,9 +62,11 @@ Before changing core UX or information-selection behavior, read:
 
 1. `PRODUCT_PRINCIPLES.md`
 2. `UX_RULES.md`
-3. `QA_CHECKLIST.md`
-4. `docs/PRODUCT_DEVELOPMENT_PROCESS.md`
-5. `docs/WORKSTREAM_HANDOFF_PROTOCOL.md`
+3. `docs/DESIGN_SYSTEM.md`
+4. `docs/UI_UX_BASELINE.md`
+5. `QA_CHECKLIST.md`
+6. `docs/PRODUCT_DEVELOPMENT_PROCESS.md`
+7. `docs/WORKSTREAM_HANDOFF_PROTOCOL.md`
 
 After changes, run the relevant QA checklist sections and report PASS / FAIL / NOT TESTED accurately.
 
