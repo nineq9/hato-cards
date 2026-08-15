@@ -29,14 +29,33 @@ h.QUERIES = [
     {"name":"osint","category":"OSINT","weight":9,"q":"Украина (OSINT OR спутниковые снимки OR геолокация OR разведка OR кибербезопасность)"},
 ]
 
+
+def edition_day(now_local):
+    return now_local.date() if now_local.hour >= 6 else (now_local.date() - timedelta(days=1))
+
+
+def edition_id_base(now_local):
+    return int(edition_day(now_local).strftime("%y%m%d")) * 100
+
+
 _original_load_state = h.load_state
 
 def load_state():
     state = _original_load_state()
-    # A broken/under-filled edition must never become the stable base for the day.
-    # Force a fresh baseline on the next run instead.
     articles = state.get("articles", []) if isinstance(state, dict) else []
-    if len(articles) < 12:
+    now_local = h.utcnow().astimezone(h.KYIV)
+    base = edition_id_base(now_local)
+    ids = []
+    for article in articles:
+        try:
+            ids.append(int(article.get("id", 0)))
+        except Exception:
+            ids.append(0)
+
+    # A broken/under-filled edition, an old pre-migration ID scheme, or IDs from
+    # another edition must never become today's stable base. Rebuild safely.
+    unsafe_ids = bool(ids) and any(article_id <= base or article_id >= base + 100 for article_id in ids)
+    if len(articles) < 12 or unsafe_ids:
         state["edition_date"] = None
         state["articles"] = []
     return state
@@ -46,12 +65,12 @@ h.load_state = load_state
 _original_article = h.article_from_candidate
 
 def article_from_candidate(candidate, article_id, now_local):
-    # IDs include the date, so read/dismissed IDs from yesterday cannot hide
-    # today's new edition. Hourly additions already carry a large daily ID and
-    # therefore remain stable for the rest of the edition.
-    stable_id = article_id
-    if int(article_id) < 1_000_000:
-        stable_id = int(now_local.strftime("%y%m%d")) * 100 + int(article_id)
+    # IDs are keyed to the HATO edition date (06:00 Kyiv boundary), not midnight.
+    # That prevents yesterday's read/dismissed IDs from hiding a new morning brief
+    # while keeping every hourly update stable inside the same edition.
+    stable_id = int(article_id)
+    if stable_id < 1_000_000:
+        stable_id = edition_id_base(now_local) + stable_id
     a = _original_article(candidate, stable_id, now_local)
     # Google News descriptions often repeat the headline + publisher. Avoid showing
     # that duplication as if it were a real summary.
