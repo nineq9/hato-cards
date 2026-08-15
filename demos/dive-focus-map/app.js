@@ -143,8 +143,8 @@
       const pos=mapPositions[index+1];if(!pos)return;
       const x=width*pos[0]/100,y=height*pos[1]/100,mx=(cx+x)/2,my=(cy+y)/2,labelWidth=clamp(edge.label.length*5.8+18,58,112);
       const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.classList.add('edge-group');g.dataset.edgeId=edge.id;
-      g.innerHTML=`<line class="edge-line" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><line class="edge-hit" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><rect class="edge-label-bg" x="${mx-labelWidth/2}" y="${my-9}" width="${labelWidth}" height="18" rx="1"/><text class="edge-label" x="${mx}" y="${my+3}" text-anchor="middle">${edge.label}</text>`;
-      g.querySelector('.edge-hit').addEventListener('click',()=>openRelation(edge.id));svg.appendChild(g);
+      g.innerHTML=`<line class="edge-line" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><line class="edge-hit" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><rect class="edge-label-bg" style="pointer-events:all" x="${mx-labelWidth/2}" y="${my-9}" width="${labelWidth}" height="18" rx="1"/><text class="edge-label" style="pointer-events:all" x="${mx}" y="${my+3}" text-anchor="middle">${edge.label}</text>`;
+      g.addEventListener('click',()=>openRelation(edge.id));svg.appendChild(g);
     });
   }
 
