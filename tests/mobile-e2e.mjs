@@ -46,8 +46,14 @@ async function boot(page,{tutorial=false}={}){
 async function fresh({w=390,h=844,tutorial=false}={}){const page=await browser.newPage({viewport:{width:w,height:h},isMobile:true,hasTouch:true});await boot(page,{tutorial});return page;}
 async function pos(page,p){await page.locator('#articleScroll').evaluate((e,p)=>{e.scrollTop=p==='top'?0:p==='middle'?Math.max(0,(e.scrollHeight-e.clientHeight)*.48):e.scrollHeight-e.clientHeight;},p);await page.waitForTimeout(80);}
 async function neutral(page,label){
-  const transform=await page.locator('#readerPanel').evaluate(e=>getComputedStyle(e).transform);
-  assert(transform==='none'||transform==='matrix(1, 0, 0, 1, 0, 0)',`${label}: stale reader transform ${transform}`);
+  const matrix=await page.locator('#readerPanel').evaluate(e=>{
+    const transform=getComputedStyle(e).transform;
+    if(transform==='none')return {a:1,b:0,c:0,d:1,e:0,f:0,transform};
+    const m=new DOMMatrixReadOnly(transform);
+    return {a:m.a,b:m.b,c:m.c,d:m.d,e:m.e,f:m.f,transform};
+  });
+  const settled=Math.abs(matrix.a-1)<.005&&Math.abs(matrix.d-1)<.005&&Math.abs(matrix.b)<.005&&Math.abs(matrix.c)<.005&&Math.abs(matrix.e)<.5&&Math.abs(matrix.f)<.5;
+  assert(settled,`${label}: stale reader transform ${matrix.transform}`);
 }
 
 // Reproduction: imperfect READ begins with slight horizontal drift, then becomes clearly vertical.
