@@ -7,6 +7,7 @@ import {
   GovUkContentAdapter,
   normalizeGovUkContent
 } from '../prototypes/ai-data-v0.1/govuk-content-adapter.mjs';
+import { validateDiveRelationSemantics } from '../prototypes/ai-data-v0.1/contract-validation.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
@@ -92,7 +93,49 @@ assert.ok(historicalRelations.length > 0);
 for (const relation of historicalRelations) {
   assert.equal(relation.semanticClass, 'contextual');
   assert.notEqual(relation.relationType, 'supports');
+  assert.equal(
+    validateDiveRelationSemantics(relation, {
+      diveNodes: sample.diveNodes,
+      claims: sample.claims
+    }),
+    true
+  );
 }
+
+// DIVE `confirms` is downstream of non-AI Verification. An AI-generated relation
+// cannot turn a disputed/unverified Claim into a confirmed one.
+const confirmsRelation = {
+  id: 'rel-synthetic-confirms',
+  fromNodeId: 'dive-current-event',
+  toNodeId: 'dive-claim-open',
+  relationType: 'confirms',
+  semanticClass: 'evidentiary',
+  sourceIds: ['src-transport-authority'],
+  evidenceIds: ['ev-claim-attribution']
+};
+assert.throws(
+  () => validateDiveRelationSemantics(confirmsRelation, {
+    diveNodes: sample.diveNodes,
+    claims: sample.claims
+  }),
+  /already-confirmed underlying Claim/
+);
+
+const independentlyConfirmedClaim = {
+  ...embeddedClaim,
+  verification: {
+    ...embeddedClaim.verification,
+    state: 'confirmed',
+    decidedBy: 'deterministic_policy'
+  }
+};
+assert.equal(
+  validateDiveRelationSemantics(confirmsRelation, {
+    diveNodes: sample.diveNodes,
+    claims: [independentlyConfirmedClaim]
+  }),
+  true
+);
 
 // LIVE newness is cursor/timestamp based.
 const cursorTime = new Date(sample.liveCursor.lastVisitedAt).valueOf();
