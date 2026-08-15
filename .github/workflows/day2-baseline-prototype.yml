@@ -1,0 +1,52 @@
+name: Day 2 baseline prototype
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'demos/day2-baseline/**'
+      - 'tests/day2-baseline-design.mjs'
+      - '.github/workflows/day2-baseline-prototype.yml'
+      - 'docs/status/DESIGN.md'
+  push:
+    branches: [main]
+    paths:
+      - 'demos/day2-baseline/**'
+      - 'tests/day2-baseline-design.mjs'
+      - '.github/workflows/day2-baseline-prototype.yml'
+      - 'docs/status/DESIGN.md'
+
+permissions:
+  contents: read
+
+jobs:
+  prototype-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Syntax check
+        run: node --check tests/day2-baseline-design.mjs
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+      - name: Serve repository
+        run: |
+          python3 -m http.server 4173 >/tmp/day2-baseline-http.log 2>&1 &
+          echo $! > /tmp/day2-baseline-http.pid
+          sleep 2
+      - name: Baseline-preserving prototype QA
+        run: node tests/day2-baseline-design.mjs
+      - name: Upload Owner review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: day2-baseline-review
+          path: test-output/day2-baseline-*.png
+          if-no-files-found: warn
