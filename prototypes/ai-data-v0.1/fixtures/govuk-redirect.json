@@ -1,0 +1,21 @@
+{
+  "content_id": "ddbe46fa-9ca1-44ea-a03c-b2832e357b7c",
+  "base_path": "/take-pet-abroad",
+  "title": null,
+  "description": null,
+  "locale": "en",
+  "document_type": "redirect",
+  "schema_name": "redirect",
+  "first_published_at": "2020-08-10T16:30:03+01:00",
+  "public_updated_at": "2020-08-10T16:30:03+01:00",
+  "updated_at": "2020-08-10T16:30:04+01:00",
+  "links": {},
+  "redirects": [
+    {
+      "destination": "/bring-pet-to-uk",
+      "path": "/take-pet-abroad",
+      "type": "prefix"
+    }
+  ],
+  "fixtureNote": "Relevant shape captured from the official GOV.UK Content API quick-start endpoint during the 2026-08-16 live smoke. The test is offline and does not depend on this endpoint staying unchanged."
+}
