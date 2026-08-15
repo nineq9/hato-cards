@@ -43,8 +43,10 @@ jobs:
       - name: Browser smoke
         run: node tests/smoke.mjs
       - name: Human-like mobile E2E
+        if: always()
         run: node tests/mobile-e2e.mjs
       - name: Untouched feature regression
+        if: always()
         run: node tests/untouched-regression.mjs
       - name: Upload visual checks
         if: always()
