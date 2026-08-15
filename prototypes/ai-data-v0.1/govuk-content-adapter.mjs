@@ -1,6 +1,7 @@
 // Isolated AI/Data v0.1 prototype.
 // No production CARDS/LIVE/DIVE import. No credentials required.
-// Live network behavior is intentionally NOT TESTED by the fixture test.
+// A one-request live source smoke is documented in docs/status/AI_DATA.md;
+// fixture tests remain network-independent and deterministic.
 
 const DEFAULT_BASE_URL = 'https://www.gov.uk/api/content';
 
@@ -36,6 +37,10 @@ function required(value, name) {
   return value;
 }
 
+function optionalText(value) {
+  return typeof value === 'string' && value.trim() ? value : undefined;
+}
+
 function asIso(value) {
   if (!value) return undefined;
   const parsed = new Date(value);
@@ -56,10 +61,16 @@ function sourceOrganisation(payload) {
 export function normalizeGovUkContent(payload, { observedAt = new Date().toISOString() } = {}) {
   const basePath = normalizePath(required(payload.base_path, 'base_path'));
   const canonicalUrl = `https://www.gov.uk${basePath}`;
-  const title = required(payload.title, 'title');
+  const title = optionalText(payload.title);
+  const description = optionalText(payload.description);
   const updatedAt = asIso(payload.public_updated_at || payload.updated_at);
   const publishedAt = asIso(payload.first_published_at || payload.public_updated_at || payload.updated_at);
 
+  // GOV.UK Content API can legitimately return redirect records whose `title`
+  // and `description` are null. RawItem permits an optional originalTitle, so
+  // preserving the record is safer than throwing away a real source update.
+  // Redirect destination metadata remains in the source payload and can be
+  // modeled explicitly if/when the ingestion layer adds source-specific metadata.
   return {
     sourceId: GOVUK_SOURCE.id,
     externalId: payload.content_id || canonicalUrl,
@@ -71,8 +82,8 @@ export function normalizeGovUkContent(payload, { observedAt = new Date().toISOSt
     originalTitle: title,
     // Rights-safe prototype default: description only. A production rights policy
     // must explicitly authorize storing richer body text.
-    originalText: payload.description || undefined,
-    originalTextStorage: payload.description ? 'excerpt_only' : 'metadata_only',
+    originalText: description,
+    originalTextStorage: description ? 'excerpt_only' : 'metadata_only',
     language: payload.locale || 'en',
     media: [],
     contentHash: undefined,
