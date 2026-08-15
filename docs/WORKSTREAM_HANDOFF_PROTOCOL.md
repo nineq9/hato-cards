@@ -47,12 +47,15 @@ Every status file should keep these headings:
 
 ### Status
 Use only:
+- READY
 - RUNNING
 - WAITING_EXTERNAL
 - REWORKING
 - OWNER_ACTION_REQUIRED
 - BLOCKED
 - DONE
+
+`READY` means the next task is defined but no work is currently executing.
 
 Do not use RUNNING unless work is genuinely executing. Do not use DONE unless the result and relevant verification exist.
 
