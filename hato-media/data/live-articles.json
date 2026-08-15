@@ -1,6 +1,37 @@
 {
-  "generated_at": null,
-  "edition_date": null,
+  "generated_at": "2026-08-15T23:50:17Z",
+  "edition_date": "2026-08-15",
   "mode": "bootstrap",
-  "articles": []
+  "policy": {
+    "fetched_per_hour_max": 150,
+    "edition_max": 50,
+    "hourly_new_story_max": 5,
+    "new_story_threshold": 75,
+    "update_match_threshold": 0.6
+  },
+  "articles": [
+    {
+      "id": 1,
+      "category": "WAR",
+      "title": "ПВО сбила 124 беспилотника и три «Бандероли», с помощью которых россияне атаковали Украину",
+      "summary": "ПВО сбила 124 беспилотника и три «Бандероли», с помощью которых россияне атаковали Украину ua.news",
+      "source": "ua.news",
+      "time": "11:06",
+      "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
+      "details": "ПВО сбила 124 беспилотника и три «Бандероли», с помощью которых россияне атаковали Украину ua.news",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 1.",
+      "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
+      "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNZENWYloyTDhXbXF2NFYxR2tVdS00cGlTMEdSRFFGOFBNQzAyX3dNek51T3FHTUZDQlY3MGNNNHlWT0psd09ZUVFORWhrT0M3bFFieWJZejkzNHhUdUlWaUlqQi1XNUwwS2FneDF2cEFDLWtiLUE5bkk1RHR3Ym9wTzBSb3ZVNmg0YVFBTnhJekZSVUcxU0otU0FCblhFYm4zclFNQndkMG9lMEh4X3pVenln?oc=5",
+      "importance": 46,
+      "tier": "C",
+      "published_at": "2026-08-15T08:06:45Z",
+      "updated_at": "2026-08-15T23:50:17Z",
+      "update_count": 0,
+      "_sources": [
+        "ua.news"
+      ]
+    }
+  ]
 }
