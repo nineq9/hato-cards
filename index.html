@@ -7,10 +7,10 @@
   <meta name="color-scheme" content="dark light" />
   <title>KINGFISHER</title>
   <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="stylesheet" href="./kingfisher.css?v=16" />
+  <link rel="stylesheet" href="./kingfisher.css?v=17" />
   <script>
     (()=>{
-      const VERSION='kingfisher-intro-v7';
+      const VERSION='kingfisher-intro-v8';
       if(localStorage.getItem('kingfisherIntroVersion')!==VERSION){
         localStorage.removeItem('kingfisherTutorialDone');
         localStorage.setItem('kingfisherIntroVersion',VERSION);
@@ -41,7 +41,15 @@
     </div>
   </section>
 
-  <section id="tutorial" class="tutorial hidden" aria-hidden="true"></section>
+  <section id="tutorial" class="tutorial hidden" aria-hidden="true">
+    <div class="tutorial-guide" role="status" aria-live="polite">
+      <div class="tutorial-progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <small id="tutorialStepNo"></small>
+      <strong id="tutorialTitle"></strong>
+      <p id="tutorialMicro"></p>
+      <span id="tutorialCue" class="tutorial-cue" aria-hidden="true"></span>
+    </div>
+  </section>
 
   <div id="app" class="app hidden">
     <header class="topbar">
@@ -103,7 +111,7 @@
 
   <div id="undoToast" class="undo-toast" role="status"><button id="undoBtn" aria-label="元に戻す">↶</button></div>
 
-  <script src="./articles.js?v=16" defer></script>
-  <script src="./kingfisher.js?v=16" defer></script>
+  <script src="./articles.js?v=17" defer></script>
+  <script src="./kingfisher.js?v=17" defer></script>
 </body>
 </html>
