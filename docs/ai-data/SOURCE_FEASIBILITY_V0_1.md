@@ -47,7 +47,7 @@ The reason is not lack of product value. These currently add payment, credential
 | GDELT 2.0 | DOC API / open data files | Free/open; no paid API dependency | DOC API docs reviewed; no numeric public rate limit found in reviewed official material — cache/throttle conservatively | GDELT data is open, but linked publisher content retains publisher rights | Low | **YES** |
 | Telegram | Telegram API / TDLib / client APIs | API itself can be used without a per-call fee, but requires Telegram/API credentials | Dynamic `FLOOD_WAIT_X` limits | Current Telegram API terms include significant Content Licensing / AI-scraping restrictions; requires terms review for KAWASEMI processing | High policy risk | **NO** |
 | X | X API | Pay-per-use; account/app/billing required | Current pricing docs list per-resource reads; monthly read cap also applies | Developer agreement + platform policy; cost begins with usage | Medium | **NO** |
-| YouTube | YouTube Data API v3 | Google Cloud project/API credentials; quota based | Default quota is 10,000 units/day; `search.list` costs 100 units, effectively about 100 default search calls/day | API Services Terms / developer policies; extra quota requires audit/review | Medium | **NO for first path** |
+| YouTube | YouTube Data API v3 | Google Cloud project/API credentials; quota based | Since June 2026, default quota is granular: 100 `search.list` calls/day, 100 `videos.insert` calls/day, plus 10,000 units/day combined for other endpoints | API Services Terms / developer policies; extra quota requires audit/review | Medium | **NO for first path** |
 | Reddit | OAuth Data API | Registration/OAuth; commercial use may require separate agreement/approval | Reddit controls limits and may change them | July 2026 terms materially restrict commercial and AI/model uses without required rights/permission | High policy risk | **NO** |
 | News media | RSS, licensed API, or permitted web endpoints | Varies | Varies | Publisher-specific. Example: Guardian terms materially restrict automated/AI/commercial reuse; do not generalize across publishers | Medium–High | **Only approved RSS feeds** |
 | Reuters | Reuters Connect API / content licensing | Commercial/metered subscription or licensing | Contract-dependent | Licensed content/entitlements | High cost/admin | **NO** |
@@ -104,11 +104,12 @@ The current API terms include a Content Licensing / AI Scraping section with res
 KAWASEMI decision: **do not enable without explicit terms/legal review and Owner approval.**
 
 ### YouTube
-- Quota calculator / cost: https://developers.google.com/youtube/v3/determine_quota_cost
+- Quota overview: https://developers.google.com/youtube/v3/getting-started
+- Quota calculator: https://developers.google.com/youtube/v3/determine_quota_cost
 - `search.list`: https://developers.google.com/youtube/v3/docs/search/list
-- quota audit: https://support.google.com/youtube/contact/yt_api_form
+- quota/compliance audit: https://developers.google.com/youtube/v3/guides/quota_and_compliance_audits
 
-Default projects receive 10,000 quota units/day; `search.list` costs 100 units. Additional quota requires a compliance audit.
+Since June 1, 2026, YouTube uses granular default quota buckets: 100 `search.list` calls/day and 100 `videos.insert` calls/day, while other endpoints share a 10,000-unit/day default bucket. The current documentation lists each `search.list` call as 1 unit within its dedicated search quota bucket. Additional quota requires a compliance audit.
 
 KAWASEMI decision: useful later for official-channel video Signals, but unnecessary account/credential setup for first v0.1.
 
