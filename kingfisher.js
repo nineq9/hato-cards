@@ -286,7 +286,7 @@
       // A missing terminal event must never poison the next gesture.
       if(g){g=null;resetReaderVisual();}
       const now=performance.now();
-      g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,vx:0,vy:0,axis:null};
+      g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,vx:0,vy:0,axis:null,startScrollTop:surface.scrollTop,hadHorizontalLead:false,manualRead:false};
     });
 
     surface.addEventListener('pointermove',e=>{
@@ -296,8 +296,20 @@
       g.vx=g.vx*.44+((e.clientX-g.lastX)/dt)*.56;
       g.vy=g.vy*.44+((e.clientY-g.lastY)/dt)*.56;
       g.lastX=e.clientX;g.lastY=e.clientY;g.lastT=now;
+      const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
+      if(!g.axis&&dist>=10&&ax>ay) g.hadHorizontalLead=true;
       decideAxis(g,dx,dy);
-      if(g.axis==='y') return;
+      if(g.axis==='y'){
+        // Chromium/WebKit may decline native vertical panning if the gesture
+        // began slightly horizontal. Only that ambiguous-start case uses a
+        // manual READ fallback; clean vertical gestures stay native.
+        if(g.hadHorizontalLead){
+          g.manualRead=true;
+          e.preventDefault();
+          surface.scrollTop=clamp(g.startScrollTop-dy,0,Math.max(0,surface.scrollHeight-surface.clientHeight));
+        }
+        return;
+      }
       if(g.axis!=='x') return;
 
       surface.setPointerCapture?.(e.pointerId);
@@ -323,7 +335,6 @@
     surface.addEventListener('pointerup',finish);
     const cancelReaderPointer=e=>{if(!g||e.pointerId!==g.id)return;g=null;settleReader();};
     surface.addEventListener('pointercancel',cancelReaderPointer);
-    surface.addEventListener('lostpointercapture',cancelReaderPointer);
 
     surface.addEventListener('click',e=>{
       if(performance.now()>=suppressClickUntil) return;
@@ -447,10 +458,10 @@
       const drawerOpen=$('#drawer').classList.contains('open');
       if(drawerOpen){
         if(state.drawerView==='home') return;
-        g={mode:'back',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null};
+        g={mode:'back',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null,captureTarget:e.target instanceof Element?e.target:null};
       }else{
         if(!$('#cardsScreen').classList.contains('active')||!$('#tutorial').classList.contains('hidden')) return;
-        g={mode:'open',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null};
+        g={mode:'open',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null,captureTarget:e.target instanceof Element?e.target:null};
       }
       state.edgeDrawerPointerId=e.pointerId;
     },true);
@@ -461,6 +472,7 @@
       decideAxis(g,dx,dy,7);
       const now=performance.now(),dt=Math.max(8,now-g.lastT);g.vx=g.vx*.44+((e.clientX-g.lastX)/dt)*.56;g.lastX=e.clientX;g.lastT=now;
       if(g.axis!=='x')return;
+      try{g.captureTarget?.setPointerCapture?.(g.id);}catch{}
       e.preventDefault();
       if(g.mode==='open'){
         const drawer=$('#drawer'),backdrop=$('#drawerBackdrop'),progress=clamp(dx/Math.max(1,drawer.offsetWidth),0,1);
