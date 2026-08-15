@@ -1,13 +1,14 @@
 # Design / Motion Status
 
 ### Status
-REVIEW — Day 2 concrete CARDS / Tutorial / Bottom Navigation / Menu prototype is ready; production integration is not started
+REVIEW — Day 2 concrete CARDS / Tutorial / Bottom Navigation / Menu prototype is on `main`; production integration is not started
 
 ### Current goal
 Review real light/dark screens and interactions before handing approved choices to Build. `docs/DESIGN_SYSTEM.md` remains the visual source of truth; this phase is for concrete application, not more abstract rule expansion.
 
 ### Completed
 - Created an isolated Day 2 interactive prototype at `demos/day2-shell/` so the owner can compare real screens rather than abstract design rules.
+- Merged the isolated design artifact to `main` as commit `ca3ba1a2b4f60638ee70acb05ee81c30affb0b04`. This does **not** replace the production CARDS implementation.
 - Applied the same information hierarchy and interaction grammar to LIGHT and DARK. The themes change tone/contrast, not structure.
 - CARDS normal screen is concrete and touchable:
   - one continuous article surface,
@@ -54,24 +55,25 @@ Review real light/dark screens and interactions before handing approved choices 
 - **Keep:** LIGHT and DARK as the same product system with one restrained kingfisher accent.
 
 ### Evidence
-- Issue #9: `Day 2: redesign Tutorial + Editorial Dock + Menu shell`.
-- PR #10: `Day 2: concrete CARDS, Tutorial, Navigation and Menu prototype`.
+- Issue #9: `Day 2: redesign Tutorial + Editorial Dock + Menu shell` — remains open for owner review.
+- PR #10: `Day 2: concrete CARDS, Tutorial, Navigation and Menu prototype` — merged.
+- Merge commit: `ca3ba1a2b4f60638ee70acb05ee81c30affb0b04`.
 - Prototype: `demos/day2-shell/index.html`.
 - Prototype review notes: `demos/day2-shell/README.md`.
-- CI run `31890291958`: SUCCESS.
+- Final PR-head CI run `31890526964`: SUCCESS.
   - Syntax check: PASS.
   - Existing production Browser smoke: PASS.
   - Existing human-like mobile E2E: PASS.
   - Existing untouched regression: PASS.
   - Day 2 design prototype QA: PASS.
-- CI screenshot artifact: `kingfisher-visual-checks`, artifact ID `9248386840`.
+- Final CI screenshot artifact: `kingfisher-visual-checks`, artifact ID `9248447496`.
 - Day 2 artifact screenshots include:
   - normal CARDS LIGHT,
   - normal CARDS DARK,
   - Tutorial READ,
   - Tutorial complete,
   - Hamburger Menu DARK.
-- Design-side visual inspection was performed on the generated light/dark CARDS, Tutorial, and Menu states. This is **not** owner approval.
+- Design-side visual inspection was performed on generated light/dark CARDS, Tutorial, and Menu states. This is **not** owner approval.
 
 ### QA — actually verified in automated Chromium mobile emulation
 PASS:
@@ -107,4 +109,4 @@ Only concrete screen judgments now:
 No new abstract design-system decision is required before this review.
 
 ### Next action
-Merge the isolated prototype/status once CI is green so Product HQ can read it from `main`, keep Issue #9 open for owner review, then hand only owner-approved screen choices to Build for production integration.
+Owner reviews the concrete prototype in LIGHT and DARK. Record only explicit approvals/revisions. After that, hand the approved CARDS / Tutorial / Bottom Navigation / Menu choices to Build for production integration; do not treat the merged demo itself as production completion.
