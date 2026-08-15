@@ -1,7 +1,5 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
-fs.mkdirSync('test-output',{recursive:true});
 const browser=await chromium.launch({headless:true});
 
 async function touchDrag(page,selector,dx,dy,duration=200,pos=null){
@@ -82,7 +80,7 @@ async function freshPage(){
   assert.equal(audit['articleScroll:pointerdown'],1,'reader pointerdown listener duplicated');
   assert.equal(audit['articleContent:click'],1,'article delegated click listener duplicated');
   assert.equal(audit['drawerBody:click'],1,'drawer delegated click listener duplicated');
-  await page.screenshot({path:'test-output/kf17-tutorial.png'});await page.close();
+  await page.close();
 }
 
 // READ: vertical and diagonal vertical-dominant gestures must not NEXT/SAVE.
@@ -161,7 +159,7 @@ for(const [w,h] of [[375,667],[390,844],[430,932]]){
   assert.equal(await page.locator('.story-page > .story-body').count(),1);
   const radius=await page.locator('.story-page').evaluate(e=>getComputedStyle(e).borderTopLeftRadius);assert.notEqual(radius,'0px');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true,`${w}: horizontal overflow`);
-  await page.screenshot({path:`test-output/kf17-${w}x${h}.png`});await page.close();
+  await page.close();
 }
 
 console.log('KINGFISHER Phase 0 refactor smoke: PASS');await browser.close();
