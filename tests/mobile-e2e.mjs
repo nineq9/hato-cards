@@ -115,6 +115,26 @@ for(const p of ['top','middle','end']){
   await neutral(page,'after mixed NEXT');await page.close();
 }
 
+// Finite CARDS session must remain stable through repeated NEXT and reach caught-up state.
+{
+  const page=await fresh();
+  const seen=new Set();let advances=0;
+  while(await page.locator('.story-page').count()){
+    const id=await page.locator('.story-page').getAttribute('data-id');
+    assert(id&&!seen.has(id),`finite queue looped on ${id}`);seen.add(id);
+    await touchPath(page,'#articleScroll',straight(-150,2),{duration:190,pos:[180,300]});await page.waitForTimeout(460);
+    advances++;
+    assert(advances<30,'finite queue did not reach caught-up state');
+    if(await page.locator('.story-page').count()){
+      assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`repeated NEXT ${advances} leaked scroll position`);
+      await neutral(page,`repeated NEXT ${advances}`);
+    }
+  }
+  assert(advances>1,'caught-up journey did not exercise multiple cards');
+  assert.equal(await page.locator('.clear-card').count(),1,'finite queue did not render caught-up/CLEAR state');
+  await capture(page,'caught-up');await page.close();
+}
+
 // Menu subview edge recovery; non-edge right swipe remains SAVE.
 {
   const page=await fresh();
