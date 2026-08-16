@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f4f2ee">
+<title>Today — Interaction Playground</title>
+<style>
+:root{
+  --bg:#f4f2ee;--surface:#fffdfa;--surface-2:#f8f6f2;--text:#171714;--muted:#77736d;--line:rgba(23,23,20,.09);
+  --accent:#1f6f5f;--accent-soft:#dcebe6;--done:#2e7d59;--done-soft:#dceee4;--later:#9a6b2f;--later-soft:#f3e7d4;
+  --danger:#b23a32;--shadow:0 16px 40px rgba(30,25,18,.08);--ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif}
+body{min-height:100svh;overflow-x:hidden}
+button,input{font:inherit}
+button{color:inherit}
+.app{max-width:430px;margin:0 auto;min-height:100svh;padding:calc(16px + env(safe-area-inset-top)) 16px calc(106px + env(safe-area-inset-bottom));position:relative}
+.topbar{display:grid;grid-template-columns:1fr auto;align-items:start;gap:12px;padding:4px 2px 18px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+h1{font-size:34px;line-height:1.04;letter-spacing:-1.2px;margin:7px 0 5px;font-weight:790}
+.sub{font-size:14px;line-height:1.52;color:var(--muted);margin:0}
+.iconButton{width:46px;height:46px;border-radius:15px;border:1px solid var(--line);background:rgba(255,253,250,.78);display:grid;place-items:center;font-size:21px;box-shadow:0 8px 24px rgba(30,25,18,.05);transition:transform .13s var(--ease),background .13s ease}
+.iconButton:active{transform:scale(.94);background:var(--surface-2)}
+.progressCard{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.progressTop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.progressTitle{font-size:17px;font-weight:760;letter-spacing:-.25px}.count{font-size:13px;color:var(--muted)}
+.bar{height:8px;border-radius:999px;background:#ece8e1;margin-top:14px;overflow:hidden}.bar>span{display:block;height:100%;width:0;border-radius:inherit;background:var(--accent);transition:width .35s var(--ease)}
+.modeRow{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.modeCopy strong{display:block;font-size:14px;line-height:1.3}.modeCopy span{display:block;font-size:12px;line-height:1.45;color:var(--muted);margin-top:3px}
+.switch{position:relative;width:52px;height:32px;border:0;border-radius:18px;background:#b6b2ac;padding:0;flex:none;transition:background .2s ease}.switch i{position:absolute;left:2px;top:2px;width:28px;height:28px;border-radius:50%;background:white;box-shadow:0 2px 8px rgba(0,0,0,.18);transition:transform .24s var(--ease)}.switch.on{background:var(--accent)}.switch.on i{transform:translateX(20px)}
+.sectionHead{display:flex;align-items:end;justify-content:space-between;margin:20px 2px 10px}.sectionHead h2{font-size:20px;line-height:1.14;letter-spacing:-.45px;margin:0}.sectionHead span{font-size:12px;color:var(--muted)}
+.taskList{display:grid;gap:10px}
+.taskWrap{position:relative;border-radius:20px;overflow:hidden;touch-action:pan-y;background:transparent}
+.reveal{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:13px;font-weight:800;letter-spacing:.01em}.reveal .doneSide{color:var(--done)}.reveal .laterSide{color:var(--later)}
+.task{position:relative;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:15px 14px;box-shadow:0 9px 24px rgba(30,25,18,.055);display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;transition:transform .22s var(--ease),opacity .18s ease,box-shadow .18s ease}
+.task.dragging{box-shadow:0 20px 50px rgba(30,25,18,.18);transform:scale(1.018);z-index:20}
+.check{width:30px;height:30px;border-radius:50%;border:1.5px solid #bdb7ae;background:transparent;display:grid;place-items:center;font-size:16px;transition:all .18s var(--ease)}.check:active{transform:scale(.88)}
+.taskMain{min-width:0}.taskTitle{font-size:16px;line-height:1.28;font-weight:730;letter-spacing:-.18px}.taskMeta{font-size:12px;line-height:1.45;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.handle{width:38px;height:44px;border:0;background:transparent;color:#9b968f;border-radius:12px;font-size:19px;display:grid;place-items:center;touch-action:none}.handle:active{background:var(--surface-2)}
+.task.done .taskTitle{text-decoration:line-through;color:#8b877f}.task.done .check{background:var(--done);border-color:var(--done);color:white}
+.empty{display:none;background:var(--surface);border:1px dashed #cfc9bf;border-radius:22px;text-align:center;padding:34px 20px;color:var(--muted);font-size:14px;line-height:1.55}
+.pull{height:0;overflow:hidden;text-align:center;color:var(--muted);font-size:12px;transition:height .2s var(--ease);display:grid;place-items:center}.pull.show{height:38px}.spin{width:18px;height:18px;border:2px solid #cbc5bc;border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+.bottomNav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));width:min(calc(100% - 24px),406px);height:72px;background:rgba(255,253,250,.9);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 50px rgba(30,25,18,.14);display:grid;grid-template-columns:1fr 1fr auto 1fr;gap:2px;padding:7px;z-index:50}
+.navBtn{border:0;background:transparent;border-radius:17px;font-size:11px;color:var(--muted);display:grid;place-items:center;gap:2px;min-width:0}.navBtn b{font-size:19px;line-height:1}.navBtn.active{color:var(--text);background:var(--surface-2)}
+.addBtn{width:58px;height:58px;margin:auto;border:0;border-radius:20px;background:var(--text);color:white;font-size:29px;line-height:1;box-shadow:0 12px 28px rgba(23,23,20,.22);transition:transform .14s var(--ease)}.addBtn:active{transform:scale(.92)}
+.backdrop{position:fixed;inset:0;background:rgba(16,15,13,.28);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:80}.backdrop.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,105%);width:min(100%,430px);background:var(--surface);border-radius:28px 28px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -24px 60px rgba(0,0,0,.16);transition:transform .28s var(--ease);z-index:90}.sheet.show{transform:translate(-50%,0)}
+.grabber{width:40px;height:5px;border-radius:99px;background:#d3cec7;margin:2px auto 18px}.sheet h3{font-size:23px;line-height:1.08;letter-spacing:-.6px;margin:0 0 7px}.sheet p{font-size:13px;line-height:1.55;color:var(--muted);margin:0 0 18px}
+.field{display:grid;gap:7px;margin-top:13px}.field label{font-size:12px;font-weight:750;color:var(--muted)}.field input[type=text]{height:50px;border-radius:15px;border:1px solid var(--line);background:var(--surface-2);padding:0 14px;font-size:16px;outline:none}.field input[type=text]:focus{border-color:rgba(31,111,95,.45);box-shadow:0 0 0 3px rgba(31,111,95,.08)}
+.segment{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#ece8e1;padding:3px;border-radius:13px}.seg{height:42px;border:0;border-radius:10px;background:transparent;font-size:13px;font-weight:720}.seg.active{background:var(--surface);box-shadow:0 2px 7px rgba(0,0,0,.08)}
+.rangeRow{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}.rangeRow output{font-size:13px;font-weight:760;min-width:38px;text-align:right}.range{width:100%;accent-color:var(--accent)}
+.primary{width:100%;height:52px;border:0;border-radius:16px;background:var(--accent);color:white;font-size:16px;font-weight:760;margin-top:18px;transition:transform .13s var(--ease),filter .13s ease}.primary:active{transform:scale(.985);filter:brightness(.93)}
+.actionList{display:grid;gap:8px}.action{width:100%;min-height:50px;border-radius:15px;border:1px solid var(--line);background:var(--surface-2);text-align:left;padding:0 14px;font-weight:700}.action.danger{color:var(--danger)}
+.toast{position:fixed;left:50%;bottom:calc(94px + env(safe-area-inset-bottom));transform:translate(-50%,24px);width:min(calc(100% - 34px),396px);background:#191917;color:white;border-radius:17px;padding:12px 12px 12px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .24s var(--ease);z-index:100;box-shadow:0 18px 40px rgba(0,0,0,.22)}.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}.toast span{font-size:13px;line-height:1.35}.toast button{border:0;background:transparent;color:#8fd4c3;font-weight:800;min-height:36px;padding:0 6px}
+.page{display:none}.page.active{display:block}.laterCard,.settingsCard{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);margin-bottom:12px}.laterCard h3,.settingsCard h3{font-size:18px;line-height:1.2;margin:0 0 6px}.laterCard p,.settingsCard p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
+.settingRow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-top:1px solid var(--line)}.settingRow:first-of-type{border-top:0}.settingRow strong{display:block;font-size:14px}.settingRow span{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4}
+.badge{font-size:11px;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:6px 9px;border-radius:99px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-color-scheme:dark){:root{--bg:#11110f;--surface:#1d1d19;--surface-2:#262620;--text:#f6f3ec;--muted:#a8a299;--line:rgba(255,255,255,.09);--shadow:none;--accent:#5bb39f;--accent-soft:#183b33;--done-soft:#17392b;--later-soft:#44331e}.bar{background:#34322c}.segment{background:#34322c}.iconButton{background:rgba(29,29,25,.85)}.bottomNav{background:rgba(29,29,25,.9)}.check{border-color:#777168}.toast{background:#f2efe8;color:#1b1b18}.toast button{color:#176f5c}}
+@media(max-width:350px){.app{padding-left:12px;padding-right:12px}.progressCard{padding:16px}.task{padding:14px 12px;gap:9px}.taskTitle{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="pull" id="pull"><div class="spin"></div></div>
+
+  <section class="page active" id="todayPage">
+    <div class="topbar">
+      <div><div class="eyebrow">Sunday · Aug 16</div><h1>Today</h1><p class="sub">今日やることを、少しだけ。</p></div>
+      <button class="iconButton" id="moreTop" aria-label="メニュー">•••</button>
+    </div>
+
+    <div class="progressCard">
+      <div class="progressTop"><div class="progressTitle">今日の進み具合</div><div class="count" id="countLabel">0 / 0</div></div>
+      <div class="bar"><span id="barFill"></span></div>
+      <div class="modeRow">
+        <div class="modeCopy"><strong>Focus mode</strong><span>終わっていないタスクだけ表示</span></div>
+        <button class="switch" id="focusSwitch" aria-label="Focus mode"><i></i></button>
+      </div>
+    </div>
+
+    <div class="sectionHead"><h2>予定</h2><span>カードは横にスワイプ</span></div>
+    <div class="taskList" id="taskList"></div>
+    <div class="empty" id="emptyState">今日は全部終わりました。<br>必要なら ＋ から追加できます。</div>
+  </section>
+
+  <section class="page" id="laterPage">
+    <div class="topbar"><div><div class="eyebrow">Later</div><h1>あとで</h1><p class="sub">今じゃなくていいものを、ここに逃がせます。</p></div></div>
+    <div id="laterList"></div>
+  </section>
+
+  <section class="page" id="settingsPage">
+    <div class="topbar"><div><div class="eyebrow">Settings</div><h1>設定</h1><p class="sub">動きの強さや表示を、その場で変えて試せます。</p></div></div>
+    <div class="settingsCard">
+      <h3>Interaction</h3><p>同じ画面のまま、反応の違いを試します。</p>
+      <div class="settingRow"><div><strong>Reduce Motion</strong><span>移動アニメーションをほぼ止める</span></div><button class="switch" id="motionSwitch"><i></i></button></div>
+      <div class="settingRow"><div><strong>Compact</strong><span>カード間の余白を少し詰める</span></div><button class="switch" id="compactSwitch"><i></i></button></div>
+      <div class="settingRow"><div><strong>Data</strong><span>サンプルを最初の状態に戻す</span></div><button class="action" id="resetData" style="width:auto;min-height:42px">Reset</button></div>
+    </div>
+    <div class="settingsCard"><h3>Web demo</h3><p>iPhoneの本物のハプティクスだけはSafariでは再現できません。それ以外の操作感を比較するためのデモです。</p></div>
+  </section>
+
+  <nav class="bottomNav">
+    <button class="navBtn active" data-page="today"><b>●</b><span>Today</span></button>
+    <button class="navBtn" data-page="later"><b>○</b><span>Later</span></button>
+    <button class="addBtn" id="addBtn" aria-label="追加">＋</button>
+    <button class="navBtn" data-page="settings"><b>⌁</b><span>Settings</span></button>
+  </nav>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+<div class="sheet" id="sheet"><div class="grabber"></div><div id="sheetContent"></div></div>
+<div class="toast" id="toast"><span id="toastText"></span><button id="undoBtn">Undo</button></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const STORAGE='today-ux-playground-v1';
+const defaults=[
+  {id:1,title:'10分だけ英語をやる',meta:'09:30 · 10 min',effort:2,done:false,later:false},
+  {id:2,title:'記事のアイデアを3つメモ',meta:'11:00 · 15 min',effort:1,done:false,later:false},
+  {id:3,title:'散歩に出る',meta:'16:00 · 20 min',effort:2,done:false,later:false},
+  {id:4,title:'写真を10枚だけ整理',meta:'18:30 · 10 min',effort:1,done:false,later:false}
+];
+let state=load(); let focus=false,reduceMotion=false,compact=false,undoAction=null,toastTimer=null,pullStart=null;
+function load(){try{return JSON.parse(localStorage.getItem(STORAGE))||structuredClone(defaults)}catch(e){return structuredClone(defaults)}}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
+function vibrate(){try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}}
+function setMotion(){document.documentElement.style.setProperty('--ease',reduceMotion?'linear':'cubic-bezier(.2,.8,.2,1)');document.documentElement.style.scrollBehavior=reduceMotion?'auto':'smooth'}
+function render(){
+  const list=$('#taskList'); list.innerHTML='';
+  const visible=state.filter(t=>!t.later && (!focus || !t.done));
+  visible.forEach(t=>list.appendChild(taskNode(t)));
+  $('#emptyState').style.display=visible.length?'none':'block';
+  const today=state.filter(t=>!t.later),done=today.filter(t=>t.done).length,total=today.length;
+  $('#countLabel').textContent=`${done} / ${total}`; $('#barFill').style.width=total?`${done/total*100}%`:'0%';
+  const later=$('#laterList'); later.innerHTML=''; const laterItems=state.filter(t=>t.later);
+  if(!laterItems.length) later.innerHTML='<div class="laterCard"><h3>まだありません</h3><p>Todayのカードを左へスワイプすると、ここに移動します。</p></div>';
+  laterItems.forEach(t=>{const d=document.createElement('div');d.className='laterCard';d.innerHTML=`<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><h3>${escapeHtml(t.title)}</h3><p>${escapeHtml(t.meta)}</p></div><button class="badge" data-return="${t.id}" style="border:0">Todayへ</button></div>`;later.appendChild(d)});
+  $$('[data-return]').forEach(b=>b.onclick=()=>{const t=getTask(+b.dataset.return);t.later=false;save();render();showToast('Todayに戻しました',null)});
+  list.style.gap=compact?'6px':'10px';
+}
+function taskNode(t){
+  const wrap=document.createElement('div');wrap.className='taskWrap';wrap.dataset.id=t.id;
+  wrap.innerHTML=`<div class="reveal"><span class="doneSide">✓ 完了</span><span class="laterSide">あとで →</span></div><div class="task ${t.done?'done':''}"><button class="check" aria-label="完了">${t.done?'✓':''}</button><div class="taskMain"><div class="taskTitle">${escapeHtml(t.title)}</div><div class="taskMeta">${escapeHtml(t.meta)} · Effort ${t.effort}/3</div></div><button class="handle" aria-label="並べ替え">≡</button></div>`;
+  const card=wrap.querySelector('.task'),check=wrap.querySelector('.check'),handle=wrap.querySelector('.handle');
+  check.onclick=e=>{e.stopPropagation();toggleDone(t.id)};
+  card.addEventListener('click',e=>{if(e.target.closest('.check,.handle'))return;if(Math.abs(+card.dataset.moved||0)<8)openDetail(t.id)});
+  wireSwipe(wrap,card,t.id);
+  wireLongPress(card,t.id);
+  wireDrag(handle,wrap,t.id);
+  return wrap;
+}
+function wireSwipe(wrap,card,id){let sx=0,sy=0,lastX=0,drag=false;
+  card.addEventListener('touchstart',e=>{sx=lastX=e.touches[0].clientX;sy=e.touches[0].clientY;drag=true;card.style.transition='none';card.dataset.moved=0},{passive:true});
+  card.addEventListener('touchmove',e=>{if(!drag)return;const x=e.touches[0].clientX,y=e.touches[0].clientY,dx=x-sx,dy=y-sy;if(Math.abs(dx)>Math.abs(dy)+4){e.preventDefault();lastX=x;const c=Math.max(-118,Math.min(118,dx));card.style.transform=`translateX(${c}px)`;card.dataset.moved=Math.abs(c)}},{passive:false});
+  card.addEventListener('touchend',()=>{if(!drag)return;drag=false;const dx=lastX-sx;card.style.transition='';if(dx>82){card.style.transform='translateX(115%)';setTimeout(()=>toggleDone(id,true),reduceMotion?0:150)}else if(dx<-82){card.style.transform='translateX(-115%)';setTimeout(()=>moveLater(id),reduceMotion?0:150)}else card.style.transform='translateX(0)'});
+}
+function wireLongPress(card,id){let timer,startX,startY;card.addEventListener('touchstart',e=>{if(e.target.closest('.check,.handle'))return;startX=e.touches[0].clientX;startY=e.touches[0].clientY;timer=setTimeout(()=>{vibrate();openActions(id)},520)},{passive:true});card.addEventListener('touchmove',e=>{if(Math.hypot(e.touches[0].clientX-startX,e.touches[0].clientY-startY)>9)clearTimeout(timer)},{passive:true});['touchend','touchcancel'].forEach(ev=>card.addEventListener(ev,()=>clearTimeout(timer)))}
+function wireDrag(handle,wrap,id){let active=false,startY=0,currentY=0;handle.addEventListener('touchstart',e=>{active=true;startY=currentY=e.touches[0].clientY;wrap.querySelector('.task').classList.add('dragging');e.preventDefault()},{passive:false});handle.addEventListener('touchmove',e=>{if(!active)return;e.preventDefault();currentY=e.touches[0].clientY;const dy=currentY-startY;wrap.querySelector('.task').style.transform=`translateY(${dy}px) scale(1.018)`},{passive:false});handle.addEventListener('touchend',()=>{if(!active)return;active=false;const dy=currentY-startY;const task=wrap.querySelector('.task');task.style.transform='';task.classList.remove('dragging');if(Math.abs(dy)>45)reorder(id,dy>0?1:-1)});}
+function reorder(id,dir){const visibleIds=state.filter(t=>!t.later).map(t=>t.id),pos=visibleIds.indexOf(id),target=pos+dir;if(target<0||target>=visibleIds.length)return;const a=state.findIndex(t=>t.id===id),b=state.findIndex(t=>t.id===visibleIds[target]);[state[a],state[b]]=[state[b],state[a]];save();render();showToast('並び替えました',null)}
+function toggleDone(id,forced){const t=getTask(id),prev=t.done;t.done=forced===true?true:!t.done;save();render();showToast(t.done?'完了にしました':'未完了に戻しました',()=>{t.done=prev;save();render()})}
+function moveLater(id){const t=getTask(id),prev=t.later;t.later=true;save();render();showToast('「あとで」に移動しました',()=>{t.later=prev;save();render()})}
+function getTask(id){return state.find(t=>t.id===id)}
+function openDetail(id){const t=getTask(id);openSheet(`<div class="eyebrow">Task detail</div><h3>${escapeHtml(t.title)}</h3><p>${escapeHtml(t.meta)}。タップで詳細、スライダーで重さを変えられます。</p><div class="field"><label>Effort</label><div class="rangeRow"><input class="range" id="effortRange" type="range" min="1" max="3" step="1" value="${t.effort}"><output id="effortOut">${t.effort}/3</output></div></div><button class="primary" id="detailDone">${t.done?'未完了に戻す':'完了にする'}</button>`);$('#effortRange').oninput=e=>$('#effortOut').textContent=e.target.value+'/3';$('#effortRange').onchange=e=>{t.effort=+e.target.value;save();render()};$('#detailDone').onclick=()=>{closeSheet();toggleDone(id)}}
+function openActions(id){const t=getTask(id);openSheet(`<div class="eyebrow">Long press</div><h3>${escapeHtml(t.title)}</h3><p>長押しで出すメニューは、頻繁に使う操作を隠しすぎないための補助です。</p><div class="actionList"><button class="action" id="actDone">${t.done?'未完了に戻す':'完了にする'}</button><button class="action" id="actLater">あとでに移動</button><button class="action danger" id="actDelete">削除</button></div>`);$('#actDone').onclick=()=>{closeSheet();toggleDone(id)};$('#actLater').onclick=()=>{closeSheet();moveLater(id)};$('#actDelete').onclick=()=>{const idx=state.findIndex(x=>x.id===id),removed=state.splice(idx,1)[0];save();render();closeSheet();showToast('削除しました',()=>{state.splice(idx,0,removed);save();render()})}}
+function openAdd(){openSheet(`<div class="eyebrow">New task</div><h3>予定を追加</h3><p>入力 → 種類選択 → 追加、という短い流れを試せます。</p><div class="field"><label>タイトル</label><input type="text" id="newTitle" placeholder="例：15分だけ散歩"></div><div class="field"><label>時間</label><div class="segment" id="timeSeg"><button class="seg active" data-time="Morning">Morning</button><button class="seg" data-time="Afternoon">Afternoon</button><button class="seg" data-time="Evening">Evening</button></div></div><button class="primary" id="createTask">追加する</button>`);let when='Morning';$$('#timeSeg .seg').forEach(b=>b.onclick=()=>{$$('#timeSeg .seg').forEach(x=>x.classList.remove('active'));b.classList.add('active');when=b.dataset.time});$('#createTask').onclick=()=>{const title=$('#newTitle').value.trim();if(!title){$('#newTitle').focus();return}state.push({id:Date.now(),title,meta:`${when} · 15 min`,effort:1,done:false,later:false});save();render();closeSheet();showToast('追加しました',null)}}
+function openTopMenu(){openSheet(`<div class="eyebrow">More</div><h3>今日の操作</h3><p>メニューの中身も、必要なものだけに絞っています。</p><div class="actionList"><button class="action" id="refreshNow">更新する</button><button class="action" id="completeAll">全部完了にする</button></div>`);$('#refreshNow').onclick=()=>{closeSheet();fakeRefresh()};$('#completeAll').onclick=()=>{state.filter(t=>!t.later).forEach(t=>t.done=true);save();render();closeSheet();showToast('すべて完了にしました',null)}}
+function openSheet(html){$('#sheetContent').innerHTML=html;$('#backdrop').classList.add('show');$('#sheet').classList.add('show')}
+function closeSheet(){$('#backdrop').classList.remove('show');$('#sheet').classList.remove('show')}
+$('#backdrop').onclick=closeSheet;$('#addBtn').onclick=openAdd;$('#moreTop').onclick=openTopMenu;
+function showToast(text,undo){undoAction=undo;clearTimeout(toastTimer);$('#toastText').textContent=text;$('#undoBtn').style.display=undo?'block':'none';$('#toast').classList.add('show');toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3200)}
+$('#undoBtn').onclick=()=>{if(undoAction)undoAction();undoAction=null;$('#toast').classList.remove('show')};
+$('#focusSwitch').onclick=e=>{focus=!focus;e.currentTarget.classList.toggle('on',focus);render()};
+$$('.navBtn').forEach(b=>b.onclick=()=>{const p=b.dataset.page;$$('.navBtn').forEach(x=>x.classList.toggle('active',x===b));$$('.page').forEach(x=>x.classList.remove('active'));$('#'+p+'Page').classList.add('active');window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'})});
+$('#motionSwitch').onclick=e=>{reduceMotion=!reduceMotion;e.currentTarget.classList.toggle('on',reduceMotion);setMotion()};
+$('#compactSwitch').onclick=e=>{compact=!compact;e.currentTarget.classList.toggle('on',compact);render()};
+$('#resetData').onclick=()=>{state=structuredClone(defaults);save();focus=false;$('#focusSwitch').classList.remove('on');render();showToast('最初の状態に戻しました',null)};
+function fakeRefresh(){const p=$('#pull');p.classList.add('show');setTimeout(()=>{p.classList.remove('show');showToast('最新の状態です',null)},850)}
+window.addEventListener('touchstart',e=>{if(window.scrollY<=0)pullStart=e.touches[0].clientY},{passive:true});window.addEventListener('touchend',e=>{if(pullStart==null)return;const end=e.changedTouches[0].clientY;if(end-pullStart>90)fakeRefresh();pullStart=null},{passive:true});
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+render();setMotion();
+</script>
+</body>
+</html>
