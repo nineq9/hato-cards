@@ -5,6 +5,10 @@ import AVFoundation
 
 @MainActor
 final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeObserver {
+    // Safety gate for early device testing.
+    // This is intentionally NOT user-toggleable. Real deletion requires a deliberate code change.
+    static let destructiveChangesEnabled = false
+
     @Published private(set) var authorizationStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
     @Published private(set) var candidates: [PHAsset] = []
     @Published private(set) var queuedIDs: Set<String> = []
@@ -26,6 +30,8 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
+
+    var isSafeMode: Bool { !Self.destructiveChangesEnabled }
 
     var visibleCandidates: [PHAsset] {
         candidates.filter { !queuedIDs.contains($0.localIdentifier) }
@@ -108,6 +114,10 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
         queuedIDs.remove(asset.localIdentifier)
     }
 
+    func clearQueueForSafeModeTest() {
+        queuedIDs.removeAll()
+    }
+
     func requestThumbnail(for asset: PHAsset, targetSize: CGSize, completion: @escaping (UIImage?) -> Void) -> PHImageRequestID {
         let options = PHImageRequestOptions()
         options.deliveryMode = .opportunistic
@@ -154,6 +164,12 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
     }
 
     func deleteQueued() async -> Bool {
+        // Defense in depth: early builds cannot delete even if a UI bug accidentally calls this method.
+        guard Self.destructiveChangesEnabled else {
+            lastError = "SAFE MODE: 実際の写真削除は無効です。"
+            return false
+        }
+
         let assets = queuedAssets
         guard !assets.isEmpty else { return true }
         do {
