@@ -33,10 +33,11 @@ function openAudio(dateLabel='TODAY'){
 function closeAudio(){ $('#scrim').classList.remove('open'); $('#audioSheet').classList.remove('open'); document.body.classList.remove('lock'); }
 function buildSpeechText(mode){
   const items= mode==='digest' ? ARTICLES.slice(0,8) : ARTICLES;
-  const preface=audioContextDate==='TODAY'?'':`Аудиоархив HATO за ${audioContextDate}.`;
-  return preface+items.map((a,i)=>`${i+1}. ${a.title}. ${a.summary}`).join(' ');
+  const preface=audioContextDate==='TODAY'?'':`${audioContextDate}の音声アーカイブ。プロトタイプではデモ記事を読み上げます。`;
+  return preface+items.map((a,i)=>`${i+1}。${a.title}。${a.summary}`).join('。');
 }
 function estimateSpeechDuration(text){
+  // デモ用の概算。本番MP3では audio.duration をそのまま使う。
   return Math.max(20,text.length/5.2);
 }
 function fmtTime(sec){
@@ -60,10 +61,6 @@ function updateSpeechUI(){
   $('#miniDuration').textContent=fmtTime(dur);
   speechState.raf=requestAnimationFrame(updateSpeechUI);
 }
-function getRussianVoice(){
-  const voices=speechSynthesis.getVoices?.()||[];
-  return voices.find(v=>String(v.lang||'').toLowerCase()==='ru-ru')||voices.find(v=>String(v.lang||'').toLowerCase().startsWith('ru'))||null;
-}
 function speakFromPosition(position,keepPaused=false){
   if(!('speechSynthesis' in window)||!speechState.text)return;
   speechSynthesis.cancel();
@@ -71,7 +68,7 @@ function speakFromPosition(position,keepPaused=false){
   const pos=Math.max(0,Math.min(dur-.05,position||0));
   const startChar=Math.min(speechState.text.length-1,Math.floor((pos/dur)*speechState.text.length));
   const u=new SpeechSynthesisUtterance(speechState.text.slice(startChar));
-  u.lang='ru-RU';const ruVoice=getRussianVoice();if(ruVoice)u.voice=ruVoice;u.rate=.98;u.pitch=1;
+  u.lang='ja-JP';u.rate=.98;u.pitch=1;
   speechState.position=pos;
   speechState.charIndex=startChar;
   speechState.startedAt=performance.now()-pos*1000;
@@ -89,14 +86,14 @@ function speakFromPosition(position,keepPaused=false){
 }
 function startSpeech(mode){
   closeAudio();
-  if(!('speechSynthesis' in window)){alert('В этом браузере синтез речи недоступен.');return;}
+  if(!('speechSynthesis' in window)){alert('このブラウザではデモ音声を再生できません。本番版ではMP3音声を使用します。');return;}
   const text=buildSpeechText(mode);
   if(speechState.raf)cancelAnimationFrame(speechState.raf);
   speechState={active:true,paused:false,mode,text,duration:estimateSpeechDuration(text),position:0,charIndex:0,startedAt:performance.now(),utterance:null,raf:0};
   speakFromPosition(0,false);
   $('#miniPlayer').classList.add('show');
-  $('#miniTitle').textContent=(audioContextDate==='TODAY'?'':audioContextDate+' · ')+(mode==='digest'?'Только главное':'Все краткие обзоры');
-  $('#miniStatus').textContent='Воспроизведение';
+  $('#miniTitle').textContent=(audioContextDate==='TODAY'?'':audioContextDate+' · ')+(mode==='digest'?'重要ニュースだけ':'すべての概要');
+  $('#miniStatus').textContent='デモ音声を再生中';
   $('#miniPlay').textContent='Ⅱ';
   updateSpeechUI();
 }
@@ -104,11 +101,11 @@ function toggleSpeech(){
   if(!speechState.active)return;
   if(speechState.paused){
     speechSynthesis.resume();speechState.paused=false;speechState.startedAt=performance.now()-speechState.position*1000;
-    $('#miniPlay').textContent='Ⅱ';$('#miniStatus').textContent='Воспроизведение';updateSpeechUI();
+    $('#miniPlay').textContent='Ⅱ';$('#miniStatus').textContent='再生中';updateSpeechUI();
   }else{
     speechState.position=getSpeechPosition();speechSynthesis.pause();speechState.paused=true;
     if(speechState.raf)cancelAnimationFrame(speechState.raf);
-    $('#miniPlay').textContent='▶';$('#miniStatus').textContent='Пауза';
+    $('#miniPlay').textContent='▶';$('#miniStatus').textContent='一時停止';
   }
 }
 function seekSpeech(seconds){
@@ -131,12 +128,4 @@ function seekSpeechToFraction(fraction){
   speechState.position=target;
   speakFromPosition(target,wasPaused);
   if(!wasPaused){speechState.startedAt=performance.now()-target*1000;updateSpeechUI();}
-  $('#miniSeek').value=Math.round(fraction*1000);
-}
-function stopSpeech(hide=true){
-  if('speechSynthesis' in window)speechSynthesis.cancel();
-  if(speechState.raf)cancelAnimationFrame(speechState.raf);
-  speechState.active=false;speechState.paused=false;speechState.position=0;
-  if(hide)$('#miniPlayer').classList.remove('show');
-  else{$('#miniStatus').textContent='Воспроизведение завершено';$('#miniPlay').textContent='▶';}
-}
+  $('#min
