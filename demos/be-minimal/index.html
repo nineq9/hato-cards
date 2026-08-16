@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f4f1ea">
+<title>be minimal</title>
+<style>
+:root{--bg:#f4f1ea;--ink:#23211e;--muted:#8a857d;--line:#ddd7ce;--sage:#9ba48d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Hiragino Sans",sans-serif;overflow:hidden}button{font:inherit}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.top{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px}.brand{font-size:17px;letter-spacing:.08em}.count{font-size:13px;color:var(--muted)}
+.stage{min-height:0;display:flex;align-items:center;overflow:hidden}.film{display:flex;gap:12px;width:100%;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 12vw 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.film::-webkit-scrollbar{display:none}
+.card{flex:0 0 76vw;height:min(66vh,650px);min-height:420px;scroll-snap-align:center;position:relative;border-radius:28px;overflow:hidden;background:#d9d3c9;box-shadow:0 14px 40px rgba(44,38,29,.10);touch-action:pan-x;will-change:transform,opacity}.card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}.badges{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;align-items:center}.badge{padding:7px 10px;border-radius:999px;background:rgba(0,0,0,.34);backdrop-filter:blur(10px);color:#fff;font-size:12px}.heart{font-size:21px;color:white;text-shadow:0 1px 8px rgba(0,0,0,.35)}.keep{position:absolute;top:16px;left:50%;transform:translateX(-50%) translateY(-8px);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.20);backdrop-filter:blur(8px);color:#fff;font-size:26px;opacity:0;transition:.14s}.card.dragging .keep{opacity:1}
+.bottom{padding:8px 18px 16px}.line{height:1px;background:var(--line);margin-bottom:12px}.hint{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px}.hint span:first-child:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sage);margin-right:7px}
+.toast{position:fixed;z-index:30;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translate(-50%,18px);opacity:0;padding:10px 14px;border-radius:999px;background:#26231f;color:white;font-size:12px;transition:.18s}.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:40;background:rgba(20,18,15,.76);display:none;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.modal img{max-width:100%;max-height:88vh;border-radius:20px;object-fit:contain}.close{position:absolute;top:calc(14px + env(safe-area-inset-top));left:14px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.95);font-size:25px}.detail{position:absolute;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));padding:14px 15px;border-radius:18px;background:rgba(255,255,255,.93);backdrop-filter:blur(16px);display:none}.detail.show{display:block}.detail strong{display:block;font-size:15px;margin-bottom:5px}.detail span{font-size:12px;color:#6d675f}.empty{display:none;place-items:center;text-align:center;padding:40px;color:var(--muted);width:100%;height:100%}.empty.show{display:grid}.empty strong{display:block;color:var(--ink);font-size:24px;font-weight:500;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="brand">be minimal</div><div class="count" id="count">1 / 5</div></header>
+  <main class="stage"><div class="film" id="film"></div><div class="empty" id="empty"><div><strong>選び終わりました</strong>残さなかったものは、まだ削除されません。</div></div></main>
+  <footer class="bottom"><div class="line"></div><div class="hint"><span>上にスワイプで残す</span><span>タップで拡大</span></div></footer>
+</div>
+<div class="toast" id="toast">KEEP</div>
+<div class="modal" id="modal"><button class="close" id="close">×</button><img id="modalImg" alt=""><div class="detail" id="detail"><strong>2026年8月16日 09:41</strong><span>長押しで撮影日時・場所・前後写真などの詳細</span></div></div>
+<script>
+const images=[
+'https://picsum.photos/id/1025/900/1200',
+'https://picsum.photos/id/1062/900/1200',
+'https://picsum.photos/id/1069/900/1200',
+'https://picsum.photos/id/1084/900/1200',
+'https://picsum.photos/id/1074/900/1200'];
+const film=document.getElementById('film'),count=document.getElementById('count'),toast=document.getElementById('toast'),modal=document.getElementById('modal'),modalImg=document.getElementById('modalImg'),detail=document.getElementById('detail'),empty=document.getElementById('empty');let kept=new Set();
+const sizes=['1.2 MB','820 KB','3.8 MB','2.1 MB','5.4 MB'];
+function render(){film.innerHTML='';images.forEach((src,i)=>{if(kept.has(i))return;let c=document.createElement('article');c.className='card';c.dataset.i=i;c.innerHTML=`<img src="${src}" alt=""><div class="keep">↑</div><div class="badges">${i===1?'<span class="heart">♥</span>':''}<span class="badge">◔ ${sizes[i]}</span></div>`;film.appendChild(c);wire(c)});empty.classList.toggle('show',!film.children.length);updateCount()}
+function updateCount(){let cs=[...film.children];if(!cs.length){count.textContent='5 / 5';return}let center=innerWidth/2,b=1e9,idx=0;cs.forEach((c,j)=>{let r=c.getBoundingClientRect(),d=Math.abs((r.left+r.right)/2-center);if(d<b){b=d;idx=j}});count.textContent=`${kept.size+idx+1} / 5`}
+film.addEventListener('scroll',()=>requestAnimationFrame(updateCount),{passive:true});
+function wire(card){let sx=0,sy=0,dy=0,moved=false,long=false,timer;function start(x,y){sx=x;sy=y;dy=0;moved=false;long=false;timer=setTimeout(()=>{long=true;open(card,true)},520)}function move(x,y){dy=y-sy;let dx=x-sx;if(Math.abs(dx)>8||Math.abs(dy)>8){moved=true;clearTimeout(timer)}if(dy<-10&&Math.abs(dy)>Math.abs(dx)){card.classList.add('dragging');card.style.transform=`translateY(${dy*.35}px) scale(1.01)`}}function end(){clearTimeout(timer);card.classList.remove('dragging');if(dy<-90){let i=+card.dataset.i;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),650);card.animate([{transform:card.style.transform,opacity:1},{transform:'translateY(-110vh) scale(.97)',opacity:0}],{duration:280,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish=()=>{kept.add(i);render()}}else{card.style.transform='';if(!moved&&!long)open(card,false)}}card.addEventListener('touchstart',e=>start(e.touches[0].clientX,e.touches[0].clientY),{passive:true});card.addEventListener('touchmove',e=>move(e.touches[0].clientX,e.touches[0].clientY),{passive:true});card.addEventListener('touchend',end)}
+function open(card,showDetail){modalImg.src=images[+card.dataset.i];detail.classList.toggle('show',showDetail);modal.classList.add('show')}
+document.getElementById('close').onclick=()=>{modal.classList.remove('show');detail.classList.remove('show')};modal.addEventListener('click',e=>{if(e.target===modal){modal.classList.remove('show');detail.classList.remove('show')}});render();
+</script>
+</body>
+</html>
