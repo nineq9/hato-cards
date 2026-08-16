@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<title>Asumi Product Quality System v2</title>
+<style>
+:root{--bg:#f5f5f7;--surface:#fff;--text:#111113;--muted:#6e6e73;--line:rgba(0,0,0,.08);--accent:#0a84ff;--ok:#34c759;--radius:22px;--inner:14px;--pad:18px;--gap:14px;--press:.985;--dur:180ms;--spring:cubic-bezier(.2,.8,.2,1);--shadow:0 12px 36px rgba(0,0,0,.07)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}body{min-height:100svh}.wrap{max-width:430px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(36px + env(safe-area-inset-bottom))}.hero{padding:8px 4px 18px}.kicker{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--muted)}h1{font-size:29px;line-height:1.02;letter-spacing:-1px;margin:8px 0 8px}.lead{font-size:14px;line-height:1.5;color:var(--muted);margin:0}.section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:var(--pad);margin-bottom:var(--gap);box-shadow:var(--shadow);overflow:hidden}.title{font-size:18px;letter-spacing:-.3px;margin:0 0 5px}.desc{font-size:13px;line-height:1.45;color:var(--muted);margin:0 0 14px}.segment{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:rgba(120,120,128,.14);padding:3px;border-radius:11px}.seg{min-height:40px;border:0;border-radius:8px;background:transparent;color:var(--text);font-weight:700;font-size:13px}.seg.active{background:var(--surface);box-shadow:0 1px 5px rgba(0,0,0,.12)}.feelnote{font-size:12px;color:var(--muted);margin:10px 2px 0;line-height:1.4}.primary{width:100%;min-height:50px;border:0;border-radius:var(--inner);background:var(--accent);color:white;font-size:17px;font-weight:750;transition:transform var(--dur) var(--spring),filter var(--dur) ease}.primary:active{transform:scale(var(--press));filter:brightness(.92)}.iconrow{display:flex;gap:10px;margin-top:10px}.iconbtn{width:50px;height:50px;border:1px solid var(--line);border-radius:var(--inner);background:var(--surface);color:var(--text);font-size:21px;font-weight:700;transition:transform var(--dur) var(--spring)}.iconbtn:active{transform:scale(.93)}.log{min-height:18px;font-size:12px;color:var(--muted);margin-top:10px}.stage{height:270px;position:relative;touch-action:none;user-select:none;-webkit-user-select:none}.card{position:absolute;inset:0;border-radius:calc(var(--radius) + 2px);overflow:hidden;background:linear-gradient(145deg,#dfe8ee,#9fb5c4 55%,#526d7e);box-shadow:0 18px 42px rgba(0,0,0,.15);transition:transform 280ms var(--spring),opacity 220ms ease}.card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 23% 19%,rgba(255,255,255,.9),transparent 30%),linear-gradient(to top,rgba(0,0,0,.56),transparent 60%)}.cardcopy{position:absolute;left:18px;right:18px;bottom:18px;color:white}.cardcopy small{font-size:10px;font-weight:800;letter-spacing:.13em;opacity:.78}.cardcopy strong{display:block;margin-top:7px;font-size:27px;line-height:1.04;letter-spacing:-.75px;max-width:285px}.gesturehint{text-align:center;color:var(--muted);font-size:12px;margin:10px 0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.secondary{min-height:46px;border-radius:23px;border:1px solid var(--line);background:var(--surface);font-weight:720;color:var(--text);font-size:14px;transition:transform var(--dur) var(--spring)}.secondary:active{transform:scale(.96)}.secondary[disabled]{opacity:.35}.statebox{min-height:142px;border:1px solid var(--line);border-radius:16px;display:grid;place-items:center;text-align:center;padding:18px;margin-top:12px}.spinner{width:24px;height:24px;border:3px solid rgba(120,120,128,.25);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}.stateTitle{font-weight:760;margin-top:8px}.stateSub{font-size:12px;color:var(--muted);margin-top:4px}.retry{min-height:44px;padding:0 16px;border:0;background:none;color:var(--accent);font-weight:750;font-size:15px;margin-top:3px}.access{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px}.switch{position:relative;width:51px;height:31px;border:0;border-radius:16px;background:#8e8e93;padding:0;flex:none}.switch span{position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.22);transition:transform 220ms var(--spring)}.switch.on{background:var(--ok)}.switch.on span{transform:translateX(20px)}.gate{display:grid;gap:9px}.gateRow{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}.gateRow span:first-child{font-weight:680}.pass{font-size:12px;color:#238636;font-weight:800}.footer{font-size:11px;line-height:1.5;color:var(--muted);padding:6px 4px 0}
+body.quiet{--radius:24px;--inner:15px;--pad:20px;--gap:16px;--press:.99;--dur:220ms;--shadow:0 10px 32px rgba(0,0,0,.055)}body.crisp{--radius:18px;--inner:11px;--pad:17px;--gap:11px;--press:.975;--dur:105ms;--shadow:0 8px 24px rgba(0,0,0,.08)}body.expressive{--radius:26px;--inner:17px;--pad:19px;--gap:15px;--press:.97;--dur:260ms;--spring:cubic-bezier(.16,1,.3,1);--shadow:0 16px 42px rgba(0,0,0,.09)}
+@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}body.reduce *,body.reduce *:before,body.reduce *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+@media(max-width:350px){.wrap{padding-left:12px;padding-right:12px}.section{padding:15px}.cardcopy strong{font-size:24px}.actions{grid-template-columns:1fr}.segment{grid-template-columns:1fr}.seg{min-height:44px}}
+@media(prefers-color-scheme:dark){:root{--bg:#000;--surface:#1c1c1e;--text:#f5f5f7;--muted:#98989d;--line:rgba(255,255,255,.11);--shadow:none}}
+</style>
+</head>
+<body class="quiet">
+<div class="wrap">
+  <div class="hero"><div class="kicker">ASUMI PRODUCT QUALITY SYSTEM v2</div><h1>普通の操作は慣れたまま。<br>触った感情だけ変える。</h1><p class="lead">Appleだけを正解にせず、プラットフォーム標準・状態フィードバック・Undo・アクセシビリティを土台に、最後にアプリ固有の“Feel”を重ねるデモです。</p></div>
+
+  <section class="section">
+    <div class="kicker">PRODUCT FEEL</div><h2 class="title">同じ機能でも、触った印象を変える</h2><p class="desc">下の3つは操作ルールは同じ。変わるのはテンポ、余白、丸み、反応の強さだけです。</p>
+    <div class="segment" id="feel"><button class="seg active" data-feel="quiet">Quiet</button><button class="seg" data-feel="crisp">Crisp</button><button class="seg" data-feel="expressive">Expressive</button></div>
+    <div class="feelnote" id="feelNote">Quiet：静か・軽い・邪魔しない。読書や整理系に向く。</div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">TOUCH + FEEDBACK</div><h2 class="title">押した瞬間に、ちゃんと返事する</h2><p class="desc">処理完了を待たず、入力が届いたことをすぐ見せます。</p>
+    <button class="primary" id="save">保存する</button>
+    <div class="iconrow"><button class="iconbtn" id="heart" aria-label="お気に入り">♡</button><button class="iconbtn" id="share" aria-label="共有">↗</button><button class="iconbtn" id="more" aria-label="その他">•••</button></div>
+    <div class="log" id="log">どれか押してみてください。</div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">DIRECT MANIPULATION + RECOVERY</div><h2 class="title">スワイプできる。でもスワイプ必須にはしない</h2><p class="desc">カードを上へ。誤操作はUndoで戻せます。さらに「削除」ボタンでも同じ操作ができます。</p>
+    <div class="stage" id="stage"><div class="card" id="card"><div class="cardcopy"><small>REVERSIBLE ACTION</small><strong>指に素直で、間違えても戻せる。</strong></div></div></div>
+    <div class="gesturehint">↑ 上へスワイプ</div>
+    <div class="actions"><button class="secondary" id="delete">削除</button><button class="secondary" id="undo" disabled>↶ Undo</button></div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">STATES</div><h2 class="title">待つ・空・失敗まで最初から設計</h2><p class="desc">「動いてる？」を考えさせないため、状態を明確にします。</p>
+    <div class="segment" id="states"><button class="seg active" data-state="loading">Loading</button><button class="seg" data-state="empty">Empty</button><button class="seg" data-state="error">Error</button></div>
+    <div class="statebox" id="statebox"></div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">ACCESSIBILITY</div><div class="access"><div><h2 class="title">Reduce Motion</h2><p class="desc" style="margin:0">動きを減らしても、状態や結果は分かるままにします。</p></div><button class="switch" id="motion" aria-label="Reduce Motion"><span></span></button></div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">QUALITY GATE</div><h2 class="title">「コードが動く」で完成にしない</h2><div class="gate"><div class="gateRow"><span>Platform-native behavior</span><span class="pass">PASS</span></div><div class="gateRow"><span>Interaction states</span><span class="pass">PASS</span></div><div class="gateRow"><span>Undo / recovery</span><span class="pass">PASS</span></div><div class="gateRow"><span>Gesture alternative</span><span class="pass">PASS</span></div><div class="gateRow"><span>Responsive narrow layout</span><span class="pass">PASS</span></div><div class="gateRow"><span>Product Feel layer</span><span class="pass">PASS</span></div></div>
+  </section>
+
+  <div class="footer">Webで再現できる範囲の操作感デモです。本物のiOSハプティクス、VoiceOver、Dynamic Type、実機スクロール物理はネイティブアプリ側で別途確認します。</div>
+</div>
+<script>
+const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];
+const notes={quiet:'Quiet：静か・軽い・邪魔しない。読書や整理系に向く。',crisp:'Crisp：速い・明確・キビキビ。処理量が多いツール系に向く。',expressive:'Expressive：反応を少し強めに。重要な体験にだけ個性を出したい時に向く。'};
+$('#feel').addEventListener('click',e=>{const b=e.target.closest('[data-feel]');if(!b)return;$$('#feel .seg').forEach(x=>x.classList.toggle('active',x===b));document.body.classList.remove('quiet','crisp','expressive');document.body.classList.add(b.dataset.feel);$('#feelNote').textContent=notes[b.dataset.feel]});
+const log=$('#log');function feedback(t){log.textContent=t;log.animate([{opacity:.45},{opacity:1}],{duration:180})}$('#save').onclick=()=>feedback('✓ 保存しました — 入力直後に反応、完了結果も明確に');let liked=false;$('#heart').onclick=e=>{liked=!liked;e.currentTarget.textContent=liked?'♥':'♡';feedback(liked?'お気に入りに追加':'お気に入りを解除')};$('#share').onclick=()=>feedback('共有 — OS標準の共有UIを使う想定');$('#more').onclick=()=>feedback('その他 — 慣れたメニューを優先');
+const stage=$('#stage'),card=$('#card'),undo=$('#undo'),del=$('#delete');let startY=0,lastY=0,startT=0,drag=false,gone=false;function down(y){if(gone)return;drag=true;startY=lastY=y;startT=performance.now();card.style.transition='none'}function move(y){if(!drag)return;lastY=y;const dy=Math.min(40,Math.max(-190,y-startY));card.style.transform=`translate3d(0,${dy}px,0) rotate(${dy*.018}deg) scale(${1-Math.min(Math.abs(dy),180)/2700})`}function dismiss(){if(gone)return;gone=true;card.style.transition='';card.style.transform='translate3d(0,-430px,0) rotate(-4deg) scale(.96)';card.style.opacity='0';undo.disabled=false;del.disabled=true}function up(){if(!drag)return;drag=false;const dy=lastY-startY,dt=Math.max(1,performance.now()-startT),v=dy/dt;card.style.transition='';if(dy<-82||v<-.55)dismiss();else card.style.transform='translate3d(0,0,0) scale(1)'}stage.addEventListener('touchstart',e=>down(e.touches[0].clientY),{passive:true});stage.addEventListener('touchmove',e=>{move(e.touches[0].clientY);e.preventDefault()},{passive:false});stage.addEventListener('touchend',up);del.onclick=dismiss;undo.onclick=()=>{gone=false;card.style.opacity='1';card.style.transform='translate3d(0,0,0) scale(1)';undo.disabled=true;del.disabled=false};
+function render(s){const box=$('#statebox');if(s==='loading')box.innerHTML='<div><div class="spinner" style="margin:auto"></div><div class="stateSub">読み込み中…</div></div>';if(s==='empty')box.innerHTML='<div><div style="font-size:28px">✓</div><div class="stateTitle">すべて完了</div><div class="stateSub">空の状態にも次の意味を持たせます。</div></div>';if(s==='error')box.innerHTML='<div><div style="font-size:26px">!</div><div class="stateTitle">読み込めませんでした</div><div class="stateSub">通信状態を確認してください。</div><button class="retry" id="retry">もう一度試す</button></div>';if(s==='error')$('#retry').onclick=()=>{render('loading');setTimeout(()=>render('empty'),700)}}render('loading');$('#states').addEventListener('click',e=>{const b=e.target.closest('[data-state]');if(!b)return;$$('#states .seg').forEach(x=>x.classList.toggle('active',x===b));render(b.dataset.state)});
+let rm=false;$('#motion').onclick=e=>{rm=!rm;document.body.classList.toggle('reduce',rm);e.currentTarget.classList.toggle('on',rm)};
+</script>
+</body>
+</html>
