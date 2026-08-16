@@ -36,6 +36,8 @@ jobs:
           node --check tests/ai-data-contract.mjs
           node --check prototypes/ai-data-v0.1/govuk-content-adapter.mjs
           node --check prototypes/ai-data-v0.1/contract-validation.mjs
+          node --check prototypes/ai-data-v0.1/rawitem-signal-projector.mjs
+          node --check prototypes/ai-data-v0.1/jma-xml-adapter.mjs
       - name: AI Data contract fixture
         run: node tests/ai-data-contract.mjs
       - name: Install Playwright
