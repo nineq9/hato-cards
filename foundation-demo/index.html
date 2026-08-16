@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#f5f5f7" />
+<title>Asumi App Foundation — Feel Demo</title>
+<style>
+:root{
+  --bg:#f5f5f7; --surface:rgba(255,255,255,.86); --surface2:#fff; --text:#111113; --muted:#6e6e73;
+  --line:rgba(0,0,0,.08); --accent:#0a84ff; --danger:#ff3b30; --ok:#34c759;
+  --shadow:0 12px 40px rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#000;--surface:rgba(28,28,30,.88);--surface2:#1c1c1e;--text:#f5f5f7;--muted:#98989d;--line:rgba(255,255,255,.1);--shadow:none}
+  meta[name="theme-color"]{content:#000}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+body{min-height:100svh;overscroll-behavior-y:none}
+.wrap{max-width:430px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 18px calc(34px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.brand h1{font-size:22px;line-height:1.1;margin:0;font-weight:750;letter-spacing:-.5px}.brand p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.pill{height:36px;padding:0 12px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-weight:650}
+.section{background:var(--surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:22px;padding:18px;margin:0 0 14px;box-shadow:var(--shadow)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--muted);margin-bottom:8px}.title{font-size:18px;font-weight:750;letter-spacing:-.3px;margin:0 0 5px}.desc{font-size:13px;line-height:1.45;color:var(--muted);margin:0 0 14px}
+.primary{width:100%;min-height:50px;border:0;border-radius:13px;background:var(--accent);color:#fff;font-size:17px;font-weight:700;padding:0 16px;touch-action:manipulation;transition:transform .11s ease,filter .11s ease}.primary:active{transform:scale(.985);filter:brightness(.92)}
+.iconrow{display:flex;gap:10px;margin-top:12px}.iconbtn{width:50px;height:50px;display:grid;place-items:center;border-radius:14px;border:1px solid var(--line);background:var(--surface2);color:var(--text);font-size:22px;transition:transform .11s ease,background .11s ease}.iconbtn:active{transform:scale(.92)}
+.target-note{font-size:12px;color:var(--muted);margin-top:10px}
+.cardstage{position:relative;height:292px;margin-top:8px;perspective:900px;touch-action:none;user-select:none;-webkit-user-select:none}.card{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#dce6ef 0%,#9fb6c6 52%,#526d7e 100%);box-shadow:0 18px 45px rgba(0,0,0,.16);transform:translate3d(0,0,0) scale(1);transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .22s ease}.card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.9),transparent 31%),linear-gradient(to top,rgba(0,0,0,.55),transparent 58%)}.card-content{position:absolute;left:18px;right:18px;bottom:18px;color:#fff}.card-kicker{font-size:11px;font-weight:800;letter-spacing:.12em;opacity:.78}.card-title{font-size:28px;line-height:1.03;letter-spacing:-.8px;font-weight:760;margin-top:7px;max-width:280px}.swipehint{text-align:center;color:var(--muted);font-size:12px;margin:10px 0 0}.undo{display:flex;justify-content:center;margin-top:12px}.undobtn{min-height:44px;padding:0 16px;border-radius:22px;border:1px solid var(--line);background:var(--surface2);color:var(--text);font-weight:700;opacity:.35;pointer-events:none;transition:opacity .2s ease,transform .1s ease}.undobtn.ready{opacity:1;pointer-events:auto}.undobtn:active{transform:scale(.95)}
+.segment{display:grid;grid-template-columns:repeat(3,1fr);padding:3px;background:rgba(120,120,128,.14);border-radius:10px;gap:2px;margin:12px 0}.seg{height:36px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:13px;font-weight:650}.seg.active{background:var(--surface2);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.statebox{height:126px;border:1px solid var(--line);border-radius:16px;display:grid;place-items:center;text-align:center;padding:14px;background:var(--surface2)}.spinner{width:24px;height:24px;border:3px solid rgba(120,120,128,.28);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}.state-title{font-weight:750;margin-top:7px}.state-sub{color:var(--muted);font-size:12px;margin-top:4px}.retry{margin-top:9px;min-height:44px;border:0;background:none;color:var(--accent);font-weight:700;font-size:15px}
+.log{margin-top:12px;font-size:12px;color:var(--muted);min-height:18px}.flash{animation:flash .35s ease}.access{display:flex;align-items:center;justify-content:space-between;gap:12px}.switch{position:relative;width:51px;height:31px;border-radius:16px;background:#8e8e93;border:0;padding:0;transition:background .2s}.switch span{position:absolute;top:2px;left:2px;width:27px;height:27px;background:white;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.25);transition:transform .24s cubic-bezier(.2,.8,.2,1)}.switch.on{background:var(--ok)}.switch.on span{transform:translateX(20px)}
+.footer{padding:8px 4px 0;color:var(--muted);font-size:11px;line-height:1.45}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes flash{50%{transform:scale(1.02)}}
+@media (prefers-reduced-motion: reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+body.reduce-motion *, body.reduce-motion *:before, body.reduce-motion *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand"><h1>Asumi Foundation</h1><p>Feel Demo · iPhoneで触る用</p></div><button class="pill" id="reset">Reset</button></header>
+
+<section class="section">
+  <div class="eyebrow">TOUCH</div><h2 class="title">タップの気持ちよさ</h2><p class="desc">小さすぎる操作領域を作らず、押した瞬間だけ自然に反応します。</p>
+  <button class="primary" id="primary">保存する</button>
+  <div class="iconrow"><button class="iconbtn" aria-label="お気に入り" id="heart">♡</button><button class="iconbtn" aria-label="共有" id="share">↗</button><button class="iconbtn" aria-label="その他" id="more">•••</button></div>
+  <div class="target-note">すべて最低44pt以上の実効タップ領域。</div><div class="log" id="taplog">どれか押してみてください。</div>
+</section>
+
+<section class="section">
+  <div class="eyebrow">GESTURE</div><h2 class="title">スワイプ → Undo</h2><p class="desc">カードを<strong>上にスワイプ</strong>してください。勢いと距離で自然に判定します。</p>
+  <div class="cardstage" id="stage"><div class="card" id="card"><div class="card-content"><div class="card-kicker">MINIMAL INTERACTION</div><div class="card-title">余計なものなく、指に素直に動く。</div></div></div></div>
+  <div class="swipehint">↑ 上へスワイプ</div><div class="undo"><button class="undobtn" id="undo">↶ Undo</button></div>
+</section>
+
+<section class="section">
+  <div class="eyebrow">STATE</div><h2 class="title">待ち時間もUIの一部</h2><p class="desc">Loading / Empty / Error を最初から忘れないための共通状態です。</p>
+  <div class="segment"><button class="seg active" data-state="loading">Loading</button><button class="seg" data-state="empty">Empty</button><button class="seg" data-state="error">Error</button></div>
+  <div class="statebox" id="statebox"></div>
+</section>
+
+<section class="section">
+  <div class="eyebrow">ACCESSIBILITY</div><div class="access"><div><h2 class="title" style="margin-bottom:4px">Reduce Motion</h2><p class="desc" style="margin:0">動きを減らしたい人には、不要なアニメーションを止めます。</p></div><button class="switch" id="motion" aria-label="Reduce Motion"><span></span></button></div>
+</section>
+
+<div class="footer">これはネイティブSwiftUI部品の「操作思想」をiPhoneですぐ試すためのWebデモです。Safariでは本物のiOSハプティクスだけ再現できません。</div>
+</div>
+<script>
+const $=s=>document.querySelector(s);const log=$('#taplog');
+function feedback(msg){log.textContent=msg;log.classList.remove('flash');void log.offsetWidth;log.classList.add('flash')}
+$('#primary').onclick=()=>feedback('✓ 保存しました — 確定操作だけ明確にフィードバック');
+let liked=false;$('#heart').onclick=e=>{liked=!liked;e.currentTarget.textContent=liked?'♥':'♡';feedback(liked?'お気に入りに追加':'お気に入りを解除')};
+$('#share').onclick=()=>feedback('共有 — OS標準の共有シートを使う想定');$('#more').onclick=()=>feedback('その他 — 独自メニューを発明しない');
+
+const card=$('#card'),undo=$('#undo'),stage=$('#stage');let startY=0,lastY=0,startT=0,dragging=false,dismissed=false;
+function down(y){if(dismissed)return;dragging=true;startY=lastY=y;startT=performance.now();card.style.transition='none'}
+function move(y){if(!dragging)return;lastY=y;const dy=y-startY;const clamped=Math.min(40,Math.max(-190,dy));card.style.transform=`translate3d(0,${clamped}px,0) rotate(${clamped*.018}deg) scale(${1-Math.min(Math.abs(clamped),180)/2600})`}
+function up(){if(!dragging)return;dragging=false;const dy=lastY-startY,dt=Math.max(1,performance.now()-startT),v=dy/dt;card.style.transition='';if(dy<-85||v<-.55){dismissed=true;card.style.transform='translate3d(0,-430px,0) rotate(-4deg) scale(.96)';card.style.opacity='0';undo.classList.add('ready');setTimeout(()=>{stage.style.opacity=.72},220)}else{card.style.transform='translate3d(0,0,0) scale(1)'}}
+stage.addEventListener('touchstart',e=>down(e.touches[0].clientY),{passive:true});stage.addEventListener('touchmove',e=>{move(e.touches[0].clientY);e.preventDefault()},{passive:false});stage.addEventListener('touchend',up);stage.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'){down(e.clientY);stage.setPointerCapture(e.pointerId)}});stage.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')move(e.clientY)});stage.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')up()});
+undo.onclick=()=>{dismissed=false;stage.style.opacity='1';card.style.opacity='1';card.style.transform='translate3d(0,0,0) scale(1)';undo.classList.remove('ready')};
+
+function renderState(s){const box=$('#statebox');if(s==='loading')box.innerHTML='<div><div class="spinner" style="margin:auto"></div><div class="state-sub">読み込み中…</div></div>';if(s==='empty')box.innerHTML='<div><div style="font-size:28px">✓</div><div class="state-title">すべて整理済み</div><div class="state-sub">空の状態も、迷わない表示に。</div></div>';if(s==='error')box.innerHTML='<div><div style="font-size:26px">!</div><div class="state-title">読み込めませんでした</div><div class="state-sub">通信状態を確認してください。</div><button class="retry" onclick="renderState(\'loading\');setTimeout(()=>renderState(\'empty\'),900)">もう一度試す</button></div>'}
+renderState('loading');document.querySelectorAll('.seg').forEach(b=>b.onclick=()=>{document.querySelectorAll('.seg').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderState(b.dataset.state)});
+let rm=false;$('#motion').onclick=e=>{rm=!rm;document.body.classList.toggle('reduce-motion',rm);e.currentTarget.classList.toggle('on',rm)};
+$('#reset').onclick=()=>{liked=false;$('#heart').textContent='♡';feedback('リセットしました');dismissed=false;stage.style.opacity='1';card.style.opacity='1';card.style.transform='translate3d(0,0,0) scale(1)';undo.classList.remove('ready');renderState('loading');document.querySelectorAll('.seg').forEach((x,i)=>x.classList.toggle('active',i===0));rm=false;document.body.classList.remove('reduce-motion');$('#motion').classList.remove('on')};
+</script>
+</body>
+</html>
