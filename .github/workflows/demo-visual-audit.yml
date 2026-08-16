@@ -7,6 +7,7 @@ on:
       - visual-qa-audit-20260816
       - visual-qa-audit-rebased-20260816
       - visual-qa-audit-final-20260816
+      - visual-qa-audit-final2-20260816
     paths:
       - 'tests/demo-visual-audit.mjs'
       - 'tests/day2-visual-guard.mjs'
