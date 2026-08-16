@@ -7,6 +7,7 @@ on:
       - visual-qa-audit-20260816
     paths:
       - 'tests/demo-visual-audit.mjs'
+      - 'tests/day2-visual-guard.mjs'
       - '.github/workflows/demo-visual-audit.yml'
       - 'demos/day2-baseline/**'
       - 'demos/live-trace/**'
@@ -18,11 +19,13 @@ on:
     branches: [main]
     paths:
       - 'tests/demo-visual-audit.mjs'
+      - 'tests/day2-visual-guard.mjs'
       - '.github/workflows/demo-visual-audit.yml'
       - 'demos/day2-baseline/**'
       - 'docs/status/DESIGN.md'
       - 'docs/status/LIVE.md'
       - 'docs/status/DIVE.md'
+      - 'docs/DEMO_VISUAL_QA_2026-08-16.md'
 
 permissions:
   contents: read
@@ -37,7 +40,9 @@ jobs:
         with:
           node-version: 22
       - name: Syntax check
-        run: node --check tests/demo-visual-audit.mjs
+        run: |
+          node --check tests/demo-visual-audit.mjs
+          node --check tests/day2-visual-guard.mjs
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
@@ -48,6 +53,8 @@ jobs:
           python3 -m http.server 4173 >/tmp/demo-visual-audit-http.log 2>&1 &
           echo $! > /tmp/demo-visual-audit-http.pid
           sleep 2
+      - name: Day 2 visual overlap guard
+        run: node tests/day2-visual-guard.mjs
       - name: Capture viewport matrix and layout report
         run: node tests/demo-visual-audit.mjs
       - name: Upload visual audit artifact
