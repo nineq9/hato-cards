@@ -1,28 +1,24 @@
 import SwiftUI
-import Photos
 
 struct ReviewView: View {
     @EnvironmentObject private var library: PhotoLibraryStore
     @Environment(\.dismiss) private var dismiss
-    @State private var deleting = false
-    @State private var showConfirm = false
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                if library.isSafeMode {
-                    Label("SAFE MODE — 写真は削除されません", systemImage: "shield.checkered")
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(.thinMaterial, in: Capsule())
-                }
+                Label("SAFE BUILD — 写真は削除されません", systemImage: "shield.checkered")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(.thinMaterial, in: Capsule())
 
                 Text(totalText)
                     .font(.system(size: 38, weight: .semibold, design: .rounded))
                     .tracking(-1)
-                Text("写真・動画 \(library.queuedAssets.count)枚")
+
+                Text("削除候補として選んだ写真・動画 \(library.queuedAssets.count)枚")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
@@ -33,6 +29,7 @@ struct ReviewView: View {
                                 AssetThumbnail(asset: asset)
                                     .frame(height: 112)
                                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+
                                 Button {
                                     library.restore(asset)
                                 } label: {
@@ -42,55 +39,36 @@ struct ReviewView: View {
                                         .font(.system(size: 22))
                                 }
                                 .padding(5)
+                                .accessibilityLabel("候補から戻す")
                             }
                         }
                     }
                 }
 
                 Button {
-                    if library.isSafeMode {
-                        library.clearQueueForSafeModeTest()
-                        dismiss()
-                    } else {
-                        showConfirm = true
-                    }
+                    library.clearQueueForTest()
+                    dismiss()
                 } label: {
-                    if deleting {
-                        ProgressView().tint(.white)
-                    } else {
-                        Text(library.isSafeMode ? "テストを完了" : "削除する")
-                            .frame(maxWidth: .infinity)
-                    }
+                    Text("テストを完了")
+                        .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.black)
                 .controlSize(.large)
-                .disabled(library.queuedAssets.isEmpty || deleting)
+                .disabled(library.queuedAssets.isEmpty)
+
+                Text("このビルドには写真を削除する処理が含まれていません。")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                    .multilineTextAlignment(.center)
             }
             .padding(20)
-            .navigationTitle(library.isSafeMode ? "削除候補の確認" : "これらを削除しますか？")
+            .navigationTitle("削除候補の確認")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("戻る") { dismiss() }
                 }
-            }
-            .confirmationDialog(
-                "写真アプリから削除します",
-                isPresented: $showConfirm,
-                titleVisibility: .visible
-            ) {
-                Button("\(library.queuedAssets.count)枚を削除", role: .destructive) {
-                    deleting = true
-                    Task {
-                        let success = await library.deleteQueued()
-                        deleting = false
-                        if success { dismiss() }
-                    }
-                }
-                Button("キャンセル", role: .cancel) {}
-            } message: {
-                Text("削除した写真・動画は、iPhoneの写真アプリの「最近削除した項目」に移動します。")
             }
         }
         .presentationDetents([.large])
