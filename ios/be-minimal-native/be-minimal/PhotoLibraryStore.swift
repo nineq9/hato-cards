@@ -5,10 +5,8 @@ import AVFoundation
 
 @MainActor
 final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeObserver {
-    // Safety gate for early device testing.
-    // This is intentionally NOT user-toggleable. Real deletion requires a deliberate code change.
-    static let destructiveChangesEnabled = false
-
+    // Non-destructive device-test build.
+    // This target intentionally contains no PhotoKit deletion implementation.
     @Published private(set) var authorizationStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
     @Published private(set) var candidates: [PHAsset] = []
     @Published private(set) var queuedIDs: Set<String> = []
@@ -31,7 +29,7 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
 
-    var isSafeMode: Bool { !Self.destructiveChangesEnabled }
+    var isNonDestructiveBuild: Bool { true }
 
     var visibleCandidates: [PHAsset] {
         candidates.filter { !queuedIDs.contains($0.localIdentifier) }
@@ -114,7 +112,7 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
         queuedIDs.remove(asset.localIdentifier)
     }
 
-    func clearQueueForSafeModeTest() {
+    func clearQueueForTest() {
         queuedIDs.removeAll()
     }
 
@@ -160,28 +158,6 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
         } completionHandler: { [weak self] error in
             guard error == nil, total > 0 else { return }
             Task { @MainActor in self?.byteCounts[id] = total }
-        }
-    }
-
-    func deleteQueued() async -> Bool {
-        // Defense in depth: early builds cannot delete even if a UI bug accidentally calls this method.
-        guard Self.destructiveChangesEnabled else {
-            lastError = "SAFE MODE: 実際の写真削除は無効です。"
-            return false
-        }
-
-        let assets = queuedAssets
-        guard !assets.isEmpty else { return true }
-        do {
-            try await PHPhotoLibrary.shared().performChanges {
-                PHAssetChangeRequest.deleteAssets(assets as NSArray)
-            }
-            queuedIDs.removeAll()
-            await reloadCandidates()
-            return true
-        } catch {
-            lastError = error.localizedDescription
-            return false
         }
     }
 
