@@ -136,7 +136,7 @@ const installInlineProgressAudio=()=>{
   document.head.appendChild(style);
 };
 
-loadAddon('./ru.js?v=20260816-1','Russian localization').then(()=>loadAddon('./ru-fix.js?v=20260816-1','Russian dynamic fix'));
+loadAddon('./ru.js?v=20260816-1','Russian localization').then(()=>loadAddon('./ru-fix.js?v=20260816-2','Russian dynamic fix'));
 loadLiveArticles().finally(()=>{
   loadAddon('./hato-inbox.js?v=20260816-8','inbox')
     .then(()=>loadAddon('./hato-lean.js?v=20260816-3','lean runtime'))
