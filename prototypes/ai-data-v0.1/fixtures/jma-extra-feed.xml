@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ja">
+  <title>高頻度フィード（随時・fixture）</title>
+  <updated>2026-08-15T23:59:00+09:00</updated>
+  <id>urn:uuid:kawasemi-jma-fixture-feed</id>
+  <entry>
+    <title>気象警報・注意報</title>
+    <id>urn:uuid:kawasemi-jma-warning-fixture-001</id>
+    <updated>2026-08-15T23:58:00+09:00</updated>
+    <author><name>気象庁</name></author>
+    <link href="https://www.data.jma.go.jp/developer/xml/data/kawasemi-jma-warning-fixture-001.xml" type="application/xml" />
+  </entry>
+</feed>
