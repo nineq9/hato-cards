@@ -29,17 +29,19 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Repair collector base and apply hourly limit
+      - name: Repair collector base and refresh client cache keys
         shell: bash
         run: |
           set -euo pipefail
           git show 7f5e7ea38ef071d6815922b8bcf8590269e89568:scripts/hato_hourly.py > scripts/hato_hourly.py
           sed -i 's/MAX_HOURLY_ADDS = 5/MAX_HOURLY_ADDS = 10/' scripts/hato_hourly.py
-          if ! git diff --quiet -- scripts/hato_hourly.py; then
+          sed -i 's/ru-fix.js?v=20260816-1/ru-fix.js?v=20260816-2/' hato-media/app-parts/part-08.txt
+          sed -i 's/v=lean3/v=lean4/g' hato-media/index.html
+          if ! git diff --quiet -- scripts/hato_hourly.py hato-media/app-parts/part-08.txt hato-media/index.html; then
             git config user.name 'hato-maintenance-bot'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add scripts/hato_hourly.py
-            git commit -m 'Set HATO hourly breaking-news limit to 10'
+            git add scripts/hato_hourly.py hato-media/app-parts/part-08.txt hato-media/index.html
+            git commit -m 'Refresh HATO hourly policy and Russian speech cache'
             git push origin HEAD:main
           fi
 
