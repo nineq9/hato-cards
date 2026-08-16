@@ -1,1 +1,88 @@
-<REDACTED_FOR_TOOL_CALL>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" content="#F7F5F0"/>
+<meta name="color-scheme" content="light"/>
+<title>be minimal</title>
+<link href="./style.css?v=6" rel="stylesheet"/>
+</head>
+<body>
+<div class="app">
+<section class="screen active" id="photosScreen">
+<header class="topbar">
+<div class="brand">be minimal</div>
+<div class="counter" id="counter">1 / 5</div>
+<button aria-label="削除候補を確認" class="top-review" id="topReview"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"></path></svg></button>
+</header>
+<div aria-hidden="true" class="trash-target" id="trashTarget"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"></path></svg></div>
+<main class="photo-stage"><div class="film" id="film"></div></main>
+</section>
+
+<section class="screen" id="appsScreen">
+<div class="apps-wrap">
+<div class="app-head"><div class="section-title">1 / 1</div><div style="width:44px"></div></div>
+<article class="app-card" id="appCard">
+<div class="app-trash"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"></path></svg></div>
+<div class="app-title-row">
+<div aria-hidden="true" class="capcut-icon"><svg viewBox="0 0 64 64"><path d="M12 18h40L18 46h34M12 46h40L18 18h34" fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.5"></path></svg></div>
+<div><div class="app-name">CapCut</div><div class="app-category">動画編集</div></div>
+</div>
+<p class="app-description">動画を切り貼りし、字幕・音楽・エフェクトを付けて編集するアプリ。SNS用の短い動画やリール、簡単なスライド動画の制作にも使います。</p>
+<div class="facts">
+<div class="fact"><span>最後に使用</span><strong>5か月前</strong></div>
+<div class="fact"><span>過去90日の使用</span><strong>0回</strong></div>
+<div class="fact"><span>容量</span><strong>1.8 GB</strong></div>
+</div>
+<div aria-hidden="true" class="app-gesture"></div>
+</article>
+</div>
+</section>
+
+<section class="screen" id="finalScreen">
+<div class="final-wrap">
+<div class="final-head"><div class="final-title">これらを削除しますか？</div></div>
+<div class="total"><h1 id="totalSize">0 MB</h1><p id="finalSummary">写真・動画 0枚</p></div>
+<div class="review-list">
+<div class="review-row" id="photoReviewRow">
+<div class="review-thumbs"><img alt="" id="reviewThumb1"/><img alt="" id="reviewThumb2"/></div>
+<div class="review-main"><strong>写真・動画</strong><span id="photoReviewCount">0枚</span></div><div class="review-size" id="photoReviewSize">0 MB</div>
+</div>
+<div class="review-row">
+<div class="capcut-icon" style="width:52px;height:52px;border-radius:13px"><svg viewBox="0 0 64 64"><path d="M12 18h40L18 46h34M12 46h40L18 18h34" fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.5"></path></svg></div>
+<div class="review-main"><strong>CapCut</strong><span>動画編集</span></div><div class="review-size" id="appReviewSize">1.8 GB</div>
+</div>
+</div>
+<button class="delete-button" id="deleteBtn">削除する</button>
+<button class="cancel-button" id="cancelBtn">キャンセル</button>
+</div>
+</section>
+
+<nav aria-label="ナビゲーション" class="nav">
+<button aria-label="写真" class="nav-btn active" data-target="photos"><svg viewBox="0 0 24 24"><rect height="15" rx="3" width="17" x="3.5" y="4.5"></rect><circle cx="9" cy="10" r="1.7"></circle><path d="m5.5 17 4.3-4 3.2 3 2.1-2 3.4 3"></path></svg></button>
+<button aria-label="アプリ" class="nav-btn" data-target="apps"><svg viewBox="0 0 24 24"><rect height="6" rx="1.5" width="6" x="4" y="4"></rect><rect height="6" rx="1.5" width="6" x="14" y="4"></rect><rect height="6" rx="1.5" width="6" x="4" y="14"></rect><rect height="6" rx="1.5" width="6" x="14" y="14"></rect></svg></button>
+<button aria-label="削除候補" class="nav-btn" data-target="final"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"></path></svg></button>
+</nav>
+</div>
+
+<section aria-label="写真を全画面表示" aria-modal="true" class="viewer" id="viewer" role="dialog">
+<img alt="" id="viewerImg"/>
+<button aria-label="閉じる" class="viewer-close" id="viewerClose"></button>
+<div class="viewer-trash"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"></path></svg></div>
+<div class="viewer-size" id="viewerSize"></div>
+</section>
+<div class="backdrop" id="backdrop"></div>
+<section aria-label="写真の詳細" aria-modal="true" class="sheet" id="sheet" role="dialog">
+<div class="sheet-handle"></div><div class="detail-date" id="detailDate"></div><div class="detail-place" id="detailPlace"></div><div class="neighbors" id="neighbors"></div>
+</section>
+<script src="./photo-1.js?v=1"></script>
+<script src="./photo-2.js?v=1"></script>
+<script src="./photo-3.js?v=1"></script>
+<script src="./photo-4.js?v=1"></script>
+<script src="./photo-5.js?v=1"></script>
+<script src="./app.js?v=6"></script>
+</body>
+</html>
