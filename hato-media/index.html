@@ -1,22 +1,13 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>HATO</title><style id="bootStyle">body{visibility:hidden}</style></head><body>
 <div id="articleView" class="article-view"><div id="articleProgress" class="article-progress"></div><article id="articleContent" class="article-inner"></article></div><button id="backArticle" class="back-fab" aria-label="戻る"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button>
-
 <div id="scrim" class="scrim"></div>
-<div id="audioSheet" class="bottom-sheet"><div class="sheet-handle"></div><div id="sheetTitle" class="sheet-title">AUDIO</div>
-  <button class="audio-option" data-mode="digest"><span><strong>重要ニュースだけ</strong><span>約12〜15分 · デモ音声</span></span><span class="audio-arrow">›</span></button>
-  <button class="audio-option" data-mode="all"><span><strong>すべての概要</strong><span>約25分〜 · デモ音声</span></span><span class="audio-arrow">›</span></button>
-  <button id="audioClose" class="audio-option"><span><strong>閉じる</strong></span></button>
-</div>
-<div id="miniPlayer" class="mini-player">
-  <div class="mini-player-head"><div class="mini-info"><strong id="miniTitle">重要ニュースだけ</strong><span id="miniStatus">再生中</span></div><button id="miniClose" class="mini-close" aria-label="閉じる">×</button></div>
-  <div class="mini-player-controls"><button id="miniBack10" class="mini-skip" aria-label="10秒戻る"><b>↶</b>10</button><button id="miniPlay" class="mini-control" aria-label="再生・一時停止">Ⅱ</button><button id="miniForward10" class="mini-skip" aria-label="10秒進む">10<b>↷</b></button></div>
-  <div class="mini-seek-row"><span id="miniCurrent" class="mini-time">0:00</span><input id="miniSeek" class="mini-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="再生位置"><span id="miniDuration" class="mini-time">0:00</span></div>
-</div>
+<div id="audioSheet" class="bottom-sheet"><div class="sheet-handle"></div><div id="sheetTitle" class="sheet-title">AUDIO</div><button class="audio-option" data-mode="digest"><span><strong>重要ニュースだけ</strong><span>約12〜15分 · デモ音声</span></span><span class="audio-arrow">›</span></button><button class="audio-option" data-mode="all"><span><strong>すべての概要</strong><span>約25分〜 · デモ音声</span></span><span class="audio-arrow">›</span></button><button id="audioClose" class="audio-option"><span><strong>閉じる</strong></span></button></div>
+<div id="miniPlayer" class="mini-player"><div class="mini-player-head"><div class="mini-info"><strong id="miniTitle">重要ニュースだけ</strong><span id="miniStatus">再生中</span></div><button id="miniClose" class="mini-close" aria-label="閉じる">×</button></div><div class="mini-player-controls"><button id="miniBack10" class="mini-skip" aria-label="10秒戻る"><b>↶</b>10</button><button id="miniPlay" class="mini-control" aria-label="再生・一時停止">Ⅱ</button><button id="miniForward10" class="mini-skip" aria-label="10秒進む">10<b>↷</b></button></div><div class="mini-seek-row"><span id="miniCurrent" class="mini-time">0:00</span><input id="miniSeek" class="mini-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="再生位置"><span id="miniDuration" class="mini-time">0:00</span></div></div>
 <script>
 (async()=>{
   const loadParts=async (dir,count)=>{
-    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean5`);
+    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean6`);
     const responses=await Promise.all(urls.map(u=>fetch(u,{cache:'default'})));
     responses.forEach((r,i)=>{if(!r.ok)throw new Error(`${urls[i]} ${r.status}`)});
     return (await Promise.all(responses.map(r=>r.text()))).join('');
