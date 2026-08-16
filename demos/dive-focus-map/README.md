@@ -1,12 +1,16 @@
 # KAWASEMI DIVE — FOCUS MAP interactive demo
 
-Status: isolated prototype. Not integrated into production KAWASEMI.
+Status: **isolated technical / interaction evidence. Not the final DIVE UI.**
+
+This demo is intentionally preserved because it validates useful interaction primitives. The current product direction is now defined in `docs/DIVE_EXPERIENCE_V0_2.md`, which prioritizes DIVE SESSION value, resume, saved discoveries, and open questions before further visual redesign.
+
+Do **not** treat this FOCUS MAP rendering as the production visual architecture and do not continue polishing node/graph aesthetics unless a concrete experience test requires it.
 
 ## Purpose
 
-Validate the approved DIVE direction as a touchable experience:
+This prototype validated a touchable DIVE interaction set:
 
-- FOCUS MAP
+- FOCUS MAP as one possible small-neighborhood rendering
 - QUESTION LABEL
 - typed relations
 - DIVE TRAIL
@@ -79,8 +83,22 @@ For accessibility, a non-gesture direct-DIVE action exists in the DOM for keyboa
 - Responsive Landscape two-pane layout with article/context left and FOCUS MAP right.
 - Reduced-motion fallback.
 
+## Quality-gate maintenance
+
+The demo remains subject to `docs/DEMO_QUALITY_GATE.md` even though it is not the final UI.
+
+A screenshot review identified obvious lower-node text collision in the previous Portrait and Landscape FOCUS MAP layout. The responsive node spacing was widened and short Portrait map height no longer forces the old 440px minimum canvas.
+
+This is a **layout correctness fix only**, not a DIVE visual redesign.
+
+Post-fix physical iPhone/Safari and full screenshot-matrix revalidation remain `NOT TESTED` until actually run.
+
 ## Not implemented
 
+- DIVE SESSION persistence from `docs/DIVE_EXPERIENCE_V0_2.md`.
+- Resume from previous exploration.
+- Saved Discovery objects.
+- Open Question objects.
 - Production CARDS integration.
 - Real OpenAI/API node generation.
 - Backend/persistence.
@@ -93,7 +111,9 @@ For accessibility, a non-gesture direct-DIVE action exists in the DOM for keyboa
 
 ## QA status
 
-Local Chromium browser automation passed the required Portrait and Landscape interaction path, including exact article scroll restoration. Gesture-conflict checks also passed for article-body long press, READ, SAVE, NEXT, Drag cancel, 44 pt targets, and the keyboard direct-DIVE fallback. GitHub Pages availability is verified separately and recorded in `docs/status/DIVE.md`.
+Earlier local Chromium browser automation passed the required Portrait and Landscape interaction path, including exact article scroll restoration. Gesture-conflict checks also passed for article-body long press, READ, SAVE, NEXT, Drag cancel, 44 pt targets, and the keyboard direct-DIVE fallback. GitHub Pages availability is recorded in `docs/status/DIVE.md`.
+
+The later visual-overlap maintenance fix was code-reviewed against the known screenshot failure, but the complete post-fix viewport screenshot matrix has not been rerun in this workstream and remains `NOT TESTED`.
 
 ## Production integration cautions
 
@@ -104,9 +124,10 @@ Local Chromium browser automation passed the required Portrait and Landscape int
 - Keep a non-drag accessibility path for direct Article → DIVE.
 - Restore article identity and exact reading position on return.
 - Preserve typed relations and provenance when static demo data is replaced with generated graph data.
+- Do not infer user learning, comprehension, belief, or ideology from DIVE route history.
 
 ## Portrait vs Landscape hypothesis
 
 Portrait is better for focused, one-object-at-a-time exploration and one-handed use.
 
-Browser QA supports the hypothesis that Landscape is stronger for investigative work: the two-pane layout keeps the originating article/context visible and independently scrollable while the FOCUS MAP remains usable on the right. Portrait remains better for focused, one-object-at-a-time exploration and one-handed use. This is an observation from the demo, not a final production orientation decision.
+Earlier browser QA supports the hypothesis that Landscape is stronger for investigative work: the two-pane layout keeps the originating article/context visible and independently scrollable while the exploration surface remains usable on the right. This is evidence for the experience spec, not a final production orientation decision.
