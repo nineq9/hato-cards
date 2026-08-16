@@ -8,6 +8,15 @@ import {
   normalizeGovUkContent
 } from '../prototypes/ai-data-v0.1/govuk-content-adapter.mjs';
 import { validateDiveRelationSemantics } from '../prototypes/ai-data-v0.1/contract-validation.mjs';
+import {
+  JMA_SOURCE,
+  JMA_FEEDS,
+  JmaXmlAdapter,
+  normalizeJmaReport,
+  parseJmaAtomFeed,
+  parseJmaReport
+} from '../prototypes/ai-data-v0.1/jma-xml-adapter.mjs';
+import { projectRawItemToSignal } from '../prototypes/ai-data-v0.1/rawitem-signal-projector.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
@@ -20,6 +29,14 @@ const govukFixture = JSON.parse(
 );
 const govukRedirectFixture = JSON.parse(
   await readFile(resolve(root, 'prototypes/ai-data-v0.1/fixtures/govuk-redirect.json'), 'utf8')
+);
+const jmaFeedFixture = await readFile(
+  resolve(root, 'prototypes/ai-data-v0.1/fixtures/jma-extra-feed.xml'),
+  'utf8'
+);
+const jmaWarningFixture = await readFile(
+  resolve(root, 'prototypes/ai-data-v0.1/fixtures/jma-warning.xml'),
+  'utf8'
 );
 
 function allArticleEntries(article) {
@@ -211,5 +228,127 @@ assert.equal(redirectFirst.items.length, 1);
 assert.equal(redirectFirst.items[0].originalTextStorage, 'metadata_only');
 const redirectSecond = await redirectAdapter.fetch(redirectFirst.nextCursor);
 assert.equal(redirectSecond.items.length, 0);
+
+// JMA Atom + common Control/Head parsing is deterministic and namespace-agnostic.
+const parsedJmaFeed = parseJmaAtomFeed(jmaFeedFixture);
+assert.equal(parsedJmaFeed.entries.length, 1);
+assert.equal(parsedJmaFeed.entries[0].id, 'urn:uuid:kawasemi-jma-warning-fixture-001');
+assert.equal(parsedJmaFeed.entries[0].updatedAt, '2026-08-15T14:58:00.000Z');
+assert.equal(
+  parsedJmaFeed.entries[0].link,
+  'https://www.data.jma.go.jp/developer/xml/data/kawasemi-jma-warning-fixture-001.xml'
+);
+
+const parsedJmaReport = parseJmaReport(jmaWarningFixture);
+assert.equal(parsedJmaReport.control.publishingOffice, 'テスト地方気象台');
+assert.equal(parsedJmaReport.head.infoType, '発表');
+assert.equal(parsedJmaReport.head.eventId, 'KAWASEMI-JMA-FIXTURE-001');
+assert.match(parsedJmaReport.head.headlineText, /架空電文/);
+
+const normalizedJma = normalizeJmaReport(parsedJmaFeed.entries[0], jmaWarningFixture, {
+  observedAt: '2026-08-16T00:00:00Z'
+});
+assert.equal(normalizedJma.sourceId, JMA_SOURCE.id);
+assert.equal(normalizedJma.originalTextStorage, 'excerpt_only');
+assert.equal(normalizedJma.organization.name, 'テスト地方気象台');
+assert.equal(normalizedJma.publishedAt, '2026-08-15T14:58:00.000Z');
+assert.equal(normalizedJma.retrieval.adapterVersion, 'jma-xml-v0.1');
+
+// Persisted RawItem -> Signal projection stays mechanical. It must not invent
+// Claim/Verification/attribution/same-event semantics or any truth confidence.
+const persistedJmaRawItem = {
+  ...normalizedJma,
+  id: 'raw:jma-fixture-001',
+  retrieval: {
+    ...normalizedJma.retrieval,
+    httpStatus: 200
+  }
+};
+const projectedJmaSignal = projectRawItemToSignal(persistedJmaRawItem, { source: JMA_SOURCE });
+assert.equal(projectedJmaSignal.id, 'signal:raw:jma-fixture-001');
+assert.equal(projectedJmaSignal.signalType, 'alert');
+assert.equal(projectedJmaSignal.groupingState, 'ungrouped');
+assert.deepEqual(projectedJmaSignal.eventCandidateIds, []);
+assert.deepEqual(projectedJmaSignal.processingConfidence, []);
+assert.ok(projectedJmaSignal.topics.includes('weather'));
+assert.ok(projectedJmaSignal.topics.includes('warning'));
+for (const forbiddenField of ['verification', 'attribution', 'sameEventConfidence', 'truthProbability', 'truth_probability']) {
+  assert.equal(forbiddenField in projectedJmaSignal, false, `Signal must not contain ${forbiddenField}`);
+}
+
+// Even an official-source sentence that says X remains only source text at this
+// stage; the deterministic projector cannot convert it into a confirmed Claim.
+const officialStatementRawItem = {
+  id: 'raw:official-statement-fixture',
+  sourceId: 'fixture-official-source',
+  canonicalUrl: 'https://example.invalid/fixture',
+  observedAt: '2026-08-16T00:00:00Z',
+  originalTitle: 'Agency statement',
+  originalText: 'Agency says X happened.',
+  originalTextStorage: 'excerpt_only',
+  language: 'en',
+  media: [],
+  retrieval: { fetchedAt: '2026-08-16T00:00:00Z', adapterVersion: 'fixture' }
+};
+const officialSource = {
+  id: 'fixture-official-source',
+  sourceType: 'government_api',
+  role: 'official_actor'
+};
+const officialSignal = projectRawItemToSignal(officialStatementRawItem, { source: officialSource });
+assert.equal(officialSignal.signalType, 'report');
+assert.equal('verification' in officialSignal, false);
+assert.equal('attribution' in officialSignal, false);
+
+// RawItem revision lineage maps deterministically to Signal revision lineage.
+const revisionSignal = projectRawItemToSignal(
+  { ...persistedJmaRawItem, id: 'raw:jma-fixture-002', revisionOfRawItemId: 'raw:jma-fixture-001' },
+  { source: JMA_SOURCE }
+);
+assert.deepEqual(revisionSignal.relationships, [
+  { type: 'revision_of', targetSignalId: 'signal:raw:jma-fixture-001' }
+]);
+
+// JMA adapter cursor must avoid re-downloading a successfully processed bulletin.
+let jmaBulletinFetches = 0;
+const jmaFakeFetch = async (url) => {
+  if (url === JMA_FEEDS.highFrequency.extra) {
+    return {
+      ok: true,
+      status: 200,
+      headers: { get() { return null; } },
+      async text() { return jmaFeedFixture; }
+    };
+  }
+  if (url === parsedJmaFeed.entries[0].link) {
+    jmaBulletinFetches += 1;
+    return {
+      ok: true,
+      status: 200,
+      headers: { get() { return null; } },
+      async text() { return jmaWarningFixture; }
+    };
+  }
+  throw new Error(`Unexpected fixture URL: ${url}`);
+};
+const jmaAdapter = new JmaXmlAdapter({
+  feedUrls: [JMA_FEEDS.highFrequency.extra],
+  fetchImpl: jmaFakeFetch
+});
+const jmaFirst = await jmaAdapter.fetch();
+assert.equal(jmaFirst.items.length, 1);
+assert.equal(jmaBulletinFetches, 1);
+const jmaSecond = await jmaAdapter.fetch(jmaFirst.nextCursor);
+assert.equal(jmaSecond.items.length, 0);
+assert.equal(jmaBulletinFetches, 1);
+
+// Feed entries cannot redirect the server-side adapter to arbitrary hosts.
+assert.throws(
+  () => parseJmaAtomFeed(jmaFeedFixture.replace(
+    'https://www.data.jma.go.jp/developer/xml/data/kawasemi-jma-warning-fixture-001.xml',
+    'https://example.invalid/evil.xml'
+  )),
+  /outside the official XML data path/
+);
 
 console.log('AI/Data v0.1 contract fixture: PASS');
