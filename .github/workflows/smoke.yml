@@ -18,7 +18,7 @@ concurrency:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,6 +30,7 @@ jobs:
           node --check demos/live-trace/live-trace.js
           node --check tests/smoke.mjs
           node --check tests/mobile-e2e.mjs
+          node --check tests/gesture-tuning.mjs
           node --check tests/untouched-regression.mjs
           node --check tests/live-trace-demo.mjs
           node --check tests/live-trace-visual.mjs
@@ -50,24 +51,34 @@ jobs:
           python3 -m http.server 4173 >/tmp/kingfisher-http.log 2>&1 &
           echo $! > /tmp/kingfisher-http.pid
           sleep 2
+      - name: Gesture profile comparison
+        run: node tests/gesture-tuning.mjs
       - name: Browser smoke
+        if: ${{ !cancelled() }}
         run: node tests/smoke.mjs
       - name: Human-like mobile E2E
-        if: always()
+        if: ${{ !cancelled() }}
         run: node tests/mobile-e2e.mjs
       - name: Untouched feature regression
-        if: always()
+        if: ${{ !cancelled() }}
         run: node tests/untouched-regression.mjs
       - name: LIVE TRACE demo E2E
-        if: always()
+        if: ${{ !cancelled() }}
         run: node tests/live-trace-demo.mjs
       - name: LIVE TRACE visual consistency matrix
-        if: always()
+        if: ${{ !cancelled() }}
         run: node tests/live-trace-visual.mjs
       - name: Upload visual checks
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: kingfisher-visual-checks
           path: test-output/*.png
+          if-no-files-found: ignore
+      - name: Upload gesture tuning evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: kingfisher-gesture-tuning-evidence
+          path: test-output/gesture-profile-comparison.json
           if-no-files-found: ignore

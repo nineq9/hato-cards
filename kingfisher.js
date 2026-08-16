@@ -15,6 +15,26 @@
     dive: { duration: 205, scaleEnd: 0.035, cameraBoost: 0.055, immersionDuration: 510 }
   };
 
+  const GESTURE_DEFAULTS = {
+    neutralDistance: 16,
+    verticalActivation: 16,
+    verticalDominance: 1.06,
+    horizontalActivation: 22,
+    horizontalDominance: 1.70,
+    readBiasDistance: 30,
+    readBiasFloor: 0.78,
+    commitRatio: 0.24,
+    commitMin: 88,
+    commitMax: 112,
+    flickMinDistance: 46,
+    flickVelocity: 0.68,
+    flickDominance: 1.35,
+    followRecovery: 28,
+    manualReadMinDistance: 40
+  };
+  const GESTURE = Object.freeze({...GESTURE_DEFAULTS,...(window.__KAWASEMI_GESTURE_TUNING || {})});
+  window.__KAWASEMI_GESTURE_ACTIVE = GESTURE;
+
   const state = {
     tab: 'forYou',
     currentId: null,
@@ -230,11 +250,23 @@
     panel.style.transform='translate3d(0,0,0)';panel.style.opacity='1';
     setTimeout(()=>{panel.style.transition='';stage.classList.remove('is-nexting','is-saving');save.style.setProperty('--save-progress','0');save.classList.remove('committed');},220);
   }
+  function gestureCommitDistance(surface){
+    const width=$('#readerPanel')?.getBoundingClientRect().width||surface?.clientWidth||innerWidth;
+    return clamp(width*GESTURE.commitRatio,GESTURE.commitMin,GESTURE.commitMax);
+  }
+  function horizontalFollow(dx){
+    const sign=Math.sign(dx),ax=Math.abs(dx),post=Math.max(0,ax-GESTURE.horizontalActivation);
+    if(post<=0)return 0;
+    const recovery=GESTURE.horizontalActivation*(1-Math.exp(-post/GESTURE.followRecovery));
+    return sign*(post+recovery);
+  }
   function advanceNext(dx=0,vx=0){
     const a=currentArticle();if(!a)return;
     const next=nextArticleCandidate();snapshot();state.processed.add(a.id);addHistory(a.id);persist();
-    const panel=$('#readerPanel');
-    panel.style.transition=`transform ${clamp(250-Math.abs(vx)*65,175,250)}ms cubic-bezier(.12,.82,.16,1),opacity 175ms linear`;
+    const panel=$('#readerPanel'),travel=Math.max(innerWidth*1.12,420),remaining=Math.max(80,travel-Math.abs(dx));
+    const exitSpeed=Math.max(.82,Math.abs(vx));
+    const exitDuration=clamp(remaining/exitSpeed,185,295);
+    panel.style.transition=`transform ${exitDuration}ms cubic-bezier(.12,.82,.16,1),opacity ${Math.min(190,exitDuration)}ms linear`;
     panel.style.transform='translate3d(-112vw,0,0) rotate(-2.5deg)';panel.style.opacity='.08';
     setTimeout(()=>{
       state.currentId=next?.id||null;
@@ -263,16 +295,16 @@
     return added;
   }
 
-  function decideAxis(g,dx,dy,threshold=10){
+  function decideAxis(g,dx,dy){
     if(g.axis) return g.axis;
     const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
-    if(dist<threshold) return null;
-    // READ is the continuous primary action. A small horizontal wobble at
-    // touch-down must not steal an otherwise clearly vertical gesture.
-    if(ay>=ax*1.12) g.axis='y';
-    else if(ax>=ay*1.45) g.axis='x';
-    else if(dist>=28) g.axis=ay>=ax*.82?'y':'x';
-    return g.axis;
+    if(dist<GESTURE.neutralDistance) return null;
+    if(ay>=GESTURE.verticalActivation&&ay>=ax*GESTURE.verticalDominance){g.axis='y';return g.axis;}
+    if(ax>=GESTURE.horizontalActivation&&ax>=ay*GESTURE.horizontalDominance){g.axis='x';return g.axis;}
+    // Ambiguous diagonals never fall through into a forced horizontal action.
+    // If the overall path is read-like, bias to native READ; otherwise remain neutral.
+    if(dist>=GESTURE.readBiasDistance&&ay>=ax*GESTURE.readBiasFloor){g.axis='y';return g.axis;}
+    return null;
   }
 
   function bindReaderGesture(){
@@ -286,7 +318,7 @@
       // A missing terminal event must never poison the next gesture.
       if(g){g=null;resetReaderVisual();}
       const now=performance.now();
-      g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,vx:0,vy:0,axis:null,startScrollTop:surface.scrollTop,hadHorizontalLead:false,manualRead:false};
+      g={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,lastT:now,startT:now,vx:0,vy:0,axis:null,startScrollTop:surface.scrollTop,hadHorizontalLead:false,manualRead:false};
     });
 
     surface.addEventListener('pointermove',e=>{
@@ -297,14 +329,13 @@
       g.vy=g.vy*.44+((e.clientY-g.lastY)/dt)*.56;
       g.lastX=e.clientX;g.lastY=e.clientY;g.lastT=now;
       const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
-      if(!g.axis&&dist>=10&&ax>ay) g.hadHorizontalLead=true;
+      if(!g.axis&&dist>=GESTURE.neutralDistance&&ax>ay) g.hadHorizontalLead=true;
       decideAxis(g,dx,dy);
       if(g.axis==='y'){
-        // Chromium/WebKit may decline native vertical panning if the gesture
-        // began slightly horizontal. Only that ambiguous-start case uses a
-        // manual READ fallback; clean vertical gestures stay native.
-        if(g.hadHorizontalLead){
-          g.manualRead=true;
+        // Keep normal reading native. Only recover manually when an ambiguous
+        // horizontal-leading start caused the browser not to begin pan-y.
+        if(!g.manualRead&&g.hadHorizontalLead&&ay>=GESTURE.manualReadMinDistance&&Math.abs(surface.scrollTop-g.startScrollTop)<1.5) g.manualRead=true;
+        if(g.manualRead){
           e.preventDefault();
           surface.scrollTop=clamp(g.startScrollTop-dy,0,Math.max(0,surface.scrollHeight-surface.clientHeight));
         }
@@ -315,8 +346,8 @@
       surface.setPointerCapture?.(e.pointerId);
       suppressClickUntil=performance.now()+520;
       e.preventDefault();
-      const follow=dx<0?dx*.96:dx*.90,progress=clamp(Math.abs(dx)/150,0,1),stage=$('#readerStage'),save=$('#readerSaveReveal');
-      panel.style.transition='none';panel.style.transform=`translate3d(${follow}px,0,0) rotate(${clamp(dx/140,-1.2,1.2)}deg)`;
+      const follow=horizontalFollow(dx),commitDistance=gestureCommitDistance(surface),progress=clamp(Math.abs(dx)/commitDistance,0,1),stage=$('#readerStage'),save=$('#readerSaveReveal');
+      panel.style.transition='none';panel.style.transform=`translate3d(${follow}px,0,0) rotate(${clamp(follow/180,-.9,.9)}deg)`;
       stage.classList.toggle('is-nexting',dx<0);stage.classList.toggle('is-saving',dx>0);
       save.style.setProperty('--save-progress',String(progress));save.classList.toggle('already',state.saved.has(currentArticle()?.id));
     },{passive:false});
@@ -328,8 +359,13 @@
       decideAxis(data,dx,dy);
       if(data.axis!=='x'){resetReaderVisual();return;}
       suppressClickUntil=performance.now()+520;
-      if(dx<-70||data.vx<-.42){advanceNext(dx,data.vx);return;}
-      if(dx>70||data.vx>.42){commitSave(dx);return;}
+      const ax=Math.abs(dx),ay=Math.abs(dy),commitDistance=gestureCommitDistance(surface);
+      const elapsed=Math.max(16,performance.now()-data.startT),overallVx=dx/elapsed;
+      const effectiveVx=Math.abs(overallVx)>Math.abs(data.vx)?overallVx:data.vx;
+      const distanceCommit=ax>=commitDistance;
+      const flickCommit=ax>=GESTURE.flickMinDistance&&ax>=ay*GESTURE.flickDominance&&Math.abs(effectiveVx)>=GESTURE.flickVelocity;
+      if(dx<0&&(distanceCommit||flickCommit)){advanceNext(dx,effectiveVx);return;}
+      if(dx>0&&(distanceCommit||flickCommit)){commitSave(dx);return;}
       settleReader();
     };
     surface.addEventListener('pointerup',finish);
