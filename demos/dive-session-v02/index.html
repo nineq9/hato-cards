@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#081113" />
+  <meta name="color-scheme" content="dark" />
+  <title>KAWASEMI DIVE SESSION v0.2</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <button id="backButton" class="icon-button top-back" aria-label="前の画面へ戻る" hidden>‹</button>
+      <span class="top-mark" aria-hidden="true">
+        <svg viewBox="0 0 44 36"><polygon points="5,21 20,8 23,18 39,14 26,26 18,32" fill="currentColor"/><polygon points="20,8 30,5 23,18" fill="currentColor" opacity=".55"/><polygon points="18,32 26,26 30,34" fill="currentColor" opacity=".72"/></svg>
+      </span>
+      <div class="top-title-wrap"><small id="topKicker">CARDS</small><strong id="topTitle">Article</strong></div>
+      <div class="top-actions"><button id="articleDiveQuick" class="text-button top-dive">DIVE</button><button id="resetButton" class="text-button top-reset" aria-label="デモデータをリセット">RESET</button></div>
+    </header>
+
+    <main class="workspace">
+      <section id="articleView" class="view active" aria-label="Article">
+        <div class="article-frame">
+          <article id="articleScroll" class="article-scroll">
+            <section class="story-cover">
+              <div class="cover-field" aria-hidden="true"></div>
+              <div class="story-cover-copy">
+                <small>ENERGY · DEMO ARTICLE</small>
+                <h1>沿岸部の発電施設で大規模爆発、政府は無人機攻撃と主張</h1>
+                <p>爆発と火災、発電出力の低下は確認されている。一方、原因・攻撃主体・兵器種は独立確認されていない。</p>
+              </div>
+            </section>
+            <div class="story-body">
+              <section class="story-section">
+                <small>WHAT WE KNOW</small>
+                <h2>確認できることと、まだ確認できないことを分ける</h2>
+                <p>現地映像では施設付近から大きな煙が上がっている。地域の系統運用者は同時刻帯に発電出力が低下したと発表した。</p>
+                <p>政府は「無人機による攻撃」と発表しているが、公開された情報だけでは攻撃主体や兵器種を独立して確認できない。</p>
+              </section>
+              <section class="story-section emphasis">
+                <small>CLAIM / VERIFICATION</small>
+                <h2>「政府がそう発表した」ことと、「その内容が事実である」ことは同じではない</h2>
+                <p>このデモでは、attribution と verification を分離して扱う。</p>
+              </section>
+              <section class="story-section">
+                <small>WHY IT MATTERS</small>
+                <h2>停止期間によって電力供給や港湾運用への影響が変わる</h2>
+                <p>損傷が限定的なら短期的な供給調整で吸収できる可能性がある。主要設備の停止が長引けば、代替供給や価格への影響が大きくなる。</p>
+              </section>
+              <section class="story-section">
+                <small>SOURCE</small>
+                <p class="long-source">Regional Energy System Operations and Independent Visual Verification Working Group — Combined incident note, publication revision 4, 16 August 2026 00:42 UTC.</p>
+              </section>
+              <section class="dive-entry-section">
+                <small>DIVE</small>
+                <h2>この記事から、どこへ潜る？</h2>
+                <p>DIVEを始めると、今の読書位置と探索の履歴が保存されます。</p>
+                <button id="startDiveButton" class="primary-action">この記事からDIVE</button>
+              </section>
+              <div class="article-spacer" aria-hidden="true"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="homeView" class="view dive-home" aria-label="DIVE Home">
+        <div class="home-content">
+          <div class="home-intro">
+            <small>DIVE</small>
+            <h1>続きから潜る。</h1>
+            <p>ここに残るのは、見たもの・辿った道・自分で残した発見と問いだけです。</p>
+          </div>
+          <section id="continueSection" class="home-section" hidden>
+            <header><small>CONTINUE</small><span>前回の現在地から</span></header>
+            <button id="continueButton" class="session-row session-row-primary"></button>
+          </section>
+          <section class="home-section">
+            <header><small>RECENT DIVES</small><span>過去の探索</span></header>
+            <div id="recentList" class="session-list"></div>
+          </section>
+          <section class="home-section new-exploration">
+            <header><small>NEW EXPLORATION</small><span>新しい入口</span></header>
+            <button id="newFromArticleButton" class="plain-row">現在の記事から始める <span>→</span></button>
+          </section>
+        </div>
+      </section>
+
+      <section id="diveView" class="view dive-view" aria-label="DIVE Session">
+        <div class="dive-shell">
+          <aside id="sessionSidebar" class="session-sidebar" aria-label="Session History">
+            <div class="sidebar-anchor">
+              <small>ANCHOR</small>
+              <strong id="sidebarAnchorTitle"></strong>
+              <button id="sidebarArticleButton" class="inline-action">ARTICLEへ戻る</button>
+            </div>
+            <div class="sidebar-block">
+              <div class="sidebar-heading"><small>SESSION HISTORY</small><span id="historyCount"></span></div>
+              <div id="historyTree" class="history-tree"></div>
+            </div>
+            <div class="sidebar-block">
+              <div class="sidebar-heading"><small>SAVED DISCOVERIES</small><span id="savedCount"></span></div>
+              <div id="savedList" class="compact-list"></div>
+            </div>
+            <div class="sidebar-block">
+              <div class="sidebar-heading"><small>OPEN QUESTIONS</small><span id="openCount"></span></div>
+              <div id="openList" class="compact-list"></div>
+            </div>
+          </aside>
+
+          <section class="exploration-pane">
+            <div class="dive-toolbar">
+              <button id="leaveDiveButton" class="text-button">LEAVE DIVE</button>
+              <button id="sessionPanelButton" class="text-button mobile-only">SESSION</button>
+            </div>
+            <nav id="trail" class="trail" aria-label="Current DIVE trail"></nav>
+
+            <div class="focus-area">
+              <div class="focus-heading">
+                <small id="focusType"></small>
+                <h1 id="focusTitle"></h1>
+                <p id="focusQuestion"></p>
+              </div>
+
+              <button id="arrivalRelation" class="relation-line" hidden></button>
+
+              <div class="focus-actions">
+                <button id="saveDiscoveryButton" class="secondary-action">この発見をSAVE</button>
+                <button id="keepQuestionButton" class="secondary-action">問いをあとで確認</button>
+              </div>
+
+              <section class="directions-section">
+                <header><small>NEXT DIRECTIONS</small><span>自分で選ぶ</span></header>
+                <div id="directionsList" class="directions-list"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <nav class="dock" aria-label="Main modes">
+      <button id="cardsDock" class="dock-item active">CARDS</button>
+      <button id="diveDock" class="dock-item">DIVE</button>
+      <button class="dock-item" disabled>LIVE</button>
+    </nav>
+  </div>
+
+  <div id="backdrop" class="backdrop" hidden></div>
+  <section id="sheet" class="sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sheetTitle">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <header class="sheet-head"><small id="sheetKicker"></small><button id="sheetClose" class="icon-button" aria-label="閉じる">×</button></header>
+    <h2 id="sheetTitle"></h2>
+    <div id="sheetBody"></div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="./fixtures.js"></script>
+  <script src="./session-store.js"></script>
+  <script src="./exploration-adapter.js"></script>
+  <script src="./session-engine.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
