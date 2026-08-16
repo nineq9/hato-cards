@@ -1,10 +1,10 @@
 # AI / Data Status
 
 ### Status
-DONE — AI/Data common foundation v0.1 contracts, source/provider feasibility, an isolated no-secret source adapter, and one live source-shape smoke are persisted. Production ingestion and CARDS/LIVE/DIVE integration remain intentionally **NOT TESTED**.
+DONE — AI/Data common foundation v0.1 contracts, source/provider feasibility, deterministic RawItem → Signal projection, isolated GOV.UK/JMA source adapters, and offline contract fixtures are persisted. Production ingestion and CARDS/LIVE/DIVE integration remain intentionally **NOT TESTED**.
 
 ### Current goal
-Provide one provenance-first shared data contract that future CARDS, LIVE TRACE, and DIVE FOCUS MAP integrations can consume without rebuilding the same information into feature-specific formats.
+Provide one provenance-first shared data contract and isolated ingestion components that future CARDS, LIVE TRACE, and DIVE integrations can consume without rebuilding the same information into feature-specific formats.
 
 ### Completed
 - Converted the high-level architecture into a concrete isolated v0.1 contract.
@@ -17,20 +17,23 @@ Provide one provenance-first shared data contract that future CARDS, LIVE TRACE,
 - Defined LIVE projection: Signal, EventCluster, likely-same-event confidence, grouped/ungrouped state, claimant/source, conflicting claims, raw/non-promoted information, and new-since-last-visit cursor logic.
 - Defined CARDS projection for WHAT / CERTAINTY / CONTEXT / EXPLORE with source/evidence lineage on every factual entry.
 - Defined DIVE typed relationships and explicitly made `historically_similar_to` contextual rather than evidentiary.
+- Added server-side semantic guards so a DIVE `confirms` relation is downstream of an already-confirmed non-AI Verification state rather than a way for AI relation generation to create confirmation.
 - Defined immutable/revisioned RawItem behavior and a provenance-preserving ingestion pipeline.
 - Defined `SourceAdapter`, provider-neutral `AIProvider`, task router, usage accounting, and audit interfaces.
 - Researched current 2026 official source/API constraints and model pricing before making recommendations.
-- Corrected the YouTube entry to the June 2026 granular quota model after rechecking current official documentation: 100 `search.list` calls/day, 100 `videos.insert` calls/day, and a 10,000-unit/day shared bucket for other endpoints.
+- Corrected the YouTube entry to the June 2026 granular quota model after rechecking current official documentation.
 - Recommended a no-paid-API initial source set: GDELT + JMA XML PULL + GOV.UK Content API + a terms-gated RSS/Atom adapter.
 - Deferred X, Telegram, Reddit, YouTube API, Reuters, AP, ACLED, ReliefWeb, and unreviewed publisher feeds from the first path because they currently introduce payment, credentials/accounts, approval/licensing, or material terms review.
 - Defined error handling, retry/quarantine behavior, source enablement gates, observability, token/cost accounting, and server-side secret rules.
 - Added a synthetic sample that demonstrates a **confirmed observation of a statement** coexisting with a **disputed embedded claim**.
 - Added an isolated GOV.UK Content API adapter prototype that emits the common RawItem input shape, keeps a per-path revision cursor, requires no secret, and defaults to metadata/description storage rather than full body retention.
-- Added an offline fixture test for the epistemic invariants, Article provenance, LIVE newness, DIVE historical-similarity semantics, and GOV.UK adapter normalization/cursor behavior.
-- Ran one unauthenticated live GET against the official GOV.UK Content API quick-start endpoint on 2026-08-16. It returned HTTP 200 and a valid `redirect` record with `title: null` / `description: null`.
-- Used that live finding to remove an overly strict title requirement: valid redirect records are now retained as metadata-only RawItem inputs instead of being dropped.
-- Added a redirect-shape fixture and verified redirect normalization + cursor behavior in the AI/Data contract fixture.
-- The AI/Data contract fixture passed in PR CI after the redirect fix.
+- Ran one unauthenticated live GET against the official GOV.UK Content API quick-start endpoint on 2026-08-16; the resulting redirect edge case is covered by an offline fixture.
+- Added a deterministic `RawItem → Signal` projector. It normalizes text, assigns only mechanical signal type/topic labels, preserves revision lineage, and starts every Signal ungrouped. It does **not** create Claims, Verification, attribution, EventCandidates, same-event confidence, or truth confidence.
+- Rechecked the current JMA disaster-prevention XML service from official JMA material on 2026-08-16: PULL-only, no user registration, four high-frequency Atom feeds updated every minute, four long-term feeds updated hourly, and current common XML format Ver.1.3.
+- Recorded JMA's explicit download-safety constraint: repeated downloads should be avoided and public XML URLs can block an IP after 10GB/day of downloads.
+- Added an isolated JMA XML adapter with an official-host allowlist, Atom parsing, common `Control` / `Head` parsing, RawItem normalization, HTTP validators, and a bounded seen-entry cursor so successfully processed bulletins are not fetched twice.
+- Added synthetic offline JMA Atom + report fixtures. They are explicitly test-only and are not real warnings.
+- Extended the AI/Data contract suite to test JMA parsing, RawItem normalization, deterministic Signal projection, epistemic non-escalation, revision lineage, cursor deduplication, and rejection of non-JMA bulletin URLs.
 - No production CARDS/LIVE/DIVE code was changed.
 - No paid AI/source API call was executed and no external account was created.
 
@@ -40,9 +43,16 @@ Provide one provenance-first shared data contract that future CARDS, LIVE TRACE,
 - `docs/ai-data/interfaces-v0.1.ts`
 - `docs/ai-data/sample-v0.1.json`
 - `docs/ai-data/SOURCE_FEASIBILITY_V0_1.md`
+- `docs/ai-data/validation-v0.1.md`
+- `docs/ai-data/JMA_ADAPTER_V0_1.md`
 - `prototypes/ai-data-v0.1/govuk-content-adapter.mjs`
+- `prototypes/ai-data-v0.1/jma-xml-adapter.mjs`
+- `prototypes/ai-data-v0.1/rawitem-signal-projector.mjs`
+- `prototypes/ai-data-v0.1/contract-validation.mjs`
 - `prototypes/ai-data-v0.1/fixtures/govuk-content.json`
 - `prototypes/ai-data-v0.1/fixtures/govuk-redirect.json`
+- `prototypes/ai-data-v0.1/fixtures/jma-extra-feed.xml`
+- `prototypes/ai-data-v0.1/fixtures/jma-warning.xml`
 - `tests/ai-data-contract.mjs`
 - `PRODUCT_PRINCIPLES.md`
 - `docs/ARCHITECTURE.md`
@@ -51,8 +61,10 @@ Provide one provenance-first shared data contract that future CARDS, LIVE TRACE,
 ### v0.1 data flow
 
 ```text
-Source
-→ RawItem
+SourceAdapter
+→ RawItemInput
+→ persisted RawItem
+→ deterministic Signal projector
 → Signal
 → EventCandidate
 → EventCluster
@@ -70,12 +82,14 @@ Source
 - “Government A said X” can be confirmed without confirming X.
 - Contradictory sources remain separate and inspectable.
 - AI alone cannot promote a proposition to `confirmed`.
+- DIVE `confirms` cannot create verification; it can only reflect an already-confirmed underlying Claim.
 - Historical similarity does not support the current event.
 - AI-generated Article prose must retain source/evidence lineage.
+- The deterministic RawItem → Signal projector does not perform epistemic escalation.
 
 ### Recommended first real-data adapters
-1. **JMA disaster-prevention XML PULL** — first-party, structured, time-sensitive, no user registration required.
-2. **GOV.UK Content API** — structured first-party JSON, no auth/onboarding, documented 10 requests/sec/client. Isolated adapter + normal/redirect fixtures now exist, and the official quick-start endpoint response shape has been live-smoked once.
+1. **JMA disaster-prevention XML PULL** — first-party, structured, time-sensitive, no user registration required. Isolated parser/adapter + offline fixtures now exist; live continuous polling is still NOT TESTED.
+2. **GOV.UK Content API** — structured first-party JSON, no auth/onboarding, documented 10 requests/sec/client. Isolated adapter + normal/redirect fixtures exist, and one official endpoint response shape was live-smoked once.
 3. **GDELT 2.0 / DOC API** — broad free/open discovery layer; not a truth authority.
 4. **Generic RSS/Atom adapter** — code can be shared; each actual feed remains disabled until its terms/storage policy are approved.
 
@@ -84,7 +98,7 @@ Source
 - Server routes product tasks through `AIProvider` / `AITaskRouter`.
 - Mechanical tier: extraction, entities, topic classification, duplicate/same-event assistance.
 - Reasoning tier: nuanced claim comparison, context construction, Article composition, DIVE structure.
-- Candidate OpenAI models/prices are documented only for planning; **no provider is activated by this work**.
+- Candidate model/pricing notes are planning-only; **no provider is activated by this work**.
 - Any first paid API call or account creation requires Owner approval.
 
 ### Cost state
@@ -92,7 +106,6 @@ Source
 - Paid AI calls executed: **0**.
 - External accounts created: **0**.
 - Paid/licensed sources enabled: **0**.
-- Planning-only illustrative cost model lives in `docs/AI_DATA_ARCHITECTURE_V0_1.md`; it is not a budget commitment.
 
 ### Known issues / limitations
 - Proposition-level rules for moving `supported → confirmed` are intentionally unresolved; a future non-AI verification policy is needed.
@@ -105,10 +118,11 @@ Source
 - Reuters/AP are licensed commercial sources.
 - YouTube, ACLED, and current ReliefWeb integration introduce account/credential/approval dependencies.
 - Live provider rate-limit behavior is not validated.
-- GOV.UK redirect destination metadata is preserved only in the upstream payload/fixture context; a future source-specific metadata field may be useful if redirects become a first-class Signal type.
+- JMA v0.1 only parses common Atom + `Control` / `Head` / `Headline` fields. Message-specific `Body` schemas are deliberately deferred until the relevant current JMA explanatory material is implemented and fixture-tested.
+- JMA continuous polling and real download-volume behavior are not validated.
 
 ### Product decisions needed
-None for the isolated, no-cost v0.1 contract.
+None for this isolated, no-cost implementation.
 
 Owner decision becomes necessary only before:
 - a paid or licensed API/provider is activated,
@@ -122,24 +136,29 @@ Owner decision becomes necessary only before:
 - LIVE same-event confidence and Claim verification are different data types/fields.
 - CARDS factual entries carry provenance references.
 - DIVE has typed relations with historical similarity explicitly contextual.
+- DIVE `confirms` is guarded behind already-confirmed non-AI Verification.
 - Provider boundary and usage accounting are server-side contracts.
 - Synthetic sample exercises contradictory evidence without forcing one narrative.
 - Isolated GOV.UK adapter normalization/cursor fixtures pass without network or secrets.
-- One live unauthenticated GET to the official GOV.UK quick-start Content API endpoint returned HTTP 200 and exposed a real redirect-shape edge case that is now covered by the fixture.
-- GOV.UK records with null title/description no longer fail normalization.
+- JMA Atom and common `Control` / `Head` parsers have offline fixture coverage.
+- JMA RawItem normalization keeps source URL, source identity, issue time, publishing office, title/headline, and retrieval adapter version.
+- Deterministic RawItem → Signal projection produces no Claim/Verification/attribution/same-event/truth fields.
+- JMA cursor tests prove a successfully processed bulletin is not downloaded twice on the next identical feed pass.
+- JMA bulletin URLs outside the official `www.data.jma.go.jp/developer/xml/data/` path are rejected.
 - Existing CARDS / LIVE / DIVE production code remains untouched.
 
 ### NOT TESTED
 - continuous/live-polling JMA / GOV.UK / GDELT ingestion
-- direct external-network execution of the `GovUkContentAdapter` class beyond the one endpoint response-shape smoke
+- direct external-network execution of the `JmaXmlAdapter` class
+- full JMA message-specific Body extraction
 - database persistence
-- real OpenAI or other AI provider responses
+- real OpenAI or other paid AI provider responses
 - Article generation against live source material
 - production CARDS integration
 - production LIVE integration
 - production DIVE integration
-- real rate-limit / retry behavior
+- real rate-limit / retry / download-volume behavior
 - production commercial-rights/legal review
 
 ### Next executable action
-The v0.1 common contract is ready for a later Build handoff. The next isolated AI/Data implementation step is a deterministic RawItem → Signal projector plus a JMA XML adapter/fixture, still without touching production CARDS/LIVE/DIVE or activating paid providers.
+Build an isolated idempotent ingestion runner around `SourceAdapter → RawItem persistence boundary → deterministic Signal projector`, with exact-duplicate/revision fixtures and no production database dependency. This remains no-secret/no-paid and should precede CARDS/LIVE/DIVE integration.
