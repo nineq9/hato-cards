@@ -10,6 +10,15 @@ struct ReviewView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
+                if library.isSafeMode {
+                    Label("SAFE MODE — 写真は削除されません", systemImage: "shield.checkered")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(.thinMaterial, in: Capsule())
+                }
+
                 Text(totalText)
                     .font(.system(size: 38, weight: .semibold, design: .rounded))
                     .tracking(-1)
@@ -39,12 +48,17 @@ struct ReviewView: View {
                 }
 
                 Button {
-                    showConfirm = true
+                    if library.isSafeMode {
+                        library.clearQueueForSafeModeTest()
+                        dismiss()
+                    } else {
+                        showConfirm = true
+                    }
                 } label: {
                     if deleting {
                         ProgressView().tint(.white)
                     } else {
-                        Text("削除する")
+                        Text(library.isSafeMode ? "テストを完了" : "削除する")
                             .frame(maxWidth: .infinity)
                     }
                 }
@@ -54,7 +68,7 @@ struct ReviewView: View {
                 .disabled(library.queuedAssets.isEmpty || deleting)
             }
             .padding(20)
-            .navigationTitle("これらを削除しますか？")
+            .navigationTitle(library.isSafeMode ? "削除候補の確認" : "これらを削除しますか？")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
