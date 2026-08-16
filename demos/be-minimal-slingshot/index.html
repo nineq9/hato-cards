@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f6f3ed">
+<title>be minimal — slingshot gesture</title>
+<style>
+:root{--bg:#f6f3ed;--ink:#1f1e1b;--muted:#918b82;--line:rgba(31,30,27,.12);--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased}
+body{overscroll-behavior:none}
+.demo{height:100dvh;display:grid;grid-template-rows:calc(58px + var(--safe-top)) 1fr calc(74px + var(--safe-bottom));overflow:hidden}
+.top{padding:var(--safe-top) 20px 0;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:17px;font-weight:560;letter-spacing:.055em}.count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden}
+.origin{position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;background:rgba(31,30,27,.16);transform:translate(-50%,-50%);opacity:0;transition:opacity .12s}
+.tether{position:absolute;left:50%;top:50%;width:1px;height:1px;background:rgba(31,30,27,.18);transform-origin:50% 0;opacity:0;pointer-events:none}
+.card{position:relative;width:78vw;max-width:390px;height:min(67vh,660px);min-height:440px;border-radius:30px;overflow:hidden;background:#ddd;box-shadow:0 18px 48px rgba(40,34,27,.11);touch-action:none;user-select:none;-webkit-user-select:none;will-change:transform,opacity;transform:translate3d(0,0,0) scale(1)}
+.card img{width:100%;height:100%;display:block;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.2);pointer-events:none}
+.trash{position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:15px;display:grid;place-items:center;background:rgba(242,242,242,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#8b8b8b;opacity:.95}
+.trash svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.pull-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:44px;height:5px;border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 1px 12px rgba(0,0,0,.18);opacity:.86}
+.energy{position:absolute;left:50%;bottom:calc(28px + var(--safe-bottom));transform:translateX(-50%);width:min(52vw,250px);height:3px;border-radius:999px;background:rgba(31,30,27,.09);overflow:hidden;opacity:.35;transition:opacity .12s}
+.energy i{display:block;height:100%;width:0%;border-radius:inherit;background:rgba(31,30,27,.46)}
+.hint{display:flex;align-items:center;justify-content:center;padding:0 20px var(--safe-bottom);font-size:12px;color:var(--muted);letter-spacing:.01em}
+.hint span{display:inline-flex;align-items:center;gap:8px}.hint b{font-weight:500;color:var(--ink)}
+.demo.pulling .origin,.demo.pulling .tether{opacity:1}.demo.pulling .energy{opacity:1}
+.flash{position:absolute;inset:0;background:rgba(255,255,255,.7);opacity:0;pointer-events:none}.flash.fire{animation:flash .22s ease-out}@keyframes flash{0%{opacity:.16}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.origin,.energy{transition:none}}
+</style>
+</head>
+<body>
+<div class="demo" id="demo">
+  <header class="top"><div class="brand">be minimal</div><div class="count" id="count">1 / 5</div></header>
+  <main class="stage" id="stage">
+    <div class="origin" id="origin"></div>
+    <div class="tether" id="tether"></div>
+    <article class="card" id="card" aria-label="写真を手前に引いて離す">
+      <img id="photo" alt="">
+      <div class="trash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 10v7M14 10v7"/></svg></div>
+      <div class="pull-cue" aria-hidden="true"></div>
+    </article>
+    <div class="flash" id="flash"></div>
+  </main>
+  <footer class="hint"><span>↓ <b>手前に引く</b>　→　離す</span></footer>
+</div>
+<div class="energy" id="energy"><i id="energyFill"></i></div>
+<script>
+const photos=[
+  'https://picsum.photos/id/1025/1000/1400',
+  'https://picsum.photos/id/1074/1000/1400',
+  'https://picsum.photos/id/1084/1000/1400',
+  'https://picsum.photos/id/1062/1000/1400',
+  'https://picsum.photos/id/1069/1000/1400'
+];
+const demo=document.getElementById('demo'),stage=document.getElementById('stage'),card=document.getElementById('card'),photo=document.getElementById('photo'),count=document.getElementById('count'),tether=document.getElementById('tether'),origin=document.getElementById('origin'),energyFill=document.getElementById('energyFill'),flash=document.getElementById('flash');
+let index=0,dragging=false,flying=false,startX=0,startY=0,x=0,y=0,lastX=0,lastY=0,lastT=0,vx=0,vy=0,raf=0;
+photo.src=photos[index];
+function setCard(tx,ty,scale=1,rot=0,opacity=1){card.style.transform=`translate3d(${tx}px,${ty}px,0) scale(${scale}) rotate(${rot}deg)`;card.style.opacity=opacity}
+function updateTether(){const len=Math.hypot(x,y),angle=Math.atan2(y,x)*180/Math.PI-90;tether.style.height=`${len}px`;tether.style.transform=`translate(-50%,0) rotate(${angle}deg)`;energyFill.style.width=`${Math.min(100,Math.max(0,y)/1.8)}%`}
+function resisted(d){if(d<=0)return d*.18;if(d<180)return d*.82;return 147.6+(d-180)*.35}
+function begin(px,py){if(flying)return;dragging=true;demo.classList.add('pulling');startX=lastX=px;startY=lastY=py;lastT=performance.now();vx=vy=0;card.setPointerCapture?.(event?.pointerId)}
+function move(px,py){if(!dragging||flying)return;const now=performance.now(),dt=Math.max(8,now-lastT),dx=px-startX,dy=py-startY;x=resisted(dx*.38);y=resisted(dy);vx=(px-lastX)/dt*1000;vy=(py-lastY)/dt*1000;lastX=px;lastY=py;lastT=now;const pull=Math.max(0,y),scale=1+Math.min(.035,pull/6000),rot=Math.max(-4,Math.min(4,x/28));setCard(x,y,scale,rot,1);updateTether()}
+function end(){if(!dragging||flying)return;dragging=false;demo.classList.remove('pulling');const strength=Math.max(0,y);if(strength<38){returnHome();return}launch(strength)}
+function returnHome(){cancelAnimationFrame(raf);const sx=x,sy=y,sr=Math.max(-4,Math.min(4,x/28)),start=performance.now(),dur=320;function tick(t){const p=Math.min(1,(t-start)/dur),e=1-Math.pow(1-p,3),overshoot=Math.sin(p*Math.PI)*8*(1-p);x=sx*(1-e);y=sy*(1-e)+overshoot;setCard(x,y,1+Math.min(.02,y/8000),sr*(1-e),1);updateTether();if(p<1)raf=requestAnimationFrame(tick);else{x=y=0;setCard(0,0);tether.style.height='0px';energyFill.style.width='0%'}}raf=requestAnimationFrame(tick)}
+function launch(strength){flying=true;flash.classList.remove('fire');void flash.offsetWidth;flash.classList.add('fire');const k=105,c=12.5;let px=x,py=y;let svx=vx*.18,svy=Math.max(-120,vy*.18);let last=performance.now(),detached=false;function tick(t){let dt=Math.min(.022,(t-last)/1000);last=t;if(!detached){const ax=-k*px-c*svx,ay=-k*py-c*svy;svx+=ax*dt;svy+=ay*dt;px+=svx*dt;py+=svy*dt;if(py<=0&&svy<0){detached=true;const bonus=420+strength*4.9;svy=Math.min(svy,-bonus);svx+=-x*1.35}}
+else{svy-=110*dt;svx*=Math.pow(.992,dt*60);px+=svx*dt;py+=svy*dt}
+const away=Math.max(0,-py),scale=1-Math.min(.12,away/window.innerHeight*.11),opacity=1-Math.min(.78,Math.max(0,away-window.innerHeight*.35)/(window.innerHeight*.75));setCard(px,py,scale,Math.max(-5,Math.min(5,px/35)),opacity);x=px;y=py;updateTether();if(py<-card.offsetHeight-140||opacity<.08){nextCard();return}raf=requestAnimationFrame(tick)}raf=requestAnimationFrame(tick)}
+function nextCard(){cancelAnimationFrame(raf);index=(index+1)%photos.length;count.textContent=`${index+1} / ${photos.length}`;photo.src=photos[index];x=y=vx=vy=0;flying=false;tether.style.height='0px';energyFill.style.width='0%';card.style.opacity='0';setCard(0,34,.985,0,0);requestAnimationFrame(()=>{card.animate([{transform:'translate3d(0,34px,0) scale(.985)',opacity:0},{transform:'translate3d(0,0,0) scale(1)',opacity:1}],{duration:320,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'}).onfinish=()=>{card.style.opacity='1';setCard(0,0)}})}
+card.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();startX=lastX=e.clientX;startY=lastY=e.clientY;lastT=performance.now();dragging=true;demo.classList.add('pulling');card.setPointerCapture?.(e.pointerId)});
+card.addEventListener('pointermove',e=>{if(!dragging)return;e.preventDefault();move(e.clientX,e.clientY)});
+card.addEventListener('pointerup',e=>{e.preventDefault();end()});card.addEventListener('pointercancel',end);
+</script>
+</body>
+</html>
