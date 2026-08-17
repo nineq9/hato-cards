@@ -1,0 +1,11 @@
+{
+  "name":"CHRONOS — 世界史を、つながりで理解する",
+  "short_name":"CHRONOS",
+  "start_url":"./#home",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#171817",
+  "theme_color":"#171817",
+  "description":"世界史を原因・出来事・結果のつながりで理解する学習アプリ",
+  "icons":[{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
