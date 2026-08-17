@@ -125,7 +125,7 @@ private struct StorageUsageBar: View {
     var body: some View {
         ProgressView(value: usedFraction)
             .progressViewStyle(.linear)
-            .tint(.primary.opacity(0.68))
+            .tint(Color.primary.opacity(0.68))
             .accessibilityLabel("iPhoneストレージ使用状況")
             .accessibilityValue("使用済み \(Int((usedFraction * 100).rounded()))パーセント")
     }
