@@ -10,7 +10,6 @@
 <meta name="color-scheme" content="dark light">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="./icon.svg">
 <title>CHRONOS — 世界史を、つながりで理解する</title>
 <link rel="stylesheet" href="./styles.css">
 </head>
@@ -20,8 +19,9 @@
     <div class="wrap topbar-inner">
       <button class="wordmark tap" data-route="home" aria-label="ホームへ">CHRONOS</button>
       <div class="top-actions">
+        <button class="lang-pill tap" data-action="language" aria-label="言語切替"><span id="langPillText">RU</span></button>
         <button class="icon-btn tap" data-action="search" aria-label="検索"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
-        <button class="icon-btn tap" data-action="theme" aria-label="テーマ切替"><svg class="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg></button>
+        <button class="icon-btn tap" data-action="theme" aria-label="テーマ切替"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg></button>
         <button class="icon-btn tap" data-action="menu" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
       </div>
     </div>
@@ -29,33 +29,40 @@
 
   <section id="screen-home" class="screen active" data-screen="home">
     <div class="hero">
-      <img class="hero-bg" alt="ピーテル・ブリューゲル《バベルの塔》" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/The_Tower_of_Babel_%28Bruegel%29.jpg/960px-The_Tower_of_Babel_%28Bruegel%29.jpg">
+      <img class="hero-bg" alt="The Tower of Babel" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/The_Tower_of_Babel_%28Bruegel%29.jpg/960px-The_Tower_of_Babel_%28Bruegel%29.jpg">
       <div class="hero-inner">
         <div class="hero-head">
-          <div class="hero-brand"><div class="wordmark">CHRONOS</div><small>Understand the World</small></div>
+          <div class="hero-brand"><div class="wordmark">CHRONOS</div><small data-i18n="brandSub">Understand the World</small></div>
           <div class="top-actions">
+            <button class="lang-pill tap" data-action="language" aria-label="言語切替"><span class="lang-pill-text">RU</span></button>
             <button class="icon-btn tap" data-action="search" aria-label="検索"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
             <button class="icon-btn tap" data-action="bookmarks" aria-label="保存した項目"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3-5 3z"/></svg></button>
-            <button class="icon-btn tap" data-action="theme" aria-label="テーマ切替"><svg class="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg></button>
+            <button class="icon-btn tap" data-action="theme" aria-label="テーマ切替"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg></button>
             <button class="icon-btn tap" data-action="menu" aria-label="メニュー"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
           </div>
         </div>
         <div class="hero-content">
-          <h1 class="hero-title"><span class="line">世界史を、</span><span class="line">つながりで</span><span class="line">理解する</span></h1>
-          <p class="hero-copy">5000年の歴史を、ひとつの物語として。</p>
-          <button class="primary tap" data-route="timeline">はじめる <svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+          <h1 class="hero-title"><span id="heroLine1" class="line">世界史を、つながりで</span><span id="heroLine2" class="line">理解する</span></h1>
+          <p id="heroCopy" class="hero-copy">5000年の歴史を、ひとつの物語として。</p>
+          <button class="primary tap" data-route="timeline"><span data-i18n="start">はじめる</span><svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
         </div>
-        <div class="hero-timeline">
+        <div class="hero-timeline" aria-label="時代を選ぶ">
           <div class="timeline-mini-head"><span>TIMELINE</span><span>BC3000 — 2026</span></div>
-          <div class="mini-track">
-            <button class="mini-year" data-year="-3000">BC3000</button><button class="mini-year" data-year="476">476</button><button class="mini-year" data-year="1200">1200</button><button class="mini-year active" data-year="1492">1492</button><button class="mini-year" data-year="1914">1914</button><button class="mini-year" data-year="2026">2026</button>
+          <div class="timeline-slider-wrap">
+            <input id="heroTimelineSlider" class="timeline-range" type="range" min="0" max="6" step="1" value="3" aria-label="年代スライダー">
+            <div id="heroTimelineLabels" class="timeline-labels"></div>
           </div>
         </div>
       </div>
     </div>
     <div class="wrap quick-strip">
-      <div class="eyebrow">EXPLORE</div><h2 class="section-title">つながりから、世界を見る</h2>
-      <div class="quick-cards peek" id="homeCards"></div>
+      <div class="eyebrow">EXPLORE</div><h2 class="section-title" data-i18n="exploreTitle">つながりから、世界を見る</h2>
+      <div class="quick-cards" id="homeCards"></div>
+    </div>
+    <div class="wrap home-intro-grid">
+      <button class="feature-panel tap" data-route="map"><span class="feature-kicker">MY MAP</span><strong data-i18n="featureMapTitle">理解するほど、世界の霧が晴れる</strong><small data-i18n="featureMapCopy">暗記ではなく、自分の言葉で説明できたつながりを記録します。</small></button>
+      <button class="feature-panel tap" data-action="open-expert"><span class="feature-kicker">DEEP DIVE</span><strong data-i18n="featureDeepTitle">詳しい人ほど、さらに深く</strong><small data-i18n="featureDeepCopy">政治・軍事・宗教・技術・気候・金融まで横断して歴史を掘ります。</small></button>
+      <button class="feature-panel tap" data-action="time-travel"><span class="feature-kicker">TIME TRAVEL</span><strong data-i18n="timeTravelTitle">もし1492年に生きていたら？</strong><small data-i18n="timeTravelCopy">同じ年でも、住む場所によって世界の見え方がまったく違うことを体感します。</small></button>
     </div>
   </section>
 
@@ -63,41 +70,65 @@
     <div class="year-hero"><div class="eyebrow">TIMELINE</div><div class="year-row"><div id="timelineYear" class="year-big">1492</div><div id="timelineEra" class="era">CE</div></div><h1 id="timelineTitle">大航海時代の幕開け</h1><p id="timelineCopy">同じ瞬間、世界の各地で何が起きていたのかを見る。</p></div>
     <div class="year-picker" id="yearPicker"></div>
     <div class="section">
-      <div id="historicalMap" class="historical-map media"><img id="mapImage" alt="1492年ごろの主要勢力を示す歴史地図"><div class="media-fallback">歴史地図を読み込めませんでした</div><div id="mapLabel" class="map-label">1492｜主要な世界勢力</div></div>
+      <div id="historicalMap" class="historical-map media"><img id="mapImage" alt=""><div class="media-fallback"></div><div id="mapLabel" class="map-label"></div></div>
       <div class="power-pills" id="powerPills"></div>
     </div>
-    <div class="section"><div class="eyebrow">AT THE SAME TIME</div><h2 class="section-title">同じ年、世界では</h2><p class="section-copy">横にスワイプして地域を移動できます。</p><div class="region-scroller" id="regionCards"></div></div>
+    <div class="section"><div class="eyebrow">AT THE SAME TIME</div><h2 class="section-title" data-i18n="sameTime">同じ年、世界では</h2><p class="section-copy" data-i18n="swipeRegions">横にスワイプして地域を移動できます。</p><div class="region-scroller" id="regionCards"></div></div>
   </div></section>
 
   <section id="screen-event" class="screen" data-screen="event"><div class="wrap page-wrap">
-    <div class="detail-hero"><button class="back-btn tap" data-action="back"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>戻る</button><div id="eventMedia" class="detail-image media"><img id="eventImage" alt=""><div class="media-fallback">資料画像を読み込めませんでした</div></div>
-      <div class="detail-title-row"><h1 id="eventTitle" class="detail-title">フランス革命</h1><button id="eventBookmark" class="bookmark-btn tap" data-action="bookmark-current" aria-label="保存"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3-5 3z"/></svg></button></div>
-      <div id="eventYear" class="detail-year">1789</div><div id="eventTags" class="tag-row"></div><p id="eventLead" class="lead"></p>
+    <div class="detail-hero"><button class="back-btn tap" data-action="back"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg><span data-i18n="back">戻る</span></button><div id="eventMedia" class="detail-image media"><img id="eventImage" alt=""><div class="media-fallback"></div></div>
+      <div class="detail-title-row"><h1 id="eventTitle" class="detail-title"></h1><button id="eventBookmark" class="bookmark-btn tap" data-action="bookmark-current" aria-label="保存"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3-5 3z"/></svg></button></div>
+      <div id="eventYear" class="detail-year"></div><div id="eventTags" class="tag-row"></div><p id="eventLead" class="lead"></p>
     </div>
-    <div class="tabs" role="tablist"><button class="tab active" data-tab="overview">概要</button><button class="tab" data-tab="why">なぜ起きた？</button><button class="tab" data-tab="after">その後どうなった？</button></div>
-    <div id="tab-overview" class="tab-panel active"><div class="eyebrow">STORY</div><h2 class="section-title">何が変わったのか</h2><div id="eventOverview" class="prose"></div></div>
-    <div id="tab-why" class="tab-panel"><div class="eyebrow">WHY</div><h2 class="section-title">複数の原因が、ひとつの出来事へ</h2><p class="section-copy">歴史は一本のドミノではありません。社会・思想・経済などが重なって転換点になります。</p><div id="whyGrid" class="why-grid" style="margin-top:18px"></div><div class="converge"><div class="converge-arrow">↓</div><div id="convergeEvent" class="converge-event"></div></div></div>
-    <div id="tab-after" class="tab-panel"><div class="eyebrow">AFTER</div><h2 class="section-title">この出来事は、何を生んだ？</h2><div id="eventAfter" class="prose"></div></div>
-    <div class="section"><div class="graph-shell" id="graphShell"><div class="graph-toolbar"><h2>つながりを見る</h2><div class="graph-controls"><button class="graph-control" data-graph="out" aria-label="縮小">−</button><button class="graph-control" data-graph="reset" aria-label="中心に戻る"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.5M4 4v4.5h4.5"/></svg></button><button class="graph-control" data-graph="full" aria-label="全画面"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button></div></div><div class="graph-stage" id="graphStage"></div><div class="graph-legend"><div class="legend-item"><span class="legend-swatch"></span>原因</div><div class="legend-item"><span class="legend-swatch result"></span>結果</div><div class="legend-item"><span class="legend-swatch impact"></span>長期的影響</div></div></div></div>
+    <div class="tabs" role="tablist"><button class="tab active" data-tab="overview" data-i18n="tabOverview">概要</button><button class="tab" data-tab="why" data-i18n="tabWhy">なぜ起きた？</button><button class="tab" data-tab="after" data-i18n="tabAfter">その後どうなった？</button><button class="tab" data-tab="deep" data-i18n="tabDeep">深掘り</button></div>
+    <div id="tab-overview" class="tab-panel active"><div class="eyebrow">STORY</div><h2 class="section-title" data-i18n="whatChanged">何が変わったのか</h2><div id="eventOverview" class="prose"></div></div>
+    <div id="tab-why" class="tab-panel"><div class="eyebrow">WHY</div><h2 class="section-title" data-i18n="whyMulti">複数の原因が、ひとつの出来事へ</h2><p class="section-copy" data-i18n="whyMultiCopy">歴史は一本のドミノではありません。社会・思想・経済などが重なって転換点になります。</p><div id="whyGrid" class="why-grid" style="margin-top:18px"></div><div class="converge"><div class="converge-arrow">↓</div><div id="convergeEvent" class="converge-event"></div></div></div>
+    <div id="tab-after" class="tab-panel"><div class="eyebrow">AFTER</div><h2 class="section-title" data-i18n="whatBorn">この出来事は、何を生んだ？</h2><div id="eventAfter" class="prose"></div></div>
+    <div id="tab-deep" class="tab-panel"><div class="eyebrow">DEEP DIVE</div><h2 class="section-title" data-i18n="hiddenConnections">意外なつながりまで掘る</h2><p class="section-copy" data-i18n="hiddenConnectionsCopy">歴史だけでなく、金融・気候・軍事・宗教・情報技術など別分野からも見る。</p><div id="deepDiveGrid" class="deep-grid"></div></div>
+
+    <div class="section"><div class="graph-shell" id="graphShell"><div class="graph-toolbar"><h2 data-i18n="seeConnections">つながりを見る</h2><div class="graph-controls"><button class="graph-control" data-graph="out" aria-label="縮小">−</button><button class="graph-control" data-graph="reset" aria-label="中心に戻る"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.5M4 4v4.5h4.5"/></svg></button><button class="graph-control" data-graph="full" aria-label="全画面"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button></div></div><div class="graph-stage" id="graphStage"></div><div class="graph-legend"><div class="legend-item"><span class="legend-swatch"></span><span data-i18n="cause">原因</span></div><div class="legend-item"><span class="legend-swatch result"></span><span data-i18n="result">結果</span></div><div class="legend-item"><span class="legend-swatch impact"></span><span data-i18n="longImpact">長期的影響</span></div></div></div></div>
+
+    <div class="section comprehension-section" id="comprehensionSection">
+      <div class="eyebrow">UNDERSTANDING CHECK</div>
+      <h2 class="section-title" data-i18n="checkTitle">自分の言葉で、つながりを説明する</h2>
+      <p class="section-copy" data-i18n="checkCopy">年号ではなく「なぜ・どう変わったか」を自然な文章で答えてください。</p>
+      <div class="quiz-card">
+        <div id="quizQuestion" class="quiz-question"></div>
+        <textarea id="quizAnswer" class="quiz-answer" rows="5" data-i18n-placeholder="quizPlaceholder" placeholder="ここに自分の言葉で書いてください"></textarea>
+        <button class="primary quiz-submit tap" data-action="submit-quiz"><span data-i18n="checkAnswer">理解を確かめる</span><svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+        <div id="quizFeedback" class="quiz-feedback" hidden></div>
+      </div>
+    </div>
   </div></section>
 
-  <section id="screen-library" class="screen" data-screen="library"><div class="wrap page-wrap"><div class="section"><div class="eyebrow">LIBRARY</div><h1 class="page-title">世界史の図書室</h1><p class="section-copy">人物・文明・戦争・思想・技術・宗教から、知識の入口を選ぶ。</p></div><div class="library-tabs" id="libraryTabs"></div><div class="library-grid" id="libraryGrid"></div></div></section>
+  <section id="screen-library" class="screen" data-screen="library"><div class="wrap page-wrap"><div class="section"><div class="eyebrow">LIBRARY</div><h1 class="page-title" data-i18n="libraryTitle">世界史の図書室</h1><p class="section-copy" data-i18n="libraryCopy">歴史だけでなく、政治・経済・軍事・科学・宗教・技術まで横断して探す。</p></div><div class="library-tabs" id="libraryTabs"></div><div class="library-grid" id="libraryGrid"></div></div></section>
 
-  <section id="screen-map" class="screen" data-screen="map"><div class="wrap page-wrap"><div class="section"><div class="eyebrow">MY MAP</div><h1 class="page-title">理解マップ</h1><p class="section-copy">理解するほど、世界の霧が晴れていきます。</p><div class="mind-summary"><div class="ring"><div class="ring-text"><strong>63%</strong><span>つながり理解度</span></div></div><div><h2>126 / 200 の重要テーマを理解</h2><p>出来事を単独で覚えるのではなく、原因と結果まで説明できたテーマを集計しています。</p></div></div><div class="fog-map"><img alt="理解マップの世界地図" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Colonisation_1492.png/960px-Colonisation_1492.png"></div><div class="region-progress" id="regionProgress"></div></div></div></section>
+  <section id="screen-map" class="screen" data-screen="map"><div class="wrap page-wrap"><div class="section"><div class="eyebrow">MY MAP</div><h1 class="page-title" data-i18n="mapTitle">理解マップ</h1><p class="section-copy" data-i18n="mapCopy">自分の言葉で説明できるほど、世界の霧が晴れていきます。</p><div class="mind-summary"><div class="ring"><div class="ring-text"><strong id="understandingPercent">63%</strong><span data-i18n="connectionUnderstanding">つながり理解度</span></div></div><div><h2 id="understoodThemes">126 / 200</h2><p data-i18n="mapExplain">ページを開いただけでは増えません。理解度テストと復習結果を中心に反映します。</p></div></div><div class="fog-map"><img alt="world map" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Colonisation_1492.png/960px-Colonisation_1492.png"></div><div class="region-progress" id="regionProgress"></div><button class="secondary-wide tap" data-action="review-test" data-i18n="reviewTest">忘れかけたテーマを復習する</button></div></div></section>
 
-  <section id="screen-profile" class="screen" data-screen="profile"><div class="wrap page-wrap"><div class="section"><div class="eyebrow">PROFILE</div><h1 class="page-title">設定</h1><p class="section-copy">CHRONOSを、自分が最も読みやすい環境に整える。</p></div><div class="profile-card"><h2 class="setting-title">表示テーマ</h2><p class="setting-copy">ダークとアイボリーのライトモードから選べます。次回もこの設定を保持します。</p><div class="theme-options"><button class="theme-option" data-theme-choice="dark"><div class="theme-preview preview-dark"></div><strong>Dark Museum</strong></button><button class="theme-option" data-theme-choice="light"><div class="theme-preview preview-light"></div><strong>Ivory Gallery</strong></button></div></div><div class="profile-card"><h2 class="setting-title">ホーム画面に追加</h2><p class="setting-copy">Safariの共有ボタン →「ホーム画面に追加」で、ブラウザバーを減らしたアプリ風表示で使えます。</p></div><div class="profile-card"><h2 class="setting-title">この試作について</h2><p class="setting-copy">現在は世界史全体の構造と操作体験を検証するプロトタイプです。歴史データは今後拡張します。</p></div></div></section>
+  <section id="screen-profile" class="screen" data-screen="profile"><div class="wrap page-wrap"><div class="section"><div class="eyebrow">PROFILE</div><h1 class="page-title" data-i18n="settings">設定</h1><p class="section-copy" data-i18n="settingsCopy">表示と言語を、自分に合う環境へ。</p></div>
+    <div class="profile-card"><h2 class="setting-title" data-i18n="language">言語</h2><p class="setting-copy" data-i18n="languageCopy">日本語とロシア語を切り替えられます。歴史本文も切り替わります。</p><div class="segmented"><button data-language-choice="ja">日本語</button><button data-language-choice="ru">Русский</button></div></div>
+    <div class="profile-card"><h2 class="setting-title" data-i18n="theme">表示テーマ</h2><p class="setting-copy" data-i18n="themeCopy">Dark Museum と Ivory Gallery。次回も設定を保持します。</p><div class="theme-options"><button class="theme-option" data-theme-choice="dark"><div class="theme-preview preview-dark"></div><strong>Dark Museum</strong></button><button class="theme-option" data-theme-choice="light"><div class="theme-preview preview-light"></div><strong>Ivory Gallery</strong></button></div></div>
+    <div class="profile-card"><h2 class="setting-title" data-i18n="depth">学びの深さ</h2><p class="setting-copy" data-i18n="depthCopy">基本は自動。詳しい回答をすると、より専門的な問いと意外な接続を出します。</p><div class="segmented"><button class="active" data-depth="auto" data-i18n="auto">自動</button><button data-depth="expert" data-i18n="expert">専門</button></div></div>
+    <div class="profile-card"><h2 class="setting-title" data-i18n="pwaTitle">ホーム画面に追加</h2><p class="setting-copy" data-i18n="pwaCopy">Safariの共有ボタン →「ホーム画面に追加」で、アプリに近い表示で使えます。</p></div>
+  </div></section>
 </div>
 
 <nav class="bottom-nav" aria-label="メインナビゲーション">
-  <button class="nav-btn active" data-route="home"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V20H4z"/></svg><span>HOME</span></button>
-  <button class="nav-btn" data-route="timeline"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l4 2"/></svg><span>TIMELINE</span></button>
-  <button class="nav-btn" data-route="library"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 4v16M11 8h5M11 12h5M11 16h5"/></svg><span>LIBRARY</span></button>
-  <button class="nav-btn" data-route="map"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg><span>MY MAP</span></button>
-  <button class="nav-btn" data-route="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6.5 20c.7-4 2.5-6 5.5-6s4.8 2 5.5 6z"/></svg><span>PROFILE</span></button>
+  <button class="nav-btn active" data-route="home"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V20H4z"/></svg><span data-i18n="navHome">HOME</span></button>
+  <button class="nav-btn" data-route="timeline"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l4 2"/></svg><span data-i18n="navTimeline">TIMELINE</span></button>
+  <button class="nav-btn" data-route="library"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 4v16M11 8h5M11 12h5M11 16h5"/></svg><span data-i18n="navLibrary">LIBRARY</span></button>
+  <button class="nav-btn" data-route="map"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg><span data-i18n="navMap">MY MAP</span></button>
+  <button class="nav-btn" data-route="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.8-4 3-6 6.5-6s5.7 2 6.5 6"/></svg><span data-i18n="navProfile">PROFILE</span></button>
 </nav>
-<div class="sheet-backdrop" id="sheetBackdrop"></div><div class="sheet" id="menuSheet"><div class="sheet-handle"></div><h2>CHRONOS</h2><button class="sheet-item" data-route="timeline">5000年タイムライン <small>探索する →</small></button><button class="sheet-item" data-route="library">ライブラリ <small>知識を探す →</small></button><button class="sheet-item" data-route="map">理解マップ <small>進捗を見る →</small></button><button class="sheet-item" data-action="theme">表示テーマ <small id="menuThemeText">Dark</small></button></div>
-<div class="search-overlay" id="searchOverlay"><div class="search-head"><input id="searchInput" class="search-field" type="search" inputmode="search" autocomplete="off" placeholder="人物・出来事・年代を検索"><button class="search-close" data-action="close-search">閉じる</button></div><div class="search-results" id="searchResults"></div></div>
-<div class="toast" id="toast"></div>
-<script src="./app.js" defer></script>
+
+<div id="sheetBackdrop" class="sheet-backdrop"></div>
+<div id="menuSheet" class="menu-sheet" aria-modal="true"><div class="sheet-handle"></div><div class="sheet-title">CHRONOS</div><button class="sheet-row" data-action="language"><span data-i18n="language">言語</span><strong id="menuLanguageText">日本語</strong></button><button class="sheet-row" data-action="theme"><span data-i18n="theme">表示テーマ</span><strong id="menuThemeText">Dark</strong></button><button class="sheet-row" data-action="bookmarks"><span data-i18n="saved">保存した項目</span><span>›</span></button><button class="sheet-row" data-route="profile"><span data-i18n="settings">設定</span><span>›</span></button></div>
+
+<div id="searchOverlay" class="search-overlay"><div class="search-top"><button class="icon-btn" data-action="close-search" aria-label="閉じる"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><input id="searchInput" type="search" placeholder="人物・出来事・テーマを検索"></div><div id="searchResults" class="search-results"></div></div>
+<div id="timeTravelBackdrop" class="sheet-backdrop"></div>
+<div id="timeTravelSheet" class="time-travel-sheet" aria-modal="true"><div class="sheet-handle"></div><div class="eyebrow">TIME TRAVEL · 1492</div><h2 data-i18n="timeTravelQuestion">あなたは、1492年のどこで生きますか？</h2><div id="timeTravelChoices" class="time-travel-choices"></div><div id="timeTravelStory" class="time-travel-story" hidden></div><button class="secondary-wide" data-action="close-time-travel" data-i18n="close">閉じる</button></div>
+<div id="toast" class="toast"></div>
+<script src="./app.js"></script>
 </body>
 </html>
