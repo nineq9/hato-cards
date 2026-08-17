@@ -5,6 +5,13 @@
   const passed = new Set();
   const history = [];
   let active = null;
+  let viewerIndex = null;
+  let viewerScale = 1;
+  let pinchStartDistance = 0;
+  let pinchStartScale = 1;
+  let viewerGestureMoved = false;
+  let suppressViewerTapUntil = 0;
+  const viewerPointers = new Map();
 
   const undo = document.createElement('button');
   undo.className = 'apple-undo';
@@ -114,6 +121,94 @@
   undo.addEventListener('click',()=>{
     const last=history.pop(); if(!last)return;
     if(last.discard) queued.delete(last.i); else passed.delete(last.i);
+    renderApple();
+  });
+
+  // Fullscreen viewer: first card tap opens it, pinch zooms, second image tap queues discard.
+  function applyViewerScale(animated=false){
+    viewerImg.style.transition=animated?'transform .22s cubic-bezier(.22,.78,.24,1)':'none';
+    viewerImg.style.transform=`scale(${viewerScale})`;
+  }
+  function resetViewerZoom(animated=false){
+    viewerScale=1;
+    applyViewerScale(animated);
+    viewerPointers.clear();
+    pinchStartDistance=0;
+    viewerGestureMoved=false;
+  }
+  function pointerDistance(){
+    const pts=[...viewerPointers.values()];
+    if(pts.length<2)return 0;
+    return Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+  }
+
+  openViewer = i => {
+    const p=photos[i];
+    viewerIndex=i;
+    viewerImg.src=p.src;
+    viewerSize.innerHTML=signal()+p.size;
+    resetViewerZoom(false);
+    viewer.classList.add('show');
+  };
+
+  const originalCloseViewer=closeViewer;
+  closeViewer = () => {
+    viewerIndex=null;
+    resetViewerZoom(false);
+    originalCloseViewer();
+  };
+
+  viewerImg.addEventListener('pointerdown',e=>{
+    viewerImg.setPointerCapture?.(e.pointerId);
+    viewerPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    viewerGestureMoved=false;
+    if(viewerPointers.size===2){
+      pinchStartDistance=pointerDistance();
+      pinchStartScale=viewerScale;
+      viewerGestureMoved=true;
+    }
+    e.preventDefault();
+  });
+
+  viewerImg.addEventListener('pointermove',e=>{
+    if(!viewerPointers.has(e.pointerId))return;
+    const prev=viewerPointers.get(e.pointerId);
+    if(Math.hypot(e.clientX-prev.x,e.clientY-prev.y)>3)viewerGestureMoved=true;
+    viewerPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(viewerPointers.size>=2&&pinchStartDistance>0){
+      const ratio=pointerDistance()/pinchStartDistance;
+      viewerScale=Math.max(1,Math.min(4,pinchStartScale*ratio));
+      applyViewerScale(false);
+      suppressViewerTapUntil=performance.now()+260;
+    }
+    e.preventDefault();
+  });
+
+  function endViewerPointer(e){
+    if(!viewerPointers.has(e.pointerId))return;
+    const wasPinching=viewerPointers.size>=2;
+    viewerPointers.delete(e.pointerId);
+    if(wasPinching){
+      suppressViewerTapUntil=performance.now()+260;
+      pinchStartDistance=0;
+      if(viewerScale<1.03)resetViewerZoom(true);
+    }
+  }
+  viewerImg.addEventListener('pointerup',endViewerPointer);
+  viewerImg.addEventListener('pointercancel',endViewerPointer);
+
+  viewerImg.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(viewerIndex===null)return;
+    if(performance.now()<suppressViewerTapUntil||viewerGestureMoved){viewerGestureMoved=false;return;}
+    const i=viewerIndex;
+    queued.add(i);
+    passed.delete(i);
+    history.push({i,discard:true});
+    if(navigator.vibrate)navigator.vibrate(7);
+    viewerIndex=null;
+    resetViewerZoom(false);
+    originalCloseViewer();
     renderApple();
   });
 
