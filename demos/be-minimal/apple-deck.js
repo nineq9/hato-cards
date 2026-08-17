@@ -26,7 +26,7 @@
   const targets=document.createElement('div');
   targets.className='review-targets';
   targets.innerHTML=`
-    <div class="review-target review-target-trash" data-action="trash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></div>
+    <div class="review-target review-target-trash" data-action="trash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"/></svg></div>
     <div class="review-target review-target-later" data-action="later" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg></div>
     <div class="review-target review-target-keep" data-action="keep" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3.2-5 3.2z"/></svg></div>`;
   photosScreen.appendChild(targets);
