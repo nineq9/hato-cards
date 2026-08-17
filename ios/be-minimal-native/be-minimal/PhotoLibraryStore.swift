@@ -10,10 +10,17 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
     @Published private(set) var authorizationStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
     @Published private(set) var candidates: [PHAsset] = []
     @Published private(set) var queuedIDs: Set<String> = []
+    @Published private(set) var reviewedIDs: Set<String> = []
     @Published private(set) var byteCounts: [String: Int64] = [:]
     @Published private(set) var isLoading = false
     @Published var lastError: String?
 
+    private struct ReviewAction {
+        let id: String
+        let wasQueued: Bool
+    }
+
+    private var reviewHistory: [ReviewAction] = []
     private let imageManager = PHCachingImageManager()
     private let resourceManager = PHAssetResourceManager.default()
 
@@ -30,9 +37,11 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
     }
 
     var isNonDestructiveBuild: Bool { true }
+    var canUndoReview: Bool { !reviewHistory.isEmpty }
+    var reviewedCount: Int { reviewedIDs.count }
 
     var visibleCandidates: [PHAsset] {
-        candidates.filter { !queuedIDs.contains($0.localIdentifier) }
+        candidates.filter { !reviewedIDs.contains($0.localIdentifier) }
     }
 
     var queuedAssets: [PHAsset] {
@@ -69,7 +78,10 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
             .sorted { score($0, now: now) > score($1, now: now) }
 
         candidates = Array(ranked.prefix(100))
-        queuedIDs = queuedIDs.intersection(Set(candidates.map(\.localIdentifier)))
+        let validIDs = Set(candidates.map(\.localIdentifier))
+        queuedIDs = queuedIDs.intersection(validIDs)
+        reviewedIDs = reviewedIDs.intersection(validIDs)
+        reviewHistory.removeAll { !validIDs.contains($0.id) }
         isLoading = false
 
         for asset in candidates.prefix(8) {
@@ -104,16 +116,40 @@ final class PhotoLibraryStore: NSObject, ObservableObject, PHPhotoLibraryChangeO
     }
 
     func queue(_ asset: PHAsset) {
-        queuedIDs.insert(asset.localIdentifier)
+        let id = asset.localIdentifier
+        guard !reviewedIDs.contains(id) else { return }
+        queuedIDs.insert(id)
+        reviewedIDs.insert(id)
+        reviewHistory.append(ReviewAction(id: id, wasQueued: true))
         requestLocalByteCount(for: asset)
     }
 
+    func pass(_ asset: PHAsset) {
+        let id = asset.localIdentifier
+        guard !reviewedIDs.contains(id) else { return }
+        reviewedIDs.insert(id)
+        reviewHistory.append(ReviewAction(id: id, wasQueued: false))
+    }
+
+    func undoLastReview() {
+        guard let action = reviewHistory.popLast() else { return }
+        reviewedIDs.remove(action.id)
+        if action.wasQueued {
+            queuedIDs.remove(action.id)
+        }
+    }
+
     func restore(_ asset: PHAsset) {
-        queuedIDs.remove(asset.localIdentifier)
+        let id = asset.localIdentifier
+        queuedIDs.remove(id)
+        reviewedIDs.remove(id)
+        reviewHistory.removeAll { $0.id == id }
     }
 
     func clearQueueForTest() {
         queuedIDs.removeAll()
+        reviewedIDs.removeAll()
+        reviewHistory.removeAll()
     }
 
     func requestThumbnail(for asset: PHAsset, targetSize: CGSize, completion: @escaping (UIImage?) -> Void) -> PHImageRequestID {
