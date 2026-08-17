@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#171817" />
+  <title>CHRONOS — 世界史を、つながりで理解する</title>
+  <style>
+:root {
+  --bg: #171817;
+  --bg-deep: #111210;
+  --panel: #1d1e1c;
+  --panel-2: #23231f;
+  --text: #ece2cf;
+  --muted: #a79f90;
+  --line: #4b493f;
+  --line-soft: rgba(236,226,207,.12);
+  --accent: #b89968;
+  --accent-2: #b46f5e;
+  --olive: #7b7653;
+  --chip: #292820;
+  --shadow: 0 16px 45px rgba(0,0,0,.18);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --serif: ui-serif, Georgia, "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+
+html[data-theme="light"] {
+  --bg: #eee8dc;
+  --bg-deep: #e5ded0;
+  --panel: #f7f2e8;
+  --panel-2: #ebe4d6;
+  --text: #24231f;
+  --muted: #6f6a60;
+  --line: #b9ad9d;
+  --line-soft: rgba(52,48,42,.12);
+  --accent: #80633f;
+  --accent-2: #a55e50;
+  --olive: #73725d;
+  --chip: #e2d9ca;
+  --shadow: 0 16px 36px rgba(72,58,39,.10);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(184,153,104,.08), transparent 22%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  transition: background .28s ease, color .28s ease;
+}
+button, input { font: inherit; }
+button { color: inherit; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 86px 1fr;
+}
+.side-nav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border-right: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--bg-deep) 94%, transparent);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+.brand-mark {
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid var(--line-soft);
+}
+.brand-seal {
+  width: 39px; height: 39px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  display: grid; place-items: center;
+  font: 17px var(--serif);
+  color: var(--accent);
+  letter-spacing: -.04em;
+}
+.nav-items { display: flex; flex-direction: column; padding-top: 10px; }
+.nav-btn {
+  width: 100%; height: 76px;
+  border: 0; border-bottom: 1px solid var(--line-soft);
+  background: transparent; cursor: pointer;
+  display: grid; place-items: center; gap: 4px;
+  color: var(--muted); font-size: 9px; letter-spacing: .08em;
+}
+.nav-btn .nav-icon { font-size: 18px; line-height: 1; }
+.nav-btn:hover, .nav-btn.active { background: var(--panel-2); color: var(--text); }
+.nav-spacer { flex: 1; }
+
+main { min-width: 0; padding: 16px; }
+.top-grid { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,1fr); gap: 14px; }
+.mid-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.04fr); gap: 14px; margin-top: 14px; }
+.bottom-grid { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(360px,.85fr); gap: 14px; margin-top: 14px; }
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.panel-head { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:20px 22px 14px; }
+.eyebrow { color: var(--accent); font: 12px var(--serif); letter-spacing: .16em; text-transform: uppercase; }
+.muted { color: var(--muted); }
+.icon-btn {
+  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 84%, transparent);
+  cursor: pointer; display:grid; place-items:center; font-size: 18px;
+}
+.icon-btn:hover { background: var(--chip); }
+.hero-panel { min-height: 555px; position: relative; isolation: isolate; }
+.hero-art { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(.52) saturate(.8) sepia(.12); z-index:-2; }
+.hero-panel::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(15,16,14,.91), rgba(15,16,14,.55) 55%, rgba(15,16,14,.22)), linear-gradient(0deg, rgba(15,16,14,.9), transparent 45%); z-index:-1; }
+.hero-top { display:flex; justify-content:space-between; align-items:flex-start; padding:24px 26px; }
+.hero-brand h1 { margin:0; font: 20px var(--serif); letter-spacing:.13em; color:#e7d7bc; }
+.hero-brand p { margin:4px 0 0; color:#b9ab96; font-size:10px; }
+.hero-actions { display:flex; gap:9px; }
+.hero-content { padding: 72px 34px 30px; max-width:650px; }
+.hero-content h2 { margin:0; font: clamp(35px,4vw,60px)/1.35 var(--serif); letter-spacing:.025em; color:#f3e8d4; font-weight:500; }
+.hero-content p { margin:18px 0 22px; color:#d1c2aa; font: 15px/1.8 var(--serif); }
+.primary-btn, .secondary-btn {
+  border:1px solid var(--line); border-radius:999px; cursor:pointer; min-height:44px; padding:0 19px; transition:.2s ease;
+}
+.primary-btn { background:#e2d3b8; color:#24231f; border-color:#e2d3b8; }
+.primary-btn:hover { transform:translateY(-1px); filter:brightness(1.04); }
+.secondary-btn { background:transparent; color:var(--text); }
+.secondary-btn:hover { background:var(--chip); }
+.hero-timeline { position:absolute; left:32px; right:32px; bottom:24px; display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:end; }
+.hero-timeline-label { font: 10px var(--serif); letter-spacing:.1em; color:#c7b698; }
+.timeline-track { position:relative; display:flex; align-items:center; justify-content:space-between; min-height:48px; }
+.timeline-track::before { content:""; position:absolute; left:0; right:0; top:24px; height:1px; background:#907e61; }
+.timeline-node { position:relative; border:0; background:transparent; color:#cdbd9f; font-size:9px; cursor:pointer; padding:0 3px 29px; z-index:2; }
+.timeline-node::after { content:""; width:6px; height:6px; border-radius:50%; background:#9e8d70; border:2px solid #29271f; position:absolute; left:50%; transform:translateX(-50%); top:20px; }
+.timeline-node.active::after { width:14px; height:14px; top:16px; background:#171817; border:2px solid #c08655; box-shadow:0 0 0 4px rgba(192,134,85,.11); }
+
+.timeline-panel { min-height:555px; padding-bottom:16px; }
+.timeline-top { display:flex; justify-content:space-between; align-items:flex-start; padding:24px 25px 8px; }
+.timeline-title-area { min-width:250px; }
+.year-line { display:flex; align-items:baseline; gap:10px; }
+.big-year { font: clamp(46px,6vw,76px) var(--serif); }
+.year-era { color:var(--muted); font: 11px var(--serif); }
+.timeline-title-area h2 { margin:8px 0 0; font: clamp(19px,2vw,27px)/1.55 var(--serif); font-weight:500; }
+.map-frame { width:45%; min-width:290px; height:210px; display:grid; place-items:center; overflow:hidden; opacity:.84; }
+.map-frame img { width:100%; height:100%; object-fit:contain; filter: sepia(.45) saturate(.6) contrast(.88); mix-blend-mode:screen; }
+html[data-theme="light"] .map-frame img { mix-blend-mode:multiply; filter:sepia(.5) saturate(.55) contrast(.85); }
+.region-row { padding:15px 22px 6px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; }
+.region-card { border:0; background:transparent; text-align:left; color:inherit; cursor:pointer; padding:0; min-width:0; }
+.region-label { display:block; color:var(--muted); font-size:10px; margin-bottom:8px; }
+.region-image { width:100%; aspect-ratio:1.15; object-fit:cover; border-radius:9px 9px 2px 2px; display:block; filter:saturate(.75) contrast(.93); }
+.region-info { min-height:75px; background:var(--panel-2); border:1px solid var(--line-soft); border-top:0; padding:10px; border-radius:0 0 9px 9px; }
+.region-year { color:var(--accent); font:12px var(--serif); }
+.region-title { margin-top:3px; font: 12px/1.4 var(--serif); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.region-card:hover .region-info { background:var(--chip); }
+
+.detail-panel { min-height:450px; display:grid; grid-template-columns:310px 1fr; }
+.detail-left { padding:19px 20px; border-right:1px solid var(--line-soft); }
+.back-link { border:0; background:transparent; color:var(--muted); padding:0; cursor:pointer; font-size:11px; }
+.detail-image { width:100%; aspect-ratio:1.45; object-fit:cover; margin:20px 0 14px; border-radius:8px; filter:saturate(.78); }
+.detail-left h2 { margin:0; font:28px var(--serif); }
+.detail-year { color:var(--accent); font:13px var(--serif); margin:3px 0 10px; }
+.tag-row { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 15px; }
+.tag { border:1px solid var(--line); padding:4px 9px; border-radius:999px; color:var(--accent); font-size:9px; }
+.detail-description { font:12px/1.75 var(--serif); color:var(--muted); }
+.detail-right { min-width:0; padding:0 24px 20px; }
+.tabs { height:55px; display:flex; align-items:end; border-bottom:1px solid var(--line-soft); gap:28px; overflow:auto; }
+.tab-btn { white-space:nowrap; border:0; border-bottom:2px solid transparent; background:transparent; color:var(--muted); padding:0 4px 13px; cursor:pointer; font-size:11px; }
+.tab-btn.active { color:var(--text); border-color:var(--accent); }
+.tab-content { padding-top:19px; }
+.tab-content h3 { margin:0 0 17px; font:18px var(--serif); }
+.cause-list { display:grid; gap:9px; position:relative; padding-left:24px; }
+.cause-list::before { content:""; position:absolute; left:7px; top:8px; bottom:8px; width:1px; background:var(--line); }
+.cause-item { min-height:44px; border:1px solid var(--line-soft); background:var(--panel-2); border-radius:7px; display:flex; align-items:center; padding:9px 14px; font:11px/1.5 var(--serif); position:relative; }
+.cause-item::before { content:""; position:absolute; left:-21px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px var(--panel); }
+.cause-item.key { background:color-mix(in srgb, var(--accent-2) 22%, var(--panel-2)); }
+
+.graph-panel { min-height:450px; position:relative; }
+.graph-head { padding:19px 22px 0; display:flex; justify-content:space-between; }
+.graph-head h2 { margin:0; font:17px var(--serif); }
+.graph-controls { display:flex; gap:9px; color:var(--muted); font-size:10px; }
+.graph-wrap { height:385px; position:relative; overflow:hidden; }
+.graph-svg { position:absolute; inset:0; width:100%; height:100%; }
+.graph-svg line { stroke:var(--line); stroke-width:1; stroke-dasharray:3 4; }
+.graph-node { position:absolute; transform:translate(-50%,-50%); min-width:110px; max-width:140px; min-height:58px; border-radius:50%; border:1px solid var(--line); background:var(--panel-2); display:grid; place-items:center; text-align:center; padding:8px 10px; font:11px/1.4 var(--serif); cursor:pointer; }
+.graph-node.center { min-width:125px; min-height:78px; background:color-mix(in srgb, var(--accent-2) 44%, var(--panel)); border-color:var(--accent-2); color:#f3e7d4; }
+.graph-legend { position:absolute; right:18px; bottom:15px; display:grid; gap:7px; font-size:9px; color:var(--muted); }
+.legend-line::before { content:"—"; margin-right:8px; color:var(--accent); }
+
+.library-panel { min-height:285px; }
+.library-head { padding:18px 21px 0; display:flex; justify-content:space-between; align-items:center; }
+.library-head h2, .mind-head h2 { margin:0; font:22px var(--serif); }
+.category-tabs { padding:13px 21px 0; display:flex; gap:26px; border-bottom:1px solid var(--line-soft); overflow:auto; }
+.category-btn { border:0; border-bottom:2px solid transparent; color:var(--muted); background:transparent; padding:0 2px 12px; white-space:nowrap; cursor:pointer; font-size:10px; }
+.category-btn.active { color:var(--text); border-color:var(--accent); }
+.library-row { padding:14px 18px 18px; display:grid; grid-template-columns:repeat(5,minmax(120px,1fr)); gap:10px; }
+.library-card { min-width:0; border:1px solid var(--line-soft); border-radius:8px; overflow:hidden; background:var(--panel-2); cursor:pointer; }
+.library-card img { width:100%; aspect-ratio:1.15; object-fit:cover; display:block; filter:saturate(.72); }
+.library-card-content { padding:8px 9px 10px; }
+.library-card-title { font:12px/1.4 var(--serif); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.library-card-meta { color:var(--muted); font-size:9px; margin-top:4px; }
+
+.mind-panel { min-height:285px; position:relative; display:grid; grid-template-columns:210px 1fr; }
+.mind-copy { padding:19px 0 18px 21px; position:relative; z-index:2; }
+.mind-copy p { color:var(--muted); font:11px/1.6 var(--serif); }
+.progress-ring { width:106px; height:106px; border-radius:50%; margin:24px 0 15px; display:grid; place-items:center; background:conic-gradient(var(--accent) 0 63%, var(--line-soft) 63% 100%); position:relative; }
+.progress-ring::after { content:""; position:absolute; width:83px; height:83px; border-radius:50%; background:var(--panel); }
+.progress-content { z-index:1; text-align:center; }
+.progress-content small { display:block; color:var(--muted); font-size:9px; }
+.progress-content strong { display:block; font:25px var(--serif); }
+.mist-map { overflow:hidden; display:grid; place-items:center; position:relative; }
+.mist-map::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--panel) 0%, transparent 30%), radial-gradient(circle at 60% 45%, transparent 5%, rgba(29,30,28,.34) 36%, rgba(29,30,28,.9) 85%); pointer-events:none; }
+html[data-theme="light"] .mist-map::after { background:linear-gradient(90deg,var(--panel) 0%, transparent 30%), radial-gradient(circle at 60% 45%, transparent 8%, rgba(247,242,232,.3) 36%, rgba(247,242,232,.88) 85%); }
+.mist-map img { width:115%; opacity:.68; filter:sepia(.5) saturate(.5) contrast(.8); }
+
+.toast { position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); opacity:0; pointer-events:none; z-index:100; background:var(--text); color:var(--bg-deep); border-radius:999px; padding:11px 17px; font-size:11px; box-shadow:var(--shadow); transition:.22s ease; }
+.toast.show { opacity:1; transform:translate(-50%,0); }
+.search-dialog, .info-dialog { width:min(560px,calc(100vw - 30px)); border:1px solid var(--line); border-radius:18px; background:var(--panel); color:var(--text); padding:0; box-shadow:0 24px 90px rgba(0,0,0,.4); }
+dialog::backdrop { background:rgba(8,9,8,.58); backdrop-filter:blur(4px); }
+.search-box { padding:18px; }
+.search-line { display:flex; gap:10px; }
+.search-line input { flex:1; min-width:0; background:var(--panel-2); border:1px solid var(--line); color:var(--text); border-radius:12px; min-height:46px; padding:0 14px; }
+.search-results { margin-top:12px; display:grid; gap:8px; }
+.search-result { border:1px solid var(--line-soft); background:var(--panel-2); border-radius:10px; padding:12px 13px; text-align:left; color:var(--text); cursor:pointer; }
+.dialog-head { display:flex; align-items:center; justify-content:space-between; padding:15px 17px; border-bottom:1px solid var(--line-soft); }
+.dialog-body { padding:17px; font:13px/1.7 var(--serif); }
+
+.menu-overlay { position:fixed; inset:0; z-index:140; background:rgba(8,9,8,.52); backdrop-filter:blur(5px); opacity:0; pointer-events:none; transition:opacity .22s ease; }
+.menu-overlay.open { opacity:1; pointer-events:auto; }
+.menu-sheet { position:absolute; top:0; right:0; width:min(390px,88vw); height:100%; background:var(--panel); border-left:1px solid var(--line); transform:translateX(100%); transition:transform .26s ease; padding:max(18px,env(safe-area-inset-top)) 18px 24px; box-shadow:-22px 0 70px rgba(0,0,0,.28); }
+.menu-overlay.open .menu-sheet { transform:translateX(0); }
+.menu-top { display:flex; align-items:center; justify-content:space-between; padding:0 0 18px; border-bottom:1px solid var(--line-soft); }
+.menu-title { font:18px var(--serif); letter-spacing:.12em; }
+.menu-links { display:grid; gap:8px; padding-top:18px; }
+.menu-link { min-height:54px; border:1px solid var(--line-soft); border-radius:12px; background:var(--panel-2); color:var(--text); text-align:left; padding:0 15px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; }
+.menu-link:active { transform:scale(.99); }
+.menu-meta { margin-top:24px; padding-top:16px; border-top:1px solid var(--line-soft); color:var(--muted); font:11px/1.7 var(--serif); }
+
+button, [role="button"], .library-card, .region-card { -webkit-tap-highlight-color: rgba(184,153,104,.18); touch-action: manipulation; }
+
+@media (max-width: 1080px) {
+  .top-grid, .mid-grid, .bottom-grid { grid-template-columns:1fr; }
+  .bottom-grid { grid-template-columns:1fr; }
+  .timeline-panel, .hero-panel { min-height:520px; }
+  .mind-panel { min-height:300px; }
+}
+@media (max-width: 760px) {
+  body { padding-bottom:72px; }
+  .app-shell { display:block; }
+  .side-nav { position:fixed; left:0; right:0; bottom:0; top:auto; height:68px; z-index:80; border-right:0; border-top:1px solid var(--line-soft); flex-direction:row; padding-bottom:env(safe-area-inset-bottom); }
+  .brand-mark, .nav-spacer { display:none; }
+  .nav-items { width:100%; padding:0; flex-direction:row; }
+  .nav-btn { height:68px; border:0; border-right:1px solid var(--line-soft); font-size:8px; }
+  .nav-btn .nav-icon { font-size:16px; }
+  main { padding:9px; }
+  .top-grid, .mid-grid, .bottom-grid { gap:9px; }
+  .mid-grid, .bottom-grid { margin-top:9px; }
+  .hero-panel { min-height:610px; }
+  .hero-top { padding:18px; }
+  .hero-content { padding:86px 22px 20px; }
+  .hero-content h2 { font-size:38px; }
+  .hero-timeline { left:18px; right:18px; bottom:18px; grid-template-columns:1fr; gap:5px; }
+  .timeline-track { overflow-x:auto; gap:28px; justify-content:flex-start; padding-right:20px; }
+  .timeline-node { min-width:43px; }
+  .timeline-panel { min-height:auto; }
+  .timeline-top { display:block; padding:20px 18px 8px; }
+  .map-frame { width:100%; min-width:0; height:190px; margin-top:8px; }
+  .region-row { grid-template-columns:repeat(5,142px); overflow-x:auto; padding:12px 18px 18px; scroll-snap-type:x mandatory; }
+  .region-card { scroll-snap-align:start; }
+  .detail-panel { grid-template-columns:1fr; }
+  .detail-left { border-right:0; border-bottom:1px solid var(--line-soft); }
+  .detail-right { padding:0 18px 18px; }
+  .graph-wrap { height:460px; }
+  .graph-node { min-width:92px; max-width:112px; font-size:9px; }
+  .library-row { grid-template-columns:repeat(5,150px); overflow-x:auto; }
+  .mind-panel { grid-template-columns:1fr; }
+  .mist-map { position:absolute; inset:0; opacity:.48; }
+  .mind-copy { min-height:310px; padding:20px; }
+  .hero-actions .icon-btn { width:38px; height:38px; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="side-nav" aria-label="メインナビゲーション">
+    <div class="brand-mark"><div class="brand-seal">C</div></div>
+    <div class="nav-items">
+      <button class="nav-btn active" data-scroll="top"><span class="nav-icon">⌂</span><span>HOME</span></button>
+      <button class="nav-btn" data-scroll="timeline"><span class="nav-icon">◷</span><span>TIMELINE</span></button>
+      <button class="nav-btn" data-scroll="library"><span class="nav-icon">▤</span><span>LIBRARY</span></button>
+      <button class="nav-btn" data-scroll="mind"><span class="nav-icon">◎</span><span>MY MAP</span></button>
+    </div>
+    <div class="nav-spacer"></div>
+    <button class="nav-btn" id="profileBtn"><span class="nav-icon">♙</span><span>PROFILE</span></button>
+  </aside>
+
+  <main id="top">
+    <section class="top-grid">
+      <article class="panel hero-panel" aria-labelledby="hero-title">
+        <img class="hero-art" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pieter%20Bruegel%20the%20Elder%20-%20The%20Tower%20of%20Babel%20%28Vienna%29%20-%20Google%20Art%20Project.jpg?width=1600" alt="バベルの塔を描いた歴史画" />
+        <div class="hero-top">
+          <div class="hero-brand"><h1>CHRONOS</h1><p>Understand the World</p></div>
+          <div class="hero-actions">
+            <button class="icon-btn" id="searchBtn" aria-label="検索">⌕</button>
+            <button class="icon-btn" id="bookmarkBtn" aria-label="ブックマーク">♧</button>
+            <button class="icon-btn" id="themeBtn" aria-label="テーマ切替">☼</button>
+            <button class="icon-btn" id="menuBtn" aria-label="メニュー">☰</button>
+          </div>
+        </div>
+        <div class="hero-content">
+          <h2 id="hero-title">世界史を、<br />つながりで理解する</h2>
+          <p>5000年の歴史を、ひとつの物語として。</p>
+          <button class="primary-btn" data-scroll="timeline">はじめる　→</button>
+        </div>
+        <div class="hero-timeline">
+          <div class="hero-timeline-label">TIMELINE</div>
+          <div class="timeline-track" id="heroTimeline"></div>
+        </div>
+      </article>
+
+      <article class="panel timeline-panel" id="timeline" aria-labelledby="timeline-title">
+        <div class="timeline-top">
+          <div class="timeline-title-area">
+            <div class="eyebrow">TIMELINE</div>
+            <div class="year-line"><div class="big-year" id="bigYear">1492</div><span class="year-era" id="yearEra">CE</span></div>
+            <h2 id="timeline-title">大航海時代の幕開けと<br />世界の新たなつながり</h2>
+          </div>
+          <div class="map-frame">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20the%20world.svg?width=1600" alt="世界地図" />
+          </div>
+        </div>
+        <div class="region-row" id="regionRow"></div>
+      </article>
+    </section>
+
+    <section class="mid-grid">
+      <article class="panel detail-panel" id="story">
+        <div class="detail-left">
+          <button class="back-link" data-scroll="timeline">← 出来事に戻る</button>
+          <img id="detailImage" src="https://commons.wikimedia.org/wiki/Special:FilePath/Eug%C3%A8ne%20Delacroix%20-%20Liberty%20Leading%20the%20People.jpeg?width=1600" alt="フランス革命を象徴する絵画" class="detail-image" />
+          <h2 id="detailTitle">フランス革命</h2>
+          <div class="detail-year" id="detailYear">1789</div>
+          <div class="tag-row" id="detailTags"></div>
+          <div class="detail-description" id="detailDescription"></div>
+        </div>
+        <div class="detail-right">
+          <div class="tabs">
+            <button class="tab-btn" data-tab="summary">概要</button>
+            <button class="tab-btn active" data-tab="why">なぜ起きた？</button>
+            <button class="tab-btn" data-tab="after">その後どうなった？</button>
+          </div>
+          <div class="tab-content" id="tabContent"></div>
+        </div>
+      </article>
+
+      <article class="panel graph-panel" aria-labelledby="graph-title">
+        <div class="graph-head"><h2 id="graph-title">つながりを見る</h2><div class="graph-controls"><span>− 縮小</span><span>⌗ 全画面</span></div></div>
+        <div class="graph-wrap" id="graphWrap"><svg class="graph-svg" id="graphSvg" aria-hidden="true"></svg><div class="graph-legend"><span class="legend-line">原因</span><span class="legend-line">結果</span><span class="legend-line">影響</span></div></div>
+      </article>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="panel library-panel" id="library">
+        <div class="library-head"><h2>ライブラリ</h2><button class="back-link" id="showAllBtn">すべて見る →</button></div>
+        <div class="category-tabs" id="categoryTabs"></div>
+        <div class="library-row" id="libraryRow"></div>
+      </article>
+      <article class="panel mind-panel" id="mind">
+        <div class="mind-copy">
+          <div class="mind-head"><h2>理解マップ</h2></div>
+          <p>理解が深まるほど、世界の霧が晴れていきます。</p>
+          <div class="progress-ring"><div class="progress-content"><small>総合理解度</small><strong>63%</strong></div></div>
+          <button class="secondary-btn" id="learningBtn">学習の記録を見る →</button>
+        </div>
+        <div class="mist-map" aria-hidden="true"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blank%20map%20of%20the%20world.svg?width=1600" alt="" /></div>
+      </article>
+    </section>
+  </main>
+</div>
+
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+  <aside class="menu-sheet" aria-label="メニュー">
+    <div class="menu-top"><div class="menu-title">CHRONOS</div><button class="icon-btn" id="menuCloseBtn" aria-label="閉じる">×</button></div>
+    <div class="menu-links">
+      <button class="menu-link" data-menu-scroll="top"><span>ホーム</span><span>→</span></button>
+      <button class="menu-link" data-menu-scroll="timeline"><span>タイムライン</span><span>→</span></button>
+      <button class="menu-link" data-menu-scroll="story"><span>WHY — 因果関係</span><span>→</span></button>
+      <button class="menu-link" data-menu-scroll="library"><span>ライブラリ</span><span>→</span></button>
+      <button class="menu-link" data-menu-scroll="mind"><span>理解マップ</span><span>→</span></button>
+      <button class="menu-link" id="menuSearchBtn"><span>検索</span><span>⌕</span></button>
+      <button class="menu-link" id="menuThemeBtn"><span>ダーク / アイボリー切替</span><span>☼</span></button>
+    </div>
+    <div class="menu-meta">歴史を年号の暗記ではなく、「なぜ起きた？」「その結果どうなった？」のつながりで理解するための探索型プロトタイプです。</div>
+  </aside>
+</div>
+
+<div class="toast" id="toast"></div>
+<dialog class="search-dialog" id="searchDialog"><div class="search-box"><div class="search-line"><input id="searchInput" type="search" placeholder="人物・出来事・文明を検索" autocomplete="off" /><button class="icon-btn" id="closeSearch" aria-label="閉じる">×</button></div><div class="search-results" id="searchResults"></div></div></dialog>
+<dialog class="info-dialog" id="infoDialog"><div class="dialog-head"><strong id="infoTitle"></strong><button class="icon-btn" id="closeInfo" aria-label="閉じる">×</button></div><div class="dialog-body" id="infoBody"></div></dialog>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const toast = (msg) => { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(window.__toast); window.__toast = setTimeout(()=>el.classList.remove('show'),1900); };
+const scrollToId = id => document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+
+const timelinePoints = [
+  {label:'BC3000', year:'BC3000', title:'都市と文明の誕生'},
+  {label:'0', year:'1', title:'古代世界の交差点'},
+  {label:'500', year:'476', title:'西ローマ帝国の崩壊'},
+  {label:'1000', year:'1000', title:'交易圏が結ばれる世界'},
+  {label:'1500', year:'1492', title:'大航海時代の幕開け'},
+  {label:'1800', year:'1789', title:'革命と国民国家'},
+  {label:'1900', year:'1914', title:'世界大戦の時代'},
+  {label:'2026', year:'2026', title:'つながり続ける現代世界'}
+];
+const regionData = {
+  'BC3000': [
+    ['メソポタミア','都市国家と文字'],['エジプト','王権とナイル文明'],['南アジア','インダス文明への道'],['東アジア','黄河流域の農耕社会'],['ヨーロッパ','巨石文化と農耕']
+  ],
+  '1': [
+    ['地中海','ローマ帝国の拡大'],['中国','漢帝国'],['南アジア','サータヴァーハナ朝'],['中東','ローマとパルティアの境界'],['アフリカ','アクスムの成長']
+  ],
+  '476': [
+    ['西欧','西ローマ帝国が終焉'],['東欧','東ローマ帝国が存続'],['東アジア','南北朝時代'],['南アジア','グプタ朝の時代'],['中東','ササン朝ペルシア']
+  ],
+  '1000': [
+    ['西欧','中世王国と教会'],['東アジア','宋の経済発展'],['中東','イスラム圏の知的繁栄'],['アフリカ','サハラ交易'],['アメリカ','マヤ都市の変容']
+  ],
+  '1492': [
+    ['ヨーロッパ','コロンブス、大西洋航路へ'],['アジア','明の時代（中国）'],['アフリカ','ベニン王国の繁栄'],['中東','オスマン帝国の拡大'],['アメリカ','アステカ帝国の繁栄']
+  ],
+  '1789': [
+    ['フランス','フランス革命'],['北米','合衆国憲法体制'],['東アジア','清の乾隆帝期'],['南アジア','英東インド会社の拡大'],['中東','オスマン帝国']
+  ],
+  '1914': [
+    ['ヨーロッパ','第一次世界大戦'],['中東','オスマン帝国が参戦'],['東アジア','日本がドイツ権益を攻撃'],['アフリカ','植民地戦線'],['世界','帝国ネットワークが総力戦へ']
+  ],
+  '2026': [
+    ['欧州','安全保障秩序の再編'],['東アジア','技術と地政学'],['中東','国家と地域秩序'],['アフリカ','人口・都市化の進行'],['世界','AIとエネルギー転換']
+  ]
+};
+
+const libraryItems = [
+  ['人物','レオナルド・ダ・ヴィンチ','1452–1519','ルネサンス'],
+  ['文明','ローマ帝国','BC27–476','帝国'],
+  ['戦争','十字軍','1095–1291','宗教・交易'],
+  ['思想・文化','ルネサンス','14世紀–16世紀','文化'],
+  ['技術','産業革命','18世紀後半–19世紀','技術・経済'],
+  ['人物','ナポレオン','1769–1821','革命'],
+  ['宗教','宗教改革','1517–','宗教・政治'],
+  ['文明','モンゴル帝国','1206–1368','交易・帝国']
+];
+
+function artPlaceholder(title, subtitle='CHRONOS') {
+  const safe = String(title).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const sub = String(subtitle).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3b3327"/><stop offset=".55" stop-color="#7a6246"/><stop offset="1" stop-color="#24231f"/></linearGradient><filter id="n"><feTurbulence baseFrequency=".55" numOctaves="3" stitchTiles="stitch"/><feBlend mode="soft-light" in2="SourceGraphic"/></filter></defs><rect width="900" height="650" fill="url(#g)"/><circle cx="690" cy="170" r="170" fill="#b89968" opacity=".14"/><path d="M0 510 C190 390 270 560 450 455 S720 385 900 500 V650 H0Z" fill="#141512" opacity=".42"/><rect x="0" y="0" width="900" height="650" filter="url(#n)" opacity=".15"/><text x="52" y="540" fill="#eee2cd" font-family="Georgia,serif" font-size="44">${safe}</text><text x="55" y="580" fill="#d0b88e" font-family="Georgia,serif" font-size="17" letter-spacing="6">${sub}</text></svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
+const events = {
+  'フランス革命': {
+    year:'1789', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Eug%C3%A8ne%20Delacroix%20-%20Liberty%20Leading%20the%20People.jpeg?width=1600', tags:['革命','政治','ヨーロッパ'],
+    desc:'国民の自由と平等を求めた大規模な革命。旧体制への不満、財政危機、啓蒙思想、アメリカ独立革命など複数の要因が重なった。',
+    summary:'王権・身分制・財政危機・新しい政治思想が衝突し、フランスの政治秩序を大きく組み替えた出来事です。',
+    causes:['絶対王政のもと、国民に重い税負担','貴族・聖職者には特権が残る','啓蒙思想の広がり（自由・平等・人権）','アメリカ独立革命の影響','国家財政の危機と食料価格の上昇','「王様は本当に必要か？」という問いの高まり'],
+    effects:['王政の廃止と共和国の成立','ナポレオンの台頭','法の下の平等という理念の拡散','ヨーロッパ各地の革命運動','国民国家・ナショナリズムの成長'],
+    graph:{nodes:[
+      ['center','フランス革命\n1789',50,50],['enlight','啓蒙思想\n18世紀',50,13],['america','アメリカ独立革命\n1776',25,27],['finance','財政危機と重税',18,56],['rights','人権思想の拡大',35,82],['napoleon','ナポレオンの登場\n1799',70,61],['nation','国民国家の形成\n19世紀',80,29],['revolts','ヨーロッパの革命運動',72,84]
+    ]},
+    edges:[['enlight','center'],['america','center'],['finance','center'],['center','rights'],['center','napoleon'],['center','nation'],['rights','revolts'],['napoleon','revolts'],['nation','revolts']]
+  },
+  '西ローマ帝国の崩壊': {
+    year:'476', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Alexandre%20Calame%2C%20Roman%20Ruins%2C%201845%2C%20NGA%20152404.jpg?width=1600', tags:['帝国','政治','ヨーロッパ'],
+    desc:'西ローマ皇帝が廃位され、西側の帝国統治が終わったとされる象徴的な年。実際には長い政治・軍事・経済変化の結果でした。',
+    summary:'一夜で帝国が消えたのではなく、統治能力の低下、軍事負担、権力争い、移住と侵入などが長期的に重なりました。',
+    causes:['帝国の東西分割で西側の財政基盤が弱まった','軍事費と行政コストが増大した','皇帝・軍人の権力争いが続いた','ゲルマン系諸集団の移住と軍事圧力が増えた','西側で中央政府の統制が弱まった'],
+    effects:['西ヨーロッパで複数の王国が成立した','キリスト教会が広域ネットワークとして重要になった','東ローマ帝国はその後も長く存続した','古代の制度と中世の社会秩序が混ざりながら再編された'], graph:null
+  },
+  '第一次世界大戦': {
+    year:'1914', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Painting%20of%20factory%20workers%20by%20Toni%20Anton%20Wolter.jpg?width=1600', tags:['戦争','帝国','世界'],
+    desc:'ヨーロッパの大国間対立が帝国ネットワークを通じて世界規模へ広がった総力戦。',
+    summary:'暗殺事件は引き金であり、その背後には同盟、軍拡、帝国主義、ナショナリズムなど長期的な緊張がありました。',
+    causes:['列強間の軍拡競争','複雑な同盟関係','帝国主義をめぐる競争','民族主義とバルカン半島の緊張','サラエボ事件が連鎖を起動'],
+    effects:['数百万人規模の犠牲','複数の帝国が崩壊','ヴェルサイユ体制','中東の国境秩序が変化','第二次世界大戦につながる不安定さ'], graph:null
+  }
+};
+
+function initTheme(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('chronos-theme');
+  if(saved) root.dataset.theme=saved;
+  else if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
+  const update=()=>{ $('#themeBtn').textContent=root.dataset.theme==='light'?'◐':'☼'; document.querySelector('meta[name="theme-color"]').setAttribute('content', root.dataset.theme==='light'?'#eee8dc':'#171817'); };
+  update();
+  const toggle=()=>{ root.dataset.theme=root.dataset.theme==='light'?'dark':'light'; localStorage.setItem('chronos-theme',root.dataset.theme); update(); toast(root.dataset.theme==='light'?'アイボリーモード':'ダークモード'); };
+  $('#themeBtn').addEventListener('click',toggle); $('#menuThemeBtn').addEventListener('click',()=>{ toggle(); closeMenu(); });
+}
+function initMenu(){
+  const overlay=$('#menuOverlay');
+  const openMenu=()=>{ overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+  window.closeMenu=()=>{ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+  $('#menuBtn').addEventListener('click',openMenu); $('#menuCloseBtn').addEventListener('click',closeMenu);
+  overlay.addEventListener('click',e=>{ if(e.target===overlay) closeMenu(); });
+  $$('[data-menu-scroll]').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.menuScroll; closeMenu(); setTimeout(()=>scrollToId(id),80); }));
+  $('#menuSearchBtn').addEventListener('click',()=>{ closeMenu(); setTimeout(()=>openSearch(),100); });
+}
+function initScrollNav(){
+  $$('[data-scroll]').forEach(btn=>btn.addEventListener('click',()=>scrollToId(btn.dataset.scroll)));
+  if(!('IntersectionObserver' in window)) return;
+  const sections=['top','timeline','library','mind'].map(id=>document.getElementById(id)).filter(Boolean);
+  const obs=new IntersectionObserver(entries=>{ const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0]; if(!v)return; $$('.nav-btn[data-scroll]').forEach(b=>b.classList.toggle('active',b.dataset.scroll===v.target.id)); },{threshold:[.2,.5]});
+  sections.forEach(s=>obs.observe(s));
+}
+function initTimeline(){
+  const wrap=$('#heroTimeline');
+  wrap.innerHTML=timelinePoints.map(p=>`<button class="timeline-node ${p.year==='1492'?'active':''}" data-year="${p.year}">${p.label}</button>`).join('');
+  wrap.addEventListener('click',e=>{ const b=e.target.closest('[data-year]'); if(!b)return; selectYear(b.dataset.year,true); });
+  selectYear('1492',false);
+}
+function selectYear(year,shouldScroll){
+  $$('.timeline-node').forEach(n=>n.classList.toggle('active',n.dataset.year===year));
+  const p=timelinePoints.find(x=>x.year===year); $('#bigYear').textContent=year==='BC3000'?'3000':year; $('#yearEra').textContent=year==='BC3000'?'BCE':'CE'; $('#timeline-title').innerHTML=p.title.replace('と','と<br>'); renderRegions(year); if(shouldScroll) scrollToId('timeline');
+}
+function renderRegions(year){
+  const data=regionData[year]||regionData['1492'];
+  $('#regionRow').innerHTML=data.map(([region,title],i)=>`<button class="region-card" data-title="${title}"><span class="region-label">${region}</span><img class="region-image" src="${artPlaceholder(title,region)}" alt="${title}"><div class="region-info"><div class="region-year">${year==='BC3000'?'BC3000':year}</div><div class="region-title">${title}</div></div></button>`).join('');
+  $$('.region-card').forEach(card=>card.addEventListener('click',()=>{ const title=card.dataset.title; if(title.includes('フランス革命')) showEvent('フランス革命'); else if(title.includes('西ローマ')) showEvent('西ローマ帝国の崩壊'); else if(title.includes('第一次世界大戦')) showEvent('第一次世界大戦'); else openInfo(title,`${title}を「なぜ起きた？」「その後どうなった？」の因果関係データへつなげる設計です。完全版では、このカードから同時代の他地域へ横断できます。`); }));
+}
+function initTabs(){ $$('.tab-btn').forEach(b=>b.addEventListener('click',()=>{ $$('.tab-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderEventTab(b.dataset.tab); })); showEvent('フランス革命',false); }
+let currentEvent='フランス革命';
+function showEvent(name,scroll=true){
+  const ev=events[name]; if(!ev)return; currentEvent=name; $('#detailImage').src=ev.image; $('#detailTitle').textContent=name; $('#detailYear').textContent=ev.year; $('#detailTags').innerHTML=ev.tags.map(t=>`<span class="tag">${t}</span>`).join(''); $('#detailDescription').textContent=ev.desc; const active=$('.tab-btn.active')?.dataset.tab||'why'; renderEventTab(active); renderGraph(ev.graph, ev.edges); if(scroll) scrollToId('story');
+}
+function renderEventTab(tab){
+  const ev=events[currentEvent]; const el=$('#tabContent');
+  if(tab==='summary'){ el.innerHTML=`<h3>概要</h3><p class="detail-description" style="font-size:14px">${ev.summary}</p>`; return; }
+  const arr=tab==='why'?ev.causes:ev.effects; el.innerHTML=`<h3>${tab==='why'?'なぜ起きた？':'その後どうなった？'}</h3><div class="cause-list">${arr.map((x,i)=>`<div class="cause-item ${i===arr.length-1&&tab==='why'?'key':''}">${x}</div>`).join('')}</div>`;
+}
+function renderGraph(graph, edges=[]){
+  const wrap=$('#graphWrap'); wrap.querySelectorAll('.graph-node').forEach(n=>n.remove()); const svg=$('#graphSvg'); svg.innerHTML='';
+  if(!graph){ wrap.insertAdjacentHTML('beforeend','<button class="graph-node center" style="left:50%;top:50%" id="graphFallback">別の出来事との<br>つながりを見る</button>'); $('#graphFallback').addEventListener('click',()=>showEvent('フランス革命')); return; }
+  const pos={}; graph.nodes.forEach(([id,label,x,y])=>{ pos[id]=[x,y]; const b=document.createElement('button'); b.className='graph-node '+(id==='center'?'center':''); b.style.left=x+'%'; b.style.top=y+'%'; b.innerHTML=label.replace('\n','<br>'); b.addEventListener('click',()=>toast(label.replace('\n',' — '))); wrap.appendChild(b); });
+  const pairs=Array.isArray(edges)?edges:[];
+  pairs.forEach(([a,b])=>{ if(!pos[a]||!pos[b]) return; const line=document.createElementNS('http://www.w3.org/2000/svg','line'); line.setAttribute('x1',pos[a][0]+'%'); line.setAttribute('y1',pos[a][1]+'%'); line.setAttribute('x2',pos[b][0]+'%'); line.setAttribute('y2',pos[b][1]+'%'); svg.appendChild(line); });
+}
+function initLibrary(){
+  const cats=['人物','文明','戦争','思想・文化','技術','宗教']; $('#categoryTabs').innerHTML=cats.map((c,i)=>`<button class="category-btn ${i===0?'active':''}" data-cat="${c}">${c}</button>`).join('');
+  const render=cat=>{ let arr=libraryItems.filter(x=>x[0]===cat); if(arr.length<5) arr=[...arr,...libraryItems.filter(x=>x[0]!==cat)].slice(0,5); $('#libraryRow').innerHTML=arr.map(([category,title,date,meta])=>`<article class="library-card" tabindex="0" data-library="${title}"><img src="${artPlaceholder(title,meta)}" alt="${title}"><div class="library-card-content"><div class="library-card-title">${title}</div><div class="library-card-meta">${date}</div></div></article>`).join(''); $$('.library-card').forEach(c=>{ const open=()=>{ const t=c.dataset.library; if(t==='産業革命') openInfo('産業革命','蒸気機関だけではなく、資本・労働・植民地・輸送・科学技術が結びついて社会全体を変えた転換です。'); else openInfo(t,'この項目から、人物・文明・戦争・思想・技術を横断して因果関係をたどれます。'); }; c.addEventListener('click',open); c.addEventListener('keydown',e=>{if(e.key==='Enter')open();}); }); };
+  render('人物'); $$('.category-btn').forEach(b=>b.addEventListener('click',()=>{ $$('.category-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(b.dataset.cat); })); $('#showAllBtn').addEventListener('click',()=>openInfo('ライブラリ','完全版では、すべての人物・文明・戦争・思想・技術・宗教を一つの知識ネットワークとして検索できます。'));
+}
+function safeShow(dialog){ try{ if(typeof dialog.showModal==='function') dialog.showModal(); else dialog.setAttribute('open',''); }catch(_){ dialog.setAttribute('open',''); } }
+function safeClose(dialog){ try{ dialog.close(); }catch(_){ dialog.removeAttribute('open'); } }
+function openSearch(){ safeShow($('#searchDialog')); setTimeout(()=>$('#searchInput').focus(),50); renderSearch(''); }
+function initSearch(){ $('#searchBtn').addEventListener('click',openSearch); $('#closeSearch').addEventListener('click',()=>safeClose($('#searchDialog'))); $('#searchInput').addEventListener('input',e=>renderSearch(e.target.value)); $('#searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ const first=$('.search-result'); if(first) first.click(); }}); }
+function renderSearch(q){ const pool=[...Object.keys(events),...libraryItems.map(x=>x[1]),'ローマ帝国','モンゴル帝国','宗教改革','大航海時代']; const res=[...new Set(pool)].filter(x=>!q||x.toLowerCase().includes(q.toLowerCase())).slice(0,7); $('#searchResults').innerHTML=res.map(x=>`<button class="search-result" data-result="${x}"><strong>${x}</strong><br><span class="muted">歴史のつながりを見る</span></button>`).join(''); $$('.search-result').forEach(b=>b.addEventListener('click',()=>{ safeClose($('#searchDialog')); if(events[b.dataset.result])showEvent(b.dataset.result); else openInfo(b.dataset.result,'関連する出来事・人物・文明を「原因 → 出来事 → 結果」で探索します。'); })); }
+function openInfo(title,body){ $('#infoTitle').textContent=title; $('#infoBody').textContent=body; safeShow($('#infoDialog')); }
+function initMisc(){
+  $('#closeInfo').addEventListener('click',()=>safeClose($('#infoDialog')));
+  $('#bookmarkBtn').addEventListener('click',function(){ this.textContent=this.textContent==='♧'?'♥':'♧'; toast(this.textContent==='♥'?'保存しました':'保存を解除しました'); });
+  $('#learningBtn').addEventListener('click',()=>openInfo('学習の記録','今の理解度は63%。次は「イスラム世界 → 十字軍 → 交易 → ルネサンス」のつながりを学ぶと、別々だった知識が一本につながります。'));
+  $('#profileBtn').addEventListener('click',()=>openInfo('MY CHRONOS','理解度 63%\n\n学んだ出来事：フランス革命、西ローマ帝国、第一次世界大戦。\n完全版では、理解できた因果関係だけ世界地図の霧が晴れます。'));
+}
+
+initTheme(); initMenu(); initScrollNav(); initTimeline(); initTabs(); initGraphSafe(); initLibrary(); initSearch(); initMisc();
+function initGraphSafe(){ try{ const ev=events[currentEvent]; renderGraph(ev.graph,ev.edges); }catch(err){ console.error(err); } }
+</script>
+</body>
+</html>
