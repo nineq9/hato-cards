@@ -1,0 +1,36 @@
+name: HATO validate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hato-media/**'
+      - '.github/workflows/hato-validate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate HATO app JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat hato-media/app-parts/part-{01..08}.txt > /tmp/hato-app.js
+          node --check /tmp/hato-app.js
+      - name: Validate HATO page shell
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'id="todayView"' hato-media/index.html
+          grep -q 'id="feed"' hato-media/index.html
+          grep -q 'id="miniPlayer"' hato-media/index.html
+          grep -q 'loadParts' hato-media/index.html
+          echo 'HATO shell present'
