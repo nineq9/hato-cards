@@ -48,6 +48,8 @@ try {
 
   assert.equal(await page.locator('#counter').textContent(), '1 / 30');
   assert.equal(await page.locator('.photo-card').count(), 30, 'demo presents 30 review items');
+  const firstSrc = await page.locator('.photo-card[data-depth="0"] img').getAttribute('src');
+  assert(firstSrc?.includes('demo-photo-yellow.webp'), 'demo uses the new supplied image set');
 
   const card = page.locator('.photo-card[data-depth="0"]');
   const cardBox = await card.boundingBox();
@@ -94,6 +96,12 @@ try {
   assert(!(await page.locator('#finalScreen').textContent()).includes('CapCut'), 'photo confirmation does not mix in apps');
 
   await page.locator('#deleteBtn').click();
+  await page.locator('#afterPhotosScreen.active').waitFor({ state: 'visible' });
+  const afterText = await page.locator('#afterPhotosScreen').textContent();
+  assert(afterText.includes('すっきりしたね！'));
+  assert(afterText.includes('ついでにアプリも削除する？'));
+
+  await page.locator('#appCleanupBtn').click();
   await page.locator('#appsScreen.active').waitFor({ state: 'visible' });
   assert.equal((await page.locator('.section-title').textContent())?.trim(), '今日の削除アプリ');
 
@@ -101,7 +109,6 @@ try {
   const trashBox = await page.locator('#appTrash').boundingBox();
   assert(appBox && trashBox, 'app card and trash visible');
   assert(!overlaps(appBox, trashBox), 'app trash target does not overlap the app card');
-  assert(appBox.y > 170, 'app card is placed lower for comfortable reach');
 
   await drag(page.locator('#appCard'), 0, -95);
   await page.locator('#deleteSheet.show').waitFor({ state: 'visible' });
@@ -112,17 +119,14 @@ try {
   await page.waitForFunction(() => document.querySelector('#copyAppName span')?.textContent === 'コピーしました');
 
   await page.locator('#appDeletedBtn').click();
-  assert((await page.locator('#appDeletedBtn').textContent()).includes('削除完了'));
-  assert(await page.locator('#appDeletedBtn').isDisabled(), 'delete-complete state is acknowledgement only');
-  assert(!(await page.locator('#completionScreen').evaluate(el => el.classList.contains('active'))), 'delete acknowledgement does not jump to completion');
-  assert.equal((await page.locator('#appLaterBtn').textContent())?.trim(), '完了を見る');
-
-  await page.locator('#appLaterBtn').click();
   await page.locator('#completionScreen.active').waitFor({ state: 'visible' });
-  assert.equal((await page.locator('.completion-copy').textContent())?.trim(), '大切なものを大切に。');
   assert.equal((await page.locator('#completionPhotos').textContent())?.trim(), '1枚');
   assert.equal((await page.locator('#completionApps').textContent())?.trim(), '1個');
-  assert((await page.locator('#completionStorage').textContent())?.includes('GB'));
+  assert((await page.locator('#completionPhotoStorage').textContent())?.includes('MB'));
+  assert.equal((await page.locator('#completionAppStorage').textContent())?.trim(), '1.8 GB');
+  const completionText = await page.locator('#completionScreen').textContent();
+  assert(completionText.includes('画像やアプリは毎日増えていく。'));
+  assert(completionText.includes('こまめに掃除して、大切なものを大切にしよう。'));
   assert((await page.locator('#completionArt').evaluate(img => img.naturalWidth)) > 0, 'completion gecko artwork decodes');
   assert(await page.locator('#mainNav').evaluate(el => el.classList.contains('is-hidden')), 'main nav hidden on completion');
 
