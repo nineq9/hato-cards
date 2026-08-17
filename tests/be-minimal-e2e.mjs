@@ -49,7 +49,7 @@ try {
   assert.equal(await page.locator('#counter').textContent(), '1 / 30');
   assert.equal(await page.locator('.photo-card').count(), 30, 'demo presents 30 review items');
   const firstSrc = await page.locator('.photo-card[data-depth="0"] img').getAttribute('src');
-  assert(firstSrc?.includes('demo-photo-yellow.webp'), 'demo uses the new supplied image set');
+  assert(firstSrc?.includes('demo-photo-yellow.webp'), 'demo uses the supplied image set');
 
   const card = page.locator('.photo-card[data-depth="0"]');
   const cardBox = await card.boundingBox();
@@ -59,6 +59,13 @@ try {
     assert(targetBox, `${selector} visible`);
     assert(!overlaps(cardBox, targetBox), `${selector} must not overlap resting photo card`);
   }
+  const trashBox = await page.locator('.review-target-trash').boundingBox();
+  const saveBox = await page.locator('.review-target-keep').boundingBox();
+  const reconsiderBox = await page.locator('.review-target-later').boundingBox();
+  assert(trashBox && saveBox && reconsiderBox);
+  assert(trashBox.x < cardBox.x, 'delete target is left of card');
+  assert(saveBox.x > cardBox.x + cardBox.width, 'save target is right of card');
+  assert(reconsiderBox.y < cardBox.y, 'reconsider target is above card');
 
   await card.click();
   await page.locator('#viewer.show').waitFor({ state: 'visible' });
@@ -67,30 +74,44 @@ try {
   assert.equal(await page.locator('#counter').textContent(), '1 / 30', 'preview does not classify photo');
   assert.equal(await page.locator('.photo-card').count(), 30, 'preview does not remove photo');
 
+  // LEFT = delete.
   await drag(page.locator('.photo-card[data-depth="0"]'), -105, 0);
   await waitCounter('2 / 30');
   await waitCardCount(29);
-  await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
+
+  // The portrait window image should fill the card instead of leaving side gutters.
+  const portraitMedia = page.locator('.photo-card[data-depth="0"] .photo-media');
+  await portraitMedia.waitFor({ state: 'visible' });
+  assert.equal(await portraitMedia.evaluate(el => getComputedStyle(el).objectFit), 'cover');
+  assert(!(await portraitMedia.evaluate(el => el.classList.contains('is-landscape'))), 'portrait media is not treated as landscape');
+
+  // RIGHT = keep/save.
+  await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
   await waitCounter('3 / 30');
   await waitCardCount(28);
-  await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
-  await waitCardCount(27);
-  assert.equal(await page.locator('#counter').textContent(), '3 / 30', 'later does not advance resolved progress');
 
+  // UP = reconsider later, so resolved progress does not advance.
+  await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
+  await waitCardCount(27);
+  assert.equal(await page.locator('#counter').textContent(), '3 / 30', 'reconsider does not advance resolved progress');
+
+  // Resolve the remaining fresh pass with RIGHT = save.
   for (let i = 0; i < 27; i++) {
-    await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
+    await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
     await waitCounter(`${Math.min(4 + i, 30)} / 30`);
     if (i < 26) await waitCardCount(26 - i);
   }
   await waitCardCount(1);
   assert.equal(await page.locator('.photo-card').count(), 1, 'deferred photo returns after the fresh pass');
 
-  await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
+  // Reconsidering again loops the unresolved photo.
+  await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
   await page.waitForTimeout(240);
   assert.equal(await page.locator('#counter').textContent(), '30 / 30');
-  assert.equal(await page.locator('.photo-card').count(), 1, 'choosing later again loops the same unresolved photo');
+  assert.equal(await page.locator('.photo-card').count(), 1, 'reconsider loops the same unresolved photo');
 
-  await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
+  // Finally resolve it with RIGHT = save.
+  await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
   await page.locator('#finalScreen.active').waitFor({ state: 'visible' });
   assert((await page.locator('#finalScreen').textContent()).includes('写真・動画 1枚'));
   assert(!(await page.locator('#finalScreen').textContent()).includes('CapCut'), 'photo confirmation does not mix in apps');
@@ -106,9 +127,9 @@ try {
   assert.equal((await page.locator('.section-title').textContent())?.trim(), '今日の削除アプリ');
 
   const appBox = await page.locator('#appCard').boundingBox();
-  const trashBox = await page.locator('#appTrash').boundingBox();
-  assert(appBox && trashBox, 'app card and trash visible');
-  assert(!overlaps(appBox, trashBox), 'app trash target does not overlap the app card');
+  const appTrashBox = await page.locator('#appTrash').boundingBox();
+  assert(appBox && appTrashBox, 'app card and trash visible');
+  assert(!overlaps(appBox, appTrashBox), 'app trash target does not overlap the app card');
 
   await drag(page.locator('#appCard'), 0, -95);
   await page.locator('#deleteSheet.show').waitFor({ state: 'visible' });
