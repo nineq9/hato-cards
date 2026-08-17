@@ -30,7 +30,7 @@ struct ThrowCard: View {
             .scaleEffect(scale)
             .opacity(opacity)
             .contentShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-            .simultaneousGesture(horizontalCardGesture)
+            .simultaneousGesture(cardDragGesture)
             .onTapGesture {
                 guard !isResolving && !longPressTriggered else { return }
                 onTap()
@@ -48,35 +48,36 @@ struct ThrowCard: View {
             .accessibilityAction(named: "残して次へ") { onPass() }
     }
 
-    private var horizontalCardGesture: some Gesture {
-        DragGesture(minimumDistance: 6, coordinateSpace: .local)
+    // Apple-like direct manipulation: the card starts following the finger immediately.
+    // We deliberately do NOT reject diagonal drags by comparing x/y angles.
+    // The action is resolved from horizontal distance, predicted end position, and velocity.
+    private var cardDragGesture: some Gesture {
+        DragGesture(minimumDistance: 4, coordinateSpace: .local)
             .onChanged { value in
                 guard !isResolving else { return }
 
                 let dx = value.translation.width
                 let dy = value.translation.height
-                guard abs(dx) > abs(dy) * 1.05 else { return }
-
                 let resistedX = resistance(dx)
-                offset = CGSize(width: resistedX, height: dy * 0.06)
-                rotation = Double(max(-6, min(6, resistedX / 28)))
-                scale = 1 - min(0.032, abs(resistedX) / 3200)
+
+                offset = CGSize(
+                    width: resistedX,
+                    height: dy * verticalFollow(for: dx, dy: dy)
+                )
+                rotation = Double(max(-6.5, min(6.5, resistedX / 27)))
+                scale = 1 - min(0.034, abs(resistedX) / 3000)
             }
             .onEnded { value in
                 guard !isResolving else { return }
 
                 let dx = value.translation.width
-                let dy = value.translation.height
-                guard abs(dx) > abs(dy) * 0.9 else {
-                    restore()
-                    return
-                }
-
                 let predictedX = value.predictedEndTranslation.width
-                if dx < -82 || predictedX < -150 {
-                    dismiss(to: .left)
-                } else if dx > 82 || predictedX > 150 {
-                    dismiss(to: .right)
+                let velocityX = value.velocity.width
+
+                if shouldCommitLeft(dx: dx, predictedX: predictedX, velocityX: velocityX) {
+                    dismiss(to: .left, vertical: value.translation.height)
+                } else if shouldCommitRight(dx: dx, predictedX: predictedX, velocityX: velocityX) {
+                    dismiss(to: .right, vertical: value.translation.height)
                 } else {
                     restore()
                 }
@@ -88,15 +89,30 @@ struct ThrowCard: View {
         case right
     }
 
+    private func shouldCommitLeft(dx: CGFloat, predictedX: CGFloat, velocityX: CGFloat) -> Bool {
+        dx <= -64 || predictedX <= -118 || velocityX <= -620
+    }
+
+    private func shouldCommitRight(dx: CGFloat, predictedX: CGFloat, velocityX: CGFloat) -> Bool {
+        dx >= 64 || predictedX >= 118 || velocityX >= 620
+    }
+
+    private func verticalFollow(for dx: CGFloat, dy: CGFloat) -> CGFloat {
+        // Follow diagonal finger movement enough to feel direct, but keep the card's semantic axis horizontal.
+        // A nearly vertical drag therefore moves only a little and springs back instead of firing accidentally.
+        let horizontalIntent = min(1, abs(dx) / max(abs(dy), 1))
+        return 0.08 + 0.22 * horizontalIntent
+    }
+
     private func resistance(_ value: CGFloat) -> CGFloat {
         let sign: CGFloat = value < 0 ? -1 : 1
         let magnitude = abs(value)
-        if magnitude < 180 { return value * 0.94 }
-        return sign * (169.2 + (magnitude - 180) * 0.42)
+        if magnitude < 190 { return value * 0.97 }
+        return sign * (184.3 + (magnitude - 190) * 0.44)
     }
 
     private func restore() {
-        withAnimation(.interactiveSpring(response: 0.28, dampingFraction: 0.86, blendDuration: 0.08)) {
+        withAnimation(.interactiveSpring(response: 0.30, dampingFraction: 0.84, blendDuration: 0.08)) {
             offset = .zero
             rotation = 0
             scale = 1
@@ -104,7 +120,7 @@ struct ThrowCard: View {
         }
     }
 
-    private func dismiss(to direction: Direction) {
+    private func dismiss(to direction: Direction, vertical: CGFloat) {
         isResolving = true
 
         let isDiscard = direction == .left
@@ -114,17 +130,18 @@ struct ThrowCard: View {
             UISelectionFeedbackGenerator().selectionChanged()
         }
 
-        let targetX: CGFloat = direction == .left ? -720 : 720
+        let targetX: CGFloat = direction == .left ? -760 : 760
         let targetRotation: Double = direction == .left ? -7 : 7
+        let carriedY = max(-90, min(90, vertical * 0.20))
 
-        withAnimation(.easeOut(duration: 0.18)) {
-            offset = CGSize(width: targetX, height: -8)
+        withAnimation(.easeOut(duration: 0.19)) {
+            offset = CGSize(width: targetX, height: carriedY)
             rotation = targetRotation
             scale = 0.97
-            opacity = 0.04
+            opacity = 0.03
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.19) {
             if isDiscard {
                 onDiscard()
             } else {
