@@ -32,6 +32,10 @@ async function waitCounter(text) {
   await page.waitForFunction(expected => document.querySelector('#counter')?.textContent === expected, text);
 }
 
+async function waitCardCount(count) {
+  await page.waitForFunction(expected => document.querySelectorAll('.photo-card').length === expected, count);
+}
+
 try {
   await page.goto('http://127.0.0.1:4173/demos/be-minimal/', { waitUntil: 'networkidle' });
 
@@ -63,20 +67,25 @@ try {
 
   await drag(page.locator('.photo-card[data-depth="0"]'), -105, 0);
   await waitCounter('2 / 30');
+  await waitCardCount(29);
   await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
   await waitCounter('3 / 30');
+  await waitCardCount(28);
   await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
-  await waitCounter('3 / 30');
-  assert.equal(await page.locator('.photo-card').count(), 27, 'deferred photo leaves the fresh pass but does not count as resolved');
+  await waitCardCount(27);
+  assert.equal(await page.locator('#counter').textContent(), '3 / 30', 'later does not advance resolved progress');
 
   for (let i = 0; i < 27; i++) {
     await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
     await waitCounter(`${Math.min(4 + i, 30)} / 30`);
+    if (i < 26) await waitCardCount(26 - i);
   }
+  await waitCardCount(1);
   assert.equal(await page.locator('.photo-card').count(), 1, 'deferred photo returns after the fresh pass');
 
   await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
-  await waitCounter('30 / 30');
+  await page.waitForTimeout(240);
+  assert.equal(await page.locator('#counter').textContent(), '30 / 30');
   assert.equal(await page.locator('.photo-card').count(), 1, 'choosing later again loops the same unresolved photo');
 
   await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
