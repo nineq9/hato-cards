@@ -28,6 +28,10 @@ function overlaps(a, b) {
   return !(a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y);
 }
 
+async function waitCounter(text) {
+  await page.waitForFunction(expected => document.querySelector('#counter')?.textContent === expected, text);
+}
+
 try {
   await page.goto('http://127.0.0.1:4173/demos/be-minimal/', { waitUntil: 'networkidle' });
 
@@ -58,17 +62,37 @@ try {
   assert.equal(await page.locator('.photo-card').count(), 30, 'preview does not remove photo');
 
   await drag(page.locator('.photo-card[data-depth="0"]'), -105, 0);
-  await page.waitForFunction(() => document.querySelector('#counter')?.textContent === '2 / 30');
+  await waitCounter('2 / 30');
   await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
-  await page.waitForFunction(() => document.querySelector('#counter')?.textContent === '3 / 30');
+  await waitCounter('3 / 30');
   await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
-  await page.waitForFunction(() => document.querySelector('#counter')?.textContent === '4 / 30');
+  await waitCounter('3 / 30');
+  assert.equal(await page.locator('.photo-card').count(), 27, 'deferred photo leaves the fresh pass but does not count as resolved');
 
-  await page.locator('.nav-btn[data-target="apps"]').click();
+  for (let i = 0; i < 27; i++) {
+    await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
+    await waitCounter(`${Math.min(4 + i, 30)} / 30`);
+  }
+  assert.equal(await page.locator('.photo-card').count(), 1, 'deferred photo returns after the fresh pass');
+
+  await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
+  await waitCounter('30 / 30');
+  assert.equal(await page.locator('.photo-card').count(), 1, 'choosing later again loops the same unresolved photo');
+
+  await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
+  await page.locator('#finalScreen.active').waitFor({ state: 'visible' });
+  assert((await page.locator('#finalScreen').textContent()).includes('写真・動画 1枚'));
+  assert(!(await page.locator('#finalScreen').textContent()).includes('CapCut'), 'photo confirmation does not mix in apps');
+
+  await page.locator('#deleteBtn').click();
+  await page.locator('#appsScreen.active').waitFor({ state: 'visible' });
+  assert.equal((await page.locator('.section-title').textContent())?.trim(), '今日の削除アプリ');
+
   const appBox = await page.locator('#appCard').boundingBox();
   const trashBox = await page.locator('#appTrash').boundingBox();
   assert(appBox && trashBox, 'app card and trash visible');
-  assert(!overlaps(appBox, trashBox), 'app trash target sits above card');
+  assert(!overlaps(appBox, trashBox), 'app trash target does not overlap the app card');
+  assert(appBox.y > 170, 'app card is placed lower for comfortable reach');
 
   await drag(page.locator('#appCard'), 0, -95);
   await page.locator('#deleteSheet.show').waitFor({ state: 'visible' });
@@ -79,8 +103,17 @@ try {
   await page.waitForFunction(() => document.querySelector('#copyAppName span')?.textContent === 'コピーしました');
 
   await page.locator('#appDeletedBtn').click();
+  assert((await page.locator('#appDeletedBtn').textContent()).includes('削除完了'));
+  assert(await page.locator('#appDeletedBtn').isDisabled(), 'delete-complete state is acknowledgement only');
+  assert(!(await page.locator('#completionScreen').evaluate(el => el.classList.contains('active'))), 'delete acknowledgement does not jump to completion');
+  assert.equal((await page.locator('#appLaterBtn').textContent())?.trim(), '完了を見る');
+
+  await page.locator('#appLaterBtn').click();
   await page.locator('#completionScreen.active').waitFor({ state: 'visible' });
-  assert.equal((await page.locator('.completion-copy').textContent())?.trim(), '大切なものだけ、残していく。');
+  assert.equal((await page.locator('.completion-copy').textContent())?.trim(), '大切なものを大切に。');
+  assert.equal((await page.locator('#completionPhotos').textContent())?.trim(), '1枚');
+  assert.equal((await page.locator('#completionApps').textContent())?.trim(), '1個');
+  assert((await page.locator('#completionStorage').textContent())?.includes('GB'));
   assert((await page.locator('#completionArt').evaluate(img => img.naturalWidth)) > 0, 'completion gecko artwork decodes');
   assert(await page.locator('#mainNav').evaluate(el => el.classList.contains('is-hidden')), 'main nav hidden on completion');
 
