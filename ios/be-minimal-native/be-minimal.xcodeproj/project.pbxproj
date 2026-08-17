@@ -13,6 +13,12 @@
 		A10000000000000000000005 /* AssetThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000006 /* AssetThumbnail.swift */; };
 		A10000000000000000000006 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* ReviewView.swift */; };
 		A10000000000000000000007 /* AssetViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* AssetViewer.swift */; };
+		A10000000000000000000008 /* SwipeCardMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* SwipeCardMotion.swift */; };
+		A10000000000000000000009 /* TutorialPracticeImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* TutorialPracticeImages.swift */; };
+		A1000000000000000000000A /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000B /* TutorialView.swift */; };
+		A1000000000000000000000B /* tutorialPractice01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000C /* tutorialPractice01.jpg */; };
+		A1000000000000000000000C /* tutorialPractice02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* tutorialPractice02.jpg */; };
+		A1000000000000000000000D /* tutorialPractice03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000E /* tutorialPractice03.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		B10000000000000000000006 /* AssetThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetThumbnail.swift; sourceTree = "<group>"; };
 		B10000000000000000000007 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		B10000000000000000000008 /* AssetViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewer.swift; sourceTree = "<group>"; };
+		B10000000000000000000009 /* SwipeCardMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardMotion.swift; sourceTree = "<group>"; };
+		B1000000000000000000000A /* TutorialPracticeImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPracticeImages.swift; sourceTree = "<group>"; };
+		B1000000000000000000000B /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000C /* tutorialPractice01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tutorialPractice01.jpg; sourceTree = "<group>"; };
+		B1000000000000000000000D /* tutorialPractice02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tutorialPractice02.jpg; sourceTree = "<group>"; };
+		B1000000000000000000000E /* tutorialPractice03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tutorialPractice03.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,12 @@
 				B10000000000000000000006 /* AssetThumbnail.swift */,
 				B10000000000000000000007 /* ReviewView.swift */,
 				B10000000000000000000008 /* AssetViewer.swift */,
+				B10000000000000000000009 /* SwipeCardMotion.swift */,
+				B1000000000000000000000A /* TutorialPracticeImages.swift */,
+				B1000000000000000000000B /* TutorialView.swift */,
+				B1000000000000000000000C /* tutorialPractice01.jpg */,
+				B1000000000000000000000D /* tutorialPractice02.jpg */,
+				B1000000000000000000000E /* tutorialPractice03.jpg */,
 			);
 			path = "be-minimal";
 			sourceTree = "<group>";
@@ -116,7 +134,11 @@
 		C10000000000000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = ();
+			files = (
+				A1000000000000000000000B /* tutorialPractice01.jpg in Resources */,
+				A1000000000000000000000C /* tutorialPractice02.jpg in Resources */,
+				A1000000000000000000000D /* tutorialPractice03.jpg in Resources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -133,6 +155,9 @@
 				A10000000000000000000005 /* AssetThumbnail.swift in Sources */,
 				A10000000000000000000006 /* ReviewView.swift in Sources */,
 				A10000000000000000000007 /* AssetViewer.swift in Sources */,
+				A10000000000000000000008 /* SwipeCardMotion.swift in Sources */,
+				A10000000000000000000009 /* TutorialPracticeImages.swift in Sources */,
+				A1000000000000000000000A /* TutorialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
