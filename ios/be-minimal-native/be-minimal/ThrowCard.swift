@@ -4,14 +4,16 @@ import UIKit
 
 struct ThrowCard: View {
     let asset: PHAsset
-    let onThrow: () -> Void
+    let onDiscard: () -> Void
+    let onPass: () -> Void
     let onTap: () -> Void
     let onLongPress: () -> Void
 
     @State private var offset: CGSize = .zero
+    @State private var rotation: Double = 0
     @State private var scale: CGFloat = 1
     @State private var opacity: Double = 1
-    @State private var isThrowing = false
+    @State private var isResolving = false
     @State private var longPressTriggered = false
 
     var body: some View {
@@ -24,96 +26,110 @@ struct ThrowCard: View {
                     .padding(13)
             }
             .offset(offset)
+            .rotationEffect(.degrees(rotation))
             .scaleEffect(scale)
             .opacity(opacity)
-            .simultaneousGesture(verticalGesture)
+            .contentShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+            .simultaneousGesture(horizontalCardGesture)
             .onTapGesture {
-                guard !isThrowing && !longPressTriggered else { return }
+                guard !isResolving && !longPressTriggered else { return }
                 onTap()
             }
             .onLongPressGesture(minimumDuration: 0.5) {
+                guard !isResolving else { return }
                 longPressTriggered = true
                 onLongPress()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { longPressTriggered = false }
-            }
-            .accessibilityLabel(asset.mediaType == .video ? "動画" : "写真")
-    }
-
-    private var verticalGesture: some Gesture {
-        DragGesture(minimumDistance: 8, coordinateSpace: .local)
-            .onChanged { value in
-                guard !isThrowing else { return }
-                let dx = value.translation.width
-                let dy = value.translation.height
-                guard abs(dy) > abs(dx) * 1.05 else { return }
-
-                if dy > 0 {
-                    let resistedY = resistance(dy)
-                    offset = CGSize(width: dx * 0.12, height: resistedY)
-                    scale = 1 + min(0.035, resistedY / 6000)
-                } else {
-                    offset = CGSize(width: dx * 0.05, height: dy * 0.92)
-                    scale = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    longPressTriggered = false
                 }
             }
-            .onEnded { value in
-                guard !isThrowing else { return }
+            .accessibilityLabel(asset.mediaType == .video ? "動画" : "写真")
+            .accessibilityAction(named: "削除候補に入れる") { onDiscard() }
+            .accessibilityAction(named: "残して次へ") { onPass() }
+    }
+
+    private var horizontalCardGesture: some Gesture {
+        DragGesture(minimumDistance: 6, coordinateSpace: .local)
+            .onChanged { value in
+                guard !isResolving else { return }
+
                 let dx = value.translation.width
                 let dy = value.translation.height
-                guard abs(dy) > abs(dx) * 0.9 else {
+                guard abs(dx) > abs(dy) * 1.05 else { return }
+
+                let resistedX = resistance(dx)
+                offset = CGSize(width: resistedX, height: dy * 0.06)
+                rotation = Double(max(-6, min(6, resistedX / 28)))
+                scale = 1 - min(0.032, abs(resistedX) / 3200)
+            }
+            .onEnded { value in
+                guard !isResolving else { return }
+
+                let dx = value.translation.width
+                let dy = value.translation.height
+                guard abs(dx) > abs(dy) * 0.9 else {
                     restore()
                     return
                 }
 
-                let predictedY = value.predictedEndTranslation.height
-                if dy > 42 {
-                    slingshot(from: CGSize(width: dx * 0.12, height: resistance(dy)))
-                } else if dy < -42 || predictedY < -120 {
-                    directThrow(horizontal: dx)
+                let predictedX = value.predictedEndTranslation.width
+                if dx < -82 || predictedX < -150 {
+                    dismiss(to: .left)
+                } else if dx > 82 || predictedX > 150 {
+                    dismiss(to: .right)
                 } else {
                     restore()
                 }
             }
     }
 
+    private enum Direction {
+        case left
+        case right
+    }
+
     private func resistance(_ value: CGFloat) -> CGFloat {
-        if value < 180 { return value * 0.82 }
-        return 147.6 + (value - 180) * 0.35
+        let sign: CGFloat = value < 0 ? -1 : 1
+        let magnitude = abs(value)
+        if magnitude < 180 { return value * 0.94 }
+        return sign * (169.2 + (magnitude - 180) * 0.42)
     }
 
     private func restore() {
-        withAnimation(.interpolatingSpring(mass: 0.55, stiffness: 320, damping: 23, initialVelocity: 0)) {
+        withAnimation(.interactiveSpring(response: 0.28, dampingFraction: 0.86, blendDuration: 0.08)) {
             offset = .zero
+            rotation = 0
             scale = 1
             opacity = 1
         }
     }
 
-    private func directThrow(horizontal: CGFloat) {
-        isThrowing = true
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        withAnimation(.easeOut(duration: 0.10)) {
-            offset = CGSize(width: horizontal * 0.12, height: -900)
-            scale = 0.96
-            opacity = 0.02
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.11) { onThrow() }
-    }
+    private func dismiss(to direction: Direction) {
+        isResolving = true
 
-    private func slingshot(from pulled: CGSize) {
-        isThrowing = true
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        withAnimation(.interpolatingSpring(mass: 0.45, stiffness: 560, damping: 18, initialVelocity: 0)) {
-            offset = .zero
-            scale = 1
+        let isDiscard = direction == .left
+        if isDiscard {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        } else {
+            UISelectionFeedbackGenerator().selectionChanged()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.055) {
-            withAnimation(.easeOut(duration: 0.115)) {
-                offset = CGSize(width: -pulled.width * 0.35, height: -980)
-                scale = 0.95
-                opacity = 0.01
+
+        let targetX: CGFloat = direction == .left ? -720 : 720
+        let targetRotation: Double = direction == .left ? -7 : 7
+
+        withAnimation(.easeOut(duration: 0.18)) {
+            offset = CGSize(width: targetX, height: -8)
+            rotation = targetRotation
+            scale = 0.97
+            opacity = 0.04
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
+            if isDiscard {
+                onDiscard()
+            } else {
+                onPass()
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) { onThrow() }
     }
 }
