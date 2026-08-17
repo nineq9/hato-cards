@@ -27,6 +27,9 @@ jobs:
       - name: Syntax check
         run: |
           node --check kingfisher.js
+          node --check demos/be-minimal/app.js
+          node --check demos/be-minimal/apple-deck.js
+          node --check demos/be-minimal/brand-assets.js
           node --check demos/live-trace/live-trace.js
           node --check tests/smoke.mjs
           node --check tests/mobile-e2e.mjs
