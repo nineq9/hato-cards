@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="theme-color" content="#F7F5F0"/>
 <title>be minimal</title>
-<link href="./style.css?v=10" rel="stylesheet"/>
+<link href="./style.css?v=11" rel="stylesheet"/>
 <link href="./apple-deck.css?v=6" rel="stylesheet"/>
 </head>
 <body>
@@ -25,7 +25,7 @@
 
   <section class="screen" id="appsScreen">
     <div class="apps-wrap">
-      <div class="app-head"><div class="section-title">1 / 1</div></div>
+      <div class="app-head"><div class="section-title">今日の削除アプリ</div></div>
       <div class="app-trash" id="appTrash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></div>
       <article class="app-card" id="appCard">
         <div class="app-title-row">
@@ -52,11 +52,6 @@
           <div class="review-main"><strong>写真・動画</strong><span id="photoReviewCount"></span></div>
           <div class="review-size" id="photoReviewSize"></div>
         </div>
-        <div class="review-row" id="appReviewRow">
-          <div class="capcut-icon small"><svg viewBox="0 0 64 64"><path d="M12 18h40L18 46h34M12 46h40L18 18h34" fill="none" stroke="#111" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="review-main"><strong>CapCut</strong><span>iPhoneで削除</span></div>
-          <div class="review-size">1.8 GB</div>
-        </div>
       </div>
       <button class="delete-button" id="deleteBtn">削除を進める</button>
       <button class="cancel-button" id="cancelBtn">キャンセル</button>
@@ -65,12 +60,16 @@
 
   <section class="screen completion-screen" id="completionScreen">
     <div class="completion-wrap">
+      <div class="completion-stats" aria-label="今日の整理結果">
+        <div class="completion-stat"><span>写真</span><strong id="completionPhotos">0枚</strong></div>
+        <div class="completion-stat"><span>アプリ</span><strong id="completionApps">0個</strong></div>
+        <div class="completion-stat"><span>節約容量</span><strong id="completionStorage">0 MB</strong></div>
+      </div>
       <img class="completion-art" id="completionArt" alt="脱皮した皮を捨てるレオパードゲッコー"/>
-      <div class="completion-copy">大切なものだけ、残していく。</div>
+      <div class="completion-copy">大切なものを大切に。</div>
       <button class="completion-again" id="againBtn" type="button" aria-label="もう一度やる">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg><span>もう一度やる</span>
       </button>
-      <button class="completion-back" id="backBtn" type="button">一覧に戻る</button>
     </div>
   </section>
 
@@ -88,7 +87,7 @@
 <section class="delete-sheet" id="deleteSheet" role="dialog" aria-modal="true" aria-label="削除方法"><div class="delete-handle"></div><div id="deleteSheetBody"></div></section>
 <script src="./brand-assets.js?v=1"></script>
 <script src="./photo-1.js?v=1"></script><script src="./photo-2.js?v=1"></script><script src="./photo-3.js?v=1"></script><script src="./photo-4.js?v=1"></script><script src="./photo-5.js?v=1"></script>
-<script src="./app.js?v=10"></script>
-<script src="./apple-deck.js?v=6"></script>
+<script src="./app.js?v=11"></script>
+<script src="./apple-deck.js?v=7"></script>
 </body>
 </html>
