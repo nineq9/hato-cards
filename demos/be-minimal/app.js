@@ -74,9 +74,7 @@ function showAppDeleteGuide(){
   };
   laterBtn.onclick=closeDeleteSheet;
 }
-function confirmPhotosAndContinue(){
-  deletedPhotoCount=queued.size;deletedPhotoMB=queuedMB();photoDeletionConfirmed=true;updateCompletion();go("apps");
-}
+function confirmPhotosAndContinue(){deletedPhotoCount=queued.size;deletedPhotoMB=queuedMB();photoDeletionConfirmed=true;updateCompletion();go("apps")}
 function startDeleteFlow(){if(!photoReviewCompleted)return;confirmPhotosAndContinue()}
 let asx=0,asy=0,alx=0,aly=0,alt=0,avy=0,appDragging=false;
 function appTrashHot(on){appTrash.classList.toggle("hot",on)}
@@ -89,7 +87,7 @@ appCard.addEventListener("pointercancel",restoreApp);
 const screens={photos:document.getElementById("photosScreen"),apps:document.getElementById("appsScreen"),final:document.getElementById("finalScreen"),completion:document.getElementById("completionScreen")};
 function go(name){if(name==="final")updateReview();if(name==="completion")updateCompletion();Object.entries(screens).forEach(([k,s])=>s.classList.toggle("active",k===name));document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.target===name));mainNav.classList.toggle("is-hidden",name==="completion")}
 window.onPhotoReviewComplete=()=>{if(photoReviewCompleted)return;photoReviewCompleted=true;updateReview();setTimeout(()=>go("final"),180)};
-function resetSession(){queued.clear();appQueued=false;appDeletionConfirmed=false;photoReviewCompleted=false;photoDeletionConfirmed=false;deletedPhotoCount=0;deletedPhotoMB=0;current=0;updateReview();updateCompletion();if(typeof window.resetPhotoReview==="function")window.resetPhotoReview();else render();go("photos")}
+function resetSession(){queued.clear();appQueued=false;appDeletionConfirmed=false;photoReviewCompleted=false;photoDeletionConfirmed=false;deletedPhotoCount=0;deletedPhotoMB=0;current=0;counter.textContent=`1 / ${photos.length}`;updateReview();updateCompletion();if(typeof window.resetPhotoReview==="function")window.resetPhotoReview();else render();go("photos")}
 document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>go(b.dataset.target)));
 document.getElementById("cancelBtn").addEventListener("click",()=>go("photos"));
 document.getElementById("deleteBtn").addEventListener("click",startDeleteFlow);
