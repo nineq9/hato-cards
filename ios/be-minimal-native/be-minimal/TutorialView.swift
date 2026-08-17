@@ -18,16 +18,9 @@ struct TutorialExperienceView: View {
     var body: some View {
         ZStack {
             background.ignoresSafeArea()
-
-            if completed {
-                completionView
-            } else {
-                practiceView
-            }
+            if completed { completionView } else { practiceView }
         }
-        .onDisappear {
-            hintResetTask?.cancel()
-        }
+        .onDisappear { hintResetTask?.cancel() }
     }
 
     private var practiceView: some View {
@@ -36,15 +29,11 @@ struct TutorialExperienceView: View {
                 Text("be minimal")
                     .font(.system(size: 17, weight: .semibold))
                     .tracking(-0.2)
-
                 Spacer()
-
                 Text("\(step + 1) / 3")
                     .font(.system(size: 13, weight: .regular, design: .monospaced))
                     .foregroundStyle(.secondary)
-
                 Spacer()
-
                 Button("スキップ", action: onSkip)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
@@ -82,12 +71,9 @@ struct TutorialExperienceView: View {
                             .accessibilityElement(children: .ignore)
                             .accessibilityLabel("操作練習 \(step + 1)枚目")
                             .accessibilityHint(instruction)
-                            .accessibilityAction(named: "残す") {
-                                accessibilityCommit(.right)
-                            }
-                            .accessibilityAction(named: "削除") {
-                                accessibilityCommit(.left)
-                            }
+                            .accessibilityAction(named: "削除") { accessibilityCommit(.left) }
+                            .accessibilityAction(named: "保持") { accessibilityCommit(.right) }
+                            .accessibilityAction(named: "再検討") { accessibilityCommit(.up) }
                             .zIndex(10)
                         } else {
                             tutorialCard(image)
@@ -110,11 +96,9 @@ struct TutorialExperienceView: View {
     private var completionView: some View {
         VStack(spacing: 0) {
             Spacer()
-
             Text("できました。")
                 .font(.title3.weight(.semibold))
                 .accessibilityAddTraits(.isHeader)
-
             Button("写真を整理する", action: onFinish)
                 .font(.body.weight(.semibold))
                 .frame(maxWidth: 360, minHeight: 52)
@@ -123,7 +107,6 @@ struct TutorialExperienceView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(.horizontal, 28)
                 .padding(.top, 34)
-
             Spacer()
         }
         .transition(reduceMotion ? .opacity : .opacity.combined(with: .scale(scale: 0.985)))
@@ -136,34 +119,38 @@ struct TutorialExperienceView: View {
 
     private var instruction: String {
         switch step {
-        case 0: return "右へスワイプして残す"
-        case 1: return "左へスワイプして削除"
-        default: return "どっちにする？"
+        case 0: return "左へスワイプして削除"
+        case 1: return "右へスワイプして保持"
+        default: return "上へスワイプして再検討"
+        }
+    }
+
+    private var requiredDirection: ReviewSwipeDirection {
+        switch step {
+        case 0: return .left
+        case 1: return .right
+        default: return .up
         }
     }
 
     private func accepts(_ direction: ReviewSwipeDirection) -> Bool {
-        switch step {
-        case 0: return direction == .right
-        case 1: return direction == .left
-        default: return true
-        }
+        direction == requiredDirection
     }
 
     private func handleRejected(_ direction: ReviewSwipeDirection) {
-        showShortHint(step == 0 ? "右へ" : "左へ")
+        switch requiredDirection {
+        case .left: showShortHint("左へ")
+        case .right: showShortHint("右へ")
+        case .up: showShortHint("上へ")
+        }
     }
 
     private func handleCommit(_ direction: ReviewSwipeDirection) {
         shortHint = nil
         if step < 2 {
-            withAnimation(reduceMotion ? .none : .easeOut(duration: 0.15)) {
-                step += 1
-            }
+            withAnimation(reduceMotion ? .none : .easeOut(duration: 0.15)) { step += 1 }
         } else {
-            withAnimation(reduceMotion ? .none : .easeOut(duration: 0.18)) {
-                completed = true
-            }
+            withAnimation(reduceMotion ? .none : .easeOut(duration: 0.18)) { completed = true }
         }
     }
 
@@ -172,7 +159,6 @@ struct TutorialExperienceView: View {
             handleRejected(direction)
             return
         }
-
         if direction == .left {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } else {
@@ -194,10 +180,10 @@ struct TutorialExperienceView: View {
     private func tutorialCard(_ item: TutorialPracticeImage) -> some View {
         ZStack {
             cardSurface
-
             Image(uiImage: item.image)
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
+                .clipped()
         }
         .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
         .shadow(color: .black.opacity(colorScheme == .dark ? 0.20 : 0.07), radius: 20, y: 10)
@@ -220,13 +206,10 @@ struct TutorialExperienceView: View {
 
 private struct TutorialSizeBadge: View {
     let byteCount: Int64
-
     var body: some View {
         HStack(spacing: 5) {
-            Image(systemName: "cellularbars")
-                .font(.system(size: 12))
-            Text(sizeText)
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
+            Image(systemName: "cellularbars").font(.system(size: 12))
+            Text(sizeText).font(.system(size: 11, weight: .semibold, design: .rounded))
         }
         .foregroundStyle(.white)
         .padding(.horizontal, 9)
@@ -234,21 +217,15 @@ private struct TutorialSizeBadge: View {
         .background(.black.opacity(0.42), in: Capsule())
         .accessibilityLabel("画像サイズ \(sizeText)")
     }
-
     private var sizeText: String {
         guard byteCount > 0 else { return "—" }
         return ByteCountFormatter.string(fromByteCount: byteCount, countStyle: .file)
     }
 }
 
-/// Ready to be presented later from Settings / Help as 「操作を練習する」.
 struct TutorialReplayView: View {
     @Environment(\.dismiss) private var dismiss
-
     var body: some View {
-        TutorialExperienceView(
-            onFinish: { dismiss() },
-            onSkip: { dismiss() }
-        )
+        TutorialExperienceView(onFinish: { dismiss() }, onSkip: { dismiss() })
     }
 }
