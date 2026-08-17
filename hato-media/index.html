@@ -7,8 +7,8 @@
 <script>
 (async()=>{
   const loadParts=async (dir,count)=>{
-    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean6`);
-    const responses=await Promise.all(urls.map(u=>fetch(u,{cache:'default'})));
+    const urls=Array.from({length:count},(_,i)=>`./${dir}/part-${String(i+1).padStart(2,'0')}.txt?v=lean7`);
+    const responses=await Promise.all(urls.map(u=>fetch(u,{cache:'reload'})));
     responses.forEach((r,i)=>{if(!r.ok)throw new Error(`${urls[i]} ${r.status}`)});
     return (await Promise.all(responses.map(r=>r.text()))).join('');
   };
