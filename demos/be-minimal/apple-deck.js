@@ -21,14 +21,39 @@
   if(document.readyState==='complete')scheduleOpeningClose();else window.addEventListener('load',scheduleOpeningClose,{once:true});
   opening?.addEventListener('click',closeOpening);
 
+  const photosScreen=document.getElementById('photosScreen');
+  const topbar=photosScreen.querySelector('.topbar');
   const targets=document.createElement('div');
   targets.className='review-targets';
   targets.innerHTML=`
     <div class="review-target review-target-trash" data-action="trash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></div>
     <div class="review-target review-target-later" data-action="later" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg></div>
     <div class="review-target review-target-keep" data-action="keep" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3.2-5 3.2z"/></svg></div>`;
-  document.querySelector('#photosScreen').appendChild(targets);
+  photosScreen.appendChild(targets);
   const targetEls={trash:targets.querySelector('[data-action="trash"]'),keep:targets.querySelector('[data-action="keep"]'),later:targets.querySelector('[data-action="later"]')};
+
+  function positionTargets(){
+    const card=film.querySelector('.photo-card[data-depth="0"]');
+    if(!card){targets.style.opacity='0';return;}
+    targets.style.opacity='';
+    const screenRect=photosScreen.getBoundingClientRect();
+    const cardRect=card.getBoundingClientRect();
+    const topbarRect=topbar.getBoundingClientRect();
+    const visualHalf=10;
+    const gap=8;
+    const edge=4;
+    const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+    const minX=edge+visualHalf;
+    const maxX=screenRect.width-edge-visualHalf;
+    const leftX=clamp(cardRect.left-screenRect.left-gap-visualHalf,minX,maxX);
+    const rightX=clamp(cardRect.right-screenRect.left+gap+visualHalf,minX,maxX);
+    const middleY=clamp(cardRect.top-screenRect.top+(cardRect.height/2),visualHalf+edge,screenRect.height-visualHalf-edge);
+    const minTopY=(topbarRect.bottom-screenRect.top)+edge+visualHalf;
+    const topY=clamp(cardRect.top-screenRect.top-gap-visualHalf,minTopY,screenRect.height-visualHalf-edge);
+    targetEls.trash.style.left=`${leftX}px`;targetEls.trash.style.top=`${middleY}px`;
+    targetEls.keep.style.left=`${rightX}px`;targetEls.keep.style.top=`${middleY}px`;
+    targetEls.later.style.left=`${cardRect.left-screenRect.left+(cardRect.width/2)}px`;targetEls.later.style.top=`${topY}px`;
+  }
 
   function clearHot(){Object.values(targetEls).forEach(el=>el.classList.remove('hot'))}
   function setHot(action){clearHot();if(action)targetEls[action].classList.add('hot')}
@@ -45,6 +70,7 @@
     counter.textContent=resolved>=photos.length?`${photos.length} / ${photos.length}`:`${Math.min(resolved+1,photos.length)} / ${photos.length}`;
     targets.classList.toggle('is-complete',resolved>=photos.length);
     updateReview();
+    requestAnimationFrame(positionTargets);
     if(resolved>=photos.length&&!completionTriggered){completionTriggered=true;setTimeout(()=>window.onPhotoReviewComplete?.(),150);}
   }
 
@@ -88,6 +114,11 @@
   function endViewerPointer(e){if(!viewerPointers.has(e.pointerId))return;const wasPinching=viewerPointers.size>=2;viewerPointers.delete(e.pointerId);if(wasPinching){suppressViewerTapUntil=performance.now()+260;pinchStartDistance=0;if(viewerScale<1.03)resetViewerZoom(true);}}
   viewerImg.addEventListener('pointerup',endViewerPointer);viewerImg.addEventListener('pointercancel',endViewerPointer);
   viewerImg.addEventListener('click',e=>{e.stopPropagation();if(viewerIndex===null)return;if(performance.now()<suppressViewerTapUntil||viewerGestureMoved){viewerGestureMoved=false;return;}viewerIndex=null;resetViewerZoom(false);originalCloseViewer();});
+
+  const repositionTargets=()=>requestAnimationFrame(positionTargets);
+  window.addEventListener('resize',repositionTargets,{passive:true});
+  window.visualViewport?.addEventListener('resize',repositionTargets,{passive:true});
+  window.visualViewport?.addEventListener('scroll',repositionTargets,{passive:true});
 
   window.resetPhotoReview=()=>{queued.clear();passed.clear();laterQueue.splice(0);laterSet.clear();completionTriggered=false;renderApple()};
   renderApple();
