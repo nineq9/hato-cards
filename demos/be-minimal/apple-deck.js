@@ -1,5 +1,5 @@
 // Apple-like direct-manipulation review deck.
-// LEFT = delete candidate, UP = keep, RIGHT = reconsider later.
+// LEFT = delete candidate, RIGHT = keep/save, UP = reconsider later.
 (() => {
   const passed=new Set();
   const laterQueue=[];
@@ -25,8 +25,8 @@
   targets.className='review-targets';
   targets.innerHTML=`
     <div class="review-target review-target-trash" data-action="trash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></div>
-    <div class="review-target review-target-keep" data-action="keep" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3.2-5 3.2z"/></svg></div>
-    <div class="review-target review-target-later" data-action="later" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg></div>`;
+    <div class="review-target review-target-later" data-action="later" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg></div>
+    <div class="review-target review-target-keep" data-action="keep" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3.2-5 3.2z"/></svg></div>`;
   document.querySelector('#photosScreen').appendChild(targets);
   const targetEls={trash:targets.querySelector('[data-action="trash"]'),keep:targets.querySelector('[data-action="keep"]'),later:targets.querySelector('[data-action="later"]')};
 
@@ -50,17 +50,20 @@
 
   function renderApple(){
     film.innerHTML='';
-    available().forEach(i=>{const p=photos[i],card=document.createElement('article');card.className='photo-card';card.dataset.i=i;card.innerHTML=`<img class="photo-media" src="${p.src}" alt=""><div class="size-badge">${signal()}${p.size}</div>`;film.appendChild(card)});
+    available().forEach(i=>{const p=photos[i],card=document.createElement('article');card.className='photo-card';card.dataset.i=i;card.innerHTML=`<img class="photo-media" src="${p.src}" alt="" onload="this.classList.toggle('is-landscape',this.naturalWidth>this.naturalHeight)"><div class="size-badge">${signal()}${p.size}</div>`;film.appendChild(card)});
     requestAnimationFrame(updateDeck);
   }
   render=renderApple;
 
   function resistance(v){const sign=v<0?-1:1,magnitude=Math.abs(v);return sign*(magnitude<190?magnitude*.97:184.3+(magnitude-190)*.44)}
-  function actionFor(dx,dy,vx,vy){const ax=Math.abs(dx),ay=Math.abs(dy);if(dy<0&&(ay>ax*.68||vy<-650)&&(ay>50||vy<-720))return 'keep';if(dx<0&&(ax>56||vx<-620))return 'trash';if(dx>0&&(ax>56||vx>620))return 'later';return null}
+  function actionFor(dx,dy,vx,vy){const ax=Math.abs(dx),ay=Math.abs(dy);if(dy<0&&(ay>ax*.68||vy<-650)&&(ay>50||vy<-720))return 'later';if(dx<0&&(ax>56||vx<-620))return 'trash';if(dx>0&&(ax>56||vx>620))return 'keep';return null}
   function restore(card){card.animate([{transform:card.style.transform||'translate(-50%,-50%)'},{transform:'translate(-50%,calc(-50% + 2px)) scale(.999)'},{transform:'translate(-50%,-50%) scale(1)'}],{duration:260,easing:'cubic-bezier(.22,.78,.24,1)'}).onfinish=()=>{card.style.transform='translate(-50%,-50%)';card.style.opacity='';clearHot();}}
   function commit(card,action,dx,dy){
     const i=Number(card.dataset.i);setHot(action);if(navigator.vibrate)navigator.vibrate(action==='trash'?7:4);
-    let tx=0,ty=0,rot=0;if(action==='trash'){tx=-760;ty=Math.max(-80,Math.min(80,dy*.18));rot=-6;}else if(action==='later'){tx=760;ty=Math.max(-80,Math.min(80,dy*.18));rot=6;}else{tx=Math.max(-70,Math.min(70,dx*.12));ty=-900;}
+    let tx=0,ty=0,rot=0;
+    if(action==='trash'){tx=-760;ty=Math.max(-80,Math.min(80,dy*.18));rot=-6;}
+    else if(action==='keep'){tx=760;ty=Math.max(-80,Math.min(80,dy*.18));rot=6;}
+    else{tx=Math.max(-70,Math.min(70,dx*.12));ty=-900;}
     const from=card.style.transform||'translate(-50%,-50%)';
     card.animate([{transform:from,opacity:1},{transform:`translate(calc(-50% + ${tx}px),calc(-50% + ${ty}px)) rotate(${rot}deg) scale(.97)`,opacity:.03}],{duration:190,easing:'cubic-bezier(.20,.80,.20,1)',fill:'forwards'}).onfinish=()=>{
       if(action==='trash'){removeFromLater(i);queued.add(i)}
