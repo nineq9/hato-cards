@@ -30,6 +30,7 @@ jobs:
           node --check demos/be-minimal/app.js
           node --check demos/be-minimal/apple-deck.js
           node --check demos/be-minimal/brand-assets.js
+          node --check tests/be-minimal-e2e.mjs
           node --check demos/live-trace/live-trace.js
           node --check tests/smoke.mjs
           node --check tests/mobile-e2e.mjs
@@ -54,6 +55,8 @@ jobs:
           python3 -m http.server 4173 >/tmp/kingfisher-http.log 2>&1 &
           echo $! > /tmp/kingfisher-http.pid
           sleep 2
+      - name: be minimal mobile E2E
+        run: node tests/be-minimal-e2e.mjs
       - name: Gesture profile comparison
         run: node tests/gesture-tuning.mjs
       - name: Browser smoke
