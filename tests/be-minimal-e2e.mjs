@@ -74,7 +74,6 @@ try {
   assert.equal(await page.locator('#counter').textContent(), '1 / 30', 'preview does not classify photo');
   assert.equal(await page.locator('.photo-card').count(), 30, 'preview does not remove photo');
 
-  // LEFT = delete.
   await drag(page.locator('.photo-card[data-depth="0"]'), -105, 0);
   await waitCounter('2 / 30');
   await waitCardCount(29);
@@ -82,14 +81,12 @@ try {
   const portraitMedia = page.locator('.photo-card[data-depth="0"] .photo-media');
   await portraitMedia.waitFor({ state: 'visible' });
   assert.equal(await portraitMedia.evaluate(el => getComputedStyle(el).objectFit), 'cover');
-  assert(!(await portraitMedia.evaluate(el => el.classList.contains('is-landscape')), 'portrait media is not treated as landscape'));
+  assert(!(await portraitMedia.evaluate(el => el.classList.contains('is-landscape'))), 'portrait media is not treated as landscape');
 
-  // RIGHT = keep/save.
   await drag(page.locator('.photo-card[data-depth="0"]'), 105, 0);
   await waitCounter('3 / 30');
   await waitCardCount(28);
 
-  // UP = reconsider later.
   await drag(page.locator('.photo-card[data-depth="0"]'), 0, -105);
   await waitCardCount(27);
   assert.equal(await page.locator('#counter').textContent(), '3 / 30', 'reconsider does not advance resolved progress');
@@ -128,7 +125,6 @@ try {
   assert(!overlaps(appBox, appTrashBox), 'app trash target does not overlap the app card');
   assert(appTrashBox.y > appBox.y + appBox.height, 'app trash target is below the app card');
 
-  // DOWN = delete app proposal.
   await drag(page.locator('#appCard'), 0, 95);
   await page.locator('#deleteSheet.show').waitFor({ state: 'visible' });
   assert((await page.locator('#deleteSheet').textContent()).includes('ホーム画面を下にスワイプして検索を開く'));
