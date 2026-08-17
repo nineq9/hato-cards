@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="theme-color" content="#F7F5F0"/>
 <title>be minimal</title>
-<link href="./style.css?v=11" rel="stylesheet"/>
+<link href="./style.css?v=12" rel="stylesheet"/>
 <link href="./apple-deck.css?v=6" rel="stylesheet"/>
 </head>
 <body>
@@ -18,35 +18,87 @@
     <header class="topbar"><div class="brand">be minimal</div><div class="counter" id="counter">1 / 30</div><div></div></header>
     <main class="photo-stage"><div class="film" id="film"></div></main>
   </section>
+
+  <section class="screen" id="finalScreen">
+    <div class="final-wrap">
+      <div class="final-title">これらを削除しますか？</div>
+      <div class="total"><h1 id="totalSize">0 MB</h1><p id="finalSummary"></p></div>
+      <div class="review-list">
+        <div class="review-row" id="photoReviewRow">
+          <div class="review-thumbs"><img alt="" id="reviewThumb1"/><img alt="" id="reviewThumb2"/></div>
+          <div class="review-main"><strong>写真・動画</strong><span id="photoReviewCount"></span></div>
+          <div class="review-size" id="photoReviewSize"></div>
+        </div>
+      </div>
+      <button class="delete-button" id="deleteBtn">削除を進める</button>
+      <button class="cancel-button" id="cancelBtn">キャンセル</button>
+    </div>
+  </section>
+
+  <section class="screen after-photos-screen" id="afterPhotosScreen">
+    <div class="after-photos-wrap">
+      <div class="after-photos-mark" aria-hidden="true">✓</div>
+      <h1>すっきりしたね！</h1>
+      <p>ついでにアプリも削除する？</p>
+      <button class="after-photos-primary" id="appCleanupBtn">アプリも整理する</button>
+      <button class="after-photos-secondary" id="finishWithoutAppsBtn">今日はここまで</button>
+    </div>
+  </section>
+
   <section class="screen" id="appsScreen">
     <div class="apps-wrap">
       <div class="app-head"><div class="section-title">今日の削除アプリ</div></div>
       <div class="app-trash" id="appTrash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></div>
       <article class="app-card" id="appCard">
-        <div class="app-title-row"><div class="capcut-icon"><svg viewBox="0 0 64 64"><path d="M12 18h40L18 46h34M12 46h40L18 18h34" fill="none" stroke="#111" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="app-name">CapCut</div><div class="app-category">動画編集</div></div></div>
+        <div class="app-title-row">
+          <div class="capcut-icon"><svg viewBox="0 0 64 64"><path d="M12 18h40L18 46h34M12 46h40L18 18h34" fill="none" stroke="#111" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="app-name">CapCut</div><div class="app-category">動画編集</div></div>
+        </div>
         <p class="app-description">動画を切り貼りし、字幕・音楽・エフェクトを付けて編集するアプリ。SNS用の短い動画やリール、簡単なスライド動画の制作にも使います。</p>
-        <div class="facts"><div class="fact"><span>最後に使用</span><strong>5か月前</strong></div><div class="fact"><span>過去90日の使用</span><strong>0回</strong></div><div class="fact"><span>容量</span><strong>1.8 GB</strong></div></div>
+        <div class="facts">
+          <div class="fact"><span>最後に使用</span><strong>5か月前</strong></div>
+          <div class="fact"><span>過去90日の使用</span><strong>0回</strong></div>
+          <div class="fact"><span>容量</span><strong>1.8 GB</strong></div>
+        </div>
       </article>
     </div>
   </section>
-  <section class="screen" id="finalScreen">
-    <div class="final-wrap"><div class="final-title">これらを削除しますか？</div><div class="total"><h1 id="totalSize">0 MB</h1><p id="finalSummary"></p></div><div class="review-list"><div class="review-row" id="photoReviewRow"><div class="review-thumbs"><img alt="" id="reviewThumb1"/><img alt="" id="reviewThumb2"/></div><div class="review-main"><strong>写真・動画</strong><span id="photoReviewCount"></span></div><div class="review-size" id="photoReviewSize"></div></div></div><button class="delete-button" id="deleteBtn">削除を進める</button><button class="cancel-button" id="cancelBtn">キャンセル</button></div>
-  </section>
+
   <section class="screen completion-screen" id="completionScreen">
     <div class="completion-wrap">
-      <div class="completion-stats" aria-label="今日の整理結果"><div class="completion-stat"><span>写真</span><strong id="completionPhotos">0枚</strong></div><div class="completion-stat"><span>アプリ</span><strong id="completionApps">0個</strong></div><div class="completion-stat"><span>節約容量</span><strong id="completionStorage">0 MB</strong></div></div>
-      <img class="completion-art" id="completionArt" alt="脱皮した皮を捨てるレオパードゲッコー"/>
-      <div class="completion-copy">大切なものを大切に。</div>
-      <button class="completion-again" id="againBtn" type="button" aria-label="もう一度やる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg><span>もう一度やる</span></button>
+      <div class="completion-title">今回手放したもの</div>
+      <div class="completion-results" aria-label="今回の整理結果">
+        <div class="completion-result-row">
+          <div><span>削除した画像</span><strong id="completionPhotos">0枚</strong></div>
+          <b id="completionPhotoStorage">0 MB</b>
+        </div>
+        <div class="completion-result-row">
+          <div><span>削除したアプリ</span><strong id="completionApps">0個</strong></div>
+          <b id="completionAppStorage">0 GB</b>
+        </div>
+      </div>
+      <img class="completion-art" id="completionArt" alt="脱皮した皮をゴミ箱へ捨てるレオパードゲッコー"/>
+      <div class="completion-message">画像やアプリは毎日増えていく。<br>こまめに掃除して、大切なものを大切にしよう。</div>
+      <button class="completion-again" id="againBtn" type="button" aria-label="もう一度やる">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg><span>もう一度やる</span>
+      </button>
     </div>
   </section>
-  <nav aria-label="ナビゲーション" class="nav" id="mainNav"><button aria-label="写真" class="nav-btn active" data-target="photos"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="m5.5 17 4.3-4 3.2 3 2.1-2 3.4 3"/></svg></button><button aria-label="アプリ" class="nav-btn" data-target="apps"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></button><button aria-label="削除候補" class="nav-btn" data-target="final"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></button></nav>
+
+  <nav aria-label="ナビゲーション" class="nav" id="mainNav">
+    <button aria-label="写真" class="nav-btn active" data-target="photos"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="m5.5 17 4.3-4 3.2 3 2.1-2 3.4 3"/></svg></button>
+    <button aria-label="アプリ" class="nav-btn" data-target="apps"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></button>
+    <button aria-label="削除候補" class="nav-btn" data-target="final"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9M10 10v6M14 10v6"/></svg></button>
+  </nav>
 </div>
+
 <section aria-label="写真を全画面表示" aria-modal="true" class="viewer" id="viewer" role="dialog"><img alt="" id="viewerImg"/><button aria-label="閉じる" class="viewer-close" id="viewerClose"></button><div class="viewer-size" id="viewerSize"></div></section>
-<div class="backdrop" id="backdrop"></div><section aria-label="写真の詳細" aria-modal="true" class="sheet" id="sheet" role="dialog"><div class="sheet-handle"></div><div class="detail-date" id="detailDate"></div><div class="detail-place" id="detailPlace"></div><div class="neighbors" id="neighbors"></div></section>
-<div class="delete-backdrop" id="deleteBackdrop"></div><section class="delete-sheet" id="deleteSheet" role="dialog" aria-modal="true" aria-label="削除方法"><div class="delete-handle"></div><div id="deleteSheetBody"></div></section>
+<div class="backdrop" id="backdrop"></div>
+<section aria-label="写真の詳細" aria-modal="true" class="sheet" id="sheet" role="dialog"><div class="sheet-handle"></div><div class="detail-date" id="detailDate"></div><div class="detail-place" id="detailPlace"></div><div class="neighbors" id="neighbors"></div></section>
+<div class="delete-backdrop" id="deleteBackdrop"></div>
+<section class="delete-sheet" id="deleteSheet" role="dialog" aria-modal="true" aria-label="削除方法"><div class="delete-handle"></div><div id="deleteSheetBody"></div></section>
 <script src="./brand-assets.js?v=1"></script>
-<script src="./photo-1.js?v=1"></script><script src="./photo-2.js?v=1"></script><script src="./photo-3.js?v=1"></script><script src="./photo-4.js?v=1"></script><script src="./photo-5.js?v=1"></script>
-<script src="./app.js?v=12"></script><script src="./apple-deck.js?v=7"></script>
+<script src="./app.js?v=13"></script>
+<script src="./apple-deck.js?v=7"></script>
 </body>
 </html>
