@@ -4,6 +4,7 @@ import UIKit
 enum ReviewSwipeDirection: Equatable {
     case left
     case right
+    case up
 }
 
 /// Shared motion layer for both the real photo deck and tutorial practice cards.
@@ -70,24 +71,36 @@ struct SwipeCardMotion<Content: View>: View {
 
                 let dx = value.translation.width
                 let dy = value.translation.height
+                let upIntent = dy < 0 && abs(dy) > abs(dx) * 1.15
                 let resistedX = resistance(dx)
 
-                offset = CGSize(
-                    width: resistedX,
-                    height: dy * verticalFollow(for: dx, dy: dy)
-                )
-                rotation = Double(max(-6.5, min(6.5, resistedX / 27)))
-                scale = 1 - min(0.034, abs(resistedX) / 3000)
+                if upIntent {
+                    offset = CGSize(width: dx * 0.18, height: dy)
+                    rotation = 0
+                    scale = 1 - min(0.03, abs(dy) / 3400)
+                } else {
+                    offset = CGSize(
+                        width: resistedX,
+                        height: dy * verticalFollow(for: dx, dy: dy)
+                    )
+                    rotation = Double(max(-6.5, min(6.5, resistedX / 27)))
+                    scale = 1 - min(0.034, abs(resistedX) / 3000)
+                }
             }
             .onEnded { value in
                 guard !isResolving else { return }
 
                 let dx = value.translation.width
+                let dy = value.translation.height
                 let predictedX = value.predictedEndTranslation.width
+                let predictedY = value.predictedEndTranslation.height
                 let velocityX = value.velocity.width
+                let velocityY = value.velocity.height
 
                 let direction: ReviewSwipeDirection?
-                if shouldCommitLeft(dx: dx, predictedX: predictedX, velocityX: velocityX) {
+                if shouldCommitUp(dx: dx, dy: dy, predictedY: predictedY, velocityY: velocityY) {
+                    direction = .up
+                } else if shouldCommitLeft(dx: dx, predictedX: predictedX, velocityX: velocityX) {
                     direction = .left
                 } else if shouldCommitRight(dx: dx, predictedX: predictedX, velocityX: velocityX) {
                     direction = .right
@@ -108,6 +121,11 @@ struct SwipeCardMotion<Content: View>: View {
 
                 dismiss(to: direction, vertical: value.translation.height)
             }
+    }
+
+    private func shouldCommitUp(dx: CGFloat, dy: CGFloat, predictedY: CGFloat, velocityY: CGFloat) -> Bool {
+        let verticalIntent = abs(dy) > abs(dx) * 1.05
+        return verticalIntent && (dy <= -64 || predictedY <= -118 || velocityY <= -620)
     }
 
     private func shouldCommitLeft(dx: CGFloat, predictedX: CGFloat, velocityX: CGFloat) -> Bool {
@@ -152,15 +170,24 @@ struct SwipeCardMotion<Content: View>: View {
             UISelectionFeedbackGenerator().selectionChanged()
         }
 
-        let targetX: CGFloat = reduceMotion
-            ? (direction == .left ? -150 : 150)
-            : (direction == .left ? -760 : 760)
-        let targetRotation: Double = reduceMotion ? 0 : (direction == .left ? -7 : 7)
-        let carriedY = reduceMotion ? 0 : max(-90, min(90, vertical * 0.20))
         let duration = reduceMotion ? 0.08 : 0.19
+        let target: CGSize
+        let targetRotation: Double
+
+        switch direction {
+        case .left:
+            target = CGSize(width: reduceMotion ? -150 : -760, height: reduceMotion ? 0 : max(-90, min(90, vertical * 0.20)))
+            targetRotation = reduceMotion ? 0 : -7
+        case .right:
+            target = CGSize(width: reduceMotion ? 150 : 760, height: reduceMotion ? 0 : max(-90, min(90, vertical * 0.20)))
+            targetRotation = reduceMotion ? 0 : 7
+        case .up:
+            target = CGSize(width: 0, height: reduceMotion ? -150 : -760)
+            targetRotation = 0
+        }
 
         withAnimation(.easeOut(duration: duration)) {
-            offset = CGSize(width: targetX, height: carriedY)
+            offset = target
             rotation = targetRotation
             scale = reduceMotion ? 1 : 0.97
             opacity = 0.03
