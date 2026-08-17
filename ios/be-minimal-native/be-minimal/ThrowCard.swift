@@ -10,12 +10,15 @@ struct ThrowCard: View {
 
     var body: some View {
         SwipeCardMotion(
-            accepts: { _ in true },
+            accepts: { direction in direction != .up },
             onCommit: { direction in
-                if direction == .left {
+                switch direction {
+                case .left:
                     onDiscard()
-                } else {
+                case .right:
                     onPass()
+                case .up:
+                    break
                 }
             },
             onTap: onTap,
