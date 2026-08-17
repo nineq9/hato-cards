@@ -71,66 +71,54 @@ private struct PhotoDeckView: View {
     @State private var detailsAsset: SelectedAsset?
 
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                HStack {
-                    Text("be minimal")
-                        .font(.system(size: 17, weight: .semibold))
-                        .tracking(-0.2)
-                    Spacer()
-                    Text(counterText)
-                        .font(.system(size: 13, weight: .regular, design: .monospaced))
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Button {
-                        reviewPresented = true
-                    } label: {
-                        Image(systemName: "trash")
-                            .frame(width: 44, height: 44)
-                            .foregroundStyle(.secondary)
-                    }
-                    .accessibilityLabel("削除候補を確認")
-                }
-                .padding(.horizontal, 16)
-                .frame(height: 58)
-
-                Image(systemName: "trash")
-                    .font(.system(size: 20, weight: .regular))
+        VStack(spacing: 0) {
+            HStack {
+                Text("be minimal")
+                    .font(.system(size: 17, weight: .semibold))
+                    .tracking(-0.2)
+                Spacer()
+                Text(counterText)
+                    .font(.system(size: 13, weight: .regular, design: .monospaced))
                     .foregroundStyle(.secondary)
-                    .frame(height: 36)
-
-                if library.isLoading && library.candidates.isEmpty {
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                } else if library.visibleCandidates.isEmpty {
-                    Spacer()
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 28, weight: .light))
+                Spacer()
+                Button {
+                    reviewPresented = true
+                } label: {
+                    Image(systemName: "trash")
+                        .frame(width: 44, height: 44)
                         .foregroundStyle(.secondary)
-                    Spacer()
-                } else {
-                    ScrollView(.horizontal) {
-                        LazyHStack(spacing: 14) {
-                            ForEach(library.visibleCandidates, id: \.localIdentifier) { asset in
-                                ThrowCard(asset: asset) {
-                                    library.queue(asset)
-                                } onTap: {
-                                    selectedAsset = SelectedAsset(asset: asset)
-                                } onLongPress: {
-                                    detailsAsset = SelectedAsset(asset: asset)
-                                }
-                                .containerRelativeFrame(.horizontal, count: 10, span: 8, spacing: 14)
-                            }
-                        }
-                        .scrollTargetLayout()
-                        .padding(.horizontal, 18)
-                        .padding(.vertical, 12)
-                    }
-                    .scrollTargetBehavior(.viewAligned)
-                    .scrollIndicators(.hidden)
                 }
+                .accessibilityLabel("削除候補を確認")
             }
+            .padding(.horizontal, 16)
+            .frame(height: 58)
+
+            Image(systemName: "trash")
+                .font(.system(size: 20, weight: .regular))
+                .foregroundStyle(.secondary)
+                .frame(height: 36)
+
+            if library.isLoading && library.candidates.isEmpty {
+                Spacer()
+                ProgressView()
+                Spacer()
+            } else {
+                deckStage
+            }
+
+            Button {
+                library.undoLastReview()
+            } label: {
+                Image(systemName: "arrow.uturn.backward")
+                    .font(.system(size: 17, weight: .medium))
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(library.canUndoReview ? .primary : .tertiary)
+            .disabled(!library.canUndoReview)
+            .accessibilityLabel("ひとつ戻す")
+            .padding(.bottom, 8)
         }
         .sheet(isPresented: $reviewPresented) {
             ReviewView()
@@ -145,9 +133,61 @@ private struct PhotoDeckView: View {
         }
     }
 
+    @ViewBuilder
+    private var deckStage: some View {
+        GeometryReader { proxy in
+            let visible = Array(library.visibleCandidates.prefix(3))
+
+            if visible.isEmpty {
+                VStack(spacing: 12) {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 28, weight: .light))
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ZStack {
+                    ForEach(visible.indices.reversed(), id: \.self) { index in
+                        let asset = visible[index]
+                        let depth = CGFloat(index)
+                        let width = min(proxy.size.width - 40, 430)
+                        let height = min(proxy.size.height - 42, 650)
+
+                        if index == 0 {
+                            ThrowCard(
+                                asset: asset,
+                                onDiscard: { library.queue(asset) },
+                                onPass: { library.pass(asset) },
+                                onTap: { selectedAsset = SelectedAsset(asset: asset) },
+                                onLongPress: { detailsAsset = SelectedAsset(asset: asset) }
+                            )
+                            .frame(width: width, height: height)
+                            .zIndex(10)
+                        } else {
+                            AssetThumbnail(asset: asset)
+                                .background(Color.black.opacity(0.025))
+                                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+                                .shadow(color: .black.opacity(0.035), radius: 12, y: 7)
+                                .frame(width: width, height: height)
+                                .scaleEffect(1 - depth * 0.026)
+                                .offset(y: depth * 10)
+                                .opacity(1 - Double(depth) * 0.14)
+                                .allowsHitTesting(false)
+                                .zIndex(Double(3 - index))
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
+    }
+
     private var counterText: String {
         let total = max(library.candidates.count, 1)
-        let done = library.queuedIDs.count
-        return "\(min(done + 1, total)) / \(total)"
+        let done = library.reviewedCount
+        if done >= total { return "\(total) / \(total)" }
+        return "\(done + 1) / \(total)"
     }
 }
