@@ -1,0 +1,41 @@
+name: Apply Issue 25 patch
+
+on:
+  push:
+    branches: [cards-owner-swipe-menu-v2]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: cards-owner-swipe-menu-v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Apply exact patch
+        run: python .github/scripts/issue25_patch.py
+      - name: Static checks
+        run: |
+          git diff --check
+          node --check kingfisher.js
+          node --check tests/smoke.mjs
+          node --check tests/mobile-e2e.mjs
+          node --check tests/gesture-tuning.mjs
+          node --check tests/untouched-regression.mjs
+      - name: Commit patch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add kingfisher.js kingfisher.css index.html sw.js tests/smoke.mjs tests/mobile-e2e.mjs tests/gesture-tuning.mjs tests/untouched-regression.mjs
+          git commit -m 'Implement Issue #25 CARDS dismiss and menu behavior'
+          git push origin HEAD:cards-owner-swipe-menu-v2
