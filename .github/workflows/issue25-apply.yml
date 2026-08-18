@@ -25,16 +25,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Repair patch script typo
+      - name: Repair patch helper labels
         run: |
           python - <<'PY'
+          import ast
           from pathlib import Path
           p=Path('.github/scripts/issue25_patch.py')
           s=p.read_text()
-          old="s=once(s,\"  assert.equal(await page.locator('.clear-card').count(),1,'finite queue did not render caught-up/CLEAR state');\", \"  assert.equal(await page.locator('.clear-card').count(),1,'finite queue did not render caught-up/CLEAR state');assert.equal((await page.locator('.clear-card').innerText()).trim(),'CLEAR!','caught-up text must be CLEAR!');\")"
-          new=old[:-1]+",'mobile clear')"
-          if old not in s: raise SystemExit('patch typo marker not found')
-          p.write_text(s.replace(old,new,1))
+          tree=ast.parse(s)
+          lines=s.splitlines(keepends=True)
+          starts=[]; total=0
+          for line in lines:
+            starts.append(total); total+=len(line)
+          edits=[]
+          for node in ast.walk(tree):
+            if not isinstance(node,ast.Call) or not isinstance(node.func,ast.Name): continue
+            need=None
+            if node.func.id=='once' and len(node.args)==3: need='auto once'
+            if node.func.id=='between' and len(node.args)==4: need='auto between'
+            if not need: continue
+            pos=starts[node.end_lineno-1]+node.end_col_offset-1
+            edits.append((pos,f",{need!r}"))
+          for pos,text in sorted(edits,reverse=True): s=s[:pos]+text+s[pos:]
+          p.write_text(s)
+          print('repaired helper calls',len(edits))
           PY
       - name: Apply exact patch
         run: python .github/scripts/issue25_patch.py
