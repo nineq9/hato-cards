@@ -52,6 +52,14 @@ jobs:
           PY
       - name: Apply exact patch
         run: python .github/scripts/issue25_patch.py
+      - name: Normalize generated patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('kingfisher.js')
+          s=p.read_text().replace('  const TUTORIAL_COPY={  const TUTORIAL_COPY={','  const TUTORIAL_COPY={')
+          p.write_text(s)
+          PY
       - name: Static checks
         run: |
           git diff --check
