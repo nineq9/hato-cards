@@ -31,24 +31,19 @@ jobs:
           import ast
           from pathlib import Path
           p=Path('.github/scripts/issue25_patch.py')
-          s=p.read_text()
-          tree=ast.parse(s)
-          lines=s.splitlines(keepends=True)
+          s=p.read_text(); tree=ast.parse(s); lines=s.splitlines(keepends=True)
           starts=[]; total=0
-          for line in lines:
-            starts.append(total); total+=len(line)
+          for line in lines: starts.append(total); total+=len(line)
           edits=[]
           for node in ast.walk(tree):
             if not isinstance(node,ast.Call) or not isinstance(node.func,ast.Name): continue
             need=None
             if node.func.id=='once' and len(node.args)==3: need='auto once'
             if node.func.id=='between' and len(node.args)==4: need='auto between'
-            if not need: continue
-            pos=starts[node.end_lineno-1]+node.end_col_offset-1
-            edits.append((pos,f",{need!r}"))
+            if need:
+              pos=starts[node.end_lineno-1]+node.end_col_offset-1; edits.append((pos,f",{need!r}"))
           for pos,text in sorted(edits,reverse=True): s=s[:pos]+text+s[pos:]
-          p.write_text(s)
-          print('repaired helper calls',len(edits))
+          p.write_text(s); print('repaired helper calls',len(edits))
           PY
       - name: Apply exact patch
         run: python .github/scripts/issue25_patch.py
@@ -56,8 +51,9 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          p=Path('kingfisher.js')
-          s=p.read_text().replace('  const TUTORIAL_COPY={  const TUTORIAL_COPY={','  const TUTORIAL_COPY={')
+          p=Path('kingfisher.js'); s=p.read_text()
+          s=s.replace('  function settleReader(){  function settleReader(){','  function settleReader(){')
+          s=s.replace('  const TUTORIAL_COPY={  const TUTORIAL_COPY={','  const TUTORIAL_COPY={')
           p.write_text(s)
           PY
       - name: Static checks
