@@ -6,58 +6,63 @@
 <meta name="theme-color" content="#F7F5F0">
 <title>GEKKO 操作練習</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;height:100%;background:#f7f5f0;color:#1d1d1b;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;overflow:hidden}
-button{font:inherit}
-.app{height:100dvh;min-height:560px;position:relative;padding:max(20px,env(safe-area-inset-top)) 0 max(18px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
-.top{height:74px;padding:18px 5.3vw 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start}
-.brand{font-size:22px;font-weight:700;letter-spacing:.01em}.step{font-size:17px;color:#999}.skip{justify-self:end;border:0;background:none;color:#aaa;padding:2px 0;font-size:14px;min-width:44px;min-height:44px}
-.hint{text-align:center;height:54px;padding-top:9px;font-size:16px;color:#777}
-.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative;padding:0 48px 22px}
-.deck{position:relative;width:min(78vw,350px);height:min(64vh,590px);max-height:calc(100dvh - 205px)}
-.card{position:absolute;inset:0;border-radius:28px;overflow:hidden;background:#eeeae4;box-shadow:0 14px 34px rgba(0,0,0,.07);touch-action:none;user-select:none;-webkit-user-select:none;transform-origin:50% 85%;will-change:transform,opacity}
-.card:before,.card:after{content:"";position:absolute;inset:9px -6px -9px 6px;border-radius:28px;background:#e9e6df;z-index:-2}.card:after{inset:17px -10px -17px 10px;background:#e2ded6;z-index:-3}
-.card img{width:100%;height:100%;display:block;object-fit:cover;pointer-events:none}
-.action{position:absolute;color:#c5c3bd;width:44px;height:44px;display:grid;place-items:center;pointer-events:none;z-index:20}.action svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
-.action-left{right:calc(100% + 4px);top:50%;transform:translateY(-50%)}
-.action-right{left:calc(100% + 4px);top:50%;transform:translateY(-50%)}
-.action-up{left:50%;bottom:calc(100% + 4px);transform:translateX(-50%)}
-.done{position:absolute;inset:0;background:#f7f5f0;display:none;align-items:center;justify-content:center;padding:30px;z-index:40}.done.show{display:flex}.done-inner{text-align:center;width:min(100%,360px)}.done h1{font-size:24px;margin:0 0 34px;font-weight:600}.primary{width:100%;height:56px;border:0;border-radius:17px;background:#272622;color:white;font-weight:650;font-size:17px}.micro{margin-top:15px;color:#aaa;font-size:13px}
-@media(max-width:340px){.stage{padding-left:43px;padding-right:43px}.deck{width:76vw}.brand{font-size:20px}.hint{font-size:15px}}
-@media(prefers-reduced-motion:reduce){.card{transition:none!important}}
+:root{--bg:#F7F5F0;--ink:#1F1F1D;--muted:#8C8983;--icon:#AAA69F;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Hiragino Sans",sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}button{font:inherit;color:inherit}
+.app{height:100dvh;min-height:560px;position:relative;overflow:hidden;background:var(--bg);padding-top:var(--safe-top)}
+.topbar{height:66px;padding:0 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;position:relative;z-index:10}.brand{justify-self:start;font-size:17px;font-weight:610;letter-spacing:.055em}.counter{justify-self:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}.skip{justify-self:end;min-width:44px;min-height:44px;padding:0 0 0 10px;border:0;background:transparent;color:#AAA7A1;font-size:13px;text-align:right}
+.instruction{height:62px;display:grid;place-items:center;padding:0 20px;color:var(--muted);font-size:15px;letter-spacing:-.01em}.instruction.is-short{color:#A4A098}
+.stage{height:calc(100% - 128px - var(--safe-top) - var(--safe-bottom));display:grid;place-items:center;padding:54px 36px 22px;position:relative;overflow:hidden}.deck{position:relative;width:min(82vw,430px);height:min(64vh,610px);min-height:370px;max-height:100%;opacity:0;transition:opacity .12s ease}.deck.ready{opacity:1}.card{position:absolute;inset:0;border-radius:28px;overflow:hidden;background:transparent;box-shadow:0 12px 38px rgba(43,37,29,.075);touch-action:none;user-select:none;-webkit-user-select:none;transform-origin:50% 85%;will-change:transform,opacity}.card img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;background:transparent;pointer-events:none;-webkit-user-drag:none}.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.05)}
+.target{position:absolute;width:32px;height:32px;display:grid;place-items:center;color:var(--icon);opacity:.72;z-index:5;pointer-events:none;transform:translate(-50%,-50%)}.target svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}.target.left{left:-24px;top:50%}.target.right{left:calc(100% + 24px);top:50%}.target.up{left:50%;top:-24px}.target.hot{opacity:.96;transform:translate(-50%,-50%) scale(1.16)}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:#B7B2AA;font-size:13px;background:var(--bg);z-index:20}.loading.hidden{display:none}
+.done{position:absolute;inset:0;background:var(--bg);display:none;place-items:center;padding:28px calc(22px + env(safe-area-inset-right)) calc(28px + var(--safe-bottom)) calc(22px + env(safe-area-inset-left));z-index:40}.done.show{display:grid}.done-inner{text-align:center;width:min(100%,360px)}.done h1{font-size:23px;font-weight:610;letter-spacing:-.03em;margin:0 0 36px}.primary{width:100%;min-height:52px;border:0;border-radius:16px;background:#2A2926;color:white;font-size:16px;font-weight:590}.retry{min-height:44px;margin-top:12px;padding:0 16px;border:0;background:transparent;color:#99958E;font-size:14px}
+.a11y{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media(max-width:340px){.stage{padding-left:34px;padding-right:34px}.deck{width:min(78vw,430px);min-height:320px}.target.left{left:-21px}.target.right{left:calc(100% + 21px)}.brand{font-size:16px}}
+@media(max-height:720px){.stage{padding-top:46px;padding-bottom:14px}.deck{height:min(60vh,540px);min-height:320px}}
+@media(prefers-reduced-motion:reduce){.deck{transition:none!important}}
 </style>
 </head>
 <body>
 <main class="app">
-<header class="top"><div class="brand">be minimal</div><div class="step" id="step">1 / 3</div><button class="skip" id="skip">スキップ</button></header>
-<div class="hint" id="hint">左へスワイプして削除</div>
-<section class="stage"><div class="deck">
-<div class="action action-left" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"/></svg></div>
-<div class="action action-right" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3.5L7 20z"/></svg></div>
-<div class="action action-up" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 8a7 7 0 1 0 1 7"/><path d="M18 4v4h-4"/></svg></div>
-<article class="card" id="card" role="group" aria-label="操作練習用写真"><img id="photo" alt="チュートリアル用レオパードゲッコー"></article>
-</div></section>
-<section class="done" id="done"><div class="done-inner"><h1>できました。</h1><button class="primary" id="start">写真を整理する</button><div class="micro">練習用の3枚だけを使っています。</div></div></section>
+<header class="topbar"><div class="brand">be minimal</div><div class="counter" id="counter">1 / 3</div><button class="skip" id="skip" type="button">スキップ</button></header>
+<div class="instruction" id="instruction" aria-live="polite">左へスワイプして削除</div>
+<section class="stage">
+  <div class="loading" id="loading">読み込み中…</div>
+  <div class="deck" id="deck">
+    <div class="target left" data-target="left" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 9l.7 9h6.6L16 9"/></svg></div>
+    <div class="target right" data-target="right" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h10v15l-5-3.2-5 3.2z"/></svg></div>
+    <div class="target up" data-target="up" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 8a7 7 0 1 0 1 6"/><path d="M19 4v4h-4"/></svg></div>
+    <article class="card" id="card" role="group" aria-label="操作練習用写真"><img id="photo" alt="チュートリアル用レオパードゲッコー"></article>
+  </div>
+</section>
+<div class="a11y" aria-label="スワイプ操作の代替"><button id="a11yDelete">削除</button><button id="a11yKeep">保持</button><button id="a11yLater">再検討</button></div>
+<section class="done" id="done"><div class="done-inner"><h1>できました。</h1><button class="primary" id="start" type="button">写真を整理する</button><button class="retry" id="retry" type="button">もう一度練習する</button></div></section>
 </main>
 <script>
-const photos=['tutorialPractice01.jpg','tutorialPractice02.jpg','tutorialPractice03.jpg'];
-const required=['left','right','up'];
-const labels=['左へスワイプして削除','右へスワイプして保持','上へスワイプして再検討'];
-const shortLabels=['左へ','右へ','上へ'];
-let i=0,startX=0,startY=0,dx=0,dy=0,drag=false;
-const card=document.getElementById('card'),photo=document.getElementById('photo'),hint=document.getElementById('hint'),step=document.getElementById('step'),done=document.getElementById('done');
-function load(){photo.src=photos[i];step.textContent=(i+1)+' / 3';hint.textContent=labels[i];card.style.transition='none';card.style.transform='';card.style.opacity='1'}
-function finish(){done.classList.add('show')}
-function restore(text){if(text)hint.textContent=text;card.style.transition='transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s';card.style.transform='';card.style.opacity='1'}
-function resolve(dir){if(dir!==required[i]){restore(shortLabels[i]);setTimeout(()=>{if(!drag&&i<3)hint.textContent=labels[i]},700);return}
- const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const tx=dir==='left'?-760:dir==='right'?760:0,ty=dir==='up'?-760:0,rot=reduce?0:dir==='left'?-7:dir==='right'?7:0;
- card.style.transition=reduce?'opacity .08s':'transform .19s ease-out,opacity .19s';card.style.transform=`translate(${tx}px,${ty}px) rotate(${rot}deg)`;card.style.opacity='.03';
- setTimeout(()=>{i++;if(i>=3)finish();else load()},reduce?85:195)}
-function down(e){drag=true;startX=e.clientX;startY=e.clientY;dx=dy=0;card.setPointerCapture?.(e.pointerId)}
-function move(e){if(!drag)return;dx=e.clientX-startX;dy=e.clientY-startY;const isUp=dy<0&&Math.abs(dy)>Math.abs(dx)*1.15;const x=isUp?dx*.18:dx;const y=isUp?dy:dy*.14;const rot=isUp?0:Math.max(-6.5,Math.min(6.5,x/27));card.style.transition='none';card.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`}
-function up(){if(!drag)return;drag=false;let dir=null;if(dy<=-64&&Math.abs(dy)>Math.abs(dx)*1.05)dir='up';else if(dx<=-64)dir='left';else if(dx>=64)dir='right';if(dir)resolve(dir);else restore()}
-card.addEventListener('pointerdown',down);card.addEventListener('pointermove',move);card.addEventListener('pointerup',up);card.addEventListener('pointercancel',up);
-document.getElementById('skip').onclick=finish;document.getElementById('start').onclick=()=>{i=0;done.classList.remove('show');load()};load();
+const VERSION='20260818-standalone-2';
+const steps=[
+ {label:'左へスワイプして削除',short:'左へ',action:'left',chunks:['assets-hq/1-00.b64','assets-hq/1-01.b64','assets-hq/1-02.b64','assets-hq/1-03.b64'],fallback:'tutorialPractice01.jpg'},
+ {label:'右へスワイプして保持',short:'右へ',action:'right',chunks:['assets-hq/2-00.b64','assets-hq/2-01.b64','assets-hq/2-02.b64'],fallback:'tutorialPractice02.jpg'},
+ {label:'上へスワイプして再検討',short:'上へ',action:'up',chunks:['assets-hq/3-00.b64','assets-hq/3-01.b64','assets-hq/3-02.b64','assets-hq/3-03.b64','assets-hq/3-04.b64','assets-hq/3-05.b64'],fallback:'tutorialPractice03.jpg'}
+];
+const card=document.getElementById('card'),photo=document.getElementById('photo'),instruction=document.getElementById('instruction'),counter=document.getElementById('counter'),deck=document.getElementById('deck'),loading=document.getElementById('loading'),done=document.getElementById('done');
+const targets={left:document.querySelector('[data-target="left"]'),right:document.querySelector('[data-target="right"]'),up:document.querySelector('[data-target="up"]')};
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let i=0,active=null,assets=[];
+function clearHot(){Object.values(targets).forEach(x=>x.classList.remove('hot'))}function hot(a){clearHot();if(a)targets[a].classList.add('hot')}
+async function loadFromChunks(step){try{const pieces=await Promise.all(step.chunks.map(p=>fetch(`${p}?v=${VERSION}`,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.text()})));const b64=pieces.map(x=>x.trim()).join('');return `data:image/webp;base64,${b64}`}catch(e){return step.fallback}}
+function decode(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=async()=>{try{await img.decode?.()}catch(e){}resolve(src)};img.onerror=reject;img.src=src})}
+async function preload(){const loaded=await Promise.all(steps.map(async s=>{let src=await loadFromChunks(s);try{return await decode(src)}catch(e){return await decode(s.fallback)}}));assets=loaded;render();loading.classList.add('hidden');deck.classList.add('ready')}
+function render(){counter.textContent=`${i+1} / 3`;instruction.textContent=steps[i].label;instruction.classList.remove('is-short');photo.src=assets[i]||steps[i].fallback;card.style.transition='none';card.style.transform='';card.style.opacity='1';clearHot()}
+function restore(showHint=false){if(showHint){instruction.textContent=steps[i].short;instruction.classList.add('is-short');setTimeout(()=>{if(i<3){instruction.textContent=steps[i].label;instruction.classList.remove('is-short')}},700)}const d=reduceMotion?0:260;card.style.transition=`transform ${d}ms cubic-bezier(.22,.78,.24,1),opacity ${d}ms ease`;card.style.transform='translate3d(0,0,0) rotate(0deg) scale(1)';card.style.opacity='1';clearHot()}
+function actionFor(dx,dy,vx,vy){const ax=Math.abs(dx),ay=Math.abs(dy);if(dy<0&&(ay>ax*.68||vy<-650)&&(ay>50||vy<-720))return'up';if(dx<0&&(ax>56||vx<-620))return'left';if(dx>0&&(ax>56||vx>620))return'right';return null}
+function commit(action,dx=0,dy=0){if(action!==steps[i].action){restore(true);return}hot(action);if(navigator.vibrate)navigator.vibrate(action==='left'?7:4);const tx=action==='left'?-760:action==='right'?760:Math.max(-70,Math.min(70,dx*.12));const ty=action==='up'?-900:Math.max(-80,Math.min(80,dy*.18));const rot=action==='left'?-6:action==='right'?6:0;const d=reduceMotion?0:190;card.style.transition=`transform ${d}ms cubic-bezier(.20,.80,.20,1),opacity ${d}ms ease`;card.style.transform=`translate3d(${tx}px,${ty}px,0) rotate(${reduceMotion?0:rot}deg) scale(.97)`;card.style.opacity='.03';setTimeout(()=>{i++;if(i>=3){done.classList.add('show')}else render()},d+20)}
+card.addEventListener('pointerdown',e=>{if(active||!assets.length)return;card.setPointerCapture?.(e.pointerId);active={id:e.pointerId,sx:e.clientX,sy:e.clientY,lx:e.clientX,ly:e.clientY,lt:performance.now(),vx:0,vy:0,moved:false};});
+card.addEventListener('pointermove',e=>{if(!active||e.pointerId!==active.id)return;const now=performance.now(),dt=Math.max(8,now-active.lt),dx=e.clientX-active.sx,dy=e.clientY-active.sy;active.vx=(e.clientX-active.lx)/dt*1000;active.vy=(e.clientY-active.ly)/dt*1000;active.lx=e.clientX;active.ly=e.clientY;active.lt=now;active.moved=active.moved||Math.abs(dx)>5||Math.abs(dy)>5;const x=(Math.abs(dx)<190?dx*.97:Math.sign(dx)*(184.3+(Math.abs(dx)-190)*.44));const y=(Math.abs(dy)<190?dy*.97:Math.sign(dy)*(184.3+(Math.abs(dy)-190)*.44));card.style.transform=`translate3d(${x}px,${y}px,0) rotate(${Math.max(-6,Math.min(6,x/29))}deg) scale(${1-Math.min(.03,Math.hypot(x,y)/3200)})`;hot(actionFor(dx,dy,active.vx,active.vy));e.preventDefault()},{passive:false});
+function end(e,cancel=false){if(!active||e.pointerId!==active.id)return;const a=active;active=null;const dx=(e.clientX??a.lx)-a.sx,dy=(e.clientY??a.ly)-a.sy;if(cancel){restore();return}const act=actionFor(dx+a.vx*.075,dy+a.vy*.075,a.vx,a.vy);act?commit(act,dx,dy):restore()}
+card.addEventListener('pointerup',e=>end(e,false));card.addEventListener('pointercancel',e=>end(e,true));
+document.getElementById('a11yDelete').onclick=()=>commit('left');document.getElementById('a11yKeep').onclick=()=>commit('right');document.getElementById('a11yLater').onclick=()=>commit('up');
+document.getElementById('skip').onclick=()=>done.classList.add('show');document.getElementById('retry').onclick=()=>{i=0;done.classList.remove('show');render()};document.getElementById('start').onclick=()=>location.href='../be-minimal/';
+preload().catch(()=>{assets=steps.map(s=>s.fallback);render();loading.classList.add('hidden');deck.classList.add('ready')});
 </script>
-</body></html>
+</body>
+</html>
