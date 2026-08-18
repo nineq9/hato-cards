@@ -15,20 +15,23 @@ Do not report "done" without stating which checks were actually performed.
 - [ ] LIKE heart appears at the intended point.
 - [ ] LIKE interaction animates correctly and does not shift layout unexpectedly.
 - [ ] User can perform a real right-to-left NEXT swipe.
-- [ ] User can perform a real left-to-right SAVE swipe.
+- [ ] User can perform a real left-to-right SAVE + ADVANCE swipe.
 - [ ] Tutorial instructions match current production gestures exactly.
 - [ ] No obsolete gesture instruction remains.
 
 ## B. Article cover / card
 
-- [ ] Active card is straight, not rotated.
+- [ ] Active card is straight, not rotated while reading.
 - [ ] Background cards may be subtly offset / rotated without harming readability.
 - [ ] Title is readable and not unnecessarily constrained by stock-count UI.
 - [ ] Summary text is readable at smartphone size.
+- [ ] Useful key points are visible without making typography too small.
 - [ ] Image does not dominate text.
-- [ ] Bottom gradient transitions naturally into the reading area.
+- [ ] Bottom gradient transitions naturally into the reading area in dark and light themes.
+- [ ] No abrupt smoke-like or banded image-to-body transition appears.
 - [ ] No text unexpectedly renders outside the card.
 - [ ] No duplicate title, summary, separator, or metadata appears.
+- [ ] No persistent UNDO mark/control is visible on the normal article surface.
 
 ## C. Vertical READ
 
@@ -51,14 +54,16 @@ Test separately from each position:
 - [ ] NEXT works in article middle.
 - [ ] NEXT works at article end.
 - [ ] Card visibly follows the finger.
-- [ ] Insufficient swipe distance returns the card to place.
-- [ ] Sufficient distance / velocity advances to next card.
+- [ ] Insufficient swipe intent returns the card to place without wobble.
+- [ ] Sufficient distance / velocity / intent commits the action.
+- [ ] Committed card continues out to the left in the same direction as the gesture.
+- [ ] Next card is revealed.
 - [ ] Next card begins at scroll position 0.
 - [ ] Previous card's scroll position does not leak into the next card.
 - [ ] NEXT does not accidentally trigger while vertically scrolling.
 - [ ] Stock / unread count updates correctly if applicable.
 
-## E. SAVE (left-to-right)
+## E. SAVE + ADVANCE (left-to-right)
 
 Test separately from each position:
 
@@ -67,23 +72,29 @@ Test separately from each position:
 - [ ] SAVE works at article end.
 - [ ] Card visibly follows the finger.
 - [ ] Save feedback is subtle and understandable.
+- [ ] Insufficient swipe intent returns the card to place without visible vibration or repeated bounce.
 - [ ] Sufficient swipe saves the article.
-- [ ] Article does not navigate away after save.
-- [ ] Card returns smoothly to reading position.
-- [ ] Current scroll position is preserved after saving.
+- [ ] Committed card continues out to the right in the same direction as the gesture.
+- [ ] Successful SAVE does not snap the same article back into place.
+- [ ] Next card is revealed after SAVE.
+- [ ] Next card begins at scroll position 0.
 - [ ] Saved state is reflected correctly in the saved-items UI.
 - [ ] SAVE does not accidentally trigger while vertically scrolling.
 
-## F. Gesture lock / conflict testing
+## F. Gesture intent / conflict testing
 
 - [ ] Small ambiguous movement does not trigger an action immediately.
-- [ ] Clear vertical movement locks to READ.
-- [ ] Clear horizontal movement locks to NEXT or SAVE.
-- [ ] Direction does not change mid-gesture after lock.
-- [ ] Diagonal up-left gesture behaves predictably.
-- [ ] Diagonal up-right gesture behaves predictably.
-- [ ] Slow horizontal swipe behaves predictably.
+- [ ] Clear read-like movement remains READ.
+- [ ] Deliberate horizontal-intent movement becomes NEXT or SAVE.
+- [ ] Natural one-handed thumb arcs can commit NEXT.
+- [ ] Natural one-handed thumb arcs can commit SAVE.
+- [ ] Diagonal and slightly curved horizontal-intent paths behave predictably.
+- [ ] Vertical READ with ordinary horizontal thumb wobble remains READ.
+- [ ] Ambiguous diagonal movement can cancel without accidental action.
+- [ ] Slow deliberate swipe behaves predictably.
 - [ ] Fast flick behaves predictably.
+- [ ] Once horizontal intent is clear, card movement follows the finger without an activation jump.
+- [ ] Committed completion direction always matches gesture direction.
 - [ ] Repeated rapid gestures do not leave the card in a stuck transform state.
 - [ ] No duplicate touch / pointer handlers cause double actions.
 
@@ -100,33 +111,36 @@ Test separately from each position:
 ## H. Menu
 
 - [ ] Hamburger button opens the menu.
+- [ ] Hamburger icon lines use the intended consistent geometry.
 - [ ] Full menu rows are tappable, including whitespace to the right of labels.
 - [ ] Settings opens correctly.
 - [ ] Saved opens correctly.
 - [ ] Likes opens correctly.
 - [ ] Saved icon is a recognizable bookmark icon.
+- [ ] LIKE / SAVE row icons and labels are optically aligned.
+- [ ] LIKE / SAVE remain reachable while HISTORY scrolls independently if that layout is active.
+- [ ] SETTINGS remains reachable without scrolling through the entire history.
 - [ ] Subviews have a clear path back to menu list.
-- [ ] Left-edge-to-right swipe returns from Settings to menu list if this gesture is enabled there.
-- [ ] Left-edge-to-right swipe returns from other menu subviews consistently.
 - [ ] Closing and reopening the menu starts at the top-level menu unless intentionally specified otherwise.
 - [ ] Menu state does not remain trapped in a previously opened subview.
 
-## I. Menu edge swipe vs SAVE conflict
+## I. Menu gesture conflicts
 
-- [ ] Edge swipe activates only from the defined narrow left-edge zone.
-- [ ] Starting a right swipe away from the edge triggers SAVE, not menu.
-- [ ] Starting at the edge opens / returns toward menu, not SAVE.
+- [ ] Drawer swipe-to-close, if enabled, follows the finger and dismisses predictably.
+- [ ] Drawer swipe-to-close does not trigger article SAVE underneath.
+- [ ] System/browser navigation gestures are not unexpectedly hijacked.
 - [ ] Threshold feels usable on iPhone-sized screens.
 - [ ] User is not frequently forced to repeat gestures because of ambiguous detection.
 
 ## J. Source view
 
 - [ ] Source control opens source information without losing article position.
-- [ ] Modal / bottom sheet renders correctly.
-- [ ] Source name / original title are readable.
-- [ ] External source action is explicit.
-- [ ] Closing source view returns to the exact previous scroll position.
-- [ ] Opening / closing repeatedly does not duplicate overlays.
+- [ ] Dedicated KAWASEMI source-reading surface renders correctly.
+- [ ] Source name / original title / publication metadata are readable.
+- [ ] Available excerpt/content and provenance are understandable.
+- [ ] External original-source action is explicit.
+- [ ] Closing source view returns to the exact previous article and scroll position.
+- [ ] Opening / closing repeatedly does not duplicate overlays or routes.
 
 ## K. Navigation / state
 
@@ -134,15 +148,19 @@ Test separately from each position:
 - [ ] Browser back behavior does not unexpectedly destroy app state.
 - [ ] Old detail-view state does not reappear if detail navigation has been removed.
 - [ ] Old gesture meanings are not still active in hidden code paths.
+- [ ] Old SAVE-return or persistent-UNDO behavior is not still active in hidden code paths.
 - [ ] No duplicated event listeners appear after rerenders / repeated opening.
 
-## L. Card progression
+## L. Card progression / CLEAR!
 
 - [ ] Current card count is visually balanced and readable.
 - [ ] Progress changes correctly after NEXT.
-- [ ] SAVE does not incorrectly consume a card unless explicitly intended.
-- [ ] LIKE does not incorrectly consume a card.
-- [ ] Reaching zero produces the intended caught-up state.
+- [ ] SAVE intentionally consumes the current card and advances to the next card.
+- [ ] LIKE does not consume a card.
+- [ ] Reaching the final unprocessed article and processing it empties the required queue.
+- [ ] Empty required queue does not loop previously processed articles.
+- [ ] Caught-up state visibly renders the exact text `CLEAR!`.
+- [ ] CLEAR! looks intentional and calm, not like an error state.
 
 ## M. Mobile visual QA
 
