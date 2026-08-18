@@ -12,25 +12,31 @@ The article must remain visually and structurally inside the card while the user
 
 Core gestures:
 - vertical scroll = READ
-- right-to-left swipe = NEXT
-- left-to-right swipe = SAVE
+- right-to-left swipe = NEXT; current card exits left and the next card appears
+- left-to-right swipe = SAVE + ADVANCE; current card is saved, exits right, and the next card appears
 - heart at article end = LIKE
+
+Both committed horizontal actions dismiss the current card in the direction of the gesture. Do not make SAVE commit and then wobble, bounce, or snap the current card back into place.
 
 These meanings must remain consistent at the top, middle, and bottom of an article.
 
-## 2. Gesture direction lock
+## 2. Gesture intent and direct manipulation
 
-Vertical reading and horizontal actions share the same touch surface, so gesture intent must be locked early and consistently.
+Vertical reading and horizontal actions share the same touch surface. Gesture handling must distinguish READ intent from card-dismiss intent without requiring an unnaturally perfect horizontal line.
 
 Required behavior:
 1. On gesture start, do not immediately trigger an action.
-2. Wait for a small movement threshold.
-3. If vertical movement clearly dominates, lock to vertical scroll.
-4. If horizontal movement clearly dominates, lock to horizontal swipe.
-5. Once locked, do not switch direction during the same gesture.
+2. Allow a small neutral movement region.
+3. Preserve native vertical reading when the path is predominantly read-like, including normal thumb wobble.
+4. Recognize deliberate NEXT / SAVE intent from realistic one-handed thumb trajectories, including diagonal and slightly curved paths.
+5. Once horizontal intent is clear, the card should follow the finger directly and predictably.
+6. A short or ambiguous gesture cancels cleanly without committing.
+7. A committed gesture exits with controlled inertia in the same direction as the user's movement.
 
 A vertical read must never wobble the card sideways.
 A horizontal swipe must not cause the article to scroll vertically.
+Do not require a mathematically horizontal swipe for NEXT / SAVE.
+Avoid rubber-band wobble, repeated bounce, or a visible vibration-like response.
 
 Use one shared gesture controller / decision path wherever possible rather than screen-specific competing handlers.
 
@@ -43,28 +49,28 @@ NEXT must work:
 - in the middle of the article
 - at the article end
 
-The card follows the finger. If the threshold or velocity is sufficient, it exits with controlled inertia and reveals the next card.
+The card follows the finger. If intent is committed, it exits left with controlled inertia and reveals the next card.
 
 The next article always starts at scroll position 0.
-
 Do not inherit the previous article's scroll position.
 
 ## 4. SAVE
 
-Left-to-right swipe means SAVE.
+Left-to-right swipe means SAVE + ADVANCE.
 
 SAVE must work at any article scroll position.
 
-Saving does not navigate away from the current article.
-
 Expected motion:
 - card follows finger
-- subtle bookmark / save feedback appears
-- threshold crossed
+- restrained save feedback may appear while dragging
 - save is committed
-- card returns smoothly to its reading position
+- current card continues out to the right instead of returning to its reading position
+- the next article is revealed and starts at scroll position 0
 
+The saved article remains available from SAVED.
+SAVE and LIKE remain separate signals.
 Do not use large confirmation text or disruptive transitions.
+Do not use a bounce-back animation after a successful SAVE.
 
 ## 5. READ
 
@@ -78,7 +84,7 @@ Do not require:
 
 The initial view should work as a beautiful cover, but content continues naturally below it inside the same card.
 
-The product is text-first. Photography supports understanding and atmosphere; it must not overpower the title and summary.
+The product is text-first. Photography supports understanding and atmosphere; it must not overpower the title, summary, and useful key points.
 
 ## 6. Article visual transition
 
@@ -86,12 +92,13 @@ The cover and article body should feel continuous.
 
 Preferred visual flow:
 image / cover
-→ lower area gradually darkens
-→ title and summary remain highly legible
-→ dark gradient naturally becomes the reading background
+→ lower area gradually transitions toward the theme reading surface
+→ title, summary, and key points remain highly legible
+→ the gradient naturally becomes the reading background
 → long-form content continues below
 
 The gradient is not merely decoration. It visually connects the cover to the reading space.
+Do not use abrupt dark-to-light bands or smoke-like transitions.
 
 ## 7. LIKE
 
@@ -119,19 +126,10 @@ Tutorial sequence should teach by doing:
 2. Let the user actually scroll the first article.
 3. Let the user reach the actual end and press LIKE.
 4. Let the user perform a real NEXT swipe.
-5. Let the user perform a real SAVE swipe.
+5. Let the user perform a real SAVE swipe and see that the saved card exits right to the next article.
 
 Tutorial copy should be short, intelligent, and calm.
-
-Avoid ambiguous copy such as "もういい→次へ" if the gesture itself is not obvious.
-
-Suggested conceptual copy style:
-- 世界を、取りこぼさない。
-- 気になったら、そのまま読む。
-- ひとつのニュースを、そこで終わらせない。
-- もう十分なら、左へ。
-- 残しておきたいなら、右へ。
-
+Avoid ambiguous copy if the gesture itself is not obvious.
 The user should learn the interface through motion, not through paragraphs of instructions.
 
 ## 9. Menu navigation
@@ -140,11 +138,12 @@ The hamburger menu must never create a navigation dead end.
 
 Menu behavior:
 - menu can open from the button
-- from eligible screens, a left-edge-to-right edge swipe can open or return toward the menu
 - entering Settings / Saved / Likes / other menu subviews must provide a consistent way back to the menu list
 - closing and reopening the menu should normally return to the top-level menu unless a deliberate product decision says otherwise
+- LIKE / SAVE utility rows may remain fixed above a separately scrollable HISTORY region
+- SETTINGS should remain reachable without scrolling through the entire history
 
-Edge swipe must only activate from a narrow left-edge zone so it does not conflict with SAVE on article cards.
+If swipe-to-close is supported, the drawer should follow the finger and dismiss predictably without conflicting with system navigation gestures or article gestures.
 
 ## 10. Touch targets
 
@@ -157,19 +156,18 @@ Important controls must have comfortable mobile touch areas even when visually m
 Opening a source should not unnecessarily destroy reading context.
 
 Preferred behavior:
-- source opens first in a modal / bottom sheet
-- current article remains visible behind it
-- source metadata is shown clearly
+- source opens in a dedicated KAWASEMI source-reading surface
+- source identity, original headline, publication time, available excerpt/content, provenance, and an explicit original-source action are shown clearly
 - external page opens only after explicit user action
-- closing the sheet returns to the exact reading position
+- returning restores the exact article and reading position
+- do not reproduce full source text when licensing/storage rules do not allow it
 
 ## 12. Card stack
 
-The active card stays visually straight for readability.
+The active card stays visually straight for readability while reading.
 
+During a committed horizontal gesture, the active card may translate and rotate slightly as part of direct manipulation.
 Cards behind it may be offset / rotated very slightly to create physical depth.
-
-Do not rotate the active reading card.
 
 Keep the effect subtle, premium, and non-game-like.
 
@@ -181,15 +179,37 @@ Motion should feel:
 - smooth
 - restrained
 - premium
+- responsive to direct touch
 
 Avoid:
 - excessive bounce
 - rubber-band effects unless native scrolling requires them
 - wobble
+- vibration-like visual shaking
 - abrupt route-like transitions
 - decorative motion that delays reading
 
-## 14. State consistency
+The direction of the completion animation must match the direction of the user's gesture.
+
+## 14. Undo control
+
+Do not show a persistent UNDO mark/control on the normal article surface.
+The primary review flow should stay visually quiet and forward-moving.
+
+If reversible recovery is later required, design it as a separate, deliberate recovery mechanism rather than restoring the old persistent undo mark without Owner approval.
+
+## 15. Caught-up state
+
+CARDS is finite.
+
+When the user has processed every article in the current required queue, replace the article stack with a clear caught-up state that visibly says:
+
+`CLEAR!`
+
+Do not loop back to already processed articles merely to avoid an empty state.
+The caught-up state should feel calm and complete, not like an error or dead end.
+
+## 16. State consistency
 
 Changing one interaction must not leave an old interaction active elsewhere.
 
@@ -203,13 +223,13 @@ When a gesture meaning changes, update all of:
 
 Do not keep old behavior hidden behind CSS or unreachable UI if the underlying event handler still exists.
 
-## 15. Responsive priority
+## 17. Responsive priority
 
 Primary target is smartphone usage, especially iPhone / Safari-like touch behavior.
 
 Desktop behavior may exist, but it must not dictate touch UX.
 
-## 16. No implementation-by-patchwork
+## 18. No implementation-by-patchwork
 
 Before adding a new event handler, state variable, view, or gesture, check whether an existing shared implementation can be extended.
 
