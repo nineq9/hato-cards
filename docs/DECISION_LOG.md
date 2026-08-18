@@ -227,3 +227,29 @@ Current official documentation shows that those deferred sources add one or more
 
 Implication:
 No paid API call, external account creation, licensed content contract, or terms-risk ingestion is authorized by this decision. Enabling such a source requires the Owner decision boundary already defined for cost, accounts, or material terms risk.
+
+---
+
+## 2026-08-18 — Both horizontal CARDS gestures dismiss the current card
+
+Decision:
+Change the previous SAVE motion contract.
+
+New interaction contract:
+- vertical scroll = READ
+- right-to-left swipe = NEXT; current card exits left
+- left-to-right swipe = SAVE + ADVANCE; current card is saved, exits right, and the next card appears
+- heart at article end = LIKE
+
+A successful SAVE must not bounce, wobble, or snap the same article back into place.
+The normal article surface must not show the old persistent UNDO mark.
+When the finite required queue is exhausted, the caught-up state visibly says `CLEAR!`.
+
+Reason:
+Owner real-device use found the previous right-swipe save-and-return motion visually irritating and the horizontal gesture feel poor. Both committed horizontal actions should behave as direct card dismissals in the same direction as the user's gesture, while preserving distinct semantics: left = move on, right = save then move on.
+
+Implementation direction:
+Use Apple Human Interface Guidelines as interaction reference for direct manipulation, immediate responsive feedback, gesture-consistent completion direction, realistic motion, and avoidance of gratuitous wobble. Do not copy Apple visual assets or proprietary UI; apply the interaction principles to KAWASEMI's own design language.
+
+Implication:
+Update production state transitions, tutorial behavior, labels, automated tests, QA expectations, and any old SAVE-scroll-preservation / SAVE-return assumptions together. Saved articles remain available in SAVED. The caught-up queue must not loop processed articles to avoid showing `CLEAR!`.
