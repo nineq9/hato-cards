@@ -30,7 +30,9 @@
     flickVelocity: 0.68,
     flickDominance: 1.35,
     followRecovery: 28,
-    manualReadMinDistance: 40
+    manualReadMinDistance: 40,
+    arcHorizontalActivation: 50,
+    arcHorizontalDominance: 1.35
   };
   const GESTURE = Object.freeze({...GESTURE_DEFAULTS,...(window.__KAWASEMI_GESTURE_TUNING || {})});
   window.__KAWASEMI_GESTURE_ACTIVE = GESTURE;
@@ -44,8 +46,6 @@
     interests: JSON.parse(localStorage.getItem('kingfisherInterests') || '["Ukraine","AI","Drones","Europe","Energy"]'),
     historyIds: JSON.parse(localStorage.getItem('kingfisherSwipeHistory') || '[]'),
     themeChoice: localStorage.getItem('kingfisherTheme') || 'dark',
-    undo: [],
-    toastTimer: null,
     lastReadId: localStorage.getItem('kingfisherLastRead') || null,
     drawerView: 'home',
     edgeDrawerPointerId: null,
@@ -201,7 +201,7 @@
 
   function resetReaderVisual(){
     const stage=$('#readerStage'),panel=$('#readerPanel'),save=$('#readerSaveReveal');
-    stage?.classList.remove('is-nexting','is-saving');
+    stage?.classList.remove('is-nexting','is-saving','is-committed');
     if(panel){panel.style.transition='';panel.style.transform='';panel.style.opacity='';}
     if(save){save.style.setProperty('--save-progress','0');save.classList.remove('committed','already');}
   }
@@ -217,7 +217,7 @@
     const a=currentArticle();
     resetReaderVisual();
     if(!a){
-      content.innerHTML='<div class="clear-card"><span>CLEAR</span></div>';nextHost.innerHTML='';syncNav();return;
+      content.innerHTML='<div class="clear-card"><span>CLEAR!</span></div>';nextHost.innerHTML='';syncNav();return;
     }
     const count=queueFor().length+(state.processed.has(a.id)?1:0);
     content.innerHTML=storyMarkup(a,Math.max(1,count));
@@ -229,19 +229,6 @@
     recordActiveArticle(a);
     syncNav();
     requestAnimationFrame(updateTutorialReadProgress);
-  }
-
-  function snapshot(){
-    state.undo.push({processed:[...state.processed],saved:[...state.saved],liked:[...state.liked],currentId:state.currentId,tab:state.tab,scrollTop:$('#articleScroll')?.scrollTop||0});
-    if(state.undo.length>20) state.undo.shift();
-  }
-  function showUndoOnly(){
-    const t=$('#undoToast');if(!t)return;
-    t.classList.add('show');clearTimeout(state.toastTimer);state.toastTimer=setTimeout(()=>t.classList.remove('show'),1700);
-  }
-  function undo(){
-    const h=state.undo.pop();if(!h)return;
-    state.processed=new Set(h.processed);state.saved=new Set(h.saved);state.liked=new Set(h.liked);state.currentId=h.currentId;state.tab=h.tab;persist();showScreen('cards');renderReader({resetScroll:false,scrollTop:h.scrollTop});renderDrawer();$('#undoToast')?.classList.remove('show');
   }
 
   function settleReader(){
@@ -260,47 +247,37 @@
     const recovery=GESTURE.horizontalActivation*(1-Math.exp(-post/GESTURE.followRecovery));
     return sign*(post+recovery);
   }
-  function advanceNext(dx=0,vx=0){
-    const a=currentArticle();if(!a)return;
-    const next=nextArticleCandidate();snapshot();state.processed.add(a.id);addHistory(a.id);persist();
-    const panel=$('#readerPanel'),travel=Math.max(innerWidth*1.12,420),remaining=Math.max(80,travel-Math.abs(dx));
-    const exitSpeed=Math.max(.82,Math.abs(vx));
-    const exitDuration=clamp(remaining/exitSpeed,185,295);
-    panel.style.transition=`transform ${exitDuration}ms cubic-bezier(.12,.82,.16,1),opacity ${Math.min(190,exitDuration)}ms linear`;
-    panel.style.transform='translate3d(-112vw,0,0) rotate(-2.5deg)';panel.style.opacity='.08';
-    setTimeout(()=>{
-      state.currentId=next?.id||null;
-      renderReader({resetScroll:true});
-      const p=$('#readerPanel');p.style.transition='none';p.style.transform='translate3d(14px,0,0)';p.style.opacity='.96';
-      requestAnimationFrame(()=>requestAnimationFrame(()=>{
-        p.style.transition='transform 220ms cubic-bezier(.2,.72,.18,1),opacity 180ms linear';p.style.transform='';p.style.opacity='1';
-        setTimeout(()=>p.style.transition='',230);
-      }));
-      tutorialAction('next');
-      showUndoOnly();
-    },220);
-  }
-  function saveCurrent(){
+  function dismissCurrent(direction,{save=false,dx=0,vx=0,tutorialActionName=null}={}){
     const a=currentArticle();if(!a)return false;
-    if(state.saved.has(a.id)) return false;
-    snapshot();state.saved.add(a.id);addHistory(a.id);persist();renderDrawer();showUndoOnly();return true;
+    if(save) state.saved.add(a.id);
+    state.processed.add(a.id);addHistory(a.id);persist();renderDrawer();
+    const panel=$('#readerPanel'),stage=$('#readerStage'),reveal=$('#readerSaveReveal');
+    const sign=direction==='right'?1:-1;
+    if(save){stage.classList.add('is-saving','is-committed');reveal.classList.add('committed');reveal.classList.add('already');}
+    else stage.classList.add('is-nexting');
+    const travel=Math.max(innerWidth*1.12,420),remaining=Math.max(72,travel-Math.abs(dx));
+    const exitSpeed=Math.max(.86,Math.abs(vx));
+    const exitDuration=clamp(remaining/exitSpeed,180,290);
+    panel.style.transition=`transform ${exitDuration}ms cubic-bezier(.12,.82,.16,1),opacity ${Math.min(190,exitDuration)}ms linear`;
+    panel.style.transform=`translate3d(${sign*112}vw,0,0) rotate(${sign*2.5}deg)`;panel.style.opacity='.08';
+    setTimeout(()=>{
+      state.currentId=queueFor()[0]?.id||null;
+      renderReader({resetScroll:true});
+      if(tutorialActionName) tutorialAction(tutorialActionName);
+    },exitDuration);
+    return true;
   }
-  function commitSave(dx=0){
-    const panel=$('#readerPanel'),reveal=$('#readerSaveReveal');
-    const added=saveCurrent();
-    reveal.classList.add('committed');reveal.classList.toggle('already',state.saved.has(currentArticle()?.id));
-    panel.style.transition='transform 150ms cubic-bezier(.18,.78,.18,1)';panel.style.transform=`translate3d(${Math.max(72,Math.min(dx,105))}px,0,0)`;
-    tutorialAction('save');
-    setTimeout(settleReader,115);
-    return added;
-  }
+  function advanceNext(dx=0,vx=0){return dismissCurrent('left',{dx,vx,tutorialActionName:'next'});}
+  function commitSave(dx=0,vx=0){return dismissCurrent('right',{save:true,dx,vx,tutorialActionName:'save'});}
 
   function decideAxis(g,dx,dy){
     if(g.axis) return g.axis;
     const ax=Math.abs(dx),ay=Math.abs(dy),dist=Math.hypot(dx,dy);
     if(dist<GESTURE.neutralDistance) return null;
     if(ay>=GESTURE.verticalActivation&&ay>=ax*GESTURE.verticalDominance){g.axis='y';return g.axis;}
-    if(ax>=GESTURE.horizontalActivation&&ax>=ay*GESTURE.horizontalDominance){g.axis='x';return g.axis;}
+    const strictHorizontal=ax>=GESTURE.horizontalActivation&&ax>=ay*GESTURE.horizontalDominance;
+    const thumbArcHorizontal=ax>=GESTURE.arcHorizontalActivation&&ax>=ay*GESTURE.arcHorizontalDominance;
+    if(strictHorizontal||thumbArcHorizontal){g.axis='x';return g.axis;}
     // Ambiguous diagonals never fall through into a forced horizontal action.
     // If the overall path is read-like, bias to native READ; otherwise remain neutral.
     if(dist>=GESTURE.readBiasDistance&&ay>=ax*GESTURE.readBiasFloor){g.axis='y';return g.axis;}
@@ -365,7 +342,7 @@
       const distanceCommit=ax>=commitDistance;
       const flickCommit=ax>=GESTURE.flickMinDistance&&ax>=ay*GESTURE.flickDominance&&Math.abs(effectiveVx)>=GESTURE.flickVelocity;
       if(dx<0&&(distanceCommit||flickCommit)){advanceNext(dx,effectiveVx);return;}
-      if(dx>0&&(distanceCommit||flickCommit)){commitSave(dx);return;}
+      if(dx>0&&(distanceCommit||flickCommit)){commitSave(dx,effectiveVx);return;}
       settleReader();
     };
     surface.addEventListener('pointerup',finish);
@@ -451,7 +428,8 @@
   function renderDrawer(){
     const body=$('#drawerBody');if(!body)return;
     body.style.transform='';body.style.opacity='';body.style.transition='';
-    if(state.drawerView==='home') body.innerHTML=`<div class="drawer-home"><div class="drawer-actions"><button data-view="liked"><span>♡</span><b>${tr('いいね','НРАВИТСЯ')}</b></button><button data-view="saved"><span class="drawer-save-icon"><svg viewBox="0 0 28 32" aria-hidden="true"><path d="M7 4h14v24l-7-5-7 5z"/></svg></span><b>${tr('保存','СОХРАНЁННОЕ')}</b></button></div><div class="drawer-section-title">${tr('履歴','ИСТОРИЯ')}</div><div class="drawer-history">${drawerRows(state.historyIds)}</div><div class="drawer-settings-entry"><button data-view="settings"><span>⚙︎</span><b>${tr('設定','НАСТРОЙКИ')}</b></button></div></div>`;
+    body.classList.toggle('drawer-root-layout',state.drawerView==='home');
+    if(state.drawerView==='home') body.innerHTML=`<div class="drawer-home drawer-home-fixed"><div class="drawer-fixed-top drawer-actions"><button data-view="liked"><span class="drawer-row-icon"><svg viewBox="0 0 28 32" aria-hidden="true"><path d="M14 27S5 21.6 5 14.5C5 10.8 7.4 8.5 10.4 8.5c1.8 0 3.2.9 3.6 2 .4-1.1 1.8-2 3.6-2 3 0 5.4 2.3 5.4 6C23 21.6 14 27 14 27z"/></svg></span><b>${tr('いいね','НРАВИТСЯ')}</b></button><button data-view="saved"><span class="drawer-row-icon"><svg viewBox="0 0 28 32" aria-hidden="true"><path d="M7 4h14v24l-7-5-7 5z"/></svg></span><b>${tr('保存','СОХРАНЁННОЕ')}</b></button></div><section class="drawer-history-region"><div class="drawer-section-title">${tr('履歴','ИСТОРИЯ')}</div><div class="drawer-history">${drawerRows(state.historyIds)}</div></section><div class="drawer-fixed-bottom"><button data-view="settings"><span class="drawer-row-icon drawer-settings-icon">⚙︎</span><b>${tr('設定','НАСТРОЙКИ')}</b></button></div></div>`;
     else if(state.drawerView==='liked') body.innerHTML=`<button class="drawer-back" aria-label="${tr('メニューへ戻る','Назад в меню')}">←</button><h2>${tr('いいね','НРАВИТСЯ')}</h2>${drawerRows([...state.liked])}`;
     else if(state.drawerView==='saved') body.innerHTML=`<button class="drawer-back" aria-label="${tr('メニューへ戻る','Назад в меню')}">←</button><h2>${tr('保存','СОХРАНЁННОЕ')}</h2>${drawerRows([...state.saved])}`;
     else if(state.drawerView==='settings') body.innerHTML=`<button class="drawer-back" aria-label="${tr('メニューへ戻る','Назад в меню')}">←</button><h2>${tr('設定','НАСТРОЙКИ')}</h2><section class="settings-group"><h3>${tr('言語','ЯЗЫК')}</h3><div class="language-list"><button data-lang="ja">日本語</button><button data-lang="ru">Русский</button></div></section><section class="settings-group"><h3>${tr('興味・好み','ИНТЕРЕСЫ')}</h3><div class="interest-list">${state.interests.map((x,i)=>`<button class="interest-chip" data-i="${i}">${esc(x)} ×</button>`).join('')}</div><form id="drawerInterestForm"><input id="drawerInterestInput" maxlength="32" placeholder="＋"/><button>＋</button></form></section><section class="settings-group"><h3>${tr('デザイン','ТЕМА')}</h3><div class="theme-list"><button data-theme="dark">DARK</button><button data-theme="light">LIGHT</button><button data-theme="system">SYSTEM</button></div></section>`;
@@ -486,57 +464,46 @@
 
   function bindEdgeDrawerGesture(){
     let g=null;
-    const resetClosedDrag=()=>{const drawer=$('#drawer'),backdrop=$('#drawerBackdrop');drawer.style.transition='';drawer.style.transform='';backdrop.style.opacity='';backdrop.classList.remove('dragging');};
-    const resetSubviewDrag=()=>{const body=$('#drawerBody');body.style.transition='transform 180ms cubic-bezier(.2,.72,.18,1),opacity 160ms linear';body.style.transform='';body.style.opacity='';setTimeout(()=>body.style.transition='',190);};
+    const drawer=$('#drawer'),backdrop=$('#drawerBackdrop');
+    const resetOpenCandidate=()=>{drawer.style.transition='';drawer.style.transform='';backdrop.style.opacity='';backdrop.classList.remove('dragging');};
+    const snapDrawerOpen=()=>{drawer.style.transition='transform 190ms cubic-bezier(.2,.72,.18,1)';drawer.style.transform='translate3d(0,0,0)';backdrop.style.transition='opacity 160ms linear';backdrop.style.opacity='';setTimeout(()=>{drawer.style.transition='';backdrop.style.transition='';drawer.style.transform='';backdrop.style.opacity='';},205);};
+    const closeWithMotion=(vx=0)=>{const width=Math.max(280,drawer.getBoundingClientRect().width),duration=clamp(width/Math.max(.9,Math.abs(vx)),170,250);drawer.style.transition=`transform ${duration}ms cubic-bezier(.12,.82,.16,1)`;drawer.style.transform='translate3d(-105%,0,0)';backdrop.style.transition=`opacity ${Math.min(170,duration)}ms linear`;backdrop.style.opacity='0';setTimeout(closeDrawer,duration);};
 
     document.addEventListener('pointerdown',e=>{
-      if(e.clientX>edgeGestureWidth()||$('#sourceSheet').classList.contains('open')||state.tab==='dive'||!$('#splash').classList.contains('hidden')) return;
-      const drawerOpen=$('#drawer').classList.contains('open');
-      if(drawerOpen){
-        if(state.drawerView==='home') return;
-        g={mode:'back',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null,captureTarget:e.target instanceof Element?e.target:null};
-      }else{
-        if(!$('#cardsScreen').classList.contains('active')||!$('#tutorial').classList.contains('hidden')) return;
-        g={mode:'open',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null,captureTarget:e.target instanceof Element?e.target:null};
+      if($('#sourceSheet').classList.contains('open')||state.tab==='dive'||!$('#splash').classList.contains('hidden')) return;
+      if(drawer.classList.contains('open')){
+        const inDrawer=e.target instanceof Element&&(drawer.contains(e.target)||backdrop.contains(e.target));
+        if(!inDrawer)return;
+        g={mode:'close',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null};
+        return;
       }
-      state.edgeDrawerPointerId=e.pointerId;
+      if(e.clientX>edgeGestureWidth()||!$('#cardsScreen').classList.contains('active')||!$('#tutorial').classList.contains('hidden')) return;
+      g={mode:'open',id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastT:performance.now(),vx:0,axis:null};state.edgeDrawerPointerId=e.pointerId;
     },true);
 
     document.addEventListener('pointermove',e=>{
       if(!g||e.pointerId!==g.id)return;
-      const dx=Math.max(0,e.clientX-g.x),dy=e.clientY-g.y;
-      decideAxis(g,dx,dy,7);
-      const now=performance.now(),dt=Math.max(8,now-g.lastT);g.vx=g.vx*.44+((e.clientX-g.lastX)/dt)*.56;g.lastX=e.clientX;g.lastT=now;
+      const rawDx=e.clientX-g.x,dy=e.clientY-g.y,now=performance.now(),dt=Math.max(8,now-g.lastT);g.vx=g.vx*.44+((e.clientX-g.lastX)/dt)*.56;g.lastX=e.clientX;g.lastT=now;
+      if(!g.axis){const ax=Math.abs(rawDx),ay=Math.abs(dy),dist=Math.hypot(rawDx,dy);if(dist<14)return;if(ay>ax*1.25){g.axis='y';return;}if(ax>ay*1.25)g.axis='x';else return;}
       if(g.axis!=='x')return;
-      try{g.captureTarget?.setPointerCapture?.(g.id);}catch{}
       e.preventDefault();
-      if(g.mode==='open'){
-        const drawer=$('#drawer'),backdrop=$('#drawerBackdrop'),progress=clamp(dx/Math.max(1,drawer.offsetWidth),0,1);
-        drawer.style.transition='none';drawer.style.transform=`translateX(${-103+103*progress}%)`;backdrop.style.opacity=String(progress*.9);backdrop.classList.add('dragging');
+      if(g.mode==='close'){
+        const dx=Math.min(0,rawDx),width=Math.max(1,drawer.offsetWidth),progress=clamp(Math.abs(dx)/width,0,1);drawer.style.transition='none';drawer.style.transform=`translate3d(${dx}px,0,0)`;backdrop.style.transition='none';backdrop.style.opacity=String((1-progress)*.9);backdrop.classList.add('dragging');
       }else{
-        const body=$('#drawerBody'),progress=clamp(dx/110,0,1);body.style.transition='none';body.style.transform=`translateX(${progress*42}px)`;body.style.opacity=String(1-progress*.22);
+        const dx=Math.max(0,rawDx),width=Math.max(1,drawer.offsetWidth),progress=clamp(dx/width,0,1);drawer.style.transition='none';drawer.style.transform=`translate3d(${-103+103*progress}%,0,0)`;backdrop.style.opacity=String(progress*.9);backdrop.classList.add('dragging');
       }
     },{capture:true,passive:false});
 
     const end=e=>{
-      if(!g||e.pointerId!==g.id)return;
-      const data=g;g=null;state.edgeDrawerPointerId=null;
-      const dx=e.clientX-data.x;
-      decideAxis(data,dx,e.clientY-data.y,7);
-      if(data.mode==='back'){
-        if(data.axis==='x'&&(dx>54||data.vx>.35)){state.drawerView='home';renderDrawer();return;}
-        resetSubviewDrag();return;
+      if(!g||e.pointerId!==g.id)return;const data=g;g=null;state.edgeDrawerPointerId=null;const dx=e.clientX-data.x,dy=e.clientY-data.y;backdrop.classList.remove('dragging');
+      if(data.mode==='close'){
+        if(data.axis==='x'&&(dx<-70||data.vx<-.42)){closeWithMotion(data.vx);return;}
+        snapDrawerOpen();return;
       }
-      $('#drawerBackdrop').classList.remove('dragging');
-      if(data.axis==='x'&&(dx>68||data.vx>.38)){openDrawer();return;}
-      resetClosedDrag();
+      if(data.axis==='x'&&(dx>68||data.vx>.38)){openDrawer();return;}resetOpenCandidate();
     };
     document.addEventListener('pointerup',end,true);
-    document.addEventListener('pointercancel',e=>{
-      if(!g||e.pointerId!==g.id)return;
-      const mode=g.mode;g=null;state.edgeDrawerPointerId=null;
-      if(mode==='back') resetSubviewDrag(); else resetClosedDrag();
-    },true);
+    document.addEventListener('pointercancel',e=>{if(!g||e.pointerId!==g.id)return;const mode=g.mode;g=null;state.edgeDrawerPointerId=null;if(mode==='close')snapDrawerOpen();else resetOpenCandidate();},true);
   }
 
   const TUTORIAL_COPY={
@@ -607,7 +574,7 @@
     $('#articleScroll').addEventListener('scroll',updateTutorialReadProgress,{passive:true});
     $('#menuButton').addEventListener('click',openDrawer);$('#drawerBackdrop').addEventListener('click',closeDrawer);$('#drawerMenuButton').addEventListener('click',closeDrawer);
     $$('.feed-tab').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
-    $('#sourceBackdrop').addEventListener('click',closeSource);$('#sourceClose').addEventListener('click',closeSource);$('#undoBtn').addEventListener('click',undo);
+    $('#sourceBackdrop').addEventListener('click',closeSource);$('#sourceClose').addEventListener('click',closeSource);
     if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
   }
 

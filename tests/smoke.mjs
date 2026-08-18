@@ -71,10 +71,10 @@ async function freshPage(){
   const after=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(after,before,'tutorial NEXT did not use production NEXT');
   assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'tutorial NEXT leaked scroll position');
   assert.equal(await page.locator('#tutorialCue').innerText(),'→');
-  const y=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchDrag(page,'#articleScroll',135,2,210,[180,300]);await page.waitForTimeout(420);
-  assert.equal(await page.locator('.story-page').getAttribute('data-id'),after,'tutorial SAVE navigated away');
-  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-y)<5,'tutorial SAVE changed scroll position');
+  await touchDrag(page,'#articleScroll',135,2,210,[180,300]);await page.waitForTimeout(520);
+  assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(after),'tutorial SAVE did not persist saved state');
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),after,'tutorial SAVE did not advance');
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'tutorial SAVE next article did not start at top');
   await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1400});
   const audit=await page.evaluate(()=>window.__listenerAudit);
   assert.equal(audit['articleScroll:pointerdown'],1,'reader pointerdown listener duplicated');
@@ -107,17 +107,17 @@ for(const pos of ['top','middle','end']){
   await page.close();
 }
 
-// SAVE at top / middle / end and position preservation.
+// SAVE + ADVANCE at top / middle / end.
 for(const pos of ['top','middle','end']){
-  const page=await freshPage();await setPosition(page,pos);const id=await page.locator('.story-page').getAttribute('data-id');const y=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchDrag(page,'#articleScroll',135,2,210,[180,260]);await page.waitForTimeout(420);
+  const page=await freshPage();await setPosition(page,pos);const id=await page.locator('.story-page').getAttribute('data-id');
+  await touchDrag(page,'#articleScroll',135,2,210,[180,260]);await page.waitForTimeout(520);
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),`SAVE failed at ${pos}`);
-  assert.equal(await page.locator('.story-page').getAttribute('data-id'),id,`SAVE navigated at ${pos}`);
-  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-y)<5,`SAVE changed scroll at ${pos}`);
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,`SAVE did not advance at ${pos}`);
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`SAVE next article scroll leak at ${pos}`);
   await page.close();
 }
 
-// Gestures beginning on interactive source controls still honor the article gesture contract.
+// Gestures beginning on interactive source controls// Gestures beginning on interactive source controls still honor the article gesture contract.
 {
   const page=await freshPage();const first=await page.locator('.story-page').getAttribute('data-id');
   const sourceBox=await page.locator('.story-source-button').boundingBox();assert(sourceBox);
@@ -125,34 +125,39 @@ for(const pos of ['top','middle','end']){
   assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),first,'NEXT from interactive source button failed');
   assert.equal(await page.locator('#sourceSheet.open').count(),0,'source click leaked after horizontal NEXT');
   await page.locator('.story-source-card').evaluate(e=>e.scrollIntoView({block:'center'}));await page.waitForTimeout(100);
-  const id=await page.locator('.story-page').getAttribute('data-id');const y=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchDrag(page,'.story-source-card',135,1,210);await page.waitForTimeout(420);
+  const id=await page.locator('.story-page').getAttribute('data-id');
+  await touchDrag(page,'.story-source-card',135,1,210);await page.waitForTimeout(520);
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),'SAVE from interactive source card failed');
   assert.equal(await page.locator('#sourceSheet.open').count(),0,'source click leaked after horizontal SAVE');
-  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-y)<5);
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,'SAVE from source card did not advance');
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
   await page.close();
 }
 
-// Menu subview edge return and edge-vs-SAVE separation.
+// Menu root has fixed utilities/history architecture and anywhere-left close.
 {
-  const page=await freshPage();
-  await touchDrag(page,'#readerStage',115,0,190,[2,230]);await page.waitForSelector('#drawer.open');
-  for(const view of ['settings','saved','liked']){
-    if(view!=='settings'){await page.locator(`[data-view="${view}"]`).click();}else await page.locator('[data-view="settings"]').click();
-    assert.equal(await page.locator('.drawer-back').count(),1,`${view} did not open`);
-    await touchDrag(page,'#drawerBody',105,0,190,[2,220]);await page.waitForTimeout(260);
-    assert.equal(await page.locator('.drawer-back').count(),0,`${view} edge return failed`);
-  }
-  await page.locator('#drawerBackdrop').click({position:{x:380,y:180}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
-  const id=await page.locator('.story-page').getAttribute('data-id');
-  await touchDrag(page,'#articleScroll',130,0,200,[150,250]);await page.waitForTimeout(400);
-  assert.equal(await page.locator('#drawer.open').count(),0,'non-edge SAVE opened menu');
-  assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),'non-edge SAVE failed');
+  const page=await freshPage();const articleId=await page.locator('.story-page').getAttribute('data-id');const articleY=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
+  await page.click('#menuButton');await page.waitForSelector('#drawer.open');
+  assert.equal(await page.locator('.drawer-fixed-top [data-view="liked"]').count(),1);
+  assert.equal(await page.locator('.drawer-fixed-top [data-view="saved"]').count(),1);
+  assert.equal(await page.locator('.drawer-history-region .drawer-history').count(),1);
+  assert.equal(await page.locator('.drawer-fixed-bottom [data-view="settings"]').count(),1);
+  const beforeTransform=await page.locator('#drawer').evaluate(e=>getComputedStyle(e).transform);
+  const box=await page.locator('#drawer').boundingBox();assert(box);
+  const cdp=await page.context().newCDPSession(page);const sx=box.x+box.width*.62,sy=box.y+box.height*.48;
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:sx,y:sy,radiusX:4,radiusY:4,force:1}]});
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:sx-95,y:sy+2,radiusX:4,radiusY:4,force:1}]});await page.waitForTimeout(80);
+  const during=await page.locator('#drawer').evaluate(e=>getComputedStyle(e).transform);assert.notEqual(during,beforeTransform,'drawer did not follow close gesture');
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();await page.waitForTimeout(360);
+  assert.equal(await page.locator('#drawer.open').count(),0,'anywhere-left menu close failed');
+  assert.equal(await page.locator('.story-page').getAttribute('data-id'),articleId,'menu close triggered article NEXT');
+  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-articleY)<3,'menu close changed article scroll');
+  assert.equal(await page.locator('#undoToast,#undoBtn').count(),0,'persistent UNDO UI remains');
   await page.close();
 }
 
-// Mobile proportions / ARTICLE CARD containment.
-for(const [w,h] of [[375,667],[390,844],[430,932]]){
+// Mobile proportions / ARTICLE CARD containment.// Mobile proportions / ARTICLE CARD containment.
+for(const [w,h] of [[320,568],[375,667],[390,844],[430,932],[844,390],[1024,768]]){
   const page=await browser.newPage({viewport:{width:w,height:h},isMobile:true,hasTouch:true});await boot(page);
   assert.equal(await page.locator('#detail').count(),0);
   assert.equal(await page.locator('.story-page > .story-cover').count(),1);
