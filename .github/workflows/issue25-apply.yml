@@ -64,10 +64,12 @@ jobs:
           node --check tests/mobile-e2e.mjs
           node --check tests/gesture-tuning.mjs
           node --check tests/untouched-regression.mjs
-      - name: Commit patch
+      - name: Commit and rebase patch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add kingfisher.js kingfisher.css index.html sw.js tests/smoke.mjs tests/mobile-e2e.mjs tests/gesture-tuning.mjs tests/untouched-regression.mjs
           git commit -m 'Implement Issue #25 CARDS dismiss and menu behavior'
+          git fetch origin cards-owner-swipe-menu-v2
+          git rebase origin/cards-owner-swipe-menu-v2
           git push origin HEAD:cards-owner-swipe-menu-v2
