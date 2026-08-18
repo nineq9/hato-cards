@@ -1,14 +1,3 @@
-// Required mixed one-handed journey: READ → NEXT → READ → SAVE → READ → NEXT.
-{
-  const page=await fresh(PROFILES.B_BALANCED);let id=await page.locator('.story-page').getAttribute('data-id');
-  await touchPath(page,'#articleScroll',[[12,-7],[15,-34],[13,-82],[16,-155]],{duration:290,pos:[190,530]});await page.waitForTimeout(120);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>50);assert.equal(await page.locator('.story-page').getAttribute('data-id'),id);
-  await touchPath(page,'#articleScroll',THUMB_ARC_LEFT,{duration:250,pos:[190,310]});await page.waitForTimeout(520);let current=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(current,id);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
-  id=current;await touchPath(page,'#articleScroll',[[2,-25],[6,-70],[4,-145]],{duration:260,pos:[190,530]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>40);
-  await touchPath(page,'#articleScroll',THUMB_ARC_RIGHT,{duration:250,pos:[190,310]});await page.waitForTimeout(520);assert((await page.evaluate(id=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]').includes(id),id)));current=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(current,id);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
-  id=current;await touchPath(page,'#articleScroll',[[4,-24],[10,-65],[6,-125]],{duration:250,pos:[190,510]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>30);
-  await touchPath(page,'#articleScroll',THUMB_ARC_LEFT,{duration:250,pos:[190,310]});await page.waitForTimeout(520);assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);await neutral(page,'mixed journey final');await page.close();
-}
-
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -159,13 +148,12 @@ for(const p of ['top','middle','end']){
 // Required mixed one-handed journey: READ → NEXT → READ → SAVE → READ → NEXT.// Required mixed one-handed journey: READ → NEXT → READ → SAVE → READ → NEXT.
 {
   const page=await fresh(PROFILES.B_BALANCED);let id=await page.locator('.story-page').getAttribute('data-id');
-  await touchPath(page,'#articleScroll',[[12,-7],[15,-34],[13,-82],[16,-155]],{duration:290,pos:[190,530]});await page.waitForTimeout(120);
-  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>50,'mixed journey first READ did not scroll');assert.equal(await page.locator('.story-page').getAttribute('data-id'),id);
-  await touchPath(page,'#articleScroll',straight(-108,2,9),{duration:330,pos:[190,310]});await page.waitForTimeout(520);const second=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(second,id,'mixed journey first NEXT failed');assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
-  id=second;await touchPath(page,'#articleScroll',[[2,-25],[6,-70],[4,-145]],{duration:260,pos:[190,530]});await page.waitForTimeout(100);const saveY=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);assert(saveY>40,'mixed journey second READ failed');
-  await touchPath(page,'#articleScroll',straight(108,2,9),{duration:340,pos:[190,310]});await page.waitForTimeout(380);assert.equal(await page.locator('.story-page').getAttribute('data-id'),id,'mixed journey SAVE navigated');assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-saveY)<3,'mixed journey SAVE lost reading position');
-  await touchPath(page,'#articleScroll',[[4,-24],[10,-65],[6,-125]],{duration:250,pos:[190,510]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>saveY+30,'mixed journey third READ failed');
-  await touchPath(page,'#articleScroll',straight(-108,1,9),{duration:330,pos:[190,310]});await page.waitForTimeout(520);assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,'mixed journey final NEXT failed');assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'mixed journey final NEXT did not reset scroll');await neutral(page,'mixed journey final');await page.close();
+  await touchPath(page,'#articleScroll',[[12,-7],[15,-34],[13,-82],[16,-155]],{duration:290,pos:[190,530]});await page.waitForTimeout(120);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>50);assert.equal(await page.locator('.story-page').getAttribute('data-id'),id);
+  await touchPath(page,'#articleScroll',THUMB_ARC_LEFT,{duration:250,pos:[190,310]});await page.waitForTimeout(520);let current=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(current,id);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
+  id=current;await touchPath(page,'#articleScroll',[[2,-25],[6,-70],[4,-145]],{duration:260,pos:[190,530]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>40);
+  await touchPath(page,'#articleScroll',THUMB_ARC_RIGHT,{duration:250,pos:[190,310]});await page.waitForTimeout(520);assert((await page.evaluate(id=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]').includes(id),id)));current=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(current,id);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
+  id=current;await touchPath(page,'#articleScroll',[[4,-24],[10,-65],[6,-125]],{duration:250,pos:[190,510]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>30);
+  await touchPath(page,'#articleScroll',THUMB_ARC_LEFT,{duration:250,pos:[190,310]});await page.waitForTimeout(520);assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);await neutral(page,'mixed journey final');await page.close();
 }
 
 fs.writeFileSync('test-output/gesture-profile-comparison.json',JSON.stringify({selected:'B_BALANCED',results},null,2));
