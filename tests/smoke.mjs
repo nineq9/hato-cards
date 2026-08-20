@@ -147,7 +147,7 @@ for(const pos of ['top','middle','end']){
   }
   await touchDrag(page,'#drawerBody',-125,0,190,[180,230]);await page.waitForTimeout(300);
   assert.equal(await page.locator('#drawer.open').count(),0,'menu did not close from a non-edge right-to-left swipe');
-  await page.locator('#menuButton').click();await page.waitForSelector('#drawer.open');
+  await page.locator('#menuButton').click();await page.waitForSelector('#drawer.open');await page.waitForTimeout(340);
   await touchDrag(page,'#drawer',-125,0,190,[300,100]);await page.waitForTimeout(300);
   assert.equal(await page.locator('#drawer.open').count(),0,'menu header-area right-to-left swipe did not close drawer');
   const id=await page.locator('.story-page').getAttribute('data-id');
