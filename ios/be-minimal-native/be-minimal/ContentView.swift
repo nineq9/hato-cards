@@ -64,11 +64,26 @@ private struct AccessDeniedView: View {
     }
 }
 
-private struct PhotoDeckView: View {
-    @EnvironmentObject private var library: PhotoLibraryStore
-    @State private var reviewPresented = false
-    @State private var selectedAsset: SelectedAsset?
-    @State private var detailsAsset: SelectedAsset?
+struct PhotoDeckScaffold<DeckContent: View>: View {
+    let counterText: String
+    let onReview: () -> Void
+    let canUndo: Bool
+    let onUndo: () -> Void
+    private let deckContent: DeckContent
+
+    init(
+        counterText: String,
+        onReview: @escaping () -> Void,
+        canUndo: Bool,
+        onUndo: @escaping () -> Void,
+        @ViewBuilder deckContent: () -> DeckContent
+    ) {
+        self.counterText = counterText
+        self.onReview = onReview
+        self.canUndo = canUndo
+        self.onUndo = onUndo
+        self.deckContent = deckContent()
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -81,9 +96,7 @@ private struct PhotoDeckView: View {
                     .font(.system(size: 13, weight: .regular, design: .monospaced))
                     .foregroundStyle(.secondary)
                 Spacer()
-                Button {
-                    reviewPresented = true
-                } label: {
+                Button(action: onReview) {
                     Image(systemName: "trash")
                         .frame(width: 44, height: 44)
                         .foregroundStyle(.secondary)
@@ -98,6 +111,36 @@ private struct PhotoDeckView: View {
                 .foregroundStyle(.secondary)
                 .frame(height: 36)
 
+            deckContent
+
+            Button(action: onUndo) {
+                Image(systemName: "arrow.uturn.backward")
+                    .font(.system(size: 17, weight: .medium))
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(canUndo ? .primary : .tertiary)
+            .disabled(!canUndo)
+            .accessibilityLabel("ひとつ戻す")
+            .padding(.bottom, 8)
+        }
+    }
+}
+
+private struct PhotoDeckView: View {
+    @EnvironmentObject private var library: PhotoLibraryStore
+    @State private var reviewPresented = false
+    @State private var selectedAsset: SelectedAsset?
+    @State private var detailsAsset: SelectedAsset?
+
+    var body: some View {
+        PhotoDeckScaffold(
+            counterText: counterText,
+            onReview: { reviewPresented = true },
+            canUndo: library.canUndoReview,
+            onUndo: { library.undoLastReview() }
+        ) {
             if library.isLoading && library.candidates.isEmpty {
                 Spacer()
                 ProgressView()
@@ -105,20 +148,6 @@ private struct PhotoDeckView: View {
             } else {
                 deckStage
             }
-
-            Button {
-                library.undoLastReview()
-            } label: {
-                Image(systemName: "arrow.uturn.backward")
-                    .font(.system(size: 17, weight: .medium))
-                    .frame(width: 44, height: 44)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(library.canUndoReview ? .primary : .tertiary)
-            .disabled(!library.canUndoReview)
-            .accessibilityLabel("ひとつ戻す")
-            .padding(.bottom, 8)
         }
         .sheet(isPresented: $reviewPresented) {
             ReviewView()
@@ -166,10 +195,7 @@ private struct PhotoDeckView: View {
                             .frame(width: width, height: height)
                             .zIndex(10)
                         } else {
-                            AssetThumbnail(asset: asset)
-                                .background(Color.black.opacity(0.025))
-                                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-                                .shadow(color: .black.opacity(0.035), radius: 12, y: 7)
+                            ReviewCardVisual(media: .asset(asset), style: .stacked)
                                 .frame(width: width, height: height)
                                 .scaleEffect(1 - depth * 0.026)
                                 .offset(y: depth * 10)
