@@ -5,6 +5,10 @@ on:
     paths:
       - 'ios/be-minimal-native/**'
       - '.github/workflows/gekko-ios-build.yml'
+  pull_request:
+    paths:
+      - 'ios/be-minimal-native/**'
+      - '.github/workflows/gekko-ios-build.yml'
   workflow_dispatch:
 
 jobs:
