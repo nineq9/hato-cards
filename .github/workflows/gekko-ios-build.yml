@@ -1,0 +1,42 @@
+name: GEKKO iOS Build
+
+on:
+  push:
+    paths:
+      - 'ios/be-minimal-native/**'
+      - '.github/workflows/gekko-ios-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build GEKKO for iOS Simulator
+        run: |
+          set -o pipefail
+          BUILD_ROOT="$RUNNER_TEMP/gekko-build"
+          xcodebuild \
+            -project ios/be-minimal-native/be-minimal.xcodeproj \
+            -target be-minimal \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            SYMROOT="$BUILD_ROOT" \
+            build | tee "$RUNNER_TEMP/gekko-xcodebuild.log"
+
+      - name: Verify tutorial images are bundled
+        run: |
+          APP="$RUNNER_TEMP/gekko-build/Debug-iphonesimulator/be-minimal.app"
+          test -d "$APP"
+          test -f "$APP/tutorialPractice01.jpg"
+          test -f "$APP/tutorialPractice02.jpg"
+          test -f "$APP/tutorialPractice03.jpg"
+          echo "GEKKO build succeeded and all 3 tutorial images are bundled."
