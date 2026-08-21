@@ -23,10 +23,8 @@ private struct AppLaunchRoot: View {
                 if tutorialCompleted {
                     PhotoAppContainer(requestAccessOnAppear: requestAccessAfterTutorial)
                 } else {
-                    TutorialExperienceView(
-                        onFinish: { finishTutorial(requestAccess: true) },
-                        onSkip: { finishTutorial(requestAccess: false) }
-                    )
+                    TutorialExperienceView(onFinish: finishTutorial)
+                        .preferredColorScheme(.light)
                 }
             } else {
                 LaunchBackground()
@@ -39,7 +37,7 @@ private struct AppLaunchRoot: View {
         guard !didResolveMigration else { return }
 
         if !migrationChecked {
-            // Do not surprise existing installs with a newly-added tutorial.
+            // Do not surprise existing installs with a newly-added first-run tutorial.
             // Reading authorization status does not request permission or fetch Photos assets.
             if PHPhotoLibrary.authorizationStatus(for: .readWrite) != .notDetermined {
                 tutorialCompleted = true
@@ -50,8 +48,8 @@ private struct AppLaunchRoot: View {
         didResolveMigration = true
     }
 
-    private func finishTutorial(requestAccess: Bool) {
-        requestAccessAfterTutorial = requestAccess
+    private func finishTutorial() {
+        requestAccessAfterTutorial = true
         tutorialCompleted = true
     }
 }
