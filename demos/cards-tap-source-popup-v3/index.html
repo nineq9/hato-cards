@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f2efe8">
+<title>KAWASEMI — Tap Source Popup v3</title>
+<style>
+:root{--bg:#f2efe8;--ink:#16211f;--muted:#6f7773;--line:rgba(22,33,31,.12);--teal:#0d716c;--card:#0a1516;--cardInk:#f6f3ec;--cardMuted:rgba(246,243,236,.78)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}body{overflow:hidden}button,a{font:inherit;-webkit-tap-highlight-color:transparent}.app{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr);padding:max(14px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));overflow:hidden}.top{height:48px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:12px;letter-spacing:.24em;font-weight:750}.lab{font-size:9px;letter-spacing:.13em;color:var(--muted)}.stage{min-height:0;display:grid;place-items:center;position:relative;overflow:hidden;touch-action:none}.card{position:relative;width:min(92vw,510px);height:min(78dvh,690px);border-radius:30px;overflow:hidden;background:var(--card);color:var(--cardInk);border:1px solid rgba(255,255,255,.09);box-shadow:0 14px 38px rgba(20,30,28,.14);will-change:transform,opacity;user-select:none;-webkit-user-select:none}.photo{position:absolute;inset:0;background:linear-gradient(145deg,#314c4d 0%,#213234 38%,#0b1516 75%)}.photo:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 18%,rgba(150,184,178,.28),transparent 24%),linear-gradient(180deg,rgba(3,9,10,.05),rgba(3,9,10,.28) 42%,rgba(3,9,10,.84) 72%,#0a1516 100%)}.content{position:absolute;inset:0;display:flex;flex-direction:column;padding:22px}.meta{display:flex;justify-content:space-between;gap:14px;font-size:10px;letter-spacing:.08em;color:rgba(246,243,236,.76)}.copy{margin-top:auto}.tag{display:inline-block;margin-bottom:12px;border:1px solid rgba(255,255,255,.17);border-radius:999px;padding:6px 8px;font-size:9px;letter-spacing:.1em;color:rgba(246,243,236,.82)}h1{margin:0 0 12px;font-size:clamp(26px,7.2vw,36px);line-height:1.14;letter-spacing:-.045em;font-weight:820;text-wrap:pretty;text-shadow:0 2px 18px rgba(0,0,0,.36)}.summary{margin:0 0 14px;font-size:15px;line-height:1.62;color:rgba(246,243,236,.93)}.point{margin:0 0 16px;padding-left:14px;position:relative;font-size:13px;line-height:1.5;color:rgba(246,243,236,.78)}.point:before{content:"";position:absolute;left:0;top:.68em;width:4px;height:4px;border-radius:50%;background:#73b8af}.tap{border-top:1px solid rgba(255,255,255,.12);padding-top:13px;font-size:10px;letter-spacing:.11em;color:rgba(246,243,236,.64);display:flex;justify-content:space-between}.clear{display:none;position:absolute;inset:0;place-items:center;text-align:center}.clear.show{display:grid}.clear strong{font-size:44px;letter-spacing:.04em}.clear button{margin-top:16px;border:1px solid var(--line);border-radius:999px;background:transparent;padding:11px 18px;color:var(--ink)}
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(6,13,14,.48);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .18s linear;display:grid;place-items:end center;padding:16px 14px max(18px,env(safe-area-inset-bottom))}.overlay.open{opacity:1;pointer-events:auto}.popup{width:min(100%,520px);background:#f8f6f1;border-radius:26px;padding:18px 18px 16px;box-shadow:0 24px 70px rgba(0,0,0,.26);transform:translateY(18px) scale(.985);transition:transform .22s cubic-bezier(.2,.78,.18,1);color:#17201f}.overlay.open .popup{transform:none}.popup-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.source{font-size:12px;font-weight:760}.sub{margin-top:3px;font-size:11px;color:#7a817e}.close{width:40px;height:40px;border:0;background:#ece9e2;border-radius:50%;font-size:23px;line-height:1;color:#34403e}.popup h2{margin:20px 0 8px;font-size:23px;line-height:1.28;letter-spacing:-.035em}.popup p{margin:0;color:#606865;font-size:13px;line-height:1.55}.open-source{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;margin-top:20px;border:0;border-radius:16px;background:#0d716c;color:#fff;text-decoration:none;font-weight:720;font-size:14px}.hint{margin-top:12px;text-align:center;font-size:10px;color:#8b918e}.swipe-label{position:absolute;top:50%;font-size:13px;letter-spacing:.13em;font-weight:780;opacity:0}.swipe-label.next{right:22px}.swipe-label.save{left:22px;color:#2b7a70}
+@media(prefers-color-scheme:dark){:root{--bg:#081113;--ink:#f2f0e9;--muted:#8b9693;--line:rgba(255,255,255,.14)}.app{background:#081113}.brand{color:#f2f0e9}.popup{background:#f8f6f1;color:#17201f}.clear button{color:#f2f0e9}}
+@media(max-height:650px){.card{height:min(75dvh,570px)}h1{font-size:24px}.summary{font-size:13.5px;line-height:1.48}.point{font-size:12px}.tap{padding-top:10px}}
+@media(prefers-reduced-motion:reduce){.overlay,.popup,.card{transition-duration:1ms!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="brand">KAWASEMI</div><div class="lab">TAP SOURCE / POPUP LAB</div></header>
+  <main class="stage" id="stage">
+    <article class="card" id="card" aria-label="ニュースカード。タップで参照元ポップアップを開く">
+      <div class="photo"></div>
+      <div class="content">
+        <div class="meta"><span>Yahoo!ニュース · TEST</span><span>1 / 1</span></div>
+        <div class="copy">
+          <span class="tag">SOURCE TEST</span>
+          <h1>カードをタップして、参照元を確認する</h1>
+          <p class="summary">CARDS内では要点だけを把握し、元記事を読みたいときだけ参照元を開く分岐案です。</p>
+          <p class="point">カード内の縦スクロールは使わず、左右スワイプとタップだけに整理します。</p>
+          <div class="tap"><span>TAP TO OPEN SOURCE</span><span>↗</span></div>
+        </div>
+      </div>
+    </article>
+    <div class="swipe-label next" id="nextLabel">NEXT</div>
+    <div class="swipe-label save" id="saveLabel">SAVE</div>
+    <section class="clear" id="clear"><div><strong>CLEAR!</strong><div><button id="restart">もう一度</button></div></div></section>
+  </main>
+</div>
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <section class="popup" id="popup" role="dialog" aria-modal="true" aria-label="参照元">
+    <div class="popup-head"><div><div class="source">Yahoo!ニュース</div><div class="sub">参照元記事</div></div><button class="close" id="close" aria-label="閉じる">×</button></div>
+    <h2>このニュースの参照元を開きます</h2>
+    <p>このWebテストでは元サイトをKAWASEMI内へ埋め込まず、必要なときだけ元ページを開きます。</p>
+    <a class="open-source" href="https://news.yahoo.co.jp/pickup/6592556" target="_blank" rel="noopener noreferrer">Yahoo!ニュースで読む ↗</a>
+    <div class="hint">背景をタップすると閉じます</div>
+  </section>
+</div>
+
+<script>
+(()=>{
+  const card=document.getElementById('card');
+  const overlay=document.getElementById('overlay');
+  const popup=document.getElementById('popup');
+  const close=document.getElementById('close');
+  const clear=document.getElementById('clear');
+  const restart=document.getElementById('restart');
+  const nextLabel=document.getElementById('nextLabel');
+  const saveLabel=document.getElementById('saveLabel');
+  let g=null,animating=false,done=false;
+  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+  function openPopup(){if(animating||done)return;overlay.classList.add('open');overlay.setAttribute('aria-hidden','false')}
+  function closePopup(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')}
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closePopup()});
+  close.addEventListener('click',closePopup);
+  popup.addEventListener('click',e=>e.stopPropagation());
+  function dismiss(dir){if(animating||done)return;animating=true;card.style.transition='transform 230ms cubic-bezier(.12,.82,.16,1),opacity 170ms linear';card.style.transform=`translate3d(${dir*118}vw,0,0) rotate(${dir*2.2}deg)`;card.style.opacity='.05';setTimeout(()=>{done=true;animating=false;card.style.display='none';nextLabel.style.opacity='0';saveLabel.style.opacity='0';clear.classList.add('show')},220)}
+  card.addEventListener('pointerdown',e=>{if(animating||done||overlay.classList.contains('open')||e.button>0)return;g={id:e.pointerId,x:e.clientX,y:e.clientY,t:performance.now(),moved:false};card.setPointerCapture?.(e.pointerId)});
+  card.addEventListener('pointermove',e=>{if(!g||g.id!==e.pointerId)return;const dx=e.clientX-g.x,dy=e.clientY-g.y;if(Math.hypot(dx,dy)>8)g.moved=true;if(Math.abs(dx)<Math.abs(dy)*.7)return;e.preventDefault();const f=clamp(dx,-180,180);card.style.transition='none';card.style.transform=`translate3d(${f}px,0,0) rotate(${f/230}deg)`;const p=clamp(Math.abs(dx)/110,0,1);nextLabel.style.opacity=dx<0?String(p):'0';saveLabel.style.opacity=dx>0?String(p):'0'}, {passive:false});
+  card.addEventListener('pointerup',e=>{if(!g||g.id!==e.pointerId)return;const d=g;g=null;const dx=e.clientX-d.x,dy=e.clientY-d.y,dt=Math.max(16,performance.now()-d.t),vx=dx/dt;if(!d.moved){card.style.transform='';openPopup();return}const horizontal=Math.abs(dx)>Math.abs(dy)*.78;const commit=horizontal&&(Math.abs(dx)>=90||(Math.abs(dx)>=42&&Math.abs(vx)>=.62));if(commit){dismiss(dx>0?1:-1);return}card.style.transition='transform 180ms cubic-bezier(.2,.72,.18,1)';card.style.transform='';nextLabel.style.opacity='0';saveLabel.style.opacity='0';setTimeout(()=>card.style.transition='',190)});
+  card.addEventListener('pointercancel',()=>{g=null;card.style.transform='';nextLabel.style.opacity='0';saveLabel.style.opacity='0'});
+  restart.addEventListener('click',()=>{done=false;clear.classList.remove('show');card.style.display='block';card.style.transition='none';card.style.transform='';card.style.opacity='1'});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup()});
+})();
+</script>
+</body>
+</html>
