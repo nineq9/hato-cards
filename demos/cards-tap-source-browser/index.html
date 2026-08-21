@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081113">
+<title>KAWASEMI — Tap to Source experiment</title>
+<script src="../../articles.js"></script>
+<style>
+:root{color-scheme:dark;--bg:#081113;--panel:#0d1719;--ink:#f4f2eb;--muted:#a9b2b0;--line:rgba(255,255,255,.13);--accent:#77b9b0;--save:#79b7aa;--danger:#d9dbd2}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",sans-serif;color:var(--ink)}button{font:inherit}
+.app{height:100dvh;min-height:100%;display:grid;grid-template-rows:auto 1fr auto;padding:max(12px,env(safe-area-inset-top)) 14px max(12px,env(safe-area-inset-bottom));overflow:hidden;background:radial-gradient(circle at 50% -20%,rgba(93,155,147,.12),transparent 42%),var(--bg)}
+.topbar{display:flex;align-items:center;justify-content:space-between;min-height:44px;position:relative;z-index:5}.brand{font-size:13px;letter-spacing:.22em;font-weight:650}.mode{font-size:10px;letter-spacing:.12em;color:var(--muted)}
+.stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;touch-action:none}.behind{position:absolute;width:min(93vw,520px);height:min(74dvh,720px);border:1px solid rgba(255,255,255,.06);border-radius:28px;background:#0a1214;transform:translateY(8px) scale(.985);opacity:.66}
+.card{position:relative;width:min(93vw,520px);height:min(74dvh,720px);border-radius:28px;overflow:hidden;background:#10191b;box-shadow:0 24px 70px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1);will-change:transform,opacity;user-select:none;-webkit-user-select:none;cursor:pointer}.media{position:absolute;inset:0}.media img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(.98) brightness(.83)}.media::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,9,10,.06) 5%,rgba(2,9,10,.12) 33%,rgba(5,13,15,.58) 61%,#0d1719 88%,#0d1719 100%)}
+.card-content{position:absolute;inset:0;display:flex;flex-direction:column;padding:18px 19px 20px}.meta{display:flex;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.78)}.copy{margin-top:auto;padding-top:18px}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.tag{font-size:9px;letter-spacing:.09em;border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:5px 7px;background:rgba(4,13,14,.18);backdrop-filter:blur(8px)}h1{font-size:clamp(23px,6.1vw,34px);line-height:1.18;letter-spacing:-.035em;margin:0 0 10px;text-wrap:balance}.summary{font-size:14px;line-height:1.58;color:rgba(244,242,235,.88);margin:0 0 13px}.points{display:grid;gap:7px;margin:0;padding:0;list-style:none}.points li{display:grid;grid-template-columns:8px 1fr;gap:8px;font-size:12.5px;line-height:1.45;color:rgba(244,242,235,.8)}.points li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--accent);margin-top:.58em}.tap-hint{margin-top:14px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:11px;font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.action-label{position:absolute;top:50%;transform:translateY(-50%);font-weight:750;letter-spacing:.14em;font-size:14px;opacity:0;transition:opacity .08s}.action-label.left{right:24px}.action-label.right{left:24px;color:#b9dcd4}
+.footer{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:54px;font-size:10px;letter-spacing:.11em;color:var(--muted);padding:0 4px}.footer .r{text-align:right}.reset{border:0;background:transparent;color:var(--muted);padding:12px 14px;letter-spacing:.08em;font-size:10px}.clear{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:30px}.clear.show{display:grid}.clear strong{display:block;font-size:42px;letter-spacing:.04em}.clear span{display:block;margin-top:12px;color:var(--muted);font-size:13px}.clear button{margin-top:20px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:11px 18px}
+.browser{position:fixed;inset:0;z-index:50;background:#f7f7f4;color:#111;transform:translateY(102%);transition:transform 280ms cubic-bezier(.2,.78,.16,1);display:grid;grid-template-rows:auto auto 1fr;overflow:hidden}.browser.open{transform:translateY(0)}.browser-bar{padding:max(10px,env(safe-area-inset-top)) 12px 9px;display:grid;grid-template-columns:46px 1fr 76px;align-items:center;gap:8px;background:rgba(249,249,246,.97);border-bottom:1px solid rgba(0,0,0,.12)}.browser button,.browser a{border:0;background:transparent;color:#0b665d;text-decoration:none}.browser-back{width:42px;height:42px;font-size:25px;line-height:1}.browser-title{text-align:center;min-width:0}.browser-title strong,.browser-title span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.browser-title strong{font-size:12px}.browser-title span{font-size:10px;color:#6b6b67;margin-top:2px}.browser-original{text-align:right;font-size:11px;font-weight:650}.browser-note{padding:8px 12px;background:#efefe9;font-size:10px;line-height:1.4;color:#686861;text-align:center}.browser-frame{width:100%;height:100%;border:0;background:#fff}.browser-loading{position:absolute;inset:94px 0 0;display:grid;place-items:center;pointer-events:none;color:#777;font-size:12px}.browser.loading .browser-loading{display:grid}.browser:not(.loading) .browser-loading{display:none}
+@media(prefers-color-scheme:light){:root{color-scheme:light;--bg:#eeeae1;--panel:#f7f4ec;--ink:#171a19;--muted:#5f6966;--line:rgba(15,25,24,.13)}.app{background:linear-gradient(#e8e3d9,#f3f0e8)}.brand{color:#13201e}.mode{color:#5d6865}.behind{background:#ded9ce;border-color:rgba(0,0,0,.07)}.footer,.reset{color:#5d6865}}
+@media(max-height:650px){.card{height:min(72dvh,590px)}.summary{font-size:13px;line-height:1.45}.points{gap:5px}.points li{font-size:11.5px}.tap-hint{margin-top:9px}.copy{padding-top:10px}h1{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.card,.browser{transition-duration:1ms!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar"><div class="brand">KAWASEMI</div><div class="mode">CARDS / TAP SOURCE LAB</div></header>
+  <main class="stage" id="stage">
+    <div class="behind" id="behind"></div>
+    <article class="card" id="card" aria-label="ニュースカード。タップで参照元記事を開く"></article>
+    <div class="action-label left" id="nextLabel">NEXT</div>
+    <div class="action-label right" id="saveLabel">SAVE</div>
+    <section class="clear" id="clear"><div><strong>CLEAR!</strong><span>いま確認するカードはありません。</span><button id="restart">もう一度試す</button></div></section>
+  </main>
+  <footer class="footer"><div>← NEXT</div><button class="reset" id="reset">RESET</button><div class="r">SAVE →</div></footer>
+</div>
+<section class="browser" id="browser" aria-hidden="true">
+  <div class="browser-bar">
+    <button class="browser-back" id="browserBack" aria-label="KAWASEMIに戻る">‹</button>
+    <div class="browser-title"><strong id="browserSource">SOURCE</strong><span id="browserHeadline"></span></div>
+    <a class="browser-original" id="browserOriginal" target="_blank" rel="noopener noreferrer">ORIGINAL ↗</a>
+  </div>
+  <div class="browser-note">元サイトそのものを表示する実験です。媒体が埋め込みを禁止している場合は ORIGINAL ↗ で開きます。</div>
+  <iframe class="browser-frame" id="browserFrame" title="参照元記事"></iframe>
+  <div class="browser-loading">元サイトを読み込み中…</div>
+</section>
+<script>
+(() => {
+  const all = (window.KAWASEMI_ARTICLES || []).filter(a => a && a.sourceUrl).slice(0, 6);
+  const state = { index: 0, saved: new Set(), processed: new Set(), gesture: null, animating: false, browserOpen: false };
+  const card = document.getElementById('card');
+  const nextLabel = document.getElementById('nextLabel');
+  const saveLabel = document.getElementById('saveLabel');
+  const clear = document.getElementById('clear');
+  const browser = document.getElementById('browser');
+  const frame = document.getElementById('browserFrame');
+  const sourceEl = document.getElementById('browserSource');
+  const headlineEl = document.getElementById('browserHeadline');
+  const original = document.getElementById('browserOriginal');
+  const clamp = (n,a,b) => Math.max(a,Math.min(b,n));
+  const esc = s => String(s || '').replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
+
+  function current(){ return all[state.index] || null; }
+  function countText(){ return `${Math.max(0, all.length - state.index)} / ${all.length}`; }
+  function bullets(a){
+    return [a.key, a.watch, `参照元：${a.source}`].filter(Boolean).slice(0,3);
+  }
+  function render(){
+    const a = current();
+    if(!a){ card.style.display='none'; document.getElementById('behind').style.display='none'; clear.classList.add('show'); return; }
+    clear.classList.remove('show'); card.style.display='block'; document.getElementById('behind').style.display='block';
+    card.innerHTML = `
+      <div class="media">${a.image?`<img src="${esc(a.image)}" alt="">`:''}</div>
+      <div class="card-content">
+        <div class="meta"><span>${esc(a.source)} · ${esc(a.publishedAt||'')}</span><span>${countText()}</span></div>
+        <div class="copy">
+          <div class="tags">${(a.tags||[]).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <h1>${esc(a.title)}</h1>
+          <p class="summary">${esc(a.summary)}</p>
+          <ul class="points">${bullets(a).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+          <div class="tap-hint"><span>TAP TO READ ORIGINAL</span><span>↗</span></div>
+        </div>
+      </div>`;
+    card.style.transition='none'; card.style.transform=''; card.style.opacity='1';
+    nextLabel.style.opacity='0'; saveLabel.style.opacity='0';
+  }
+  function openSource(){
+    const a=current(); if(!a || state.animating) return;
+    state.browserOpen=true; browser.classList.add('open','loading'); browser.setAttribute('aria-hidden','false');
+    sourceEl.textContent=a.source || 'SOURCE'; headlineEl.textContent=a.sourceTitle || a.title || ''; original.href=a.sourceUrl;
+    frame.src='about:blank'; requestAnimationFrame(()=>{ frame.src=a.sourceUrl; });
+    setTimeout(()=>browser.classList.remove('loading'),900);
+  }
+  function closeSource(){
+    state.browserOpen=false; browser.classList.remove('open'); browser.setAttribute('aria-hidden','true');
+    setTimeout(()=>{ frame.src='about:blank'; },300);
+  }
+  function dismiss(direction, save){
+    const a=current(); if(!a || state.animating) return;
+    state.animating=true;
+    if(save) state.saved.add(a.id);
+    state.processed.add(a.id);
+    card.style.transition='transform 240ms cubic-bezier(.12,.82,.16,1),opacity 180ms linear';
+    card.style.transform=`translate3d(${direction*118}vw,0,0) rotate(${direction*2.4}deg)`; card.style.opacity='.08';
+    setTimeout(()=>{ state.index += 1; state.animating=false; render(); },235);
+  }
+  card.addEventListener('pointerdown', e => {
+    if(state.browserOpen || state.animating || e.button > 0) return;
+    state.gesture={id:e.pointerId,x:e.clientX,y:e.clientY,t:performance.now(),moved:false};
+    card.setPointerCapture?.(e.pointerId);
+  });
+  card.addEventListener('pointermove', e => {
+    const g=state.gesture; if(!g || g.id!==e.pointerId) return;
+    const dx=e.clientX-g.x, dy=e.clientY-g.y;
+    if(Math.hypot(dx,dy)>8) g.moved=true;
+    if(Math.abs(dx) < Math.abs(dy)*.72){ card.style.transform=''; nextLabel.style.opacity='0'; saveLabel.style.opacity='0'; return; }
+    e.preventDefault();
+    const follow=clamp(dx,-180,180);
+    card.style.transition='none'; card.style.transform=`translate3d(${follow}px,0,0) rotate(${follow/220}deg)`;
+    const p=clamp(Math.abs(dx)/110,0,1); nextLabel.style.opacity=dx<0?String(p):'0'; saveLabel.style.opacity=dx>0?String(p):'0';
+  },{passive:false});
+  card.addEventListener('pointerup', e => {
+    const g=state.gesture; if(!g || g.id!==e.pointerId) return; state.gesture=null;
+    const dx=e.clientX-g.x, dy=e.clientY-g.y, dt=Math.max(16,performance.now()-g.t), vx=dx/dt;
+    if(!g.moved){ card.style.transform=''; openSource(); return; }
+    const horizontal=Math.abs(dx)>Math.abs(dy)*.78;
+    const commit=horizontal && (Math.abs(dx)>=92 || (Math.abs(dx)>=42 && Math.abs(vx)>=.62));
+    if(commit){ dismiss(dx>0?1:-1, dx>0); return; }
+    card.style.transition='transform 190ms cubic-bezier(.2,.72,.18,1)'; card.style.transform=''; nextLabel.style.opacity='0'; saveLabel.style.opacity='0'; setTimeout(()=>card.style.transition='',200);
+  });
+  card.addEventListener('pointercancel', () => { state.gesture=null; card.style.transform=''; nextLabel.style.opacity='0'; saveLabel.style.opacity='0'; });
+  document.getElementById('browserBack').addEventListener('click',closeSource);
+  document.getElementById('reset').addEventListener('click',()=>{state.index=0;state.saved.clear();state.processed.clear();closeSource();render();});
+  document.getElementById('restart').addEventListener('click',()=>{state.index=0;state.saved.clear();state.processed.clear();render();});
+  window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&state.browserOpen)closeSource(); });
+  render();
+})();
+</script>
+</body>
+</html>
