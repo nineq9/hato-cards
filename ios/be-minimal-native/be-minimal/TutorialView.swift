@@ -1,231 +1,75 @@
 import SwiftUI
-import UIKit
 
 struct TutorialExperienceView: View {
     let onFinish: () -> Void
-    let onSkip: () -> Void
-
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.colorScheme) private var colorScheme
 
     @State private var step = 0
-    @State private var completed = false
-    @State private var shortHint: String?
-    @State private var hintResetTask: Task<Void, Never>?
-
     private let images = TutorialPracticeImage.allCases
 
     var body: some View {
-        ZStack {
-            background.ignoresSafeArea()
-            if completed { completionView } else { practiceView }
+        PhotoDeckScaffold(
+            counterText: "\(step + 1) / \(images.count)",
+            onReview: {},
+            canUndo: step > 0,
+            onUndo: undo
+        ) {
+            deckStage
         }
-        .onDisappear { hintResetTask?.cancel() }
+        .background(Color(red: 0.969, green: 0.961, blue: 0.941).ignoresSafeArea())
     }
 
-    private var practiceView: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text("be minimal")
-                    .font(.system(size: 17, weight: .semibold))
-                    .tracking(-0.2)
-                Spacer()
-                Text("\(step + 1) / 3")
-                    .font(.system(size: 13, weight: .regular, design: .monospaced))
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Button("スキップ", action: onSkip)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .frame(minWidth: 44, minHeight: 44)
-                    .contentShape(Rectangle())
-            }
-            .padding(.horizontal, 16)
-            .frame(height: 58)
+    private var deckStage: some View {
+        GeometryReader { proxy in
+            let visible = Array(images.dropFirst(step).prefix(3))
 
-            Text(shortHint ?? instruction)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .frame(minHeight: 44)
-                .accessibilityAddTraits(.isHeader)
+            ZStack {
+                ForEach(visible.indices.reversed(), id: \.self) { index in
+                    let item = visible[index]
+                    let depth = CGFloat(index)
+                    let width = min(proxy.size.width - 40, 430)
+                    let height = min(proxy.size.height - 42, 650)
 
-            GeometryReader { proxy in
-                let width = min(proxy.size.width - 40, 430)
-                let height = min(proxy.size.height - 42, 650)
-
-                ZStack {
-                    ForEach(upcomingIndices.reversed(), id: \.self) { index in
-                        let depth = CGFloat(index - step)
-                        let image = images[index]
-
-                        if index == step {
-                            SwipeCardMotion(
-                                accepts: accepts,
-                                onCommit: handleCommit,
-                                onRejected: handleRejected
-                            ) {
-                                tutorialCard(image)
-                            }
+                    if index == 0 {
+                        ThrowCard(
+                            tutorialImage: item,
+                            onDiscard: advance,
+                            onPass: advance
+                        )
+                        .frame(width: width, height: height)
+                        .zIndex(10)
+                    } else {
+                        ReviewCardVisual(media: .tutorial(item), style: .stacked)
                             .frame(width: width, height: height)
-                            .id(step)
-                            .accessibilityElement(children: .ignore)
-                            .accessibilityLabel("操作練習 \(step + 1)枚目")
-                            .accessibilityHint(instruction)
-                            .accessibilityAction(named: "削除") { accessibilityCommit(.left) }
-                            .accessibilityAction(named: "保持") { accessibilityCommit(.right) }
-                            .accessibilityAction(named: "再検討") { accessibilityCommit(.up) }
-                            .zIndex(10)
-                        } else {
-                            tutorialCard(image)
-                                .frame(width: width, height: height)
-                                .scaleEffect(1 - depth * 0.026)
-                                .offset(y: depth * 10)
-                                .opacity(1 - Double(depth) * 0.14)
-                                .allowsHitTesting(false)
-                                .accessibilityHidden(true)
-                                .zIndex(Double(3 - Int(depth)))
-                        }
+                            .scaleEffect(1 - depth * 0.026)
+                            .offset(y: depth * 10)
+                            .opacity(1 - Double(depth) * 0.14)
+                            .allowsHitTesting(false)
+                            .zIndex(Double(3 - index))
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(.bottom, 12)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
-    private var completionView: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            Text("できました。")
-                .font(.title3.weight(.semibold))
-                .accessibilityAddTraits(.isHeader)
-            Button("写真を整理する", action: onFinish)
-                .font(.body.weight(.semibold))
-                .frame(maxWidth: 360, minHeight: 52)
-                .foregroundStyle(colorScheme == .dark ? .black : .white)
-                .background(colorScheme == .dark ? Color.white : Color.black)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .padding(.horizontal, 28)
-                .padding(.top, 34)
-            Spacer()
-        }
-        .transition(reduceMotion ? .opacity : .opacity.combined(with: .scale(scale: 0.985)))
-    }
-
-    private var upcomingIndices: [Int] {
-        guard step < images.count else { return [] }
-        return Array(step..<min(step + 3, images.count))
-    }
-
-    private var instruction: String {
-        switch step {
-        case 0: return "左へスワイプして削除"
-        case 1: return "右へスワイプして保持"
-        default: return "上へスワイプして再検討"
-        }
-    }
-
-    private var requiredDirection: ReviewSwipeDirection {
-        switch step {
-        case 0: return .left
-        case 1: return .right
-        default: return .up
-        }
-    }
-
-    private func accepts(_ direction: ReviewSwipeDirection) -> Bool {
-        direction == requiredDirection
-    }
-
-    private func handleRejected(_ direction: ReviewSwipeDirection) {
-        switch requiredDirection {
-        case .left: showShortHint("左へ")
-        case .right: showShortHint("右へ")
-        case .up: showShortHint("上へ")
-        }
-    }
-
-    private func handleCommit(_ direction: ReviewSwipeDirection) {
-        shortHint = nil
-        if step < 2 {
-            withAnimation(reduceMotion ? .none : .easeOut(duration: 0.15)) { step += 1 }
+    private func advance() {
+        if step + 1 >= images.count {
+            onFinish()
         } else {
-            withAnimation(reduceMotion ? .none : .easeOut(duration: 0.18)) { completed = true }
+            step += 1
         }
     }
 
-    private func accessibilityCommit(_ direction: ReviewSwipeDirection) {
-        guard accepts(direction) else {
-            handleRejected(direction)
-            return
-        }
-        if direction == .left {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        } else {
-            UISelectionFeedbackGenerator().selectionChanged()
-        }
-        handleCommit(direction)
-    }
-
-    private func showShortHint(_ text: String) {
-        hintResetTask?.cancel()
-        shortHint = text
-        hintResetTask = Task {
-            try? await Task.sleep(for: .milliseconds(800))
-            guard !Task.isCancelled else { return }
-            await MainActor.run { shortHint = nil }
-        }
-    }
-
-    private func tutorialCard(_ item: TutorialPracticeImage) -> some View {
-        ZStack {
-            cardSurface
-            Image(uiImage: item.image)
-                .resizable()
-                .scaledToFill()
-                .clipped()
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-        .shadow(color: .black.opacity(colorScheme == .dark ? 0.20 : 0.07), radius: 20, y: 10)
-        .overlay(alignment: .bottomTrailing) {
-            TutorialSizeBadge(byteCount: item.byteCount)
-                .padding(13)
-        }
-    }
-
-    private var background: Color {
-        colorScheme == .dark
-            ? Color(red: 0.075, green: 0.073, blue: 0.070)
-            : Color(red: 0.969, green: 0.961, blue: 0.941)
-    }
-
-    private var cardSurface: Color {
-        colorScheme == .dark ? Color.white.opacity(0.055) : Color.black.opacity(0.03)
-    }
-}
-
-private struct TutorialSizeBadge: View {
-    let byteCount: Int64
-    var body: some View {
-        HStack(spacing: 5) {
-            Image(systemName: "cellularbars").font(.system(size: 12))
-            Text(sizeText).font(.system(size: 11, weight: .semibold, design: .rounded))
-        }
-        .foregroundStyle(.white)
-        .padding(.horizontal, 9)
-        .frame(height: 29)
-        .background(.black.opacity(0.42), in: Capsule())
-        .accessibilityLabel("画像サイズ \(sizeText)")
-    }
-    private var sizeText: String {
-        guard byteCount > 0 else { return "—" }
-        return ByteCountFormatter.string(fromByteCount: byteCount, countStyle: .file)
+    private func undo() {
+        guard step > 0 else { return }
+        step -= 1
     }
 }
 
 struct TutorialReplayView: View {
     @Environment(\.dismiss) private var dismiss
+
     var body: some View {
-        TutorialExperienceView(onFinish: { dismiss() }, onSkip: { dismiss() })
+        TutorialExperienceView(onFinish: { dismiss() })
     }
 }
