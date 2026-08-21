@@ -7,7 +7,7 @@ enum ReviewCardMedia {
     case tutorial(TutorialPracticeImage)
 }
 
-enum ReviewCardVisualStyle {
+enum ReviewCardVisualStyle: Equatable {
     case front
     case stacked
 }
