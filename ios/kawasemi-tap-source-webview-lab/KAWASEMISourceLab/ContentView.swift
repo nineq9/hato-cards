@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     private let sourceURL = URL(string: "https://news.yahoo.co.jp/pickup/6592556")!
 
-    @State private var showSource = false
+    @State private var showSource = ProcessInfo.processInfo.arguments.contains("--qa-open-source")
     @State private var dragX: CGFloat = 0
     @State private var isProcessed = false
     @State private var wasSaved = false
@@ -27,6 +27,9 @@ struct ContentView: View {
                 Spacer(minLength: 22)
             }
             .padding(.horizontal, 18)
+            // A presented source is a separate interaction surface. Do not let
+            // WebView scrolling/taps leak through and drive the card gesture.
+            .allowsHitTesting(!showSource)
 
             if showSource {
                 SourceWebModal(
@@ -130,6 +133,7 @@ struct ContentView: View {
             showSource = true
         }
         .gesture(cardDragGesture)
+        .accessibilityIdentifier("lab-article-card")
         .accessibilityLabel("ニュースカード。タップでYahoo!ニュースをポップアップ表示。左スワイプで次へ、右スワイプで保存。")
     }
 
@@ -178,6 +182,7 @@ struct ContentView: View {
             Text("CLEAR!")
                 .font(.system(size: 44, weight: .bold))
                 .tracking(1.2)
+                .accessibilityIdentifier("lab-clear")
 
             Text(wasSaved ? "保存して処理しました。" : "このテストカードを処理しました。")
                 .font(.system(size: 14))
