@@ -54,6 +54,7 @@ async function freshPage(){
   await page.waitForSelector('#tutorial:not(.hidden)');await page.waitForSelector('.story-page');
   assert.equal(await page.locator('.tutorial-card').count(),0,'fake tutorial card must not exist');
   assert.equal(await page.locator('#detail').count(),0,'legacy detail DOM must be absent');
+  assert.equal(await page.locator('#undoToast').count(),0,'persistent UNDO UI must not exist');
   assert.equal(await page.locator('.story-page > .story-cover').count(),1);
   assert.equal(await page.locator('.story-page > .story-body').count(),1);
   for(let i=0;i<16;i++){
@@ -71,10 +72,10 @@ async function freshPage(){
   const after=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(after,before,'tutorial NEXT did not use production NEXT');
   assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'tutorial NEXT leaked scroll position');
   assert.equal(await page.locator('#tutorialCue').innerText(),'→');
-  const y=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchDrag(page,'#articleScroll',135,2,210,[180,300]);await page.waitForTimeout(420);
-  assert.equal(await page.locator('.story-page').getAttribute('data-id'),after,'tutorial SAVE navigated away');
-  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-y)<5,'tutorial SAVE changed scroll position');
+  await touchDrag(page,'#articleScroll',135,2,210,[180,300]);await page.waitForTimeout(520);
+  assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(after),'tutorial SAVE did not save current article');
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),after,'tutorial SAVE did not advance');
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'tutorial SAVE leaked old scroll position');
   await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1400});
   const audit=await page.evaluate(()=>window.__listenerAudit);
   assert.equal(audit['articleScroll:pointerdown'],1,'reader pointerdown listener duplicated');
@@ -107,13 +108,13 @@ for(const pos of ['top','middle','end']){
   await page.close();
 }
 
-// SAVE at top / middle / end and position preservation.
+// SAVE + ADVANCE at top / middle / end.
 for(const pos of ['top','middle','end']){
-  const page=await freshPage();await setPosition(page,pos);const id=await page.locator('.story-page').getAttribute('data-id');const y=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchDrag(page,'#articleScroll',135,2,210,[180,260]);await page.waitForTimeout(420);
+  const page=await freshPage();await setPosition(page,pos);const id=await page.locator('.story-page').getAttribute('data-id');
+  await touchDrag(page,'#articleScroll',135,2,210,[180,260]);await page.waitForTimeout(520);
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),`SAVE failed at ${pos}`);
-  assert.equal(await page.locator('.story-page').getAttribute('data-id'),id,`SAVE navigated at ${pos}`);
-  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-y)<5,`SAVE changed scroll at ${pos}`);
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,`SAVE did not advance at ${pos}`);
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`SAVE leaked old scroll at ${pos}`);
   await page.close();
 }
 
@@ -125,15 +126,16 @@ for(const pos of ['top','middle','end']){
   assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),first,'NEXT from interactive source button failed');
   assert.equal(await page.locator('#sourceSheet.open').count(),0,'source click leaked after horizontal NEXT');
   await page.locator('.story-source-card').evaluate(e=>e.scrollIntoView({block:'center'}));await page.waitForTimeout(100);
-  const id=await page.locator('.story-page').getAttribute('data-id');const y=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchDrag(page,'.story-source-card',135,1,210);await page.waitForTimeout(420);
+  const id=await page.locator('.story-page').getAttribute('data-id');
+  await touchDrag(page,'.story-source-card',135,1,210);await page.waitForTimeout(520);
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),'SAVE from interactive source card failed');
   assert.equal(await page.locator('#sourceSheet.open').count(),0,'source click leaked after horizontal SAVE');
-  assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-y)<5);
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,'SAVE from interactive source card did not advance');
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'SAVE from interactive source card leaked scroll');
   await page.close();
 }
 
-// Menu subview edge return and edge-vs-SAVE separation.
+// Menu subview edge return, anywhere swipe-close, and edge-vs-SAVE separation.
 {
   const page=await freshPage();
   await touchDrag(page,'#readerStage',115,0,190,[2,230]);await page.waitForSelector('#drawer.open');
@@ -143,11 +145,16 @@ for(const pos of ['top','middle','end']){
     await touchDrag(page,'#drawerBody',105,0,190,[2,220]);await page.waitForTimeout(260);
     assert.equal(await page.locator('.drawer-back').count(),0,`${view} edge return failed`);
   }
-  await page.locator('#drawerBackdrop').click({position:{x:380,y:180}});await page.waitForFunction(()=>!document.querySelector('#drawer')?.classList.contains('open'));
+  await touchDrag(page,'#drawerBody',-125,0,190,[180,230]);await page.waitForTimeout(300);
+  assert.equal(await page.locator('#drawer.open').count(),0,'menu did not close from a non-edge right-to-left swipe');
+  await page.locator('#menuButton').click();await page.waitForSelector('#drawer.open');await page.waitForTimeout(340);
+  await touchDrag(page,'#drawer',-125,0,190,[300,100]);await page.waitForTimeout(300);
+  assert.equal(await page.locator('#drawer.open').count(),0,'menu header-area right-to-left swipe did not close drawer');
   const id=await page.locator('.story-page').getAttribute('data-id');
-  await touchDrag(page,'#articleScroll',130,0,200,[150,250]);await page.waitForTimeout(400);
+  await touchDrag(page,'#articleScroll',130,0,200,[150,250]);await page.waitForTimeout(520);
   assert.equal(await page.locator('#drawer.open').count(),0,'non-edge SAVE opened menu');
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),'non-edge SAVE failed');
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,'non-edge SAVE did not advance');
   await page.close();
 }
 

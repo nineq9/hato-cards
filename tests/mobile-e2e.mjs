@@ -59,6 +59,7 @@ async function neutral(page,label){
 // Reproduction: imperfect READ begins with slight horizontal drift, then becomes clearly vertical.
 {
   const page=await fresh();
+  assert.equal(await page.locator('#undoToast').count(),0,'persistent UNDO UI must not exist');
   const id=await page.locator('.story-page').getAttribute('data-id');
   const y0=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
   const imperfectRead=[[14,-10],[18,-30],[20,-62],[18,-105],[22,-155],[19,-215]];
@@ -88,19 +89,19 @@ async function neutral(page,label){
   await capture(page,'article-end-like');await page.close();
 }
 
-// NEXT and SAVE at top/middle/end.
+// NEXT and SAVE + ADVANCE at top/middle/end.
 for(const p of ['top','middle','end']){
   const page=await fresh();await pos(page,p);const id=await page.locator('.story-page').getAttribute('data-id');
-  await touchPath(page,'#articleScroll',straight(145,2),{duration:220,pos:[190,300]});await page.waitForTimeout(420);
-  assert.equal(await page.locator('.story-page').getAttribute('data-id'),id,`SAVE navigated at ${p}`);
+  await touchPath(page,'#articleScroll',straight(145,2),{duration:220,pos:[190,300]});await page.waitForTimeout(520);
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),`SAVE failed at ${p}`);
-  const savedY=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
+  const afterSave=await page.locator('.story-page').getAttribute('data-id');
+  assert.notEqual(afterSave,id,`SAVE did not advance at ${p}`);
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`SAVE did not reset next article at ${p}`);
   await neutral(page,`SAVE ${p}`);
   const before=await page.locator('.story-page').getAttribute('data-id');
   await touchPath(page,'#articleScroll',straight(-145,2),{duration:220,pos:[190,300]});await page.waitForTimeout(520);
-  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),before,`NEXT failed at ${p}`);
-  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`NEXT did not reset scroll at ${p}`);
-  assert(savedY>=0);
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),before,`NEXT failed after SAVE at ${p}`);
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`NEXT did not reset scroll after SAVE at ${p}`);
   await page.close();
 }
 
@@ -138,10 +139,11 @@ for(const p of ['top','middle','end']){
   }
   assert(advances>1,'caught-up journey did not exercise multiple cards');
   assert.equal(await page.locator('.clear-card').count(),1,'finite queue did not render caught-up/CLEAR state');
+  assert.equal(await page.locator('.clear-card').innerText(),'CLEAR!','caught-up state must use exact CLEAR! text');
   await capture(page,'caught-up');await page.close();
 }
 
-// Menu subview edge recovery; non-edge right swipe remains SAVE.
+// Menu subview edge recovery, anywhere right-to-left close, and non-edge SAVE separation.
 {
   const page=await fresh();
   await touchPath(page,'#readerStage',straight(120,0),{duration:190,pos:[2,240]});await page.waitForSelector('#drawer.open');
@@ -151,11 +153,16 @@ for(const p of ['top','middle','end']){
     await touchPath(page,'#drawerBody',straight(110,0),{duration:190,pos:[2,230]});await page.waitForTimeout(260);
     assert.equal(await page.locator('.drawer-back').count(),0,`${view} edge recovery failed`);
   }
-  await page.locator('#drawerMenuButton').click();await page.waitForTimeout(260);
+  await touchPath(page,'#drawerBody',straight(-125,0),{duration:190,pos:[180,230]});await page.waitForTimeout(300);
+  assert.equal(await page.locator('#drawer.open').count(),0,'menu did not close from a non-edge right-to-left swipe');
+  await page.locator('#menuButton').click();await page.waitForSelector('#drawer.open');await page.waitForTimeout(340);
+  await touchPath(page,'#drawer',straight(-125,0),{duration:190,pos:[300,100]});await page.waitForTimeout(300);
+  assert.equal(await page.locator('#drawer.open').count(),0,'menu did not close from header-area right-to-left swipe');
   const id=await page.locator('.story-page').getAttribute('data-id');
-  await touchPath(page,'#articleScroll',straight(145,1),{duration:210,pos:[150,300]});await page.waitForTimeout(420);
+  await touchPath(page,'#articleScroll',straight(145,1),{duration:210,pos:[150,300]});await page.waitForTimeout(520);
   assert.equal(await page.locator('#drawer.open').count(),0,'non-edge SAVE opened drawer');
   assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),'non-edge SAVE failed after menu recovery');
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,'non-edge SAVE did not advance after menu recovery');
   await page.close();
 }
 
@@ -172,9 +179,13 @@ for(const p of ['top','middle','end']){
   await page.locator('.story-like').click();await page.waitForTimeout(80);assert.equal(await page.locator('#tutorialCue').innerText(),'←');
   const before=await page.locator('.story-page').getAttribute('data-id');
   await touchPath(page,'#articleScroll',straight(-145,2),{duration:220,pos:[180,300]});await page.waitForTimeout(520);
-  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),before,'tutorial NEXT failed');
+  const saveId=await page.locator('.story-page').getAttribute('data-id');
+  assert.notEqual(saveId,before,'tutorial NEXT failed');
   assert.equal(await page.locator('#tutorialCue').innerText(),'→');
-  await touchPath(page,'#articleScroll',straight(145,2),{duration:220,pos:[180,300]});await page.waitForTimeout(420);
+  await touchPath(page,'#articleScroll',straight(145,2),{duration:220,pos:[180,300]});await page.waitForTimeout(520);
+  assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(saveId),'tutorial SAVE did not save current article');
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),saveId,'tutorial SAVE did not advance');
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'tutorial SAVE leaked old scroll');
   await page.waitForFunction(()=>document.querySelector('#tutorial')?.classList.contains('hidden'),null,{timeout:1600});
   await capture(page,'tutorial-complete');await page.close();
 }

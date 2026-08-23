@@ -124,18 +124,19 @@ assert.equal(await saveAttempt(PROFILES.B_BALANCED,82,400,62),false,'B_BALANCED 
 assert.equal(await saveAttempt(PROFILES.B_BALANCED,108,330,42),true,'B_BALANCED clear diagonal SAVE failed');
 assert.equal(await nextAttempt(PROFILES.B_BALANCED,108,330,42),true,'B_BALANCED clear diagonal NEXT failed');
 
-// Top / middle / end: SAVE preserves exact reading position, NEXT resets next card to top.
+// Top / middle / end: both horizontal commits advance and reset the newly revealed card to top.
 for(const p of ['top','middle','end']){
   const page=await fresh(PROFILES.B_BALANCED);await setPos(page,p);
-  const id=await page.locator('.story-page').getAttribute('data-id'),beforeY=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  await touchPath(page,'#articleScroll',straight(108,1,9),{duration:390,pos:[190,310]});await page.waitForTimeout(380);
-  const afterSaveY=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);
-  assert.equal(await page.locator('.story-page').getAttribute('data-id'),id,`SAVE navigated at ${p}`);
-  assert(Math.abs(afterSaveY-beforeY)<3,`SAVE changed scroll at ${p}: ${beforeY} -> ${afterSaveY}`);
+  const id=await page.locator('.story-page').getAttribute('data-id');
+  await touchPath(page,'#articleScroll',straight(108,1,9),{duration:390,pos:[190,310]});await page.waitForTimeout(520);
+  assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),`SAVE failed at ${p}`);
+  const afterSave=await page.locator('.story-page').getAttribute('data-id');
+  assert.notEqual(afterSave,id,`SAVE did not advance at ${p}`);
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`SAVE leaked old scroll at ${p}`);
   await neutral(page,`SAVE ${p}`);
   await touchPath(page,'#articleScroll',straight(-108,1,9),{duration:390,pos:[190,310]});await page.waitForTimeout(520);
-  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,`NEXT failed at ${p}`);
-  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`NEXT leaked scroll at ${p}`);
+  assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),afterSave,`NEXT failed after SAVE at ${p}`);
+  assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,`NEXT leaked scroll after SAVE at ${p}`);
   await page.close();
 }
 
@@ -146,8 +147,10 @@ for(const p of ['top','middle','end']){
   assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>50,'mixed journey first READ did not scroll');assert.equal(await page.locator('.story-page').getAttribute('data-id'),id);
   await touchPath(page,'#articleScroll',straight(-108,2,9),{duration:330,pos:[190,310]});await page.waitForTimeout(520);const second=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(second,id,'mixed journey first NEXT failed');assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3);
   id=second;await touchPath(page,'#articleScroll',[[2,-25],[6,-70],[4,-145]],{duration:260,pos:[190,530]});await page.waitForTimeout(100);const saveY=await page.locator('#articleScroll').evaluate(e=>e.scrollTop);assert(saveY>40,'mixed journey second READ failed');
-  await touchPath(page,'#articleScroll',straight(108,2,9),{duration:340,pos:[190,310]});await page.waitForTimeout(380);assert.equal(await page.locator('.story-page').getAttribute('data-id'),id,'mixed journey SAVE navigated');assert(Math.abs((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))-saveY)<3,'mixed journey SAVE lost reading position');
-  await touchPath(page,'#articleScroll',[[4,-24],[10,-65],[6,-125]],{duration:250,pos:[190,510]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>saveY+30,'mixed journey third READ failed');
+  await touchPath(page,'#articleScroll',straight(108,2,9),{duration:340,pos:[190,310]});await page.waitForTimeout(520);
+  assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('kingfisherSaved')||'[]'))).includes(id),'mixed journey SAVE did not persist saved article');
+  const third=await page.locator('.story-page').getAttribute('data-id');assert.notEqual(third,id,'mixed journey SAVE did not advance');assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'mixed journey SAVE leaked old reading position');
+  id=third;await touchPath(page,'#articleScroll',[[4,-24],[10,-65],[6,-125]],{duration:250,pos:[190,510]});await page.waitForTimeout(100);assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))>30,'mixed journey third READ failed');
   await touchPath(page,'#articleScroll',straight(-108,1,9),{duration:330,pos:[190,310]});await page.waitForTimeout(520);assert.notEqual(await page.locator('.story-page').getAttribute('data-id'),id,'mixed journey final NEXT failed');assert((await page.locator('#articleScroll').evaluate(e=>e.scrollTop))<3,'mixed journey final NEXT did not reset scroll');await neutral(page,'mixed journey final');await page.close();
 }
 
