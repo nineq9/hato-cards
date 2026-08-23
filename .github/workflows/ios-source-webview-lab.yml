@@ -1,0 +1,111 @@
+name: iOS Source WebView Lab
+
+on:
+  pull_request:
+    paths:
+      - 'ios/kawasemi-tap-source-webview-lab/**'
+      - '.github/workflows/ios-source-webview-lab.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulator-build:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Select available iPhone Simulator
+        id: simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, subprocess
+          data=json.loads(subprocess.check_output(['xcrun','simctl','list','devices','available','-j']))
+          candidates=[]
+          for runtime, devices in data.get('devices',{}).items():
+              if 'iOS' not in runtime:
+                  continue
+              for d in devices:
+                  if d.get('isAvailable') and d.get('name','').startswith('iPhone'):
+                      candidates.append((runtime,d['name'],d['udid']))
+          if not candidates:
+              raise SystemExit('No available iPhone Simulator')
+          runtime,name,udid=candidates[-1]
+          print(f"name={name}")
+          print(f"udid={udid}")
+          print(f"runtime={runtime}")
+          PY
+
+      - name: Report selected Simulator
+        run: echo 'Selected ${{ steps.simulator.outputs.name }} (${{ steps.simulator.outputs.runtime }})'
+
+      - name: Xcode build for iPhone Simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project ios/kawasemi-tap-source-webview-lab/KAWASEMISourceLab.xcodeproj \
+            -scheme KAWASEMISourceLab \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}' \
+            -derivedDataPath "$RUNNER_TEMP/KAWASEMISourceLabDerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee "$RUNNER_TEMP/xcodebuild-source-lab.log"
+
+      - name: Boot, install, and launch in Simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          UDID='${{ steps.simulator.outputs.udid }}'
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          APP_PATH="$RUNNER_TEMP/KAWASEMISourceLabDerivedData/Build/Products/Debug-iphonesimulator/KAWASEMISourceLab.app"
+          test -d "$APP_PATH"
+          xcrun simctl install "$UDID" "$APP_PATH"
+          xcrun simctl launch "$UDID" com.nineq9.kawasemi.sourcelab
+          sleep 3
+          mkdir -p test-output/ios-source-webview-lab
+          xcrun simctl io "$UDID" screenshot test-output/ios-source-webview-lab/initial-card.png
+
+      - name: Prepare ephemeral XCUITest target
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! ruby -e 'require "xcodeproj"; puts "xcodeproj #{Xcodeproj::VERSION}"'; then
+            gem install xcodeproj --no-document
+          fi
+          ruby ios/kawasemi-tap-source-webview-lab/prepare_ci_ui_tests.rb
+          xcodebuild -list -project ios/kawasemi-tap-source-webview-lab/KAWASEMISourceLab.xcodeproj
+
+      - name: Run real Source WebView interaction on Simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p test-output/ios-source-webview-lab
+          rm -rf test-output/ios-source-webview-lab/SourceWebViewLab.xcresult
+          xcodebuild \
+            -project ios/kawasemi-tap-source-webview-lab/KAWASEMISourceLab.xcodeproj \
+            -scheme KAWASEMISourceLabCI \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}' \
+            -derivedDataPath "$RUNNER_TEMP/KAWASEMISourceLabUITestDerivedData" \
+            -resultBundlePath test-output/ios-source-webview-lab/SourceWebViewLab.xcresult \
+            test | tee "$RUNNER_TEMP/xcodebuild-source-lab-ui-test.log"
+
+      - name: Upload simulator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-source-webview-lab-build-evidence
+          path: |
+            test-output/ios-source-webview-lab/**
+            ${{ runner.temp }}/xcodebuild-source-lab.log
+            ${{ runner.temp }}/xcodebuild-source-lab-ui-test.log
+          if-no-files-found: warn
