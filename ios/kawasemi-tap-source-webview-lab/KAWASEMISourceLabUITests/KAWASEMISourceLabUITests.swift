@@ -11,10 +11,16 @@ final class KAWASEMISourceLabUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        let cardTitle = app.staticTexts["カードを離れずに、\n参照元をそのまま読む"]
-        XCTAssertTrue(cardTitle.waitForExistence(timeout: 6), "Lab card did not appear")
+        // The SwiftUI card intentionally exposes one combined accessibility
+        // element, so its child headline is not guaranteed to remain a
+        // standalone StaticText in the accessibility tree. Target the stable
+        // production-facing accessibility identifier instead of rendered copy.
+        let card = app.descendants(matching: .any)
+            .matching(identifier: "lab-article-card")
+            .firstMatch
+        XCTAssertTrue(card.waitForExistence(timeout: 6), "Lab card did not appear")
 
-        cardTitle.tap()
+        card.tap()
 
         let webView = app.webViews.firstMatch
         XCTAssertTrue(webView.waitForExistence(timeout: 10), "WKWebView popup did not appear after card tap")
@@ -63,10 +69,10 @@ final class KAWASEMISourceLabUITests: XCTestCase {
         XCTAssertTrue(close.exists, "× close control is missing")
         close.tap()
         XCTAssertTrue(waitUntil(timeout: 4) { !webView.exists }, "× did not close the popup")
-        XCTAssertTrue(cardTitle.exists, "× close did not return to the same card")
+        XCTAssertTrue(card.exists, "× close did not return to the same card")
         XCTAssertFalse(app.staticTexts["lab-clear"].exists, "× close changed card state")
 
-        cardTitle.tap()
+        card.tap()
         XCTAssertTrue(webView.waitForExistence(timeout: 10), "Popup did not reopen")
         XCTAssertTrue(waitUntil(timeout: 20) {
             let state = self.probeState(probe)
@@ -77,7 +83,7 @@ final class KAWASEMISourceLabUITests: XCTestCase {
         // left remains in the dimmed backdrop and exercises the actual tap path.
         app.coordinate(withNormalizedOffset: CGVector(dx: 0.005, dy: 0.52)).tap()
         XCTAssertTrue(waitUntil(timeout: 4) { !webView.exists }, "Dimmed background tap did not close the popup")
-        XCTAssertTrue(cardTitle.exists, "Background close did not return to the same card")
+        XCTAssertTrue(card.exists, "Background close did not return to the same card")
         XCTAssertFalse(app.staticTexts["lab-clear"].exists, "Background close changed card state")
         attachScreenshot(name: "04-returned-same-card")
     }
