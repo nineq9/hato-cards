@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-28T21:54:48Z",
+  "generated_at": "2026-08-28T22:07:23Z",
   "edition_date": "2026-08-28",
-  "mode": "bootstrap",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
