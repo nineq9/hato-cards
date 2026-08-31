@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-31T03:07:24Z",
+  "generated_at": "2026-08-31T04:07:27Z",
   "edition_date": "2026-08-31",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -171,25 +171,26 @@
     {
       "id": 26083107,
       "category": "WAR",
-      "title": "Молдова вновь зафиксировала нарушение своего воздушного пространства во время атаки России на Украину",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "24 Канал / Європейська правда",
-      "time": "20:41",
+      "title": "Беспилотник нарушил воздушное пространство Молдовы во время атаки РФ на Украину",
+      "summary": "Беспилотник нарушил воздушное пространство Молдовы во время атаки РФ на Украину nv.ua",
+      "source": "24 Канал / Європейська правда / nv.ua",
+      "time": "06:27",
       "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "Беспилотник нарушил воздушное пространство Молдовы во время атаки РФ на Украину nv.ua",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 07:07. Источников в объединённом кластере: 3.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
-      "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNWlNXSllQR0J0R3g2TkJzZUYzMzVKX3BsTF9VZUF4TVRSWnlFVFFTMDFaVkU0R0RJcHdULTBrZjR2ZE1jd3FzMFkybmNDSk9OazUtY0JBX0pLZXpTamo4Qy1OT1lWT2phZGJPVkNQQzNCa0Fpckh0bDYtTVBGbi1qcWFpeS1ScVlLczNwX1lJLVlVR1Vzdzhuak1vTjIwZkNjb0VaaUNyN1JxQdIBrwFBVV95cUxOYzloZnJ4cHNNQTRwYnktbzF0cGhVZVpoOU1Vb2Q3ZDduU3FLcGRpMUpYS0RKaFVRLXpJZkE4XzA1Y2FPN0VQUGhLZGoxYWkwQVVIY3ItY003aWxuTF83SlRud3drU3lKYkw4TENncExCU3E1ZHB0d3UtbWVFMWVyc3oyWW1UWHZwNm5OUWhVdTZjVTJqcjVKcGZLb1c2RDUwR3hNZVNYZDhOUGpJS2Rr?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNVjZlaEYxRnJ6MHdMQmVBbWcxNWx1SkJQR2F3YkRhMUlUdmxPRlJUTW9sNEUxWUVXUkw2azlDeWt3YTZzUmE4NDl0TGJ3RHdmd1NnOTgteTlBb0VTSTlRM01vaEFLaVRtM3lvVVZTN0k1ZloxZE51dWh0MFZIeFdybE95LUNSU014aFljcENoY25DdFNrSkg5LUFwd2xhUXBOQnNkQjJjN2NfOXlNMVYzaXdGNVd5MlQ5MGlXU29jYzE1Z9IBsgFBVV95cUxPM0dOa01URThJQ01OVF9PQmtiVF9pQmUycHRFS21JMFNrUjZ4ZzMwa1YydTF5SURpb0Y2WkdRazdPMTdXXzlqYkFwel81ZWNtb0J6aXNjZFpSYzdiRXo4NllJQXRxUEt2QkxJLU1pWEJqV0dkZnpfZ2VBZERVOG1JTmp2NjBHT2JkLU0xRmlnbWROZzdGWGI4b2d3MVg2SnBtM0plY3ZLcXh5WEk2Q1lCcGtB?oc=5",
       "importance": 100,
       "tier": "A",
-      "published_at": "2026-08-30T17:41:00Z",
-      "updated_at": "2026-08-31T03:07:24Z",
-      "update_count": 0,
+      "published_at": "2026-08-31T03:27:00Z",
+      "updated_at": "2026-08-31T04:07:27Z",
+      "update_count": 1,
       "_sources": [
         "24 Канал",
-        "Європейська правда"
+        "Європейська правда",
+        "nv.ua"
       ]
     },
     {
@@ -472,25 +473,26 @@
     {
       "id": 26083119,
       "category": "LIFE",
-      "title": "Минобороны РФ анонсировало массированные удары по украинской энергетике",
-      "summary": "Минобороны РФ анонсировало массированные удары по украинской энергетике Центр журналистских расследований",
-      "source": "Центр журналистских расследований / Цензор.НЕТ",
-      "time": "11:02",
+      "title": "Минобороны РФ заявило, что готовится к массированным обстрелам украинской энергетики",
+      "summary": "Минобороны РФ заявило, что готовится к массированным обстрелам украинской энергетики Економічна правда",
+      "source": "Центр журналистских расследований / Цензор.НЕТ / Економічна правда",
+      "time": "11:16",
       "why": "Важно, потому что это напрямую связано с жизнью людей: работой, жильём, ценами, энергией, медициной или образованием.",
-      "details": "Минобороны РФ анонсировало массированные удары по украинской энергетике Центр журналистских расследований",
+      "details": "Минобороны РФ заявило, что готовится к массированным обстрелам украинской энергетики Економічна правда",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 07:07. Источников в объединённом кластере: 3.",
       "watch": "Следим за тем, когда изменения начнут действовать и кого они затронут на практике.",
-      "source_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBwbVNVMUh1NUF2TWU1TlRtLUpnaUJTYnI1dUI5TFJlOGY0emd0elR4a3NQel9TbENzN3Rib0FrRVJaMDUxTjdDd3NNT05fSmVp?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOWUNGUUVGdEl4emRpajJzU2V0MjJRUnlXcW02T0FrNkJ4VjlPM1pXa3ltNi0xTlZlMWdrRk8yZ0dQeGR6ZHNnaE43UzdJVkZkNWw4cXNvU1pXZzFEM1VVTXl5b3FCWnV0N0NpUjU5VXBvQ2JzMF85VDZVMmhJa213cndPT2J0NUgxdFh2dUdfNEs5RVJRamtjV3RNNzRkd2cxd28tam9rZnlVZjhkRENNTUE2QVYtQdIBwgFBVV95cUxPSUxORzVzZ0hNam9TUy02eXF0OVU5bFBOTlBDMUlLN0Q1SEZEV29ZekwxRDIzY0pBV01XUm9LYmF1U1gxUl9PUzNkTnpwMzRrLWR3ZW9TbVFXX3ZJejdob280VUw0aVg5RlNYZWFNZVdTMzl1X2ozcGNpM2ZQR3BBYlJGOGNzM3VxMEhoX2xhUmY2SEhZTkZWQ1lwbFNfcnpjRHY2WURueVJFOGJhNFJFR01vUVNqSW5UZVVoY2JPY2pxQQ?oc=5",
       "importance": 100,
       "tier": "A",
-      "published_at": "2026-08-30T08:02:00Z",
-      "updated_at": "2026-08-31T03:07:24Z",
-      "update_count": 0,
+      "published_at": "2026-08-30T08:16:00Z",
+      "updated_at": "2026-08-31T04:07:27Z",
+      "update_count": 1,
       "_sources": [
         "Центр журналистских расследований",
-        "Цензор.НЕТ"
+        "Цензор.НЕТ",
+        "Економічна правда"
       ]
     },
     {
@@ -692,25 +694,26 @@
     {
       "id": 26083128,
       "category": "WAR",
-      "title": "Россия продлила запрет на экспорт дизельного топлива из-за атак Украины, - Bloomberg",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "Економічна правда / УНИАН",
-      "time": "21:29",
+      "title": "Россия продлила запрет на экспорт дизтоплива производителями",
+      "summary": "Россия продлила запрет на экспорт дизтоплива производителями nv.ua",
+      "source": "Економічна правда / УНИАН / nv.ua",
+      "time": "04:19",
       "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "Россия продлила запрет на экспорт дизтоплива производителями nv.ua",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 07:07. Источников в объединённом кластере: 3.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
-      "source_url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQdlZMb01YYWk5WWJOVkhOLXZNX3RCQ1JKRFBvRmxXVlNOSGxMTkllY2dVcUNqWUFpcWV4NHJHRFBDZGRIYmtaMUdyeTVOYzBUY2ptZ1VsZ2tNX1pleUlLbTJlcmhSOUFCYlp2MmRPQUV3aUNIWjZ3NFh4ZjVQaHhLa0JEd1htU096b1FHMkhSblh2UUVScmdUbWlYR1hTWEdzLVZ3S0tSbnhCMmpWdEJxalN1Y2tNVldUQnRTMnRZbzN6VGNhOGtaWWlfUm16aUE5dlRscE9GcDdESk5ud2ZzLXB30gH-AUFVX3lxTE1oX2Z1ZnppQmhET1JwNzJIUVFSZkVGV1FqMlZTbUxSU1ZaY044cTBET3JqUE5hZ0VTYldJN3lvQ1N6a2FvdTNrd0VWN25aUmZGUlB6RlB0Q0pucS1wbWFObmlVUnhjVzBEekk3dlFxR2t6VHBsTzR3Q1hSWUx2STVIcU1QemlYNVVTX0RnUFM2YU9pclUwVlJZbXNoMmRILVAxZG02V0hncV8zdWczRHRaeWQzX2tqaEczb1hZU1cwdUk4OWJXT3d2YWlxY2ZZaEQ5YmotNm9rQ2p3ZE5wRWJYNThOZjJ2SXY1aE1Pc2VUTUsyQUxGRllYdFJmUTJn?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQNG1lZWlzdmdXWUpKOXVpTV9XYlhrNGhlN2ZsbjFFRU44S1dVZUVfMUVXSEhmdFNGQjhOUDVzY1RGNWk5R2h4QWJqazRfdk1MOXl5QjNDSGVPQ1pWRWxSbFJKVm54aF9xSTVkSW4yaXEwYmItOGt2ZTlmM3d4Z3VkYXg2YXZfM3dYaGZOT3JQdkhfa0RWRmMxemxZajZaQnBRcnlZZkNjZzdZbDUzVTYtNUxBcXJYQXNoSGlhStIBrAFBVV95cUxPd29aSWpXREVwaDZBNEJWQmktZXlMSzJfZG9oSWpmUF8zTFlCRlI3NE9kNVZmZFVpaEpWUkZ4czhuRFh1NnRDUHpuWlh5QlBMLTV5US16MjYxSnNMT05NalAyUGtqemN4MmdqV0hNcW5VQno3X1RndERJUDZ6QUFmMUM4amJlNV93MHVNeE51VVJjQkhZV0hab0t0VV8wTTlORWJNTjA1eG5GcTNG?oc=5",
       "importance": 100,
       "tier": "A",
-      "published_at": "2026-08-29T18:29:53Z",
-      "updated_at": "2026-08-31T03:07:24Z",
-      "update_count": 0,
+      "published_at": "2026-08-30T01:19:00Z",
+      "updated_at": "2026-08-31T04:07:27Z",
+      "update_count": 1,
       "_sources": [
         "Економічна правда",
-        "УНИАН"
+        "УНИАН",
+        "nv.ua"
       ]
     },
     {
