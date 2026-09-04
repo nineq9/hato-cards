@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-04T03:14:06Z",
+  "generated_at": "2026-09-04T04:14:32Z",
   "edition_date": "2026-09-04",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -780,18 +780,23 @@
       "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 3.",
+      "previous": "Материал обновлён в 07:14. Источников в объединённом кластере: 8.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
       "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPWDZGQmtHVXFWWVVBQmxqdHUxOVFfWnJib2M3ZlZlaDlKZk1ja1JWb25LSGt4bERqWWFORFBzRVctMGVIM1pXVDNiSnV6TWNwVHJQUTd2WDViRVJjNTM4d3ZJbWdGYzZYbVlvRHNpRjdqM0xKMzdES0hYdnJ0bU5scTYwVldmd3R2TXNWcERRUmfSAZYBQVVfeXFMTjFKbWhNU0xtNE0zQjZad3lZVWpvOS1Tb0t5SXU4eW1wUUJTTC05ZUZIX1dJZ1d1eVdKR2FEYk5WRnVnenIzNlFLSGZ1ZWJNdkFIbkFyVk1EVmkyNU9tMVBuQVNVNmVaNzl1bFNuVG5nbHgyWHk5SS1tMVFXaV9mSzNiaUw5aUVRbU02cXVjMXZUd1c1d1Jn?oc=5",
       "importance": 100,
       "tier": "A",
       "published_at": "2026-09-02T12:29:07Z",
-      "updated_at": "2026-09-04T03:14:06Z",
-      "update_count": 0,
+      "updated_at": "2026-09-04T04:14:32Z",
+      "update_count": 2,
       "_sources": [
         "РБК-Україна",
         "Delo.ua",
-        "rbc.ua"
+        "rbc.ua",
+        "delo.ua",
+        "nv.ua",
+        "Парламент.UA",
+        "Гордон",
+        "parlament.ua"
       ]
     },
     {
