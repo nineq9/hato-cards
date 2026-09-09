@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-09T03:14:50Z",
+  "generated_at": "2026-09-09T04:15:01Z",
   "edition_date": "2026-09-09",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -781,18 +781,23 @@
       "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 3.",
+      "previous": "Материал обновлён в 07:15. Источников в объединённом кластере: 8.",
       "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
       "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOamF4UG0xRlRuRVZHaEoyYTBqVVpNX0Y1UG52Rk9oTWVZdldnWm8wRnIxYWdXOVJsTkNkUW9vazZnakFIUm5MaHBDYTZfZlEwTWNNenFQUU9MLTRCblZsTGgxeEFnVUJPS0daSDFBNzdWX0Q3bWMxaHB1R1lnZGkyaG5xOGV2TE9NV0tvR0FBT3E4UjJJbkNCbjR1WTVMTXZ3NDcyNTZYVFpOeG1fYzhxM0o4TUhTZ3h6c2fSAb8BQVVfeXFMTXFoVkRRRGZWbUtya3hnYTdoZmNYMG1lY1MyLUswQjVyb0U1cFhDbGZwRmpwMHFLSFJ5ZFpJQ25TOWp4aVlMSnZqZGtlcTd1bmNxTVNjbGo1aEtVb1lYa2N5M1YzV2lFMElmekxlWkZlRDdhbTdKZGhUaFFLZzBFNExPdjZ0a25PdWhsODJ2cnEtVEV6bGs1MWJVVzhEWjdYalo4LWRvdVptQ2VaYkFFRVRJLXVESkV1eWdhYkttcTA?oc=5",
       "importance": 100,
       "tier": "A",
       "published_at": "2026-09-07T16:55:00Z",
-      "updated_at": "2026-09-09T03:14:50Z",
-      "update_count": 0,
+      "updated_at": "2026-09-09T04:15:01Z",
+      "update_count": 1,
       "_sources": [
         "Слово и Дело",
         "24 Канал",
-        "24tv.ua"
+        "24tv.ua",
+        "Українські Національні Новини (УНН)",
+        "Цензор.НЕТ",
+        "Gazeta.ua",
+        "Українська правда",
+        "NikVesti"
       ]
     },
     {
