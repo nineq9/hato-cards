@@ -1,9 +1,30 @@
 {
   "edition_date": "2026-09-19",
-  "last_run_at": "2026-09-19T10:36:31Z",
+  "last_run_at": "2026-09-19T14:14:10Z",
   "candidate_count": 320,
   "fetched_count": 150,
   "candidates": [
+    {
+      "title": "США одобрили возможную продажу Украине вооружения для ПВО на сумму свыше 2 млрд долларов",
+      "summary": "США одобрили возможную продажу Украине вооружения для ПВО на сумму свыше 2 млрд долларов Газета МИГ",
+      "source": "LIGA.net / Газета МИГ / Інтерфакс-Україна",
+      "sources": [
+        "LIGA.net",
+        "Газета МИГ",
+        "Інтерфакс-Україна",
+        "УНИАН",
+        "rbc.ua",
+        "Українська правда",
+        "Судово-юридична газета"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOQk1oS1lSaWJmc2F4NEVRcmdicEhBQ05xU0hGVklOR1ZIYWNraVQzMDNFSjN2ZnR1Q1E5cU1KNENvTE95dDM5VG93b2dyNGkyUjN0U0pyZUE2S21rN3dtVHRCVF9HdVUybThOVUg1b1ZMZ2NRSGFnb0J4bHBrSkctZmt6VkhtWkpSakMxSzRydGhYdzNnekNPOHo2dklLWDZIS1RvbElqRks0aXFuREFhQ0I3QWhld3dCNDNF?oc=5",
+      "published_at": "2026-09-19T10:29:54Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 100,
+      "tier": "A",
+      "query": "ukraine-core"
+    },
     {
       "title": "США в течение месяца согласовывали передачу Украине 10 ракет Patriot от Германии",
       "summary": "США в течение месяца согласовывали передачу Украине 10 ракет Patriot от Германии Українські Національні Новини (УНН)",
@@ -35,29 +56,8 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPNWxXSUJ2Yi1ZRlR1c1BuazQ1bE5YSmFBQ1BZcDA1bUpSbEVyeEY4dGt5SUduTG9xeEV0SWhHbEM0YWNNX2F4YnhKb0ptaTFVS1YxVndvS2YzS0RIYkh2NGJRNzhXa1lqNF9HZDdwNWFJaXo4Nmt5T2lUaE1XOWU2OXlicVJNc2hYWms3d091TTRuZ1hJQm1N0gGXAUFVX3lxTE81bFdJQnZiLVlGVHVzUG5rNDVsTlhKYUFDUFlwMDVtSlJsRXJ4Rjh0a3lJR25Mb3F4RXRJaEdsQzRhY01fYXhieEpvSm1pMVVLVjFWd29LZjNLREhiSHY0YlE3OFdrWWo0X0dkN3A1YUlpejg2a3lPaVRoTVc5ZTY5eWJxUk1zaFhaazd3T3VNNG5nWElCbU0?oc=5",
       "published_at": "2026-09-19T09:15:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WORLD",
-      "score": 100,
-      "tier": "A",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "США одобрили возможную продажу Украине вооружения и оборудования для ПВО на $2,68 млрд",
-      "summary": "США одобрили возможную продажу Украине вооружения и оборудования для ПВО на $2,68 млрд Судово-юридична газета",
-      "source": "LIGA.net / Газета МИГ / Інтерфакс-Україна",
-      "sources": [
-        "LIGA.net",
-        "Газета МИГ",
-        "Інтерфакс-Україна",
-        "УНИАН",
-        "rbc.ua",
-        "Українська правда",
-        "Судово-юридична газета"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOaXMza3k2OGp4eGo2WVMyc2ticGswNHZsdFM1YUpHX2UwQVVpSkhWSVpSaDRLNHNtZTB0VFlVRlBMOVp2bjU4VXk1TEVFVFpBS05kTm1mZjFkTjZPd2pfRFdTWGNqTzUyWllYWTJ0TnVZRWRxT3d5MjlLdXFyN1A2aWc5WlVLbUxQOUVIWUdEODRQTl9yQTd4VDZQVmU2cmZ0dWFEdkNhUGo0Q20wWGgwYm9TNEhRTWJKVHMxMFRlNXlwSTc0?oc=5",
-      "published_at": "2026-09-19T05:48:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WORLD",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
       "score": 100,
       "tier": "A",
       "query": "ukraine-core"
@@ -78,7 +78,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMixgJBVV95cUxOXzJzQk9ibkRrSHFSeXBjZzhFbkdNdHZ4dDc0OVJkdmZLODl2SVJFX1Atc3l0dmZKc193ajlBc2ZQeG9DNXpkS0p5NXRFYzFOWGJmenhwNFBtR2diUEdNMElrdFZTY1pEcElhdEJ5ZGtoaVNpS0tiOVNJNGMzU3dQQXVqb0pIb1ZHNUN2SVRfb2x5SjdPN091M25PLXl1T3J5S1o1Y1k5bkZ3Z2dPV2dRSWttZU5GQ3V3UXcxTWtYVGtpM0d3QUVhb0hUMXlGVzc4WkNnbWdqUXkxVC1POGJqZDB1dWFSbnpRRktzMGZLa1dERzBGVVdaRFplXzRqWEswUnFqdDlpTGtqUC00aHJTVG44a1NReDlNY3JELTBFVTZUaWFJcUlDVzV6QTBvN09pWmFaQmxYNUxxbm9LOTZlaUhUcHA2dw?oc=5",
       "published_at": "2026-09-19T04:41:53Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 100,
       "tier": "A",
@@ -115,7 +115,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5vYUxLUDdxNVpRSmdPU2plYnh1alJuM014N1B0R1BZUHktbWl6cGNPTGJlX1doc1BGeGxWNkZLQ2diWVRvcWtKbkhsSDlsUERDRnpJY0dWdGRlUWF0YmU4MEZNTG5qSjdTN21N?oc=5",
       "published_at": "2026-09-18T20:33:08Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 100,
       "tier": "A",
@@ -131,11 +131,12 @@
         "Центр журналистских расследований",
         "Delo.ua",
         "Крым.Реалии",
-        "Європейська правда"
+        "Європейська правда",
+        "nv.ua"
       ],
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQdi12dmVucHJWZDZIYkpma1JyU2d4ZjkzVWhZMXVhNzVoeUFmTFhodWZjQjNNcXRWSkhJRzBSUnZVdm1HWUpWakszZU1LbVA1QjIta0RiYm1KWHFiTDNERDB0QkVlZWV3Z1hmRlRzUzVQXzVucVZ1NVlhYVo3T2RSU29vckVKNjZvaUdmcjRFTy3SAZMBQVVfeXFMTWw0V0FjMk9jakdhYjBXTmNtZENpdUhXMU5PNkN0QWxBU0FHREUzOXhRamV0dlZmMXA3N1M3bUp1TURJd0ZyQkxoUWNiaUhyR2hLdjg2VzFrRl91Z0FUY3ZEdEp5WjZXTDlxQ1ItRm5VdUg1Umh0VXNjUzdJcUdBYUpEMFdpbG5lbGFlNEZsNkpVVWg0?oc=5",
       "published_at": "2026-09-18T10:30:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 100,
       "tier": "A",
@@ -157,7 +158,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPRVI2cENnVVZ5N284TlBoamRMa2NBUmlVdnplYXh2QVpuel9Vb0NuckZwVlc5Wk1vZGxrclVDS1RiRkRiUXJGTWVablkxVkFNQ1lYb1FnWlFXaWF4NEZDcE9MQXBwVndaa2c3elp0TTRocDRha1h1QUVOWHVGVWFGbU1abDBrM09Fbjk2NWdhdEo4VDFENWRWQlAtTnDSAZsBQVVfeXFMTWVsS09XU0pQV0tsM1R1Z0pXcXN5QkFWOW50VmtCSGFaLTdBNlRfOVVBZGhsWWdjN1dwLTF2T0NmQmgzNWk2OE9qcy1fZEZyN2QwV3RUY0cwNThHWVZNM3RVclo5R2JJSHYzRTdxQmhZV3NTVms4Wi1YcTIyNlN4d1VndEg3b2RIbW9DQTlmNGx0cVJ1d3NTSWpYbkU?oc=5",
       "published_at": "2026-09-18T09:58:57Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 100,
       "tier": "A",
@@ -301,58 +302,6 @@
       "query": "ukraine-politics"
     },
     {
-      "title": "Украина готова к энергетическому перемирию, но ждёт от России списки объектов",
-      "summary": "Украина готова к энергетическому перемирию, но ждёт от России списки объектов Корабелов.ІНФО",
-      "source": "tsn.ua / УНИАН / ТСН",
-      "sources": [
-        "tsn.ua",
-        "УНИАН",
-        "ТСН",
-        "Корабелов.ІНФО"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQc2FlbHBhQU9na2QwLTNpTHF4dzhLX2Q1VHBXaWlIY2J5VFlsRlV4X0x0dzI2QUlqVVg1Y3lJMFRFTlQweUpnTU9wVWd1VFJJbW95NFp4VnlvdkJKR1hjdEo2aDB1TzJoM0hGdGp3a0dHN3RidUZFZ0JQMUpmN1RRRDQzemg2WWU2TDlCRjBaRFlfWWVQWmdWc3E4TUNVaHhtaGtBWlFPTDNPOWdfNUszNHd3N0FEaHU1dUFMYmRn?oc=5",
-      "published_at": "2026-09-16T18:58:04Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 100,
-      "tier": "A",
-      "query": "sanctions-diplomacy"
-    },
-    {
-      "title": "МИД: Украина ожидает от РФ список объектов, на которые будет распространяться действие возможного энергетичес",
-      "summary": "МИД: Украина ожидает от РФ список объектов, на которые будет распространяться действие возможного энергетичес Українська правда",
-      "source": "Інтерфакс-Україна / Українська правда / pravda.com.ua",
-      "sources": [
-        "Інтерфакс-Україна",
-        "Українська правда",
-        "pravda.com.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9VclkwLXhqaXFNclFpa2dDUFQ2c0lJWVNVWUFYZUZZYzZGTC1YSEFsaVFwTFVjVzV3UTNJQS0ybzJrQ1JvUWVYRXh6SndhTUJoUEx4VTdFV2x0ZURERTA4SmFYY1DSAXBBVV95cUxQa3RqUS1WRTZkeGFoeG4wN0YwTHlncW5JTFFCNFAwTmphdy02ekhWdHlRZTU0d0JxNllKdjc4OGFMbXh4a0F5OHA2aW5TYTZBZ1B3TlQxaUExT0trMmFrU3MtTlVucnp6TjdZQmt2REN5?oc=5",
-      "published_at": "2026-09-16T16:41:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 100,
-      "tier": "A",
-      "query": "sanctions-diplomacy"
-    },
-    {
-      "title": "ЕС хочет создать cовет безопасности с участием Украины: что предложила фон дер Ляйен",
-      "summary": "ЕС хочет создать cовет безопасности с участием Украины: что предложила фон дер Ляйен Gazeta.ua",
-      "source": "Comments.ua / Gazeta.ua / world.comments.ua",
-      "sources": [
-        "Comments.ua",
-        "Gazeta.ua",
-        "world.comments.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOVFE0UWZOaUFHV2FqdWFMQ2p5MF81YTNPbVBxclo2eV9xSlFkdWJfb2czLUd3TVBfbUlFdzZwckVzX3NRZUNvSlV2VzJWMU9ub2x3cVROUExTc1l1dGhqZk5sd1podF96M0lLTjdmT0RJLVcxWXBNaU0ybl9oMTdJMG5BQURjaWZMZ1R3Z3hlQmM4SXBmVkZqUGN6ZFhIM1VxMk84TjczNmpTUzJxbldSWExia1FweW1CQldfbkg1eFF1YmJ6YXVqdG1XX1hkckFZ?oc=5",
-      "published_at": "2026-09-16T15:31:29Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 100,
-      "tier": "A",
-      "query": "eu-ukraine"
-    },
-    {
       "title": "CNN: российские спутники помогали Ирану точнее атаковать объекты США",
       "summary": "CNN: российские спутники помогали Ирану точнее атаковать объекты США Курс України",
       "source": "LIGA.net / Курс України",
@@ -369,57 +318,21 @@
       "query": "ukraine-war"
     },
     {
-      "title": "Сикорский объяснил, почему Польша требует участия в мирных переговорах по Украине",
-      "summary": "Сикорский объяснил, почему Польша требует участия в мирных переговорах по Украине 24 Канал",
-      "source": "Українська правда / Європейська правда / 24 Канал",
+      "title": "Зеленский поблагодарил Трампа за подписание санкций против России",
+      "summary": "Зеленский поблагодарил Трампа за подписание санкций против России Українська правда",
+      "source": "Українська правда / РБК-Україна / nv.ua",
       "sources": [
         "Українська правда",
-        "Європейська правда",
-        "24 Канал",
-        "censor.net",
-        "pravda.com.ua"
+        "РБК-Україна",
+        "nv.ua"
       ],
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPZTgzamxxOFRuTFhCRXR4al84ZmxkZDdySzNzdnBkWGVpX0JxcWgwU3U0M2dfMXV0cmd6SUtwcEdQcV9TaWNfczFKRUR2RjJZV3RrMjFNZGV6dm1PYlBiMjF5SVl4eDdDeE1sMXA4NGV3T1RkeVhYU1VMb1VlRzA0eWdFVFF3UWRhZk9wZnp6Tnl4UHNhbnBBdUdYR1MwZ9IBowFBVV95cUxNNHNiU0RNMEg2UExTSnRzaUMzcjJnTEpNN211ZEJMMkdZY0QtNExRQ3c0MUJ4QWY4ZmljUThvRmg1Q01RVlpuVXpBbHFFYkx4UHZab2lRX0REcmI3U3lQUllzeFAzbjF1VjBaekpoOU1zZ0kxMng1Wk5ybnIzSVoxbmlFcWNKdmNZUF90YUxTNUpObkJZamxCR1FnS19kNW9FaGhB?oc=5",
-      "published_at": "2026-09-16T10:56:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9ZZ0dvZU5meVZwakJwYVhaaFBqc3NLRkhKdkY1WGxEUm1CejhrSjRnaWhOUFR6cG1FYlVTNDU1UnNXUGVhcmJzODZuV3dCaDY4aTY2WEtMVmRUTEw3bHhTbzFhVDTSAXBBVV95cUxOeGtzNTBoX3gxUFhCZUZtVW1HTV9BUTBYOG90YjNxcmVNQVJ3YzIwbUpsc1lORUNWeVNySmFnTklqRWp6S20xTU9sU0FFUkh0eTh4WXhsRE9WZlUza2ZJV3JrREtSdXcyRW4tZ1p0TUky?oc=5",
+      "published_at": "2026-09-18T22:54:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
-      "score": 100,
+      "score": 96,
       "tier": "A",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "В НАТО заявили о резком усилении российских гибридных атак",
-      "summary": "В НАТО заявили о резком усилении российских гибридных атак UA.NEWS",
-      "source": "Українська правда / UA.NEWS / ua.news",
-      "sources": [
-        "Українська правда",
-        "UA.NEWS",
-        "ua.news"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQMEFFeklKa3BVY3BzdElUSm1MbmExbnN3dUxPakhPUW9SczJrVzgxV1JHVlR1a2kyLVh3enB4bWZEckphSFBMSW5NTjN1RWY2WFRqR0h0VHNobGxLdnpjNFBDZDNEeXB2WVlDX0lOZnplQlA5VkpKWEZBUGo2VjdjQzQ2NnJEWkRXYmNJZWRJWno4Z00zaXRj?oc=5",
-      "published_at": "2026-09-15T11:43:01Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 100,
-      "tier": "A",
-      "query": "nato-ukraine"
-    },
-    {
-      "title": "ЕС требует от Украины мобилизации женщин для противостояния вторжению России?",
-      "summary": "ЕС требует от Украины мобилизации женщин для противостояния вторжению России? Euronews.com",
-      "source": "Euronews.com / ru.euronews.com / Euronews",
-      "sources": [
-        "Euronews.com",
-        "ru.euronews.com",
-        "Euronews"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNTk5nUXNPUjJFczBMc1ljSUdqT1NpM2xJcHNTR1hVbmpkZW1FX1NmakNCblN0b3BoZUxxYi05UnJydzFnNlN0Z1doYXVSWkJST1pGWHZwM200bC10TXVqYW5pQlNjQWMyalBXSnNiS1BOQnhlM1FWdnV2aUhzUDhuaEhfVUVUTUJHUzl1bzU0ZkV1aXpGNC1vcVJfZldjZ0ZhSUpHRVlSOGNBRDV5Nk9hd0F0SmM1N2hXVU5n?oc=5",
-      "published_at": "2026-09-15T09:18:52Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 100,
-      "tier": "A",
-      "query": "ukraine-core"
+      "query": "ukraine-politics"
     },
     {
       "title": "Трамп сегодня подпишет закон о санкциях против России: что предусматривает документ",
@@ -456,20 +369,36 @@
       "query": "ukraine-war"
     },
     {
-      "title": "В ответ на российские атаки ЕС дополнит статью 4 НАТО новой стратегией безопасности",
-      "summary": "В ответ на российские атаки ЕС дополнит статью 4 НАТО новой стратегией безопасности Українська правда",
-      "source": "Українська правда / pravda.com.ua",
+      "title": "Большинство стран НАТО не готовы к ракетному удару со стороны РФ — президент Латвии",
+      "summary": "Большинство стран НАТО не готовы к ракетному удару со стороны РФ — президент Латвии Дзеркало тижня",
+      "source": "LIGA.net / Дзеркало тижня",
       "sources": [
-        "Українська правда",
-        "pravda.com.ua"
+        "LIGA.net",
+        "Дзеркало тижня"
       ],
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5OWTlLRmNXb3YtMFZwZ3NfYWx4ZkFkRzBYbGZ3Y1hNNF8ycW5pZmo0X2VoUFMxWFVHYjNqV0UxRXgtZTM4elZkdGJyRHNlZG9qSzNLSUZNQjJNUnZ1eS1GQkw4cnZKVjU5ZFpTZkpma3PSAXBBVV95cUxOTlk5S0ZjV292LTBWcGdzX2FseGZBZEcwWGxmd2NYTTRfMnFuaWZqNF9laFBTMVhVR2IzaldFMUV4LWUzOHpWZHRickRzZWRvakszS0lGTUIyTVJ2dXktRkJMOHJ2SlY1OWRaU2ZKZmtz?oc=5",
-      "published_at": "2026-09-16T09:24:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 90,
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOS3EyVkZ4TjZ1LUlCT1gxc1V5YVdPbWFZV2JINGNJOGczZS01eC1TVjY4eVZfSVY0NDhyemg4dFB6RzFnNXFCRnFMcFBWRXVlenAxOUhQb0NYQU5TVVNFdDBQY1Vza0k3V3JYaFh1LUdUcE9WaFpEaEtTTWh1bTE5UHE5UXdyanRVc2hJd1h3eWJKcGNEeWpVWl9teXhBNDdzWDU1anlJVXAtSWp1V3fSAbMBQVVfeXFMTXJXY1lsd0p0UHZMSFVwTzRYMFZSbU5VVlN1RUxsa1NySWNsRUdvX3hiWno1ZU5yX1BwNlRsX3pmN2w4Z0V4cEhZeEpnZDUyRlg5OHBVVkt1QWcwWWtkVE85cmRmNUtxU3Z3WXRoTk9DZXcwV2tLaHBfUk12MkpCUjVMVFVRSWQ3QUJmbHFFcXZtaDgyNmpNc3hoOFp5Y1J3ZWdkR20wMXJhMmxKWVRrZU5ibTQ?oc=5",
+      "published_at": "2026-09-19T09:11:24Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 89,
       "tier": "A",
-      "query": "nato-ukraine"
+      "query": "ukraine-war"
+    },
+    {
+      "title": "Госдеп США одобрил продажу Украине комплексов ПВО и ракет на сумму почти $2,7 млрд",
+      "summary": "Госдеп США одобрил продажу Украине комплексов ПВО и ракет на сумму почти $2,7 млрд nv.ua",
+      "source": "nv.ua / 24 Канал",
+      "sources": [
+        "nv.ua",
+        "24 Канал"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNR0xVQ2V4cDNfWVBlU19ySVFyTHJWelV6SnMyaHdoWVBNRVNEWkh4dXVITFQtV3hTTHFkN2RrQ3NkZ1h6amxIVjdhQ01qLUNzdW91Y3VqVGdIa0poUE5wUWhUbngtOC1OQ1VmUGJQbDl5dlFVSHFkc0xlLWFta0JTOEpxZDZYVkV4LWQ5UENKdW04TzgxTzdXdVlteHRJY2vSAZ8BQVVfeXFMTUdMVUNleHAzX1lQZVNfcklRckxyVnpVekpzMmh3aFlQTUVTRFpIeHV1SExULVd4U0xxZDdka0NzZGdYempsSFY3YUNNai1Dc3VvdWN1alRnSGtKaFBOcFFoVG54LTgtTkNVZlBiUGw5eXZRVUhxZHNMZS1hbWtCUzhKcWQ2WFZFeC1kOVBDSnVtOE84MU83V3VZbXh0SWNr?oc=5",
+      "published_at": "2026-09-19T04:27:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 85,
+      "tier": "A",
+      "query": "ukraine-core"
     },
     {
       "title": "РФ вторично за неделю ударила близ границы Украины с Польшей",
@@ -488,22 +417,6 @@
       "query": "ukraine-core"
     },
     {
-      "title": "Большинство стран НАТО не готовы к ракетному удару со стороны РФ — президент Латвии",
-      "summary": "Большинство стран НАТО не готовы к ракетному удару со стороны РФ — президент Латвии Дзеркало тижня",
-      "source": "LIGA.net / Дзеркало тижня",
-      "sources": [
-        "LIGA.net",
-        "Дзеркало тижня"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOS3EyVkZ4TjZ1LUlCT1gxc1V5YVdPbWFZV2JINGNJOGczZS01eC1TVjY4eVZfSVY0NDhyemg4dFB6RzFnNXFCRnFMcFBWRXVlenAxOUhQb0NYQU5TVVNFdDBQY1Vza0k3V3JYaFh1LUdUcE9WaFpEaEtTTWh1bTE5UHE5UXdyanRVc2hJd1h3eWJKcGNEeWpVWl9teXhBNDdzWDU1anlJVXAtSWp1V3fSAbMBQVVfeXFMTXJXY1lsd0p0UHZMSFVwTzRYMFZSbU5VVlN1RUxsa1NySWNsRUdvX3hiWno1ZU5yX1BwNlRsX3pmN2w4Z0V4cEhZeEpnZDUyRlg5OHBVVkt1QWcwWWtkVE85cmRmNUtxU3Z3WXRoTk9DZXcwV2tLaHBfUk12MkpCUjVMVFVRSWQ3QUJmbHFFcXZtaDgyNmpNc3hoOFp5Y1J3ZWdkR20wMXJhMmxKWVRrZU5ibTQ?oc=5",
-      "published_at": "2026-09-19T09:11:24Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WAR",
-      "score": 82,
-      "tier": "A",
-      "query": "ukraine-war"
-    },
-    {
       "title": "Вдвое больше средств перехвата баллистических ракет и дронов. Как ведущий производитель ракет MBDA адаптируется к войне в Украине?",
       "summary": "Вдвое больше средств перехвата баллистических ракет и дронов. Как ведущий производитель ракет MBDA адаптируется к войне в Украине? Forbes",
       "source": "forbes.ua / Forbes",
@@ -518,23 +431,6 @@
       "score": 82,
       "tier": "A",
       "query": "ukraine-war"
-    },
-    {
-      "title": "Зеленский поблагодарил Трампа за подписание санкций против России",
-      "summary": "Зеленский поблагодарил Трампа за подписание санкций против России Українська правда",
-      "source": "Українська правда / РБК-Україна / nv.ua",
-      "sources": [
-        "Українська правда",
-        "РБК-Україна",
-        "nv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9ZZ0dvZU5meVZwakJwYVhaaFBqc3NLRkhKdkY1WGxEUm1CejhrSjRnaWhOUFR6cG1FYlVTNDU1UnNXUGVhcmJzODZuV3dCaDY4aTY2WEtMVmRUTEw3bHhTbzFhVDTSAXBBVV95cUxOeGtzNTBoX3gxUFhCZUZtVW1HTV9BUTBYOG90YjNxcmVNQVJ3YzIwbUpsc1lORUNWeVNySmFnTklqRWp6S20xTU9sU0FFUkh0eTh4WXhsRE9WZlUza2ZJV3JrREtSdXcyRW4tZ1p0TUky?oc=5",
-      "published_at": "2026-09-18T22:54:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WORLD",
-      "score": 82,
-      "tier": "A",
-      "query": "ukraine-politics"
     },
     {
       "title": "РФ атаковала электричку в Харьковской области, есть погибший",
@@ -586,6 +482,22 @@
       "query": "ukraine-war"
     },
     {
+      "title": "Экспорт зерна из России и Украины рухнул. Кто теряет больше?",
+      "summary": "Экспорт зерна из России и Украины рухнул. Кто теряет больше? dw.com",
+      "source": "DW.com / dw.com",
+      "sources": [
+        "DW.com",
+        "dw.com"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPdHNjUWxDNXJEU1V3Rnh6ZVEwVEloOVNPWnBVTW9OSTZZcENiX0RDc3FDbVBWTHQ3ZXE4ZVdESmczdzJ0bUt3Tk1teTczbEhMVUt2NTNGdHdFbTYyNEY3TXNFZGUxZkZENW1VRkVnSjZGU2dRNDl1a3dYN3lQZWkyWG5pMVhQV2NISFlQTlpYMXN3aEU4ZWVPbUo4ek0wTEtsSUVB0gGjAUFVX3lxTE0ybEtMeFR5YWd3TDZsV0hwT1FoMW9QbXJLTEUzaThIcFVCTFVIOTFxeUpvUmE0eTJ3M2E5VkdXNXR6M3BfOUZEV2s4b1Fob3VDY1lxWklELW81c3N6VHNGMl8weTBDWGxuNGU5dVpaZ0xpZ0NYeXBMa2Q1ajdJVXpObDJ6TmJrM3FPa1AxR3N0bmtLOEFjNU1pWEVzQzl3UTFud1k?oc=5",
+      "published_at": "2026-09-19T04:31:16Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 79,
+      "tier": "A",
+      "query": "ukraine-core"
+    },
+    {
       "title": "НАТО назвала абсурдными заявления РФ о дроне в Лейпциге",
       "summary": "НАТО назвала абсурдными заявления РФ о дроне в Лейпциге DW.com",
       "source": "dw.com / DW.com",
@@ -600,38 +512,6 @@
       "score": 79,
       "tier": "A",
       "query": "nato-ukraine"
-    },
-    {
-      "title": "Госдеп США одобрил продажу Украине комплексов ПВО и ракет на сумму почти $2,7 млрд",
-      "summary": "Госдеп США одобрил продажу Украине комплексов ПВО и ракет на сумму почти $2,7 млрд nv.ua",
-      "source": "nv.ua / 24 Канал",
-      "sources": [
-        "nv.ua",
-        "24 Канал"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNR0xVQ2V4cDNfWVBlU19ySVFyTHJWelV6SnMyaHdoWVBNRVNEWkh4dXVITFQtV3hTTHFkN2RrQ3NkZ1h6amxIVjdhQ01qLUNzdW91Y3VqVGdIa0poUE5wUWhUbngtOC1OQ1VmUGJQbDl5dlFVSHFkc0xlLWFta0JTOEpxZDZYVkV4LWQ5UENKdW04TzgxTzdXdVlteHRJY2vSAZ8BQVVfeXFMTUdMVUNleHAzX1lQZVNfcklRckxyVnpVekpzMmh3aFlQTUVTRFpIeHV1SExULVd4U0xxZDdka0NzZGdYempsSFY3YUNNai1Dc3VvdWN1alRnSGtKaFBOcFFoVG54LTgtTkNVZlBiUGw5eXZRVUhxZHNMZS1hbWtCUzhKcWQ2WFZFeC1kOVBDSnVtOE84MU83V3VZbXh0SWNr?oc=5",
-      "published_at": "2026-09-19T04:27:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WAR",
-      "score": 78,
-      "tier": "A",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "Зеленский: Украина готова к энергетическому перемирию, но Россия пока не согласна",
-      "summary": "Зеленский: Украина готова к энергетическому перемирию, но Россия пока не согласна Euronews.com",
-      "source": "Euronews / Euronews.com",
-      "sources": [
-        "Euronews",
-        "Euronews.com"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPUVZuamg3anVtN3lXRWN2dHY5UTJVWHZIaUZyS0dJcmJoZXFtUkdpaXBEMmdlQ0tHQ0xQSWNXWGFWUHBMcjRzSE5WVzJ0VWtMQ3NfLXpXSWRlXzQ4amNXU0ZaY2l4QzhJdHhtSXVWcTdMNS1XejFSOTlBMi1MVEtkLUJ5ZzRIQUQ0dVpqNVVmWFNkNkFfNmNEYWp1cXRyWGJNa21nemI1WWdiWGI4Y1VvTUhJclduY0xQb1RoS2ZEQmc4WDA?oc=5",
-      "published_at": "2026-09-16T12:08:35Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "UKRAINE",
-      "score": 78,
-      "tier": "A",
-      "query": "ukraine-core"
     },
     {
       "title": "Туск заявил о планах России атаковать страны НАТО дронами и ракетами",
@@ -665,70 +545,6 @@
       "query": "ukraine-war"
     },
     {
-      "title": "Фон дер Ляйен в ЕП: Новая ПВО для Украины и союз с Канадой",
-      "summary": "Фон дер Ляйен в ЕП: Новая ПВО для Украины и союз с Канадой DW.com",
-      "source": "DW.com / dw.com",
-      "sources": [
-        "DW.com",
-        "dw.com"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNU1F4RnZsdjk5OHdXNURlUEd2NHhiYkRNWWxGX1o4ZURyZi1FZzZtcHFOUVotTzBOM0JIYWFWYmZUZVFZQjloQ3JrQ1dJUkFFdzRoVm93bWtRclJRdzZlYzV5cVlqZGF4TnJHR0tBY0JwYnBQVlFDczhGWmR3aUtFVUl4UG8tS0lSN2xja1JSQXhDb3FPclYwOHJqRXEydlJ5T0h6ZdIBpAFBVV95cUxNNHd1aXhpZXFNX2E4ZHluV1lzUXNtTkFlMzY3ZFlyeTJHbmJwTHlBNVNVbGR4R0RLX1FlNGF3dGM3NlV6RUp6dmZ6VmNXeng0UUpPUkN0QVdxY2dWbkxZSFNrWk55Y05USi1Pck5aaEs0UU1iMGpQdnBxaFIxa1VCVjhVNUhxY0dJaVpQRGJPaTRiMVVnMXNfc1RNYmFwTXcyUUgzTw?oc=5",
-      "published_at": "2026-09-16T20:51:59Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 76,
-      "tier": "A",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "Послам ЕС был представлен проект новых санкций против России, включающий 1576 позиций",
-      "summary": "Послам ЕС был представлен проект новых санкций против России, включающий 1576 позиций Українська правда",
-      "source": "Українська правда / pravda.com.ua",
-      "sources": [
-        "Українська правда",
-        "pravda.com.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBISU1QSW02cWhQdnZzcUlVTUNyb19tdzZvam5nSllLNktRcmJmY3R0MlkzV3N1VjRUc2huU0pOdVFFLXJLVXUwenR4TXpzUm4wWDVBZ0RnZEpHbGFBcVlJZHo0cjTSAXBBVV95cUxNYnc2Y3dFSHpjR0J3SHNab0NmTk14RVk2dUJFYUQ5ekRPRVNMM211Rk1GYXpSd0JfblZLYmFVOGFMWFpUakNoemE1NHVkT0VDZEtsa2F6WnJ4V29PNnd6cURFSkIxS0JrTHp0Y0p5WWtL?oc=5",
-      "published_at": "2026-09-16T19:01:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 75,
-      "tier": "A",
-      "query": "sanctions-diplomacy"
-    },
-    {
-      "title": "\"Удары Украины по НПЗ России \"обвалили\" энергетические рынки мира\": посол США при НАТО требует \"окончить войну\"",
-      "summary": "\"Удары Украины по НПЗ России \"обвалили\" энергетические рынки мира\": посол США при НАТО требует \"окончить войну\" DSNews",
-      "source": "DSNews / dsnews.ua",
-      "sources": [
-        "DSNews",
-        "dsnews.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQSkFwck56Y1dvU01BcXB3WC1rZ09qSmNjNnBPRVhnb0NUR1dmNHlDZ2ZxQUdNNGUtT1dadUpYVm5qLTRiS054UU4ycDBlZGR0bGpibHdQU181V3pXVlVXbDBfbGwtOW9XZDYxbi1IUXJsRjVvN0EzbGRNZjBDT0ozelRldU5XSFRTREZIQ2tBanFnZEpoWUVvNEMxMUJ4UWlLRzctcUt2QzZzc2JkMnpWdjR4NG9MNGNSYnIzcGFRMFpBR2toYlJDdzl4RFQteWVrN3FfcTdvZmE0SnhuSER3Ni1ZcVpGOHNDRnhF0gHwAUFVX3lxTE5LeVNCV1cyaW9kT2FjbVgzQU1jV0dXMWNTTzRxdzBsSWVkZ2xVT3lwREFORFVfS1Z1NlJST252ZkRHOERIRWFUVmZrS2E0Mmd1LXZmRDRlNUNfeVJ6SkF5bVZ0VXBmVlg0a3JHNEJrZ1k4aW1EdnRsRTRLOHVXQmQyNkhZQkZMZ3NITFlSaVQtM24tY213T0drb2NKUExFSHFYWmZoaUh4dGtBYi1KWUxlVzl1dXRRQ2ZFWXpESzNyMnlOQjZuRGJXbE5IZm9oQWo5YXBob2VqYmNGc2QyUmQ3dnI0WGlVSzVQSmpVZVp1Mw?oc=5",
-      "published_at": "2026-09-16T12:44:24Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 75,
-      "tier": "A",
-      "query": "nato-ukraine"
-    },
-    {
-      "title": "Зеленский объяснил, на какие шаги готова Украина ради энергетического перемирия",
-      "summary": "Зеленский объяснил, на какие шаги готова Украина ради энергетического перемирия Українська правда",
-      "source": "Українська правда / pravda.com.ua",
-      "sources": [
-        "Українська правда",
-        "pravda.com.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1JSVZITzVVTG8tOEVzTVdMZFZqQWQ5ajh6MFZUSk5VMDFoRTVnU1hjUy1qdDBkREFDNVVEQVpnSmtqb0hldXp5cF8xd2V6WHozQVZxY0Q5aXFlWVJoWDk1bkdPYmLSAXBBVV95cUxNOTFieU44eE5QVEpDSFNfdkVWaFVzTWRtbFdiNVBVeGVPM3ZzNF8xeTBXbnBEUHY0R1BoMHZwNHJlbndoeTNsdFZmdXdCRUJNdkYweXBXNDBNYW5Nb3hHSlg2dTZYbVZGVVh4b3MxX3Zh?oc=5",
-      "published_at": "2026-09-16T09:33:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 75,
-      "tier": "A",
-      "query": "ukraine-core"
-    },
-    {
       "title": "Ложь РФ об атаках на ЗАЭС разоблачили спутниковые снимки: какие доказательства передали МАГАТЭ",
       "summary": "Ложь РФ об атаках на ЗАЭС разоблачили спутниковые снимки: какие доказательства передали МАГАТЭ Today.ua",
       "source": "today.ua / Today.ua",
@@ -745,52 +561,35 @@
       "query": "osint"
     },
     {
-      "title": "Повышение грузовых тарифов \"Укрзалізниці\" на 30 % угрожает стабильности экономики и экспорта – НАДПУ",
-      "summary": "Повышение грузовых тарифов \"Укрзалізниці\" на 30 % угрожает стабильности экономики и экспорта – НАДПУ Obozrevatel",
-      "source": "Obozrevatel / РБК-Україна",
+      "title": "Президент Латвии: Европа не сможет отразить ракетную атаку",
+      "summary": "Президент Латвии: Европа не сможет отразить ракетную атаку Українська правда",
+      "source": "Українська правда / InfoResist",
       "sources": [
-        "Obozrevatel",
-        "РБК-Україна"
+        "Українська правда",
+        "InfoResist"
       ],
-      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOX1AwNHpTT0s5WHUzOUFfMXd0eV83Y0I1TnhkNnh2MG50MkRpS2s0RHpaaVg3UGZhS2ZYejdIZzR0QmQ1M3J0MktualhER2pBbXNGeUpLLUxsVThUekVZRHo5YzdvQW5UMHQxc05MQ19ncDhQaWlFTnozaW5RcHZfWmZicmdYX2J3RzkzSTgxa0piUVJsUjhPQ0ViLXYyNlVZYXNJa0tfOV81b284aEZVdlhwQnJIMnZBdnpHZk9aSlhwVUpZQXFzQnNhSUtUNmlHNjFQb1JCOFlxYUlJNndMWFJHONIB6AFBVV95cUxPZ051c25odU9SakJJYmJYVjZ5ZTNDQ3kwX2N1WFlHQTdSSEFuNmRPOVh0VkNmcXF6d0l0SnljYnNZQWNiUGNpS2pkcXF2V3l1TE1iRHcyc2hQdHRsSm5MUFZDbG55Z1lhbkJ0YU1Wb245WEpRa0RzS0FJSG5ZNTl4anNNU1RNM1JZS181SzZ6NVYtckVqS2xPdDdTVVIzRGpvbk8wSlNTYk43OE8tMUtaR2pNLUtsN2N4ZS1FWkhvN2t6cjVGaHdpNVhLV3pqdWVLcmZmbERmVUlKbW9Ib0JteGFQZkJZa2tT?oc=5",
-      "published_at": "2026-09-16T13:39:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 74,
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1lTVVJZmR2clYweW1oRExjemtDeXlPSGFtZjZJVDk1U1JvRmdULS1JMXJkQ0FTLUs2YW51TjdUVjVfU29yQW1OTkdBTWtEZ05DLTFxcWlzMFJtdGx3VFJEVml2WljSAXBBVV95cUxPQVVIR21UX0RhWFJZOF9fc1VyVUo5UGxoSnM4WWhBU1R3TjMyUVBzN2VsLVMyR2xZQ01NNXlCOWtsOEtSamFhN2J4R1ZDWWtVUXFrTGc4R0NBMlV4UXVHdkxWWWRsemdjcnEza3c1c0Nm?oc=5",
+      "published_at": "2026-09-19T12:34:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 73,
       "tier": "B",
-      "query": "ukraine-economy"
+      "query": "ukraine-war"
     },
     {
-      "title": "Экспорт зерна из России и Украины рухнул. Кто теряет больше?",
-      "summary": "Экспорт зерна из России и Украины рухнул. Кто теряет больше? DW.com",
-      "source": "DW.com / dw.com",
+      "title": "Большинство стран НАТО не смогут отразить атаку российских ракет — президент Латвии",
+      "summary": "Большинство стран НАТО не смогут отразить атаку российских ракет — президент Латвии nv.ua",
+      "source": "nv.ua",
       "sources": [
-        "DW.com",
-        "dw.com"
+        "nv.ua"
       ],
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPdHNjUWxDNXJEU1V3Rnh6ZVEwVEloOVNPWnBVTW9OSTZZcENiX0RDc3FDbVBWTHQ3ZXE4ZVdESmczdzJ0bUt3Tk1teTczbEhMVUt2NTNGdHdFbTYyNEY3TXNFZGUxZkZENW1VRkVnSjZGU2dRNDl1a3dYN3lQZWkyWG5pMVhQV2NISFlQTlpYMXN3aEU4ZWVPbUo4ek0wTEtsSUVB?oc=5",
-      "published_at": "2026-09-19T01:30:35Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNTlJ4ajh3WjBmUHpVYXNwSkt3QU9ZckNnU195dVV4eGY1WXBHeWQ2LUhkZVNJWVB0cmpJRGRfQ1JfYk45aDR1UGdYcXlmOW9DSmxKRFBfWHZCMkRPYnFvMGFsZmpPOExCZENYdkp0UGV2WFJNal9uZHFtZWJJQ2k2aFZXQm5wM1ktbVhSay13dnNHcko0NkFjVnhZcWRKNWZUdHJOMXI0dmZYVnR1ZFlnUGRWdHNXOXJsR0Rzdmh4RUlUY2lTTlHSAbMBQVVfeXFMT3FYRmsyTmtuLWpzcU0zM0VGQzJUb2pVZ1pIRl9MWXM4aXp0NVc0YjA5VDloX3B0MmtOU3Z5Nk0wanVmaWhkUU93QXhXb2U4ZllKVjYxci15R0NTNnpYdXFxZnB5dlZsQ1BxQmpHVGdpSTdUYkF2anpMYklvRVpWVFVkY25CeUNiMGd0bXpCTndfUEY5ZnlFaUZqV01lanlKV2gxNmRSbFlwcVpFS2pfSjVRVGc?oc=5",
+      "published_at": "2026-09-19T10:46:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
-      "score": 72,
+      "score": 71,
       "tier": "B",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "Ночной удар по Украине: массированная атака затронула предприятия, обеспечивавшие армию, и логистические узлы, через которые шло западное оружие",
-      "summary": "Ночной удар по Украине: массированная атака затронула предприятия, обеспечивавшие армию, и логистические узлы, через которые шло западное оружие Живая Кубань",
-      "source": "Живая Кубань / livekuban.ru",
-      "sources": [
-        "Живая Кубань",
-        "livekuban.ru"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxQZmY5LTd6Z1RPMlNudmtERWRLalNvODdmQUJUc2tDdEYwNWd1QlNCQ3cwSVFSV1o0ZWt5WmE1TnBubDhYcWhqOEhfQUYwMndQNUFhVFhqajVxNDZaenBNVmhEUmN5UDBWWUtfRUtIUEp6eTVDV0lNNk9tTGNzWnktS2VpM3hYR2gzamY2aEcxVWlzSjVweDM5Tm40TjVLdU9FX2EyN2JJcThydTVtM244b3hrT29sUjh0YWc0WUdjMVk1Q0tmT29lUkNvZm5mVmZlMkQ3b2c5RkQ1Z2syY0pDTWkyZmFRbl9mYkxIYWh5a25WejBlRmNrajBycHBVdkl1UmNJb29Td1hsb3UwbjRCekZNUmxkNUVJT1YtR2Q1Yk40Zw?oc=5",
-      "published_at": "2026-09-16T17:25:34Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 72,
-      "tier": "B",
-      "query": "miltech"
+      "query": "ukraine-war"
     },
     {
       "title": "Россия планирует удары дронов и ракет по странам-партнерам Украины, – Туск",
@@ -840,22 +639,6 @@
       "query": "ukraine-war"
     },
     {
-      "title": "Европарламент разрешил финансировать оборонные испытания в Украине",
-      "summary": "Европарламент разрешил финансировать оборонные испытания в Украине Українська правда",
-      "source": "Українська правда / pravda.com.ua",
-      "sources": [
-        "Українська правда",
-        "pravda.com.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5MaktlLWVDM1RwZXREVGV0SmVONWQtRThMc3N6d1Z1bjZucUZ2eFhiVUg3ZEhvd3ZoV000RVVkVG5UMllPQmxsWTlneUFEWWlaNThFRGhmcGNRVDEzU0J2eFEwblHSAXBBVV95cUxOWmw2RXZoRUliaFhLSkpIVV8tUnNzbFc5b0d6V19RWDFPM2hsdi1aa2Rrb0liY1owb3h1d0dXcUJDa09nbmh4S3N4aWZRTHAyZE1hc2FhQ0FsS2hSdDlia1FNOHlSa3RfdEpld2hkVU85?oc=5",
-      "published_at": "2026-09-16T14:58:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "UKRAINE",
-      "score": 69,
-      "tier": "B",
-      "query": "ukraine-core"
-    },
-    {
       "title": "Кабмин переименовал предприятие \"Реинтеграция и восстановление\" в \"Национальное агентство развития территорий Украины\"",
       "summary": "Кабмин переименовал предприятие \"Реинтеграция и восстановление\" в \"Национальное агентство развития территорий Украины\" Інтерфакс-Україна",
       "source": "Інтерфакс-Україна / ru.interfax.com.ua",
@@ -886,22 +669,6 @@
       "score": 67,
       "tier": "B",
       "query": "ukraine-economy"
-    },
-    {
-      "title": "Украина обсудила с МАГАТЭ и международными партнерами вопросы ядерной и энергетической безопасности",
-      "summary": "Украина обсудила с МАГАТЭ и международными партнерами вопросы ядерной и энергетической безопасности Rubryka",
-      "source": "Rubryka / rubryka.com",
-      "sources": [
-        "Rubryka",
-        "rubryka.com"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOeVIwLVAwejVLeFNLZUZQbnB0eFprYjB5MjVUZk9HaE9Fd0xuVm44NTFtTEtaQV9BWUZGS1l6SDl0bTlvbHl4aWpnYlMyLWtKR0hsU2Y1Yl9DVl9sUmJJYlJ2MXBtaWJsOVFXT05Ld21vQ2dIeEhzRnpvOFVPSEhldTh3XzFHSlJpaUc2Zkx1UjRuQ3g4MERhLVhGVWtsVmFTbVZFUkJHVmtvd3FHNVgyb2ZQUGkwOTExWW1qQU8xZHFGR24tcFFTaWlGMW9FUGVsZkE?oc=5",
-      "published_at": "2026-09-16T14:41:56Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 67,
-      "tier": "B",
-      "query": "ukraine-core"
     },
     {
       "title": "Россия ударила дроном по электричке в Харьковской области: семь пострадавших, один погибший",
@@ -996,17 +763,18 @@
       "query": "ukraine-core"
     },
     {
-      "title": "Россия ночью массированно атаковала Украину ракетами и 157 дронами — ПВО обезвредила 131 цель",
-      "summary": "Россия ночью массированно атаковала Украину ракетами и 157 дронами — ПВО обезвредила 131 цель Українські Національні Новини (УНН)",
-      "source": "Українські Національні Новини (УНН)",
+      "title": "Польша подняла военную авиацию из-за атаки российских дронов по Украине",
+      "summary": "Польша подняла военную авиацию из-за атаки российских дронов по Украине tsn.ua",
+      "source": "Українська правда / tsn.ua",
       "sources": [
-        "Українські Національні Новини (УНН)"
+        "Українська правда",
+        "tsn.ua"
       ],
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNbHdIeFl6VzZaMnJxdmhXSHRWcUZvSWFMQk9Zajk2aHNiaE5lTm03TDI0UlQ4V2RzRF9nU3FZQl9zUWpxVjFpY1ZteGpRUlJkenR0Ykd1VlJqTnYtZnYyRVdYaEIzUTNqRS1jUWUwWDVVTkpXWlBXdUpWRW9oSXlHSVFORE1sUnI2T2FTTXFnOTRaekctel9yMlF2R0xfWEU5YnhYa2lGenBkRkZBenMzWEZva1dQV2fSAbYBQVVfeXFMT053UFV6djloRmpadXhubE52Q2NJT05jUndXTXVGUzM4V0RXLXJGWkdMUjMzRzBsV1FGM3BWTzNVS1hJRm9aZmY1WWxaQXd6T3NLY2R2ZTQzSS1JWHZnbURZQUtIWTBlUnNTLXIweWhnelh3OVg1SFFPV05HWFJpYjV3ejVYdnJIaF9udUNleWhmTVdFbzJWWVkzR2lHcW1qYWYyN2lYaUlFSVFtTnd1UUMtQV83b1E?oc=5",
-      "published_at": "2026-09-17T05:08:23Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNVVTc1h3WjNGWVNfMnFhcTVFczJOWXg1ZkZ4elNJZ2pSM2p0WVNKNVI1V2ZNWkQ1Zk1Bc2JaRl9pbjVxRElacHllOE53aHRlMU40SGtqQzU3blNZZzZySFZ4OWtpNDJ2ajh3UF9zSk9INGw4ZXFKdjB1c2c2bDZ6aHFLQkJRdDNRb21rTkNkVlVoMVQ0LVRDWXlWNGVlQTY5bGxIbHQ0R1JGelo0cVpzQ9IBtgFBVV95cUxPY2NzUnpaeFlYZ3pnOEVzZ012YnZxVnU0QUo2OEVRT3JNZmJENElRWW9KZWdhamtWZll2X0UzOVl6VU9MdUlFZFlGZVRJQWF5QnhaSmtPUTdXWjYtMXJrTENSQlowVV90SWsxWnNOU1V5ZXhTMF9VTDhtNWlyVkxwMHZYYm5TMm5xUFV1ZnBfZ3JKWFJMUlZmdEtCbW96UWY5YndkeVNIRS1JbEd2UHg4SGZfUl9zZw?oc=5",
+      "published_at": "2026-09-19T11:37:12Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
-      "score": 65,
+      "score": 64,
       "tier": "B",
       "query": "ukraine-war"
     },
@@ -1042,6 +810,21 @@
       "query": "us-ukraine"
     },
     {
+      "title": "НАТО может не справиться с массированной ракетной атакой РФ, - президент Латвии",
+      "summary": "НАТО может не справиться с массированной ракетной атакой РФ, - президент Латвии unian.net",
+      "source": "unian.net",
+      "sources": [
+        "unian.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNTkEzQ2VGTUQ4RTNudHZSOHdkVEh5UXVJQ2l5RDN5Z1hQbnJFM0t0aXJGRElDS2s0ZFVKOHdMM2lETHhWWlJhMkVUWjhFbHNOV0RLdVhpQXhEZl80Q1N5U2M5T25jNFJDOW4zUEVLT2ZXTVBuRFQ4NFRRaVB0WXdqXzIwUVAyd2ZZN0pjU1R3N1UtZFdPaWQ0a20xSHN6ZmpPMkV3SG1nOENRTkp6enBTT3BFQmdvenljSWFuWVdoa1pkcTBJYTcxRTRhd3VpVWI4Z00w0gHqAUFVX3lxTE1HUjlmNkdsLXRuMEs3c0xGNlFBMVIwTDZqdkkwamZLSFFwUWZadW1US1E4Y185VkkyU3R0Z2UyWkNiQmZHRlRNM3l0TEE4YmxWZkFxZHFJUTdRSDExclZCNE5hRmk1RFZJTnptY3Zia0FFSjNWVVVJZ2pZbDlnVFRleGpOYTZsS2RSOTI4Ti1oX2FwYjNSekNsLVhyRHRKOFppN1ZHUURmRC1MRTNOVDZDQnhUVmhUWWxWckNRdE1IMXloYmUwdUdWbFBDdy1zZkFkTUhWaWRSSDdoZlY0eFZTTkdWRGlmUm5EZw?oc=5",
+      "published_at": "2026-09-19T12:45:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 63,
+      "tier": "B",
+      "query": "nato-ukraine"
+    },
+    {
       "title": "Летели \"Цирконы\", дроны и \"Бандероли\", есть прилеты: как ПВО отразила ночную атаку РФ",
       "summary": "Летели \"Цирконы\", дроны и \"Бандероли\", есть прилеты: как ПВО отразила ночную атаку РФ РБК-Україна",
       "source": "rbc.ua / РБК-Україна",
@@ -1058,6 +841,22 @@
       "query": "ukraine-war"
     },
     {
+      "title": "Российский удар по Сумам: погибли двое сотрудников городского совета",
+      "summary": "Российский удар по Сумам: погибли двое сотрудников городского совета Українська правда",
+      "source": "pravda.com.ua / Українська правда",
+      "sources": [
+        "pravda.com.ua",
+        "Українська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBvQUVHUXEwM3JjZVdYSmdqdjUwaWJfQXE2dWZ1bjgydDhSWlYxR013M1NGWlFfTThjUF9PY21wRVFoZEVyeVdXS0hLSjdFSDNHMDZjZE11aE0yd2o1SnZTOC1zYU_SAXBBVV95cUxQcF8xblBQTU56YWh1X0ZXblFDR3RlYUdnOGhHU0lEMVNNRkthcjFoMTZSaVp2clA3Mk9Ud3J1eGk0SnNxNThCUGNBUk9wWGJ3MkFiMkFoeG9LRUo0RGhLMkpPSnE4aWl3MUF3SWhDZW9F?oc=5",
+      "published_at": "2026-09-19T00:48:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 63,
+      "tier": "B",
+      "query": "ukraine-regions"
+    },
+    {
       "title": "Макрон поручил разработать план защиты критической инфраструктуры Франции от гибридных атак России",
       "summary": "Макрон поручил разработать план защиты критической инфраструктуры Франции от гибридных атак России nv.ua",
       "source": "nv.ua",
@@ -1066,9 +865,25 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNN3ZPOFFwMDdOTFRFd01DNTFmdm92c01fNzItNV9HZmJwSUdRWTBkZk9uakp2czFuUnROUkR2OHNsazRFQUJBWTlMU28tZ0xWNE1RMEVtX1dzM3dqbFFoLTZxaGdURmhZRkZaSk9EbmhBRG9IZUpSYllpbndIaFM3aXpQYVpXbTNSVmRvVU9kNGp5SWNoaTBkVktvbndGbWUxaV9PVFcwSUdBTEVuR2Izd1ZBcGtseHg2SmpZS2Z4OU5CdEXSAbABQVVfeXFMT3hzSkcxX0Z0LVZuSW50UFBsX3pXZE02VkQ3NmVZbTVLaG5adjZUY0VxT0I1OTJyU0dqMEZuNG85c3V1Q09vN1Nmd0xQQzR6cTdaQ1c2T0Y3aGRqMjNOb2lhdFVTWWdsemRTOGctd0pHby1LeHVJVml6aHVTVkhlVXlnekc5QkRpX255bHhjbWlfTnU1UkRUdnQ0VlJmMmN5OW9LbFo3VU1JSG1taVYyODg?oc=5",
       "published_at": "2026-09-18T16:36:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 63,
+      "tier": "B",
+      "query": "ukraine-war"
+    },
+    {
+      "title": "ГУР показало японской делегации компоненты баллистической ракеты КНДР",
+      "summary": "ГУР показало японской делегации компоненты баллистической ракеты КНДР Українські Національні Новини (УНН)",
+      "source": "nv.ua / Українські Національні Новини (УНН)",
+      "sources": [
+        "nv.ua",
+        "Українські Національні Новини (УНН)"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOSWk1RDRQMUNPdzFVaEN6YnNwSkFSX3ZxZU1fc3pEalpyQ1hUZGtRaG5BbWkxSWFpVlgtYXNxTWs4S1ZpbWszUXFzTzkxVTl0eTdsRVBDTDk3SXZtVEFpWnJYVWxVTFppV3JqOFFkTktzVWpXVllLbmNzbUQ0QlpfQjFabVVsUEJJZUp1RlBFbTROMkZSb25hRUdnMNIBmgFBVV95cUxQN0VxZ19ZdUd2SVRPRkFtRHBjUENwOG1GR1hXRDJUMmpTY2NsaTIzUWE0RGY4VEVxbHlVUHR3NGkzVWxUeEFoNUYtejItM3NUMlVGZGw0X1pucWFheldsMVFyakJ1UXNldVlhZzViUWFpcDdrQlEySjZtSFpJM3o4dUpxVVBpMndodU9DSmlrQ0ZFZlhzd0VCOEhB?oc=5",
+      "published_at": "2026-09-19T10:20:37Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 62,
       "tier": "B",
       "query": "ukraine-war"
     },
@@ -1081,7 +896,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNY1dRTGt0azVoT0taLTIwYTdZMmxVNVh3NnFxeFdYQnk3VDNkVDViQmg2akNnLTBQcGR2aVEyMFFxc2F2WjVZVExEV05fVHZ5YWVVdHltUUlkM094UGt1OEVDX2NGYjFJWHNvak9mc0JEZDA1Qm5DeC1MMHAyVGxYWFRaX1p4c1FBSDk1dWVJelZmWmxFN0lveUhJWkx1cjdCd2dCZnlySTNZdjVvOHpIZ21VTTVyM0NLOTFF0gG7AUFVX3lxTE1jV1FMa3RrNWhPS1otMjBhN1kybFU1WHc2cXF4V1hCeTdUM2RUNWJCaDZqQ2ctMFBwZHZpUTIwUXFzYXZaNVlUTERXTl9UdnlhZVV0eW1RSWQzT3hQa3U4RUNfY0ZiMUlYc29qT2ZzQkRkMDVCbkN4LUwwcDJUbFhYVFpfWnhzUUFIOTV1ZUl6VmZabEU3SW95SElaTHVyN0J3Z0JmeXJJM1l2NW84ekhnbVVNNXIzQ0s5MUU?oc=5",
       "published_at": "2026-09-19T09:52:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 62,
       "tier": "B",
@@ -1116,6 +931,22 @@
       "score": 62,
       "tier": "B",
       "query": "ukraine-war"
+    },
+    {
+      "title": "Путин обвинил Украину в нежелании вести переговоры",
+      "summary": "Путин обвинил Украину в нежелании вести переговоры nv.ua",
+      "source": "nv.ua / Українська правда",
+      "sources": [
+        "nv.ua",
+        "Українська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOUVdyLTlxaHRVSFJhUU93b0VlOU1MT2hsQk9tbW5Eeno3clo2S2JYWkZ5S1dPc2ZFNi1uRUc2clRMLVE2b0RNR09lZExiWjktZTY5SG95RlBTSWc2RUs3WXZmdHJTWF9NeXV0NU8tWXZfT2ZDMzRONWZkNGlBR3g4b1JMRDFveUc1TTM4S2ROZ3EzYWhiN25YM2hpM0ZXTkRHMlk5VE9kc0MydnFIVmdhM2VLb3NpZk1HcDcweWJR0gGrAUFVX3lxTE1pMzFWakMtcVU1ZjlFSkFwWnBlSjZtSmM4cXpoZmRvWnJIN01iTGh4cjJzOUp4OWh3OFpSNTIyUnFCMERFbXFpOUZKMTNqWjVMWUJIMjRaZkVMc1JlMjNrc0FhdFk0SllhbHI4by1hempKQjdqZmI2cU8zUlhSaTVwR2RLdFcwRDVNOE1oRHVxQk5CbzJFbjdiREczRGdscE9JOHJaZldXd0hYaw?oc=5",
+      "published_at": "2026-09-19T02:55:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 62,
+      "tier": "B",
+      "query": "ukraine-core"
     },
     {
       "title": "Россия атаковала Павлоград, Балаклею и Запорожье: есть погибшие и раненые",
@@ -1305,6 +1136,22 @@
       "query": "ukraine-core"
     },
     {
+      "title": "Четыре человека погибли в Украине в результате новых атак РФ",
+      "summary": "Четыре человека погибли в Украине в результате новых атак РФ dw.com",
+      "source": "DW.com / dw.com",
+      "sources": [
+        "DW.com",
+        "dw.com"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNcnpRb0g2MVAxUGswTTI5NFpQME9LZzBLM3I2eGl0bW11a2loS0NHVmRUbFFDa1R6NHd3UkRQd2hYNDZKT29FaXl0R20yOE1VNVZhdDFEY0pOQWI0czA2UWtDYnQxZndEcW5PcGdqSDBfWEU3Y3FaZlZQX1VwX2R4NmpxTjlVdGZORFNmTzN2LXpZNXZramEyeFEydXPSAZwBQVVfeXFMTjgtd1MxZDE1LWl2YXNab25PYU50UGVqUzNuTWVpTG1HTk1fRm96Xy1CNnNlT3NpQjN6WFBhV2EzOGZzWGFWaVhVZUhoQVlPT3BrXzg2NnV1SE1PVndMWHZ1NWswb0FNWmg4cklWU0tUQjNWblRHMGxBWE1MenhPaFA0UlBwUmhGN2RVRVFMd1d0VXJ1azB5RUtROFUw?oc=5",
+      "published_at": "2026-09-19T02:10:25Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 60,
+      "tier": "B",
+      "query": "ukraine-core"
+    },
+    {
       "title": "Россия планирует гибридные атаки дронами и ракетами на страны, поддерживающие Украину — Туск",
       "summary": "Россия планирует гибридные атаки дронами и ракетами на страны, поддерживающие Украину — Туск nv.ua",
       "source": "nv.ua",
@@ -1313,7 +1160,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQeldyOXpyLTc2MW16QjNPR1N5MF9zdXNDS2hVdWY4aWh1amZJYXpTbE1mNUVGUVo4TGlWMWtIM1VtNFc1NmlNbmVxbm5uVEJybjU2VmhNbTVreGlFZUFnMDg4dFp5czhFVDJqVTA3SGVzUUd1cHEwSzdJZWg3SUw3ZXpkc1UyNTVRdDlHdzVrX1Y4UUhVSVhZczQxZktXbFdFYmV0Sm5KeG5QVlU4anVTMmJJRy1NYWNfNnfSAacBQVVfeXFMUHBSZDVoajlZUzMyTzVVRlR6VGtOa2M5QXZCaXJFYjRHMjFDTTU5c3N3WVZKZTRZdXVkNjVIOVZQa2lNRThjLXpGQktLLUZQUEhVVmZtMGcyN1h0YzFNaDVEWGg3eUhSeUZFeWxCWkhJY0laWW1nOUZVMVFLbEhITkxROHZaZFpvWEZPTko2YjdMd3ZXVWpESkY2dWl2NFNkdXA4WkJTclE?oc=5",
       "published_at": "2026-09-18T05:42:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 60,
       "tier": "B",
@@ -1366,21 +1213,6 @@
       "score": 60,
       "tier": "B",
       "query": "ukraine-politics"
-    },
-    {
-      "title": "Раненые дети, \"прилеты\" прямо по домам: РФ ракетами устроила по Киеву и ряду городов, атаковали целым арсеналом",
-      "summary": "Раненые дети, \"прилеты\" прямо по домам: РФ ракетами устроила по Киеву и ряду городов, атаковали целым арсеналом ТСН",
-      "source": "ТСН",
-      "sources": [
-        "ТСН"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQZVEzVEJnQkJOT2NKY2lzQUFTMVJvWHRlM2k5bE1ESGJzaHU4ZE1yam9KOS1MZy0tbGxqeWxuUHNUSzk0NHBIX3QxZXQzSVJSTnUwQXZQbTNST2RQLVotdDl4ZlE2dW9KTnZneHVnR0VBVjBkSDc1MnRoa3RfeVN5YlNiZGNKT09DRkVPNElWMU54LTBwZGhna3hvQ2laVzlsM19LckE4d0dUMDFIZEd1OUdSZFEwWXNfNVYwYklnVENHd19ycXp4ZEJSdGRzeGl3cjRBTzI2NGgweUszeDV0SEM0MNIB6AFBVV95cUxNWkdIanZ4eDZfV1Z4TFdFNW5FUzVJOXh6N19iaDY5aWNRZGxleEJJaWw0WmhWV1JMaHd2SE9TU25VRDNQUnlxNGNZVkR2WkZBQnV5Y3FpNVlhYmtwTi1YdWwwV3A1NEs3TXJXcG5WVklhOEtBMXJKd0pCMVRkYmJxT1dWajIzVkJieWFkc3RsYW1sVTVheFh0QW1xY2NwMkw1ek9pRjJ0S0xNOEJMSlBlQ1pZWG9jZU9yY3FoQlpNQkJtYkliQWZmYkJnNGJoVUk4amJaV0dOLWRkZm5hWUk5dzBGZGNobGhZ?oc=5",
-      "published_at": "2026-09-17T05:54:02Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 60,
-      "tier": "B",
-      "query": "ukraine-war"
     },
     {
       "title": "Ночная атака РФ на Киев и Одессу: среди раненых - дети",
@@ -1556,6 +1388,21 @@
       "query": "ukraine-war"
     },
     {
+      "title": "Российские удары по Украине за сутки привели к гибели как минимум 11 человек, десятки получили ранения",
+      "summary": "Российские удары по Украине за сутки привели к гибели как минимум 11 человек, десятки получили ранения ru.euronews.com",
+      "source": "ru.euronews.com",
+      "sources": [
+        "ru.euronews.com"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWThSaWFPaUxMQWR5anV2aVJNcFV6M1V3N3Z1M0d0eWx3aV9SNVdmWGNBcVkyazRrQXdiY0tleml3R28yQjRQOHpwRjNnTkJjQy1zNlBVLUI3bVoyVkxVQlhUckdkY3B2RHNoRHo5alJFd0NMc25fXzg3amJzQ3l1QW43cmFnS0duLU5MMw?oc=5",
+      "published_at": "2026-09-19T12:01:44Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 57,
+      "tier": "B",
+      "query": "ukraine-core"
+    },
+    {
       "title": "Посол США в НАТО Уитакер заявил, что ищет ракеты Patriot для Украины",
       "summary": "Посол США в НАТО Уитакер заявил, что ищет ракеты Patriot для Украины LIGA.net",
       "source": "LIGA.net",
@@ -1594,7 +1441,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE82dTMtbzhGOHVKc1d4MW9Pa3dabUhOMEZWS29IZXV6ZUpVSjJOUnB0cTVwdkxBZW03NTA0Y011RGNaRDM1b3h1VFRVaGYycV9wanZSNGZ6aEdpYlpJeGNHMWNOVFg?oc=5",
       "published_at": "2026-09-18T09:42:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 57,
       "tier": "B",
@@ -1692,21 +1539,6 @@
       "query": "ukraine-core"
     },
     {
-      "title": "Польша подняла в небо авиацию из-за российских дронов, у границы были взрывы",
-      "summary": "Польша подняла в небо авиацию из-за российских дронов, у границы были взрывы Українська правда",
-      "source": "Українська правда",
-      "sources": [
-        "Українська правда"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9RMTZHQ2hDaDhuQVNnN3oxbENfQlRuUEp6MVNFaHpwX3FPd09WQ3Y4SXYwb24wblYxMWU0YWpUVE8xZFpXZVRQUmVIbjY3TV9rOXBSWUVYdkZ2NTBPdW5iTHdyUHjSAXBBVV95cUxPckJyOTlTWmlaTVNoSmVqUmxQTTJ3bkVNYVk0R285UmRfUjJva3FHRm1GNTNVbjRCUlZnQjJZMkZkamJYZ0V5c2dTX1BtN0ZwS3JSU3pUOTVGUGJBZUl4S1p5ZDR2Yjk1YlZaQ0NqSGh6?oc=5",
-      "published_at": "2026-09-17T10:28:00Z",
-      "last_seen_at": "2026-09-17T13:14:07Z",
-      "category": "WAR",
-      "score": 57,
-      "tier": "B",
-      "query": "ukraine-war"
-    },
-    {
       "title": "В ГПСУ опровергли информацию об ударе по пункту пропуска Ягодин на границе с Польшей",
       "summary": "В ГПСУ опровергли информацию об ударе по пункту пропуска Ягодин на границе с Польшей nv.ua",
       "source": "nv.ua",
@@ -1738,21 +1570,6 @@
       "query": "us-ukraine"
     },
     {
-      "title": "Поправка к законопроекту Грэма о санкциях. Демократы в Конгрессе предложили дополнительно выделить Украине $15 млрд",
-      "summary": "Поправка к законопроекту Грэма о санкциях. Демократы в Конгрессе предложили дополнительно выделить Украине $15 млрд nv.ua",
-      "source": "nv.ua",
-      "sources": [
-        "nv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQbjJrZU15SVlzdHEySnlJMUhBLWs3S0ZfOGtyLWhMd0ZNQ1pwdUJ3NjAtV3lxNW0zdWIxVVBGT0x5T0dZM0F1RUJ1VmdOMDQ4c2RVWXlxUnZJWjJFcG1uczZ5UDdEUlhEeXFkamlfSVBEX21INi0yVmk5NEpwREZRT0dCSHo1SExKWTBLOTBqMFpQRjZVN1FUb2VXb1ctN1BVZ2xtN094SC1EOUxNRDUwUlBneW01NkpFMVdUaTdleUhPbFZPOTZHS2p0VnJZNjBueU5OeWRXVmN2ODRabFRB0gHMAUFVX3lxTE90V3UzRkduLVd0YmxOR1J0LXl5NC1XVFVPUTluRF9jUFlhRjFFeEh5Ry1jbktpSlpxU1VpMFdNekNCQ09KYl93LXE3a2hWYTFUaF9RZFpIU0FHOHQxYXBNOGlsSkd3TFNmdlFxWno3T3FXRFlEbklMTTRPbGxnVFRNdXJwVUdaSjBTbG1Qb09lajVrdWE1TktBTldXc3FpVXVhbDZ3cWE2TUZDcVBJTUVFbDdUN2RCbm9JY1lzaWRVVGw0ME8yREp6MXZBOA?oc=5",
-      "published_at": "2026-09-16T15:24:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 57,
-      "tier": "B",
-      "query": "ukraine-core"
-    },
-    {
       "title": "\"Все будет Украина\": как живет и работает прифронтовой Херсон под постоянными атаками российских дронов (ВИДЕО)",
       "summary": "\"Все будет Украина\": как живет и работает прифронтовой Херсон под постоянными атаками российских дронов (ВИДЕО) uatv.ua",
       "source": "uatv.ua",
@@ -1761,27 +1578,11 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPR2hGLUpDTGFQNnllWlNMc0tjSm1kU1hVWFUwcU5RUkpiTjB0SVJ5Y21DelBKRTZQZmt3Z1VIa1JqdHV1XzFQcDZUdWZ6WFM3YVBwcm54V0xqY3UyemEtZXlydkRPdTVOVnJnc0hQLXBlQUwyMWhzUG5sNktMcWhTOHFtYW9KM182bUg3SnJrSWE0ODdJSHF3MVV4SzRucUJEYlFCbU9rRmhQREctTHVJYUxCLXhUdG5oTmRJRTBRNXMyYXc?oc=5",
       "published_at": "2026-09-19T08:12:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 56,
       "tier": "B",
       "query": "ukraine-core"
-    },
-    {
-      "title": "Российский удар по Сумам: погибли двое сотрудников городского совета",
-      "summary": "Российский удар по Сумам: погибли двое сотрудников городского совета Українська правда",
-      "source": "pravda.com.ua / Українська правда",
-      "sources": [
-        "pravda.com.ua",
-        "Українська правда"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBvQUVHUXEwM3JjZVdYSmdqdjUwaWJfQXE2dWZ1bjgydDhSWlYxR013M1NGWlFfTThjUF9PY21wRVFoZEVyeVdXS0hLSjdFSDNHMDZjZE11aE0yd2o1SnZTOC1zYU_SAXBBVV95cUxQcF8xblBQTU56YWh1X0ZXblFDR3RlYUdnOGhHU0lEMVNNRkthcjFoMTZSaVp2clA3Mk9Ud3J1eGk0SnNxNThCUGNBUk9wWGJ3MkFiMkFoeG9LRUo0RGhLMkpPSnE4aWl3MUF3SWhDZW9F?oc=5",
-      "published_at": "2026-09-19T00:48:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WAR",
-      "score": 56,
-      "tier": "B",
-      "query": "ukraine-regions"
     },
     {
       "title": "Россиян \"ослепила\" ПВО: в 3-м корпусе открыли новые детали наступления на Донетчине",
@@ -1860,51 +1661,36 @@
       "query": "ukraine-core"
     },
     {
-      "title": "Все ракеты прорвались: как ПВО отражала массированную атаку РФ",
-      "summary": "Все ракеты прорвались: как ПВО отражала массированную атаку РФ РБК-Україна",
-      "source": "РБК-Україна",
+      "title": "Зеленский заявил о новых дальнобойных операциях в ответ на удары РФ",
+      "summary": "Зеленский заявил о новых дальнобойных операциях в ответ на удары РФ Новини.Live",
+      "source": "nv.ua / Новини.Live",
       "sources": [
-        "РБК-Україна"
+        "nv.ua",
+        "Новини.Live"
       ],
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOdWY2Z0RLdHROOF9XWnVoNVNKOTJJbGg5dXdsaHpJajF2ZHFtbE5QOEd3am5ydGVRS1k4WmFJdTNWeFF6dlF6cjhpNUh2QTkxM2ZZMFNqQjg4U1ZCa2pOeFQ1M0d5bXVxdXNEUUdXY1BBaGhyLXpMY0ZLOFpWOEVQMWdHY2JCQTJEbVFua3BkNXhrbDhhalHSAZsBQVVfeXFMUENmT3hJVDBPdUYtOWxlWDdTV2hhQnVncWFXTkFPNnZxdTNTRVNlbV81ZWthM0F6VFQ0aFlyUWRxTm5QZERXR3hSWjZEN2ttWVlMWW16WnJ1ZlpnLWFjMGdUNHJXVWhZTHdUdnhOSVV0NWFOTWxQWHByZGhjbFZDRl9BNEFUUE1leGtEU2o3VHhsRnR0X2tNaFVzNEk?oc=5",
-      "published_at": "2026-09-17T05:30:59Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 56,
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxObXdmWmRFTDZKMmZudGlPSTNRWHh6LUtrVlBIVzVrZ0c1MU53ZVVCRE9LQkxGT1Nyd1NuY0drZXdnelV5eTBxLTUxMVVZZGRmVXlTc045d29sQUM2TklzNGJBanhUTFBMQzV0QWlsemdZNFQ0aGxiV2k4cFZNNWxWcTdZdmxhdVVTaTJBampNb3F6S2RyeE5kNUVmNmZBUG1WOGRBTmV0TkRBSzBfQ2pYZHNB0gG3AUFVX3lxTFBSVHhCWmxfV0dRRU1tTGFuXzZGaUdYV3FyV0c2Y1R6OTVSbTUtVzdLUkFBdVZ6bDM3a212OFduUGlDOXBXZjhkMGhBeEZ2NHlJM1lHZF9POGNMOWllUHRmdzJsUmF5Mm9rU2lOWGtaM0J4ZHVhT1ZiUmlPckY3ekJZVEZXWXBtN0s2RDFTa1l2UENzTXZwZ2I0Y0NqOGRXaHJlM3RhZ1hxdDlvVzF6NUc0R0Y0RU03QQ?oc=5",
+      "published_at": "2026-09-19T13:18:45Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 55,
       "tier": "B",
-      "query": "ukraine-war"
+      "query": "ukraine-core"
     },
     {
-      "title": "ГУР показало японской делегации компоненты баллистической ракеты КНДР",
-      "summary": "ГУР показало японской делегации компоненты баллистической ракеты КНДР Українські Національні Новини (УНН)",
+      "title": "Зеленский показал первые кадры нового перехватчика реактивных дронов",
+      "summary": "Зеленский показал первые кадры нового перехватчика реактивных дронов nv.ua",
       "source": "nv.ua / Українські Національні Новини (УНН)",
       "sources": [
         "nv.ua",
         "Українські Національні Новини (УНН)"
       ],
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOSWk1RDRQMUNPdzFVaEN6YnNwSkFSX3ZxZU1fc3pEalpyQ1hUZGtRaG5BbWkxSWFpVlgtYXNxTWs4S1ZpbWszUXFzTzkxVTl0eTdsRVBDTDk3SXZtVEFpWnJYVWxVTFppV3JqOFFkTktzVWpXVllLbmNzbUQ0QlpfQjFabVVsUEJJZUp1RlBFbTROMkZSb25hRUdnMNIBmgFBVV95cUxQN0VxZ19ZdUd2SVRPRkFtRHBjUENwOG1GR1hXRDJUMmpTY2NsaTIzUWE0RGY4VEVxbHlVUHR3NGkzVWxUeEFoNUYtejItM3NUMlVGZGw0X1pucWFheldsMVFyakJ1UXNldVlhZzViUWFpcDdrQlEySjZtSFpJM3o4dUpxVVBpMndodU9DSmlrQ0ZFZlhzd0VCOEhB?oc=5",
-      "published_at": "2026-09-19T10:20:37Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WAR",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNODVKWGpIMWpUQ1lzWnRxc1VkVFV4UHBHTUEtOF9xN0RXQnRXTTdHMldaZWRxUGF6ejVGYVJSTG1BdzE3VFk4VnRpQTVTcXBLNWR0ZlVXaE1fNWxoeHFvVnZmZHpMUlNqY3BUZlM0dndpN09SNWRvT3V2bTNrX0xCWG5SMFhuVkhlWWlSQkRwVG9iYlJVWnRFRGxCMFVuSTRjUkZXM2toZ2dEY2RjamlMdVUtVdIBpAFBVV95cUxPLVUyNmRTa3A3dTVoM3lmV3FnSGcyY04waUVlYzZJVVk2TWRLTmt2US1BM0JpZUFEQVNLY0RKYWs0akJfS05XbGlvYW1YMXNUOUU3Ulo5RVR1YTZBTU95VEJad2VqVlBsX0V5YTVYa2dDUkZGQjhYYlpWSjlZZ3VudVJhclp1X2Z4VExEdGQ4Zjk3Z3VMZ2JvMnlCZ2pEM1paR05MLQ?oc=5",
+      "published_at": "2026-09-19T11:52:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
       "score": 55,
       "tier": "B",
       "query": "ukraine-war"
-    },
-    {
-      "title": "Путин обвинил Украину в нежелании вести переговоры",
-      "summary": "Путин обвинил Украину в нежелании вести переговоры nv.ua",
-      "source": "nv.ua / Українська правда",
-      "sources": [
-        "nv.ua",
-        "Українська правда"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOUVdyLTlxaHRVSFJhUU93b0VlOU1MT2hsQk9tbW5Eeno3clo2S2JYWkZ5S1dPc2ZFNi1uRUc2clRMLVE2b0RNR09lZExiWjktZTY5SG95RlBTSWc2RUs3WXZmdHJTWF9NeXV0NU8tWXZfT2ZDMzRONWZkNGlBR3g4b1JMRDFveUc1TTM4S2ROZ3EzYWhiN25YM2hpM0ZXTkRHMlk5VE9kc0MydnFIVmdhM2VLb3NpZk1HcDcweWJR0gGrAUFVX3lxTE1pMzFWakMtcVU1ZjlFSkFwWnBlSjZtSmM4cXpoZmRvWnJIN01iTGh4cjJzOUp4OWh3OFpSNTIyUnFCMERFbXFpOUZKMTNqWjVMWUJIMjRaZkVMc1JlMjNrc0FhdFk0SllhbHI4by1hempKQjdqZmI2cU8zUlhSaTVwR2RLdFcwRDVNOE1oRHVxQk5CbzJFbjdiREczRGdscE9JOHJaZldXd0hYaw?oc=5",
-      "published_at": "2026-09-19T02:55:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WORLD",
-      "score": 55,
-      "tier": "B",
-      "query": "ukraine-core"
     },
     {
       "title": "«Нам нужно сломить волю Путина». Конгрессмен Дон Бейкон о наивном Трампе, слабом Байдене, ударах россиян по Coca-Cola, Patriot и санкциях",
@@ -1985,34 +1771,19 @@
       "query": "us-ukraine"
     },
     {
-      "title": "Законопроект Грэма и другие санкционные шаги являются сильным инструментом, который может остановить войну — Зеленский",
-      "summary": "Законопроект Грэма и другие санкционные шаги являются сильным инструментом, который может остановить войну — Зеленский nv.ua",
-      "source": "nv.ua",
+      "title": "Обстрел вертолета Дании, дроны над Польшей: что еще может готовить Россия для НАТО",
+      "summary": "Обстрел вертолета Дании, дроны над Польшей: что еще может готовить Россия для НАТО 24 Канал",
+      "source": "24 Канал",
       "sources": [
-        "nv.ua"
+        "24 Канал"
       ],
-      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQeV9rdG80cmtlQ1VpR1paaE5wQVd0UEp5R3RRMWJLVnB2Z0ZSNWFfNWpONDZKZ0puNU5qWVlvS0ZuQklGWUxDcWJsLURaZlFoX2I1SThCY3J0eXhoWFdscVNGNG1BTzBtR2dUVV8yRkN2dTB2RVI4a0dxTERJWnBQX21uYTBfOE54QmtOckFCbHVnaUhhUWFibmhJV1ROYk9XN3lYWEotdjlPUlhEaVhKNkEyMkxDc3BZYkdIZUdfbGtRWHltUXNqaVpZNHN4MzltOW1TVFoxaFBnbXZkZnd3MENB0gHPAUFVX3lxTE03cXZzTEZON25lcHpscmRnNThOMklsNEtpNENrOGdGRG9nOE9weFMzWTZPY25lOFNSRzNkZGppNm9kUFphNmUwMGVoZnVFd0I4ZTRSSDFpNV8xY2Y4UElHczltb1FQaXg5c3k5QUViZmNVS2MtbzJOVG00S1BpRkFHeXhpTGlGLTd2WlhFMkc2OVMxZzlwem9WaVBJSHh2ZHJzWlR3N0NIWTFVbkhJVnAtYXFwX0RqR21UQmo2WUQ4cGxkWGJlRmF1dWxJSmFhNA?oc=5",
-      "published_at": "2026-09-17T06:49:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "UKRAINE",
-      "score": 55,
-      "tier": "B",
-      "query": "us-ukraine"
-    },
-    {
-      "title": "В США окончательно приняли законопроект Линдси Грэма о санкциях против РФ. Слово за Трампом",
-      "summary": "В США окончательно приняли законопроект Линдси Грэма о санкциях против РФ. Слово за Трампом LIGA.net",
-      "source": "LIGA.net",
-      "sources": [
-        "LIGA.net"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNSG5ZcjZvOUJCTHpMOXRfTUpVR1lMVXg0bV84RWdka1NFY014Q1VZeXg3Z2tadDY2cWxSaE12elhtSDRHeTNyM2lDWTJWbE1pWG5sS3BzaHpkcW5vZlZVRXdlODhVLTQ0OHl0ZVNhNWxleVAtaTR3WWFJT2VmWkNpUkt3QUxMRmQtbDdxUllxdXZ6bjhxSG56V3ZWV2RuY1gyOXVRRVozUUVxTU14Mzk3X0xrME9nRGJDV1RWbmxRdWNtMzlUamo5WXRUWdIBywFBVV95cUxNSG5ZcjZvOUJCTHpMOXRfTUpVR1lMVXg0bV84RWdka1NFY014Q1VZeXg3Z2tadDY2cWxSaE12elhtSDRHeTNyM2lDWTJWbE1pWG5sS3BzaHpkcW5vZlZVRXdlODhVLTQ0OHl0ZVNhNWxleVAtaTR3WWFJT2VmWkNpUkt3QUxMRmQtbDdxUllxdXZ6bjhxSG56V3ZWV2RuY1gyOXVRRVozUUVxTU14Mzk3X0xrME9nRGJDV1RWbmxRdWNtMzlUamo5WXRUWQ?oc=5",
-      "published_at": "2026-09-17T04:33:26Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQSEVkdVBSNFUzVGdjN01vVFZpVUc4Qm9GMjVNVWg4Z20weTU1XzZ4ZUtxd1RSMjBvZTVCUFE5cHFKR2RlcFh1czNDUVdBWC1YQnFPRmhaYS1XSGwxUXZmelpLZWZWQUNCLVN2NXJJeHhhVTh0Szk4Xy1WQmRWQ2FKeVhYTk5UV1k0OFJwbjFCSERvY092N0lEU3NBZw?oc=5",
+      "published_at": "2026-09-19T13:47:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
-      "score": 55,
-      "tier": "B",
-      "query": "us-ukraine"
+      "score": 54,
+      "tier": "C",
+      "query": "nato-ukraine"
     },
     {
       "title": "Неготовность НАТО: Сможет ли Европа отразить ракетный удар РФ?",
@@ -2023,7 +1794,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNa2hvZU9OTHNLOEFDWnFNY2RmcEdaUTFIUUtlaGlPeG0tdWkzTjlIbHA5emotZWg1M3ZUQmdQTWlsUUhMaGRGcHdsOGNkc3ozWlpCXzlBOEdZVnA2d2JMTnJZeTFrSGNkNXN3TGY0SWkxNXhlUnZCY2FsNjZfVHROX0pJWHpLNzR2b3J5bWV3dGY4NlBaOEZ2eUM4aUF1Z9IBowFBVV95cUxObEZjMFRPMUx5c2QzbkpzQVU5YnJWOEZJOUp2aVBPQzNocEJzLVVuS1loWGtqRDN1emxiWkF1X3RwYms2NkhiSHFobmVWbk04VkxfU0Q3QTIyYmtwTFRqYXhBcWF0U09UR002X0pUbUlleW1DVEM5T2RyM2tWN0NRd0RnTkhqcjJMdE1DWUs2SW1qYTktUjIwV3BTZl9DVzhyOU5n?oc=5",
       "published_at": "2026-09-19T09:19:38Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 54,
       "tier": "C",
@@ -2038,8 +1809,24 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOLTY2U3dMYmtnV3dFQ0xmLVdObE9sWDJyeGZkME5yUkxtWVhoZXE4VmhvcklUdWFJVno0Vi1aR211Tkw1UnlET0dLaF9rOC0zcjNEbGxGT1lST1paSGdIT0w0Q0FWQXFuZEQ0cE8tSjhLUVZGd1VVLXFJYV9OaTJnV2k1XzZ3eDhCdjFqZklOQ2xfQ3hHaVN0NU1oemVobm9TRmxaZlljdktNM2tvRHdkRG1ES05LUnZ1UWY0OEJRQ3E1MDZLcFHSAbQBQVVfeXFMT3VKNW1VbFNqUVhoYzA2b1JWREpyTjFZaWpDUzVESTRhcTc2aVQzcWg5T3JDMHRvV21yYTEtUXNQRlA3ZFQ2a09rcjFUYzk1ZW1ET2VsTmc2SWdERTE3ZGJMTEEzTkVnN2FYdVR4S0tvTUZsTTVGanVaWk5sSEgyZ1FwQlBKZkhKNENWUl9nYlp2M1RzeTMxT3BQWTRvbzN4ZVFNc0c3WEZJR2xJRTFHMnFsY3Zh?oc=5",
       "published_at": "2026-09-19T08:51:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "LIFE",
+      "score": 54,
+      "tier": "C",
+      "query": "ukraine-core"
+    },
+    {
+      "title": "Польские истребители поднялись в небо из-за ударов дронов РФ по Украине",
+      "summary": "Польские истребители поднялись в небо из-за ударов дронов РФ по Украине Європейська правда",
+      "source": "eurointegration.com.ua / Європейська правда",
+      "sources": [
+        "eurointegration.com.ua",
+        "Європейська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9Sd2FBTkpPNTFpZzZkVy1NaHg1bGxmQ21DWG9DYTZEWnJaazBfb2RwRDNiQmZsNUdIblVPT0s4d3pmeUlMUFFCd2p4eXhNRm9WUWlQQ3VQM1V0R0t2WFljcUhDX2lNb0t6ZzE0cUp6NG0?oc=5",
+      "published_at": "2026-09-19T08:03:14Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
       "score": 54,
       "tier": "C",
       "query": "ukraine-core"
@@ -2169,19 +1956,19 @@
       "query": "ukraine-war"
     },
     {
-      "title": "МИД Украины призвал Россию обозначить собственное видение энергетического перемирия",
-      "summary": "МИД Украины призвал Россию обозначить собственное видение энергетического перемирия nv.ua",
+      "title": "Из-за российского удара по Сумам 18 сентября семилетний мальчик находится в реанимации, его родители погибли",
+      "summary": "Из-за российского удара по Сумам 18 сентября семилетний мальчик находится в реанимации, его родители погибли nv.ua",
       "source": "nv.ua",
       "sources": [
         "nv.ua"
       ],
-      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPcVM1eExuR2JjZ2JhQm1LUVd0NjRkVHlHanl4dmFwdHQ3Z3YzcUR1dmpvVkNlMXJmQlRFZTdfbHZWUG1TSlhNN0NWalNSVnVHZXRodDRGbmlmQUFhVTNXRDJiVzNxLThZd2E4OXB6aVFZekJQSE1CSTZfQWtUYnQ3eGJxSjhGVXdZeFF4VkN6N3Z1dEJkZHpra0NJRHdNRG1RekVfbnFYSTBNSTk3VkhfYjNGTV8wUG9GRVpFUGVHQlRBOFlQYWphVEdrcWcwdHpQbXZUTWpNczU4UdIBxwFBVV95cUxPSGc3Q0dpOWd6eTRvd0ZCaVN1bjRLekNPV3B4NEdGRU1veFBHcXo5aDVLV0RPTUFZdGEzOXlndGc4a2FHX0tSUnN6SHd5ZWR5VkJjcmZkZE1mN1BtZEp1eG94aFRHVTM5Sk9ZYzBjVGR5SlRkcHc5dGRoWkZteE0xWTllVWpVYzA4SkRGcXJJcUwxUVlDcWtPa29PbEc5V2NYdk5ScWluWk9uYmZhbk12WE92dVM4akRKTFB3UkJWam44YjJHeE44?oc=5",
-      "published_at": "2026-09-16T14:35:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 54,
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNTWU0NXB2ZnBwVm5rNGhqcDJUNnZaUUgzSU5hR3NYcTFNdFFTTWJhaERjOW5ZZ2xqUW1oOXFLQkpDR0h4ZHctQnRMTDJtdGpqQVhIREVtZElGWG9yemdfWjF4S3JZWGtVTUhfS1FjeXdPZVFRdFRfZHd4SW8wTzd2V29qTFRueTV5Y256ZGwtUnhMTFpSdkVEdUUxUFBPQTF0dDF5ZkZ1N01SU3ZrQmJoVUUxSVdob3FoMHFUWU5SWmc1QdIBswFBVV95cUxNZFJCWVhPa1ljQUQ0OTh1SXphMVF3NlNzRExkMUZjaXlrLUpxTDNkUUhhd01QS2hLVTd6Wk9FMzMyN1FWanRDZVROdi1Xd2pzcndSQWQ2Um9lS2pDYTFrMjNJejhqdWthRUhQZWpLNHRjZ0w5VjFhcndiQTVPc08zTk1mMDBhLUdkTVpNOVhuOUxzdlZHWXlPendhN1VUS3BZajdKOHFaVzFPS2dNUFdxZ0dUcw?oc=5",
+      "published_at": "2026-09-19T13:11:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 53,
       "tier": "C",
-      "query": "ukraine-core"
+      "query": "ukraine-regions"
     },
     {
       "title": "Дроны провели атаку на Дагестан: серия взрывов прогремела вблизи порта в Каспийске",
@@ -2207,22 +1994,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9hbzBQYTdGblJKdFJiUnMxS3BhdGxOUlZsRC10RFdUa2hBNzlwWENjYlVEdm1sRlpVUWhtRnF1WEdnZXoxcEMtSjlSWlFRTVpzZjdKNzVvSXBETWs0Yk5RTUt6ZG7SAXBBVV95cUxQRVpuU3h3dDRId2tXYU0tOGdHUVJOY215ZWhkbXFadXN1bkxNRDQzX1IzRV80T3lGMWR2Yzh6MFZpSWJlRFdraFVpZWxPdzJXd3I2NE1Rc2FmMzRLYnAxWFRtX25RLTg2Uzg0RkFsNnNo?oc=5",
       "published_at": "2026-09-19T05:25:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WAR",
-      "score": 53,
-      "tier": "C",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "Четыре человека погибли в Украине в результате новых атак РФ",
-      "summary": "Четыре человека погибли в Украине в результате новых атак РФ DW.com",
-      "source": "DW.com",
-      "sources": [
-        "DW.com"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNcnpRb0g2MVAxUGswTTI5NFpQME9LZzBLM3I2eGl0bW11a2loS0NHVmRUbFFDa1R6NHd3UkRQd2hYNDZKT29FaXl0R20yOE1VNVZhdDFEY0pOQWI0czA2UWtDYnQxZndEcW5PcGdqSDBfWEU3Y3FaZlZQX1VwX2R4NmpxTjlVdGZORFNmTzN2LXpZNXZramEyeFEydXPSAZwBQVVfeXFMTjgtd1MxZDE1LWl2YXNab25PYU50UGVqUzNuTWVpTG1HTk1fRm96Xy1CNnNlT3NpQjN6WFBhV2EzOGZzWGFWaVhVZUhoQVlPT3BrXzg2NnV1SE1PVndMWHZ1NWswb0FNWmg4cklWU0tUQjNWblRHMGxBWE1MenhPaFA0UlBwUmhGN2RVRVFMd1d0VXJ1azB5RUtROFUw?oc=5",
-      "published_at": "2026-09-19T02:10:25Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 53,
       "tier": "C",
@@ -2289,51 +2061,6 @@
       "query": "ukraine-war"
     },
     {
-      "title": "Россия атаковала Киев: ранены 12 человек",
-      "summary": "Россия атаковала Киев: ранены 12 человек LIGA.net",
-      "source": "LIGA.net",
-      "sources": [
-        "LIGA.net"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOeDh3R2ZiUEotWm0xb3ZHUEhESm0weXpVTG84bGljYXJwVHd3ZnFiRGRhb29hX2dhWW55azJzY0ZIZHhiWnk5VXFJM1duTFJpeG5ZWFJZazlsY2JzMDduMVVROXBrX2thUXJ0NElMMDc4UnI0TjBVcl9MX3dXV0pYUTR30gGCAUFVX3lxTE54OHdHZmJQSi1abTFvdkdQSERKbTB5elVMbzhsaWNhcnBUd3dmcWJEZGFvb2FfZ2FZbnlrMnNjRkhkeGJaeTlVcUkzV25MUml4bllYUllrOWxjYnMwN24xVVE5cGtfa2FRcnQ0SUwwNzhScjROMFVyX0xfd1dXSlhRNHc?oc=5",
-      "published_at": "2026-09-17T03:36:13Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 53,
-      "tier": "C",
-      "query": "ukraine-war"
-    },
-    {
-      "title": "Зеленский: На переговорах в США будем обсуждать и вопросы энергетики",
-      "summary": "Зеленский: На переговорах в США будем обсуждать и вопросы энергетики LIGA.net",
-      "source": "LIGA.net",
-      "sources": [
-        "LIGA.net"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOMFZvZmR5amNxMlQ4czRDNU5LVW9LcEh0ZFBrSHllcGo2WDJySkVnanp6bUZRMXl5dzk5cW5sWHBDd2tXZllLMndoS1Q3RHJrMWhZcVhUSUllY2RPeVJBa05rbTd1N0tXYURBbjY3VXoxQzBtTXl4cE1GTWg1d2gxU2VUd0lkVTJuZ0o0Rk5ac9IBlAFBVV95cUxNYkhncmxFa3Rmd3lhRmEtRWYtems5eEZuNHg1T00tWnpPNXljMUl4UXNYMFdHSG5tWEE3NVFfcEh0MjNKY3JhVUtPbnNzRXpiWU9SLUZCaEpDczUycXRpZjlXeWZxVVlGdl9VVnE5OThCTDhKemhrbGF5M2VzRVpwUTlfVWFZamZoS1QwaFlSNXFHdk5Y?oc=5",
-      "published_at": "2026-09-16T19:40:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 53,
-      "tier": "C",
-      "query": "ukraine-politics"
-    },
-    {
-      "title": "Исторические споры, вступление в ЕС и мирные переговоры – основное из интервью главы МИД Польши",
-      "summary": "Исторические споры, вступление в ЕС и мирные переговоры – основное из интервью главы МИД Польши Європейська правда",
-      "source": "Європейська правда",
-      "sources": [
-        "Європейська правда"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1xSGR2YklibXYzWnRWSndLRVhXdlE3R3RlV01yMDhaQmZYdG5XLXRzbFJXSTZkSFF2ODNZOW5wRTBzLTVkRDBManNLMnpMUFBvZ09POGxNWW9rM1ZyMkFFSDNKc21OcWxIOFRSY1RGUGM?oc=5",
-      "published_at": "2026-09-16T14:00:29Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 53,
-      "tier": "C",
-      "query": "sanctions-diplomacy"
-    },
-    {
       "title": "Оккупанты нанесли удар по Украине 174 дронами и 2 противокорабельными ракетами: основными целями стали Киевская и Одесская области",
       "summary": "Оккупанты нанесли удар по Украине 174 дронами и 2 противокорабельными ракетами: основными целями стали Киевская и Одесская области Rubryka",
       "source": "Rubryka",
@@ -2357,7 +2084,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNckN6NUlIM1puQU1ZeUlKLXd4NTdMWHhsWF9uUDFrd2tkX1VfS2t5MUtPdnpKOHlwcGIxYjN0SF9JQXp3eERrb3lQaTVwQnhLTXFvcVNPelJXWUwwT3BaUElMOUtwWnZUV2hsSXhIYng0WVhYV1hPQkg5VG1KY1hyVmZQSHRyUHpYOWRfd242akdYdG1yalhobEEtRE9SWUd3YjE0QmlLaG1KT3hTZThHQUlXLWtPb19QdDR5Wk1KSjdnVFBl?oc=5",
       "published_at": "2026-09-19T05:30:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 52,
       "tier": "C",
@@ -2372,7 +2099,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOQWZvaVl2YktWVXctdXlRRVphb3EwMzQwX29COGdWMUFKcUZibjlOOUJxczJkbkFzVmtLaUNUWUctZzA0cXpXSVhjQkZMUTZ0aUpCVnBKNDRzUDhkWHZxYjFFOGxhaGlrOE9JcnM1MFNXcTJHdGdHQ3FzZTFEZXZEMUZKSWFGanRSSDFzMXZMVnJQMEhxLURMNmhST3RJdmNZcXdFTnhqWlpRTUlTVDF1emdsSXZEdC0xajVxN1l1Q3JYR1HSAcMBQVVfeXFMTkFmb2lZdmJLVlV3LXV5UUVaYW9xMDM0MF9vQjhnVjFBSnFGYm45TjlCcXMyZG5Bc1ZrS2lDVFlHLWcwNHF6V0lYY0JGTFE2dGlKQlZwSjQ0c1A4ZFh2cWIxRThsYWhpazhPSXJzNTBTV3EyR3RnR0Nxc2UxRGV2RDFGSklhRmp0UkgxczF2TFZyUDBIcS1ETDZoUk90SXZjWXF3RU54alpaUU1JU1QxdXpnbEl2RHQtMWo1cTdZdUNyWEdR?oc=5",
       "published_at": "2026-09-19T05:06:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 52,
       "tier": "C",
@@ -2485,21 +2212,6 @@
       "query": "ukraine-core"
     },
     {
-      "title": "Ночной удар РФ. В Киеве россияне повредили станцию городской электрички, в Берестине Харьковской области разрушен вокзал",
-      "summary": "Ночной удар РФ. В Киеве россияне повредили станцию городской электрички, в Берестине Харьковской области разрушен вокзал nv.ua",
-      "source": "nv.ua",
-      "sources": [
-        "nv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPMlZVenhDc1M5MEwtVGtUY2JwMGVkZWVPelJQNXJhR0c0X1JNelRxSWpTb3d1eExoSTFESFBNMlNlVU5ES01uMDhvYXltQjJldnFPU2VlUkFpTDRwWTd0ZU1jRUFrQmxEelVTZjRYdDZDcng1cGlkVUNtUFZHT1d6Q0JQTkhVLWJYd3YyYndmcjlfM1JjODlXRWl6MW05V1FRc2hMQlFQWkw3VUNaYUFHWVpEZHE4Z03SAagBQVVfeXFMT3g4S3dEMWlPWERFQS11LWlJRnk5S0phM2xPSU4zOWRJbC1ZTlhkSUtoVkM1TXNCSkpoS3oxcldKRWlEX05KQm5qTnhxd0ZHU1hRRDA4NkQ5X1FDa1lWRHlQS3lQekoxMUVTMnFWeGVKOXd4MDNlREtxaUc2VXJlZVVRWlQ1d0pvd0ZacWhLYVZwNC1QQkpFMjltb2N6TjNJWkZyWDFsY1hj?oc=5",
-      "published_at": "2026-09-17T06:23:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 52,
-      "tier": "C",
-      "query": "ukraine-war"
-    },
-    {
       "title": "Ракетный удар по Украине, Сенат США одобрил «адские санкции» против РФ: главные новости ночи 17 сентября 2026 года",
       "summary": "Ракетный удар по Украине, Сенат США одобрил «адские санкции» против РФ: главные новости ночи 17 сентября 2026 года ТСН",
       "source": "ТСН",
@@ -2515,52 +2227,6 @@
       "query": "ukraine-war"
     },
     {
-      "title": "Пока Украине не хватает ракет для ПВО, США расходовали более 4 противоракет на каждую цель во время атаки Ирана",
-      "summary": "Пока Украине не хватает ракет для ПВО, США расходовали более 4 противоракет на каждую цель во время атаки Ирана Українські Національні Новини (УНН)",
-      "source": "Українські Національні Новини (УНН)",
-      "sources": [
-        "Українські Національні Новини (УНН)"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNNWhGQ1lpQ0NUWlVRQTdnUlNhZ0Z2ZmRwbV95R3lBM1BNdG83dm1kWkxRNDNDbENrMWtYS1JXRGlGTmEwVFJldjg1QXItUHhwNWoyWURqdTRiaXZxanhIWDFsSzV1eTUtWlpXYzVobUZsNV8wOW5YTFNuRlpYM0pTenloY0RjSFdrSzllNHNuYWVzejM2Nlh4MnN6ZzlwS2ptc2hHRHgzVE54MlpUUXVPRHdBNEdZRXRCQWtJVG93VHhZaU9SR1hTZW9uRWdDaTVVb1hQb0dIa9IB1gFBVV95cUxNYkhZaEctMTNvbzQzaGlOdlVmU2d0TG5rVUZGNnRIRDBuZWlwQ24tVmJaOTJkM0tiMDZ2SGh1bDFUZjdHQWNob096QmdwME8xOGZ5eDNsZ1BWU2kyX1RLaEpZbEhQenRfcDhodnNpZmg1eWZrblU0bU1oUW1kTWp1VVE4QW81ZHh1bDIxaktMU2h5T05MMFhjeXV5Z3Jia0RsUEhGd1Jod2JhakRhTDNkUFBRRzVXTlBVYmlyRC1EREZBcm1wLVFIRFFLc1NselowMC13NThR?oc=5",
-      "published_at": "2026-09-17T02:16:46Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 52,
-      "tier": "C",
-      "query": "ukraine-war"
-    },
-    {
-      "title": "Ждать ли новых переговоров России и Украины при участии США",
-      "summary": "Ждать ли новых переговоров России и Украины при участии США DW.com",
-      "source": "dw.com / DW.com",
-      "sources": [
-        "dw.com",
-        "DW.com"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOUzgtdG5zbWpDWUtpZW5Jb2xHRldVeTFFaVNqVnU0c0drS25pV3BQcXJ1VmpwTnRxY0d6SkJBTVFXMXBtMlBkRGNaVXNWN3l5U0U2aWhfcF9nc0pQMTZ3ODVfa0dLTVdPSmh6WVcwSWF5YzR1SXQwbGpUeEJ4WXNIQU9HdW1leEZ1WDl1ZjdTbWp2alJ4cWhjeXd2VE52WG5DUmZMbnRMRUJCeG11cGpsdERBOUVZR2hrUWV0UWYtTFpnN1RRb2c?oc=5",
-      "published_at": "2026-09-16T19:41:15Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 52,
-      "tier": "C",
-      "query": "sanctions-diplomacy"
-    },
-    {
-      "title": "Россия ударила авиабомбами по крупному областному центру: есть погибший и раненые (фото, видео)",
-      "summary": "Россия ударила авиабомбами по крупному областному центру: есть погибший и раненые (фото, видео) ТСН",
-      "source": "ТСН",
-      "sources": [
-        "ТСН"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPTnNNSkc5ZDJKSVIwcEhpNklmQ3JHX1V1Y1Z4MXhxTDVkdG40TmhJa244X2ZkblQ2LVEzZS1PNTNtOTFfakdOb3FFQlZmVTlyUERfdWdvM3V4Uk5waWtvVDZ0dF9uakg5dlY0a0lSRXZnUm5ZdzRlLXNFdEptUFdaZ2p4X29Cck5vN1dfQTZLdllLcHBzclM1ZE1aTk0yUUF5N3RDLTRfLWc4YTZfNk91UE9wTXNNUjFhYy1ORmlpc1Z3ZGZ4eTVRaHJGRFFqQdIB0wFBVV95cUxPdENYVDNCekJXa0tuNDdDQ0lsYjN6SHREVkc0QjdHMVROY0g1VmZnX21WeWIzcXd3MDJITEhQNG9fSVhqRFhDc2xNWEs2OFdXYTdWQmxNVndjSk5PaFhTZ2g5YTZ0ZGwyMW1EU1hfWXZ5OEw3akE2WWJEckk2SE9jTWk5cXh4M01CdmpvRm42dTY0NlJuQjk4d0hMc3p2MF9Bd09hNFVhWTNiMEFLT05TOEhvVWpiUFhhSjByakZhSGltbGc3V1hjblZFaU9mTE5tWlhv?oc=5",
-      "published_at": "2026-09-16T16:59:34Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "REGIONS",
-      "score": 52,
-      "tier": "C",
-      "query": "ukraine-regions"
-    },
-    {
       "title": "Погибла пожилая пара, есть раненые: российские оккупанты атаковали четыре области Украины (ФОТО)",
       "summary": "Погибла пожилая пара, есть раненые: российские оккупанты атаковали четыре области Украины (ФОТО) uatv.ua",
       "source": "uatv.ua",
@@ -2569,7 +2235,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQa1FaSk9xUWpnQXl5OVNyNEJoamJISktGYS13ejVkQ3I5OGlnWTVPUHI1ZWV4MmFITWNhSWJ4RURjaUZJV2IzQzNQYVBUVlhtS250U05ZMlFCVTZBcUMxSW1HVHNCWkE4N2JZNHVmOWtpdHl6OFJkV2hPWE54em1FVDh3MTBRYUFlQ1dxc0dFWHVRSmdBZXc3SE5ZUFhSaW14by0wYnhMYWtoVFlnbVBhVw?oc=5",
       "published_at": "2026-09-19T08:24:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 51,
       "tier": "C",
@@ -2728,21 +2394,6 @@
       "query": "nato-ukraine"
     },
     {
-      "title": "Урсула фон дер Ляен ошарашила всех: Patriot для Украины, аналог НАТО для ЕС и новый статус Канады",
-      "summary": "Урсула фон дер Ляен ошарашила всех: Patriot для Украины, аналог НАТО для ЕС и новый статус Канады ТСН",
-      "source": "ТСН",
-      "sources": [
-        "ТСН"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQRi1aNnBHSUowemRTWFVaUW9nWFVYWGtieXUwT2ZLQXJkMEdkM1lzeGVrcWM1dG5sSFExRGV6Tzhtd3FJcmRmX0JrYnY4MWhjVC1sS1RnRHZtVEVRQUpTekR5RUhlYnFyUWMxMWVVTG1mR2FCQ0JkdUpCUTdVeTM3c2xVWkFTWXJwLXJMZURpSUNHMzVmX0dxVHpfU1JQMlRsNXBURTBnR2Y1dkF3VzdkUDBETnJNWE94eW51cFFoV0pJc05ralVWemhqRlF0aEZ1c1ZqM0ZfNDVvZ9IB3wFBVV95cUxQaHpjWlRsM1lyMnV3MlFaLTZuWGZPMjhSMGNMMHg1cGhfVjZDaGZudWlmbUN1QzJfZmEtbS1qWnppZlFnckdqdENzUzQ1Sm8ybU9ZUGg0MzhQT2ROdE1FSDYwNHF0NjY0eVVrX3U5elE5WTJoM3Jsck5pSDVRRkQwVXhmQkxOWHJYUU5wYkJCNFUtdXpUTmNSbUhxX3hyX2NZcko3SmpsNDZsVjhEMUNMZEpJWjR0bm8tMFdEdFZ6MzNoOVl2emNseGNhc2k5akcwcXZEcVVMcWRfR3lpMTRv?oc=5",
-      "published_at": "2026-09-16T17:01:31Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 51,
-      "tier": "C",
-      "query": "nato-ukraine"
-    },
-    {
       "title": "Без США, но с Украиной: в ЕС хотят создать европейский аналог НАТО",
       "summary": "Без США, но с Украиной: в ЕС хотят создать европейский аналог НАТО УНИАН",
       "source": "УНИАН",
@@ -2756,6 +2407,21 @@
       "score": 51,
       "tier": "C",
       "query": "nato-ukraine"
+    },
+    {
+      "title": "Трамп подписал закон, расширяющий санкции за депортацию украинских детей",
+      "summary": "Трамп подписал закон, расширяющий санкции за депортацию украинских детей Korrespondent.net",
+      "source": "Korrespondent.net",
+      "sources": [
+        "Korrespondent.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNREdEOGpSaHBiTm1oaVdOWFplbmJfX21nMXJkTkYtY19JLVNLWDNXZ2dPU25hOUhERUFXZnUtaE1ib2NOTG51U0h1OW95WmhvVHY3QVdyNGM0MGtiYjZaeFhwSkRRQ1NXaHd3RWNQYndkUlUtMXlIMkxOcXVKWU9DSHd1dUdqREt6RFp0bmNCdm5xR28tRGpxdlhOUUR3cG1iZTE5cUZDYjFBSWNTX1A0d01tM2hQUkNWeEHSAboBQVVfeXFMTURHRDhqUmhwYk5taGlXTlhaZW5iX19tZzFyZE5GLWNfSS1TS1gzV2dnT1NuYTlIREVBV2Z1LWhNYm9jTkxudVNIdTlveVpob1R2N0FXcjRjNDBrYmI2WnhYcEpEUUNTV2h3d0VjUGJ3ZFJVLTF5SDJMTnF1SllPQ0h3dXVHakRLekRadG5jQnZucUdvLURqcXZYTlFEd3BtYmUxOXFGQ2IxQUljU19QNHdNbTNoUFJDVnhB?oc=5",
+      "published_at": "2026-09-19T12:33:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 50,
+      "tier": "C",
+      "query": "sanctions-diplomacy"
     },
     {
       "title": "В Сумах из-за удара РФ погибли работники городского совета",
@@ -2849,36 +2515,6 @@
       "query": "osint"
     },
     {
-      "title": "ЕС укрепит ПВО и энергетику Украины перед зимой: фон дер Ляйен",
-      "summary": "ЕС укрепит ПВО и энергетику Украины перед зимой: фон дер Ляйен Ukr.net",
-      "source": "Ukr.net",
-      "sources": [
-        "Ukr.net"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5YQy1NVlFHOG1venR0X0MtYVdpaFZRZ1BMWVVfY2lQYW4wUmpzNEpuSlhoVXZmVkJqMzdFWF8ySXUyUjllSmpkN3RxVGNJZHJHd2hEOTQzTkpHLW4ydnpnVHVyRV81VmdqYWFv?oc=5",
-      "published_at": "2026-09-17T04:26:44Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "LIFE",
-      "score": 50,
-      "tier": "C",
-      "query": "ukraine-economy"
-    },
-    {
-      "title": "Россия смещает удары по Украине к границам НАТО: цели Кремля назвал Попов",
-      "summary": "Россия смещает удары по Украине к границам НАТО: цели Кремля назвал Попов uatv.ua",
-      "source": "uatv.ua",
-      "sources": [
-        "uatv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPa0taeUVuV2k0OUtqaXhmcW52QzhOeEc0NWI3T1R3VFd4bjliMG1hYk5uWjVlNV9jWXFEd3ptYXNyQjJVb2VRQTdTSzdOMXMxNEZsVEVxZGM2OHd2SThQOUpubWZKUHk0OU5QemlLX2s2TmVJYkJpd1QtQlhRSjNNYWxJODZzSUwteWRUcjRnOExfRVJSLVBHLWQ1UQ?oc=5",
-      "published_at": "2026-09-15T16:21:06Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 50,
-      "tier": "C",
-      "query": "nato-ukraine"
-    },
-    {
       "title": "Ночной массированный удар по Одессе: Россия повторно атаковала административное здание, почти 180 тысяч семей остались без света",
       "summary": "Ночной массированный удар по Одессе: Россия повторно атаковала административное здание, почти 180 тысяч семей остались без света nv.ua",
       "source": "nv.ua",
@@ -2887,7 +2523,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPMGJHcTFBcE1MeVo4OTE5U0hNRTRjaTA5bTk4Z3lFek1KRDVwaHIwZFQyV0JXMkVjYkE2OWNsc25yelhZMDBiWjEzRWtIdzg3clFGS3l3cmlvTzN3YV9zZ2otREpGMmhxLVNtOU41bnltdVU5UC1DSGlIX1cyVndIYVBiS2NpOXEwLUpYZHZiMENNVXVjUjVBWkJPSzgyVzdfQ2FTc01naU5uZE9o0gGeAUFVX3lxTE9lcFhIVmQxUGpTSjRORXVZMkNueFBJREVOSVJTZFdySThsNGs1TFNhVGhyTHlwS1VzYmdTX0ZMaHdISXdKNmlvbEdQdjEtbWJ2V3ZSQ0VxUldlcmlDTVpqczZwS25ibVRmakRNYVEyUWpYY3Q5SDJNODJsYzJ3YjF4Q05WYlF1MkNOUXpwamNqa1loalpMRFNUa2Y2ei1n?oc=5",
       "published_at": "2026-09-19T06:39:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 49,
       "tier": "C",
@@ -2939,19 +2575,49 @@
       "query": "eu-ukraine"
     },
     {
-      "title": "«Бюджетный туризм» в чернобыльских зонах: правительство хочет отменить доплаты тем, кто прописался ради пенсии",
-      "summary": "«Бюджетный туризм» в чернобыльских зонах: правительство хочет отменить доплаты тем, кто прописался ради пенсии Судово-юридична газета",
-      "source": "Судово-юридична газета",
+      "title": "Зеленский одобрил новые дальнобойные удары по России",
+      "summary": "Зеленский одобрил новые дальнобойные удары по России LIGA.net",
+      "source": "LIGA.net",
       "sources": [
-        "Судово-юридична газета"
+        "LIGA.net"
       ],
-      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOYURGb3VhcjhTYzI3SWRNdlZqQXFHYVcyYlZzbHZDejJKMkwxeDJyalRFRDc4MmNvbjNCYXNjbVIwNUZKZ3FDa3VIaG1EekRrc2RUelVjaDdaUWhNT25CX2FaSmVBZXJvWU9FYmN0Q1gtUGVBRXhhZXUtM3ZCeGxLWnRYS3ZGanNtaEV6WkZwZURIZ3I0QmpUTUliNm9ORUlSMnhwcTJxbHNhaG9CcGFQVndVdVVVbHhta2hVOEgxeTNoOFVzYnVUZWdTbTJteVI5clV1Mk5IWlEtUzNpWWR3U2xmRWg?oc=5",
-      "published_at": "2026-09-17T05:30:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxONHN6b0lkNzVZWUMtcWFMbklLVFZrdDdOdUpDUWNKU1BJSWswdk1OWXRpa0NhbU5UUjYzZElacHF5eUN6d1Y5Z2xJeXdNYjUyYTd4ZzV6WE1xaFdHSkZ3bERCcVJqdHIteVhvcHo3aDdBRjBIYTBPSTZzX1ppQlZ0MllvVWZ0a09lQ1HSAY8BQVVfeXFMTWhPcmJla2F2WGdUQmpFSW5Ub2tlYjVvRkxtZWNPTFFuWDQ2aXdWOEg0VlhRWWdkTkh5Tnl5ZlBTQWFDN2t1ZGozUUpCSmRORUNzcHFQSXBGX09yRV9OX1ZGWVFNODNiQl9KdkVhX3FOQmltQkNqLWZBV2JSSGQ0VUxqcHdxVWdYX2N1NHF4VUE?oc=5",
+      "published_at": "2026-09-19T12:24:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "UKRAINE",
-      "score": 49,
+      "score": 48,
       "tier": "C",
-      "query": "ukraine-politics"
+      "query": "ukraine-core"
+    },
+    {
+      "title": "Силы обороны поразили пункты управления дронами, полигон и объекты обеспечения российской армии — Генштаб ВСУ",
+      "summary": "Силы обороны поразили пункты управления дронами, полигон и объекты обеспечения российской армии — Генштаб ВСУ nv.ua",
+      "source": "nv.ua",
+      "sources": [
+        "nv.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNblg1RGFRZ3B1XzlaYmZWelBiRzNwMnhlZUc1THpnUzFVNWtkTHZGY1pjbDcyeHlKUzJhQ2g4UmNMZzUtWmZIaldYV3JDaTZQdVRYTXg4LTJnMi1IX2FjRmJCN1NhY1pkZzk0Y3RoV0lZUTNjeU1uNDR6UUhIMldyQ1BmOVd6dXM0ZkxxTWhKUTdvNEk2SmMyY2F4b2lQV2tuTElzbWVaMEhvOFJQVi0wREFmcmlUUkhnanJQWmtNQUp2RzAxUTlWYW0xVdIBvAFBVV95cUxNUGs0QlVzemNGNXdvazZGeklwWVpPVFZGS1dwdGRSZlVLeGY3V3QxS1BmLWdHbVRvMG9JbUd6Zk5SY3FzUXRoNDFMek5YdXhUaXRncXNMN3VRR3JSa1dxaVg2Q3o2NWpSaUk1OFd0bmpiOHFXMUE2Yjkyazd5MVdneFFCRXdZQTBnOU9HU0pYSWlfc20yRVYzaHk4NTJoZHQxODJCa2tEY3lUTXBqeXVsNHBzMzRjalZvdWd0bA?oc=5",
+      "published_at": "2026-09-19T11:21:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 48,
+      "tier": "C",
+      "query": "ukraine-war"
+    },
+    {
+      "title": "Зеленский продемонстрировал новый дрон-перехватчик реактивных \"Шахедов\"",
+      "summary": "Зеленский продемонстрировал новый дрон-перехватчик реактивных \"Шахедов\" Українська правда",
+      "source": "Українська правда",
+      "sources": [
+        "Українська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1TS0E5REthTk9Gb09qUXRKVWpSbHJSNWJraC0zRUtGQm41MmNncXJ6UWxnYUhwaGkxYWNhT1NVQW03N2VUUmlWZlBTNl8tcmRkRnFROU5oSmM1NmwtRkhhUlc3bE3SAXBBVV95cUxQYnlrY0syOWNnYThrMVFGWnZsZG40RTBuRHdPX2VmQlpZbjZOTFpIbUFMbzdZRmF3QUYxcHN3SGdUekdxZ0hnMEVrQm1kam5ReGdfZjZVN25qYTJIVVpDQ3liNTUzQzVFdzktMHhfNVNV?oc=5",
+      "published_at": "2026-09-19T11:20:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 48,
+      "tier": "C",
+      "query": "ukraine-war"
     },
     {
       "title": "СМИ: США предупреждают союзников о задержках с поставками ракет",
@@ -2962,7 +2628,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE0tVHUtM0s3aldGVy1hLXRCYzU1bnFEdkdJdTl0LUhwbzFfQWNpdXZma3g1eWN5Z2I5VEJBSGxKOUVfNDIxeGZIeU1uRnhQb1k5clliR1dlZC1NRDFlS3NpRTJ1WnfSAXBBVV95cUxPdUlzcUJiNWJSVF9zZmZSNF9uUjM2RlJ3WGZLWk9LXzlRa2t4RDJuMFhQVHBQd2NUQmpmLThzS3VBb1FTNWV5a1UyYlpwZUNLNW54dVF4LWh2UFNsd1Vyc3JLU0Y0aGtnRkxTN1M1ZVIw?oc=5",
       "published_at": "2026-09-19T09:07:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 48,
       "tier": "C",
@@ -2992,7 +2658,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1JdHJOeWdvT0ctTmExQkl3WkZJbmZpTUkxU0V3ZDV6cUx0UnJjX3ZvckFLazg3WGRHc3pldW9vZTdZSFV2S2w4UVliVnpiYUcyOWFkaFhGWjZndF8yOHUzNXNrN1bSAXBBVV95cUxNVGNZNTZsOUJGSi0zdEF1cEljejJTYTVyNndCaUFrWWhCQmJaYk1nbzg1djM1WGFzUDJYNzZPUmNWOGF0aGFsbEFYWC1fZHFDTDQzOXU1UkNudDJHNkFLU2Zway1uVDQyaE5LTmNLcy1z?oc=5",
       "published_at": "2026-09-19T08:10:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 48,
       "tier": "C",
@@ -3007,7 +2673,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxORTQ1bElROTRoNzYtM1NRWEswQ256WkpFNmdBTHpHTGFueHJtNVA2YWNZUVNfOGdLWVREVUo5MldXWENCbEVkdUZyeUpjdU9TaFhfeXlPbVJLMGFKQ3ZqWjFKVzlZYm1TUnJvdWZuWl92b2VZTDNQN2YyaUV5WW12Qjhob3lPZHpJVnpQRGREMEMtYUxzTDVrWkdzT2o2M05qOGdXeThmMmNteWlLT0NSLTZnd0dESmoxal9YQktuMnVHQdIBwgFBVV95cUxORTQ1bElROTRoNzYtM1NRWEswQ256WkpFNmdBTHpHTGFueHJtNVA2YWNZUVNfOGdLWVREVUo5MldXWENCbEVkdUZyeUpjdU9TaFhfeXlPbVJLMGFKQ3ZqWjFKVzlZYm1TUnJvdWZuWl92b2VZTDNQN2YyaUV5WW12Qjhob3lPZHpJVnpQRGREMEMtYUxzTDVrWkdzT2o2M05qOGdXeThmMmNteWlLT0NSLTZnd0dESmoxal9YQktuMnVHQQ?oc=5",
       "published_at": "2026-09-19T04:14:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "LIFE",
       "score": 48,
       "tier": "C",
@@ -3314,36 +2980,6 @@
       "query": "ukraine-war"
     },
     {
-      "title": "До 25 000 граждан КНДР работают на производстве дронов в России, их маскируют под студентов",
-      "summary": "До 25 000 граждан КНДР работают на производстве дронов в России, их маскируют под студентов LIGA.net",
-      "source": "LIGA.net",
-      "sources": [
-        "LIGA.net"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPTHV4S0RkSWZ0clRiY0twdVNMcGM3WU1DRkF5eS1faTZxQUR1a3MyeVlMdjFrbG9YeC0tSVJfTWdhZUZyRXFLSzkyd01OZFNycHdBQ3dqLWJWdmwzdkNBenA2Ukl3WjlKaHUtTlJhWnNoYmFESEdDVG1Tc3dzMU9VY0FzZkR1R1FuTFl5TF9RdUxmSmZ0bFBwSkYzczVSZGZ6QlhMYmtqLXFZVDY3aEh3MFZ0YnVrMXdJbThTYTA3WmhkWUlJQXZ4eA?oc=5",
-      "published_at": "2026-09-17T07:05:02Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 48,
-      "tier": "C",
-      "query": "ukraine-core"
-    },
-    {
-      "title": "Новый атмосферный фронт. Синоптик сообщила, в каких областях Украины ожидаются дожди до конца недели",
-      "summary": "Новый атмосферный фронт. Синоптик сообщила, в каких областях Украины ожидаются дожди до конца недели nv.ua",
-      "source": "nv.ua",
-      "sources": [
-        "nv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPLWdON1hpdHgwNkFwbWhSclJLZlVKLU5zNTJGZ0c4cml3RFpXZU5SXzFiSTdyS0F2c3ZOcDZVbFNVdkh3aDJuRS0ydzRDY1N6TUJBVmpJS28yYk9xSXg1V25wLXRZN1VRTERrWnUyZk9NUWNfSXFMZEdDbzB1R3ZweTNOUjYwdHZMUG9sQjZ5S3ZfT1pYdHNXY1YtUHM3WTRkdThGeWp4cjZFQjg3Q19UMklWc1Z1d9IBpwFBVV95cUxNaXdvY1FIQTB0TktzOUZZWFFlemhNM1IxUWZWclJaYkFMVEZBUXBQRFRWWHVtOG1SQkRMVGNUcGN5QXJJbTNucXRJOXYtY3N0RS16OWV3SVR5emJCVEFHc21YbDNKWVBDak1CRjlaZ3MwSGxOU19RcEx2XzlYVFlnVEZlNk9oaDJLYWJaWUdlV3FRT0lITDFzbXE0UVNaRlNiai05SUZUSQ?oc=5",
-      "published_at": "2026-09-17T07:05:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 48,
-      "tier": "C",
-      "query": "ukraine-core"
-    },
-    {
       "title": "РФ ударила по Киеву баллистикой: прилеты в трех районах, в столице перебои с водой, разрушены склады, среди пострадавших дети — главное",
       "summary": "РФ ударила по Киеву баллистикой: прилеты в трех районах, в столице перебои с водой, разрушены склады, среди пострадавших дети — главное nv.ua",
       "source": "nv.ua",
@@ -3354,36 +2990,6 @@
       "published_at": "2026-09-17T05:17:00Z",
       "last_seen_at": "2026-09-17T13:14:07Z",
       "category": "WAR",
-      "score": 48,
-      "tier": "C",
-      "query": "ukraine-war"
-    },
-    {
-      "title": "Ракетный удар по Запорожью: есть раненые и пожар на промышленном объекте",
-      "summary": "Ракетный удар по Запорожью: есть раненые и пожар на промышленном объекте ТСН",
-      "source": "ТСН",
-      "sources": [
-        "ТСН"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPckxsdjdyLWVYTkVGVjJsSjhhQzdHdzdaNVdCSGVHR0tSUXhrTnVfUzBOTXgzZmlGN3VoeDFWVzhGSVBMVm9sNXlQOURxMnlwb2RseFJiTGZyWEZyTVFkdmJzOXpFWm8yZ0NKa2plMVJpMFhvVWszMjA3Y0xuY1JfX1dLY3BSbXlTNDROc29iZmpUN3dFbmNsRXN3VDZhUHhtSGV5MkdEdHFZdVhMVUYxZG930gG3AUFVX3lxTE5PemdQX1V1Y1AtaGhzNjRJUVh6dFFBOVU5V2h4QndEdElaWGdNN2RaYTBYbzU5SFAwblVBaXVMSHlGYTNJbEQ0dEF1Sl9BOFppS3YwMFlpeUtzUVlyU19xajB0VUtYS04ycG1CMkt5UWdrS2tPWWc1ZzBhZEpNenFxeWRtOHhFdkJVeU1JRGdqdUs1bjJWT1ExeS1jQ3BiRlg1T2REQnliN3hsUEV0Sk9BbTA5ZzVxZw?oc=5",
-      "published_at": "2026-09-17T02:55:25Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 48,
-      "tier": "C",
-      "query": "ukraine-regions"
-    },
-    {
-      "title": "Россия атаковала многоэтажку в Одессе: пострадали три человека, среди них — трехлетний ребенок",
-      "summary": "Россия атаковала многоэтажку в Одессе: пострадали три человека, среди них — трехлетний ребенок nv.ua",
-      "source": "nv.ua",
-      "sources": [
-        "nv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNT1FObjZ1eWRZNzl1OEZ1NkRZRVNBbjhwZnhWbHBoajkzWHNiSTdYcm9aa3RpWlBlaWF6b0dvMTNLQnYteTFIZ0NCb0FyZVhBdE0yTUVBQ192VmFDalhnbDlkOVgzMFpWbUhILVlkWC01UzMzTlZfTFQ0NE9QQkwzZHVGbVlLUWc4b3lCcHVLaHZjVFRCRGducUlIQkZkcVJ4TXpPeTh5akFmYVFXaDlxMXVySG1wcVNJR3pYaThn0gGvAUFVX3lxTE5Pc0c4WmVDUFdRdEsxSUFWZk9uazg4SUQ1TjhQXzdLZFZmS3JZQm5oNlg4RTN0dU5BNFk0SnRoMDJyd2VWdkFUNE5GNXREWERyeEhEZ0ZmVHl3VldGSF9aM0VHX3JVV2lPd2tXZTFtQVZiRHBXY2FuN0FnMzQ2cHVpQnIxNkZhWUFPdGg2d2RfU3M2VTZUYmNDWWhBRHR2MFFqUGVmakFJYlNLYlFzeUE?oc=5",
-      "published_at": "2026-09-17T00:40:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "REGIONS",
       "score": 48,
       "tier": "C",
       "query": "ukraine-war"
@@ -3404,19 +3010,20 @@
       "query": "ukraine-core"
     },
     {
-      "title": "«Откройте глаза»: Каллас в Европарламенте ответила депутатам, обвиняющим Украину в затягивании войны",
-      "summary": "«Откройте глаза»: Каллас в Европарламенте ответила депутатам, обвиняющим Украину в затягивании войны nv.ua",
-      "source": "nv.ua",
+      "title": "«Исторический день»: Сибига отреагировал на подписание Трампом санкций против России",
+      "summary": "«Исторический день»: Сибига отреагировал на подписание Трампом санкций против России Крым.Реалии",
+      "source": "Дзеркало тижня / Крым.Реалии",
       "sources": [
-        "nv.ua"
+        "Дзеркало тижня",
+        "Крым.Реалии"
       ],
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQdERJUjlTTzQ4TXVxLVRTNlREemtXNnVRdllOd2dtTEVBNEduN1lWYWJxZzlZZUl3MHM3eTVMYlNzU04wWTB2UlVhQ05JOHh4UEFKem9TcS1ZZ09yZ3pIa2JfZkJWZjgya2Nhc1hMdHVuX0NKUVBTa0otVHRBRU1PZnNBdzNQUFhSeVB0X3Y3TElxVE5DNDZ0YUp5TG5jaTM5TUlTRHpGekpQNE13R2txTklCMXZaMWvSAaQBQVVfeXFMTlRSLWJwdTdzZWNzbG9YWS1VYjZZZVVHWlFHXzM5dDJMVmVicEdDcU9Gbjh6UDNMY05NLThEZVVNUFhlSjNWWEhhY094RVVZSXAwTi1RNS16blpWSHFLUU5jdDV5UkQwZXJfUnV1djhscVdmQ2lkV3A2UkJwUVFsdmt5WkVKZWljMHk0NUN0NFJOTjQ3cFNBdFBZaU9GaWNaemRRVUQ?oc=5",
-      "published_at": "2026-09-16T17:23:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 48,
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOS2Fia2YyMFRMeklrb2lwdENhTzZnUzltdW13cjQ3V2g4QXJXTkJNelJFYi16NDJ2MXRZLWVlVkNPQ1pYNGY2dDlZRmp1ZzlmdXNlY2NVQi05bWd0STNrWi1MOFRwaFlLbFpHdm9qZ1RvNW9nSVlFZ0hhMkZLWGxnUGVOU0J4THNwSlJFNlV3dnB6UUdmYmfSAZgBQVVfeXFMT2NsbS1qRkNLaGdjLTZtVHk3cW5DUUZjSV92bHlEem5rZ1FTcnkzV1VGY2FzY0N0WVBqWFZtdXlSRjdwQmlnaFVXdE9HVnhJUmpDSXkxWWEyNkRQbTROakk4X05nakpRenNEb0xhWHlscXNDUnFxbTNIOHFMaUlvU21YVk5ReHZKSGFmdXJWY0tVeFBoZ0hGZTg?oc=5",
+      "published_at": "2026-09-19T11:26:15Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 47,
       "tier": "C",
-      "query": "ukraine-core"
+      "query": "sanctions-diplomacy"
     },
     {
       "title": "Во время атаки рф на Молдову вновь залетели дроны: ведётся проверка района Штефан-Воде",
@@ -3457,26 +3064,11 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNd0hJcGtZTUhNN21LdTYzLTZTcjF4ajFJNFFlTXo4Tk5zb1A2ZDlyMHBNa1hJcmh5emxVNV9PMllxQVJXbVZjUmxvUE9jNlNtNmFrOGNTZjlXQjhMVGF6VXFxSTM0cmpXWFhEWlBlcXdJbGh6ZjNhd29fOGUzWTdxOGE3Ym9jR214WWJoWjFoNjfSAZYBQVVfeXFMTWVqdE90aEVoaldlN2RiQzVfdUpubzNEc0tDRGtmRllTZGhJLTRaWkNUQlY1T21MSG1qSm1IbDB6bkZmSGFGTUlmNHN5a1gxYzFKeUUyZk0wOE9hNUREUm5jQXlQQmlOUDBMVjhvNmI0dzhMdV83TUVJT2tUSTYwelpSNmxvcFlBdmM0bFQtRjNUa2lfWDJn?oc=5",
       "published_at": "2026-09-19T09:16:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 47,
       "tier": "C",
       "query": "ukraine-war"
-    },
-    {
-      "title": "Польские истребители поднялись в небо из-за ударов дронов РФ по Украине",
-      "summary": "Польские истребители поднялись в небо из-за ударов дронов РФ по Украине eurointegration.com.ua",
-      "source": "eurointegration.com.ua",
-      "sources": [
-        "eurointegration.com.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9Sd2FBTkpPNTFpZzZkVy1NaHg1bGxmQ21DWG9DYTZEWnJaazBfb2RwRDNiQmZsNUdIblVPT0s4d3pmeUlMUFFCd2p4eXhNRm9WUWlQQ3VQM1V0R0t2WFljcUhDX2lNb0t6ZzE0cUp6NG0?oc=5",
-      "published_at": "2026-09-19T08:03:14Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
-      "category": "WAR",
-      "score": 47,
-      "tier": "C",
-      "query": "ukraine-core"
     },
     {
       "title": "Украина может получить ПВО и ракеты от США на $2,68 миллиарда",
@@ -3517,7 +3109,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOaWhreXhoOXhkTVdPcEZlWGFLOTZRbUhBVnByQ1ZSanFZbmlIMHp0djI5UGt6TjBfM2loZ0VfaTd6WHV1MEtDeTVCT00tOERMLV83OWQ4andYVlpacVM1RzNXUUc3QUJmeGVFdmowLU1kbnJaUFJHQzYxeERqQXJnMG5Sbjl4eHREcGRkOEVCQ2hXTXpybk9TNFphMmg4NlBlSUIzcmg2QmZtTWlfeHJtZ3FDM3d2enFSaktCbVRTY19rMm9kOUhfWkhCSjluQk9EYmFUZjhhXy1jaGhkR1VzZURselRvX3RPcDVMMQ?oc=5",
       "published_at": "2026-09-19T01:05:03Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 47,
       "tier": "C",
@@ -3839,64 +3431,20 @@
       "query": "ukraine-war"
     },
     {
-      "title": "Конгресс США ввел новые санкции против России в ночь ударов по Украине, – Зеленский",
-      "summary": "Конгресс США ввел новые санкции против России в ночь ударов по Украине, – Зеленский 24 Канал",
-      "source": "24 Канал",
+      "title": "Зеленский показал сбитие реактивных \"шахедов\" новым перехватчиком",
+      "summary": "Зеленский показал сбитие реактивных \"шахедов\" новым перехватчиком LIGA.net",
+      "source": "LIGA.net / Інтерфакс-Україна",
       "sources": [
-        "24 Канал"
+        "LIGA.net",
+        "Інтерфакс-Україна"
       ],
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQQlVBOXNIR3JiMm8zTF9WSEd2M0FaWWpvMUNTUE13N3F5bXZtX3pqb3FwSXJmUWZoMldOemU5ZzN5b2g5UW5vLWEwWEwzMUswd2o2UnVfTVN5NXBOVjJkZjNKRXIzdF9wQ0hjVGtQZVBoN3FBNlhGd1Z6cEVjenFlelEzUlZrVldTaDBzLThlWS01WnV0bnN1Q0VkdXd2bkVRMExvZzRKZGxzbVhDNzQ2R3ZsZ19GMGVySDFCWV9iQUVGenRRTVBRMNIBzgFBVV95cUxQM3IxejVTNnpfOHlodTlkN2pVZ0dWX1pKQU9Zdk9fSFdWVTJXcmFYNE85aVptandDMDQtTGpHemhRcVZMLWFiaHlqbHNaV0pTcFlJdGNkdFhxSjFtZHJuNzVKVnBOWlFReWFoam84QnNxaTExWFNCWnJuelhteGE3YURCWFVpckJpVGZfVkNHYXE3bWhjWVBvZzhYUndZSEo5NHJVUDBSNEwwb2JSNThEQnlqTTA2SGEtRWVtRDB3dUdHTElPSk5jTkRWNXZHZw?oc=5",
-      "published_at": "2026-09-17T06:32:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 47,
-      "tier": "C",
-      "query": "ukraine-war"
-    },
-    {
-      "title": "Массовая атака России: ПВО уничтожила 131 цель",
-      "summary": "Массовая атака России: ПВО уничтожила 131 цель korrespondent.net",
-      "source": "korrespondent.net",
-      "sources": [
-        "korrespondent.net"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNbk1yelFPb1VyVHE4SkQ1aWw0ek9Gc1lJUmRHZ050LVpNbEhybGx5eVFSUWFra0ZPbWNGX1NDRkd0WEZIZjlYR0tUWkdFaEl2b3hHTGpCZ0ZQM2hYMkxIVkxuQ09TQTYwc1ctM2FNV2J0NkN1YmUtZl9udFFncnBPQ2dqVEk4SE5NWXpvdUM2OVdyNHdy0gGPAUFVX3lxTFBJUjJLQmdsM2RUN3d1SUNzSHBqeUVud3E5eXNVRTJXUTc5alBjSDNkY3ZRMkJHOG9IdjdKOHhTVkkxc3p2SFNPa0ZrQkRsTjNsVUtPRUdnOG1hSGY0VnpVWWw0bkZNQ2w0dHJ3SllDdG5sdk9BaWhteEhUb19KenByMXBWMTNFaEtuU1BTclRV?oc=5",
-      "published_at": "2026-09-17T06:08:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQVFpOYTRwTG1QaXFCUlhjQmFOaVBucTY4Ui14WGZrbDdTdjdtNmFKcXRMTi10MC0tRWV3Tm11QkxOTkd5aHFURmZtRTM2RXN2LWRPdlJWZXVZRE5NUnFIWnVFZFl3UDVQbVRHYnllSmZkV0ZZRUZHVENtYVBtT2pZWTNOd0xMS01oUXA4WDBKNFRDTmZzQUM1b0N1R2XSAaIBQVVfeXFMTWF5cVI4SGhIX1hJeWxTZmNZWmhEeTdfV0pmOU9lcTFDSGdJYUlIZGpxWGR4YXpGRHVKUEVQV3lyd2FNY1kzRmNudkxVeXVaYUxfTUE1c19fRGxGNkVRdnQ1QVd1Y1pSVnNGaGZPaHpOMXNqUl9hWTROQUVDRko5cUxaeVNQLU9zTzJUc2RycEdxcFN1dW5BZVBlWE9fU0xFZXpR?oc=5",
+      "published_at": "2026-09-19T11:51:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
-      "score": 47,
+      "score": 46,
       "tier": "C",
       "query": "ukraine-war"
-    },
-    {
-      "title": "Россия запускала ракеты, баллистические ракеты, более 150 дронов и не только: сколько целей удалось сбить",
-      "summary": "Россия запускала ракеты, баллистические ракеты, более 150 дронов и не только: сколько целей удалось сбить 24 Канал",
-      "source": "24 Канал",
-      "sources": [
-        "24 Канал"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOY3ZCX2JQN2RqTzNYUnFwU0NON21pbjJ6OTVqQzdpS0N3bzdBR2ZzOWo5NmJGX1pQdU5qUUg2V2JQZ1hvSS1PVzMwREtfbGxVY0ZxSEh3WHlVSHhGUmJfMmVfc29wSUJvVjVGSnhDSWhjZGpoNG5MT1A5dTJlczI3TkYwNXlNSklMamQ2ZDBoV2g1RGQtX0FEUkJXRUh0bWduSnlfUjdSUDdvTmwwaTBvVEhxYlJtanBTUUdsaHkyc2TSAcYBQVVfeXFMTmw3SGlWMDBZUWptZlBTTFU0Xy1JcUIwNktkTk1VQ0pTMGJxeGp1YkpGSnEwU19TTHN4XzhGWFJUZDJTTVBkYlNEdkJzU0tSVTBibjBlbTRFSEVpY1BVbVQ3SEFsalB3TU5yeFdaenpHNkJJQTB6TUlvT24yMV81NWxqQmM1eWMyTENuSnNoTUVMN05na0ZoM3VXVUhWelBhT2VxQUVHTEpZcTNOdEdRSU03aW9Ic0N5QWk5UlhVRmJPX0RHZXRB?oc=5",
-      "published_at": "2026-09-17T05:06:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WAR",
-      "score": 47,
-      "tier": "C",
-      "query": "ukraine-war"
-    },
-    {
-      "title": "Зеленский подписал закон о борьбе с кол-центрами",
-      "summary": "Зеленский подписал закон о борьбе с кол-центрами nv.ua",
-      "source": "nv.ua",
-      "sources": [
-        "nv.ua"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOU2t5R0NKdEZqVmxYQ1VISDFXWFB2U2kxRG1MSWpBdVE3bThWbjZaLVdxRU5SNWJsWS1Qb2lSbzJVb0NYLUlYQ0VpTmVJZ0tMLVlFemxGUTFnWEtiVk5jbjlBTmwyQk1TbkNBMDdXTk5Oc1hmekxGM0lwVXctaUM3ejY5SlZVSzVBWl92MXpyUmVfSW5fRWZ1dTgyWWzSAYYBQVVfeXFMUHhlUXBJTl9GYnRnb1l1RUhwRTFGSG0tTXVmTjQzbWExbG1QUS1PbE90TGpBTnJqUXRDbDFmRXZuN0FJQ2F1MmpWbUlVOWQxLW9XWHhYWlVQbUNjN3JrLTVHTUtqNlFRZTVGQmQxa3lUVDlHblpLU0JXWEJiSTB0c0tVOUJwZFE?oc=5",
-      "published_at": "2026-09-16T18:47:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "UKRAINE",
-      "score": 47,
-      "tier": "C",
-      "query": "ukraine-politics"
     },
     {
       "title": "Президент Латвии заявил об отставании Европы в войне дронов — The Guardian",
@@ -4049,21 +3597,6 @@
       "query": "ukraine-politics"
     },
     {
-      "title": "ЕС готовит санкции против причастных к депортации украинских детей",
-      "summary": "ЕС готовит санкции против причастных к депортации украинских детей Слово и Дело",
-      "source": "Слово и Дело",
-      "sources": [
-        "Слово и Дело"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQZHJ3S2dCNUtGYlFCQnhiazdsRGl5TXdkSDJEdU91cjlUM0VvT3dmeGk0UE8xTUt5aW1TTUpDUTVhWk1hRzV6OUpkU1drQW52UXRKLWJKN2ZiQW1Uc0VITElBRVlrNV9NaTExa3RxSDlVV2NhdExZUTNfMl8wLXZocTk1dWhGMC10OFd1TDN1VEtCUUdoMHo1RzA2bTBNUmVsWmVNM2dqVFZmRlQxYkhOc3FR0gG3AUFVX3lxTFBwNTZ2bkJMVkYxYlJHYlNTLVA5bURhQTJNaDFIVjNSdTdLbGc3b0dsYndncGJ0QmJPREM5Yk85UmtRcXFaRUF0Z0p3SE1FdlRXMmJEdlFRRGRNTEdJLXNSR1VldGloZ01SQXRqdmp4MWhsTXJrVnRaZFZHMTg5OXRjSWpxZWpCeWhlSTBaU3dPNmtnQVhlbHVUWldoRHhlc1lMU01PaEdDMUtROHAyWXhQVFBWbVlOZw?oc=5",
-      "published_at": "2026-09-17T01:34:44Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 46,
-      "tier": "C",
-      "query": "sanctions-diplomacy"
-    },
-    {
       "title": "Политолог объяснил, откуда взялся тезис об «окне возможностей» для переговоров после имитации выборов в России",
       "summary": "Политолог объяснил, откуда взялся тезис об «окне возможностей» для переговоров после имитации выборов в России nv.ua",
       "source": "nv.ua",
@@ -4079,17 +3612,47 @@
       "query": "us-ukraine"
     },
     {
-      "title": "Германия направит истребители в страну Балтии для безопасности выборов",
-      "summary": "Германия направит истребители в страну Балтии для безопасности выборов LIGA.net",
+      "title": "\"Європа не встигає\": як Україна випередила країни НАТО у розвитку дронів",
+      "summary": "\"Європа не встигає\": як Україна випередила країни НАТО у розвитку дронів Прямий",
+      "source": "Прямий",
+      "sources": [
+        "Прямий"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOSUhuamNNMFlmdE1mTHJ3eHZJMGh6T1VEb0d1Ri1kUHAtNEtPamVKSjllNEg3UlZJT1cxS0M0SERacmpNX3lYZzFfaF9ITHkwVjRHWWhBQWlxU1htVE1WV3E3NVZaeC1XZzdydjJ3S09QN3JFV0E5a215b2FVeS1PaHJXcjl3dGlzNVBSZFp0LU45Zw?oc=5",
+      "published_at": "2026-09-19T13:01:55Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 45,
+      "tier": "C",
+      "query": "nato-ukraine"
+    },
+    {
+      "title": "Первый магазин Pepco в Украине откроют в одном из столичных ТЦ",
+      "summary": "Первый магазин Pepco в Украине откроют в одном из столичных ТЦ LIGA.net",
       "source": "LIGA.net",
       "sources": [
         "LIGA.net"
       ],
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQRGp2NnhhekhXYk5KODAtRlFBVnRqcFBxenVJTGRkUTM1WlVhUDdaR05EeDVRY0JxLS12MzlMb0Z6R3N4WWdZQmFwenVfeGl0bllQSmdtYTNpa2RQdzhFRUJCQ0V1UWExOVYtZFBfVXBEYkpoMW10SDBVMXZrYTlvbGN5eEtGZWNRaHRrbVZDOXFBbG1HMUR2cmt3R1d2aFpsLU9CYjc5LVlaN1JIWFBYTjJ2YlBqNEtjRVFFbmRtVdIBxAFBVV95cUxOSHN0THgzSW9EY29SdlZ6Z2lLUk5GbG5rcGdUUGpWR3JBcVRnVUYzUmZkTEN6cTZiUDUzU0VQUFVZU2VPRGY5LU9ZOVBGN1BsVzgydjR2TkxHU1VBSFNTOXpyNVdwSTRxcEJ0SFhqNGlVSkcxazNDTUd3Yk9KbW85VzdEanlHWExiWDhSUTZYRVZoSDNERlNvYi1OdXVVckVmX0ZHUDdDMkd2bUFfR3dwRUhLSmNuZFQ4YjFrdm01MzNfbmRN?oc=5",
-      "published_at": "2026-09-16T18:45:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNY0dlVjdQT1J3Y3g0bVZaWUxZeFZwOHJVUW03UFlJUlRTLUJGOTZ1VGVldU56ek9PTEVaZUF4d3FPcENFa3lla1J6UjMwOGRyUXl5amJWY2tFZFRpbXhLRXNWQzhsRlYwVDFod2hER3JTeVFFbUdvZnVxNTV3aWhQSWxXM1RWMzZoVjJQS2Q5MGhXX1JYY1VBcXFJMHHSAaIBQVVfeXFMT05Hbjh5MWZweXNfckdNTnllS0ZHZHpMcDNwMDdKLU9wVWlOaEVzUjRzOGtNYTVXUUxrRU93QktfNDA2MWkxWmE3VnFUb3pWd3RxOFpaRW9OMXE5Nks3ZmxqSkt6dkw1eXcxRzFkSnh0bkRBOGNjdGNZTGhwM1ZTeGhLQ3ZLdnA0ZkRpV1JmUVJmQW1NODJ5R1lzOUNiSkpnaC1B?oc=5",
+      "published_at": "2026-09-19T12:43:26Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 45,
+      "tier": "C",
+      "query": "ukraine-core"
+    },
+    {
+      "title": "Президент Латвии заявил, что Европа не успевает за развитием войны дронов в Украине",
+      "summary": "Президент Латвии заявил, что Европа не успевает за развитием войны дронов в Украине Українські Національні Новини (УНН)",
+      "source": "Українські Національні Новини (УНН)",
+      "sources": [
+        "Українські Національні Новини (УНН)"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOcVd1ZHNYbHJNS0cyZXVjREhFT1FEUW1iemlFV3BDRFd4VlZEbzJrTmxEbS1tcFhpYXR4U0J1Y3pGXzhCVUUxMlhheHpKa3ZNODByZnlWbGpwZnhSdTVhakhybEdHWlJpZjRweDVKZkVHbm5zWkl2ZzlLTDdidENoZHE1Ylh3RkVVUTViYzU4Mmk5QWI0Z1BzOGFZd0ZIQXl2eXMzSVJ4WlZ6ekFp?oc=5",
+      "published_at": "2026-09-19T11:44:17Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
-      "score": 46,
+      "score": 45,
       "tier": "C",
       "query": "nato-ukraine"
     },
@@ -4117,7 +3680,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxORVpxdGFYTU13NXVhZVpwSkF1c05FX243c0JSTWJ4TC1DdHRxclhvM0JwQ1Z4alNUZlFMdW0yNzJHeDNpSzFYZDc0V0dNVlVleUVneTh2MTk2WU1MOU51MmJyODBxSnY5NUJWeEU0Qk9sMW5Ca2c3TXg0OE1UVzhXZDhDc2Q5MUVhdVdQQWE4T19EWlk?oc=5",
       "published_at": "2026-09-19T03:10:46Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 45,
       "tier": "C",
@@ -4334,34 +3897,19 @@
       "query": "sanctions-diplomacy"
     },
     {
-      "title": "В небе над Литвой самолеты НАТО сбили российский дрон \"Гербера\", — Науседа",
-      "summary": "В небе над Литвой самолеты НАТО сбили российский дрон \"Гербера\", — Науседа ukranews.com",
-      "source": "ukranews.com",
+      "title": "Генштаб: Силы обороны нанесли удар по пунктам управления БПЛА, полигону и складу россиян",
+      "summary": "Генштаб: Силы обороны нанесли удар по пунктам управления БПЛА, полигону и складу россиян Українська правда",
+      "source": "Українська правда",
       "sources": [
-        "ukranews.com"
+        "Українська правда"
       ],
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQZ1poS0NadlY5OXB6ajRsdzNndnNiSGd1YU1OQWZSMmFOdmxwYVNYc1dGYUVPY2ltRC15RDNwdEhHOGhCZ3B2VDFkWnZ2X1I3d2FUa2FtNFdWdkRibDFnX2NsSkJOVXNjSHFNYzk0Smo4M3ZuaXdZd1F0c1NCTUloNE85ZXhyUGFvS1pIOE9kRkNuLTF5X1R4RC1KZ2xEYU9zSmtwNEtQUUhJTjDSAasBQVVfeXFMUGdaaEtDWnZWOTlwemo0bHczZ3ZzYkhndWFNTkFmUjJhTnZscGFTWHNXRmFFT2NpbUQteUQzcHRIRzhoQmdwdlQxZFp2dl9SN3dhVGthbTRXVnZEYmwxZ19jbEpCTlVzY0hxTWM5NEpqODN2bml3WXdRdHNTQk1JaDRPOWV4clBhb0taSDhPZEZDbi0xeV9UeEQtSmdsRGFPc0prcDRLUFFISU4w?oc=5",
-      "published_at": "2026-09-16T18:14:58Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 45,
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFA1MzhCX2NkNUNNLW5KTjZscF9zYWNwRFhZQmVYSU5yX1dRQzVNMElpS0FFb2RqbWhuZmtWMVR5LWFwMndJVmFnWS1WVG01YkhoTXpadk03cm41VFFrMjVvYlh0SFrSAXBBVV95cUxNck9vV1NiN2NrN0xNWGg3WUxWbWQ4ZDNhWWF4UTYxaFpUSzkwbTdvbHdIVGpWcFdOd05qUk03UzZfaUFkY1d3d0s1aDdwanZxV2hGaExfNUc3clVBcjB3VUFBbzRvYTFhSGs0WmphNXZB?oc=5",
+      "published_at": "2026-09-19T10:41:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 44,
       "tier": "C",
-      "query": "nato-ukraine"
-    },
-    {
-      "title": "Учения НАТО у границ Украины и Беларуси: Iron Wolf и Puma",
-      "summary": "Учения НАТО у границ Украины и Беларуси: Iron Wolf и Puma UAportal",
-      "source": "UAportal",
-      "sources": [
-        "UAportal"
-      ],
-      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNd1ktTmxmTFlGRHBJc3JKUlRvTUR3eDNsOFNnMXdGU1A2ZTZ4VzV4bVAwWFpka09NVWwtTl84d2Jvc213MEFQY1ZJY2Y2WUxwZEcxMWMybDQzSWVmLXRRYV9IanJTamNHVEx0T1l0cVNVeUhzeHVuUnd2Zkp4RGRVMTRjaWpDMlFLSG1xanc5NWlEYTNrc0NLUk5jTXUxUlVMTDFSZ0JvdE1iTFRpRm8xV3o0NTlzQTJrdVBZRFBzWmRUSmpIdXNZejFEQlRfMkxNRHVYMNIB2AFBVV95cUxNeFBUTWdBTTZlcUpXVmFQQmNVWk5sVVBaODFqYnBGN0RpZHpBYWh4YjBUaVl6TktSWWZ5LW0wSzRHRTM1TUpVNEFpaFp4QzFueUE3eUtJOUlDZDRQekdPOWVLc1hYVVF2NEVhYzdXOWFTTEYxc19KV1pfakU2bF9LUDNYYjluYU13c2xLVTMzMXMyQUJ1dGVUWl9LQzBQUS04dFBDNWM4MTZGZkEzT19uaFlaY0VzbmVudzhoYXZhSUtBaVZtd1JodFN6WTNzb1RFOXlJLV80QUI?oc=5",
-      "published_at": "2026-09-16T15:11:31Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 45,
-      "tier": "C",
-      "query": "nato-ukraine"
+      "query": "ukraine-war"
     },
     {
       "title": "Адские санкции: Сибига и Зеленский отреагировали на подписанный Трампом закон",
@@ -4387,7 +3935,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1JNTZhUmhTdC1BeGYtWjdtN3lIVE1CVHdkM0xYOFVRX0ZONWNVVzY2ZmhqNmx0dzJrUEI3R01QQ0RWRGdpeS05SXV3SVVsWGNxM2c5NEJVbGwzT3B6X0NGdFBnTFjSAXBBVV95cUxOa1J0ckwxTnAtTXUwVUN1c053cFI3azBmR3JvdVQzdkFQYjhzVFpEUEs2VGFVaGhqbzVSYzhTQUxPallwV3I0WENCbVpLdk9SV2ktWm9NTURnVnlFSFdoYlVmUUtZeHpsWmh1bFgxWmVm?oc=5",
       "published_at": "2026-09-19T05:51:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 44,
       "tier": "C",
@@ -4402,7 +3950,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPeGdvVWJoZUZObG45enhuelJVWkptaUJvd09aQkNHMndLSHozV3g5WlhaV3dtNkpYSXJtbmVMa3FFQlMxVHB4QV9zVDAyTWZHbGxENFd0ckMzZDJWSXJyT3VqWDRlWktzdE1tcXFVV2xJX0thX2szS2h2Nmg5SUZITElYUFhWSVRhRno3ejJNa3JhU1BVZER2cDR6dWxnUjlWNjZv0gGjAUFVX3lxTE94Z29VYmhlRk5sbjl6eG56UlVaSm1pQm93T1pCQ0cyd0tIejNXeDlaWFpXd202SlhJcm1uZUxrcUVCUzFUcHhBX3NUMDJNZkdsbEQ0V3RyQzNkMlZJcnJPdWpYNGVaS3N0TW1xcVVXbElfS2FfazNLaHY2aDlJRkhMSVhQWFZJVGFGejd6Mk1rcmFTUFVkRHZwNHp1bGdSOVY2Nm8?oc=5",
       "published_at": "2026-09-19T05:44:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "LIFE",
       "score": 44,
       "tier": "C",
@@ -4417,7 +3965,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxONllhN1hhMWNnUi1TbnZJaUFxbW90aXNuU1hqVlJsUXN5amE0VmZHM3U3U0c2S0VGSHVRekdIMDA4VGwyYzRqVzZWQkN2cXN5MDNFOVRYYWw3VXRHV3h1WFJWZFM1bk1nMWVjN2NnVVBEMzdibXcwRFoyX2Z4Y1FuWDA1SU5meWlUSzctZTlkajM5eHFIMFAzOGx3azctVjhfeVpkUGdWRnBJX1ViMnE3N0t1dE5DaG1iTFhCR1ZKcUdvOFdKbDRhallZMm1YendwMWfSAb8BQVVfeXFMTWlHSEd2bXo2cElqSGhfUUdxbk1sWkFRcmg1UWU2ZjhJdWdtNTU3VzJSM3pFZ3ZFMjRVVlRaS2VRZVVnMF8tX2Y3X3RxYmRSbXEyamNSdXJOZk5oSTUwb3Z5R0lXcEJTdkFNX3VpSXBGdnJnUjFyOUcxcmloRm10X2t5SE1zTWxjWmVUZGx3NGVfaUNzUG9iWkFOTVA5T0JXaUJrcEJqV1RxMGlBUTF3MG5EcDFoaTliUzUxSm40UTg?oc=5",
       "published_at": "2026-09-19T02:08:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "LIFE",
       "score": 44,
       "tier": "C",
@@ -4432,7 +3980,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPcDdKTy1rLXIweFcxd2l2aTcyeDlyWnFDcWcwanNGOE5JUmpoUmt1eE9NUTRrWlE2X3lvRUNnb1R2UTRRdFlNNWJOWm1vanJPVkRNOUhoeTRqdXc1ME5kRktpTjJyVnZPUF9RUlRxSDdBM05XbGVlS29fT0VZZEloV21nT2dVUGEzRXlrZEtVMFNmb09vODVwVEpzU2RHcGFUX1ZwdHNzX2h0QTZVXzFnOW1TVdIBoAFBVV95cUxQcmdtSFZRSEd4dHlmWU9Nc0FDYW95aE5ZQ2pRaVBGT2lGSkx4VEc2Z0dvVUZwdF9HTUpHMDBTVWNKOW0yUU45WlV3X2cyb0FNUEtCOUFvemQwQXdOTktDZnpuS24zTTd6aVppTTRyUU13VkU0d3VDM1RGbjZfcUd0eS1pbFNiU1gtNkwzUnJNeWtsTmV3aUhGczBGZ0IxMTl5?oc=5",
       "published_at": "2026-09-19T01:26:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WORLD",
       "score": 44,
       "tier": "C",
@@ -4799,34 +4347,34 @@
       "query": "ukraine-war"
     },
     {
-      "title": "\"Адские\" санкции против РФ: Палата представителей США одобрила законопроект",
-      "summary": "\"Адские\" санкции против РФ: Палата представителей США одобрила законопроект RegioNews.ua",
-      "source": "RegioNews.ua",
+      "title": "Президент анонсировал изменения в управлении Медицинскими силами ВСУ",
+      "summary": "Президент анонсировал изменения в управлении Медицинскими силами ВСУ ru.slovoidilo.ua",
+      "source": "ru.slovoidilo.ua",
       "sources": [
-        "RegioNews.ua"
+        "ru.slovoidilo.ua"
       ],
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOTk1pT05nSmlia2JDSGFNYjRzMWRpRllER0hBd09Jak1kaEx1eGxZYTdUQ1BJRThIRVp4cHpvUkl5Z3ByUTVXT09TVHJwUWdhWjlZVkplYjA0NnNoR0tPelJrMFZnNWIxOHVVOW1lTm1BWHdPTHRDenBYMnk1VnFUSHo4STNEY1pTWlk5NGFoUy14TkdENTc1T0UxWWl0RTNnNnBrNkkyNS1rSDhXSGJKcHFKWHdnOXprakcxdWt0S2hDUdIBtAFBVV95cUxOMlZTQVJjY1N5UWszWHpuRTRlODdvX1ZwbmdHSi1Hd29PZVN3bnRHUE85MUhtN3NrRnhxY2Q2Mi0zc0p1SDNXMDk4dkxoVFNFb0VCM0ZPX2ZJampOVnBLVVhOZ3NRTnA0SDFKNHNVOEgxaWRkSTJ3a3FxTTlzSVVSWFZxZndEUVJtTnY0M2h0QzZWQzlHQTRwdWMtQk4zYlpVd3hyckFOdl9wWkdpZ2Nna3hVcXQ?oc=5",
-      "published_at": "2026-09-17T05:59:49Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
-      "category": "WORLD",
-      "score": 44,
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPRWQzRXU3SlJNR1o3QWNneXVac0l5TWtkcS1DMEJaek1iVDQ3UjNuc2lJX2pWSTRfdC1kb0pzT1ROWmdWMEJpeGw3bW44RGtuMjdEQTNNLUo1dllkMndmZS1RTTVQcEpBRDJkWnZ5TzhDYW5neV9OaFJHaW1EeHFROGJEcThicDVKRzFJUmJOYWtKX29CRnNJcjh3eVcxVGFGU0hkWXpIanByS3VQbk1MNTRjVkRiaEtwenJhSGRjb9IBxAFBVV95cUxOeUZzdmVVbW0tVWNaNDZoSy14QjVtdGhKWVlHbF9OZW5ya2RJdThEbi1fQ2J3NGpHdWl6NldjamVsSjFQUTJiZG5SUFRxU3RIcXQ2dU43djdoaE9DNzBicjF4eTYtYUVheVpBYnYxU2dOVXJhTEQxdVFIVGc4bFZ4b0ZUWjh2YXU3UDZvcW9PcEFORGt5amluWUJXYzBLbGJ1LXl5SXJVa0hUaDk2Unh3dXBSSUJ2M2w5UkF6bnZhZzM2Sjlt?oc=5",
+      "published_at": "2026-09-19T12:43:27Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 43,
       "tier": "C",
-      "query": "sanctions-diplomacy"
+      "query": "ukraine-politics"
     },
     {
-      "title": "Ночная атака на Укрзализныцю: вражеские БПЛА повредили вокзал в Берестине и инфраструктуру в Киеве",
-      "summary": "Ночная атака на Укрзализныцю: вражеские БПЛА повредили вокзал в Берестине и инфраструктуру в Киеве 24 Канал",
-      "source": "24 Канал",
+      "title": "С утра РФ атакует крупные областные центры: где произошли «прилеты» и какие последствия — все о субботних ударах (обновлено)",
+      "summary": "С утра РФ атакует крупные областные центры: где произошли «прилеты» и какие последствия — все о субботних ударах (обновлено) tsn.ua",
+      "source": "tsn.ua",
       "sources": [
-        "24 Канал"
+        "tsn.ua"
       ],
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVUlFMklaZWpIWDZ1b3BEV0hWNUhoSE9QZDl1elZwMngyUFlxcDNKck9WQnc0bVNTMUUzdE5BSjZZRk9rX2RZNGJIZjg3bVZBbVkzX19WNFRXRl9IVUVPYWVPNUdzVVF0c3l2Y1U4d2ZTYU80cVk3amNuYmdTQ21relpKd0trR3VFZW5NVzdha2NhMUVkNWZQaURVdk1pV1E5eFVOSnExYThGOGxFay1JRXZPcVdPQ24za21MTmhwNUVUMEZZ0gHKAUFVX3lxTE4yMjJfQWdHVXNfakR0ZTBuSWtLVjZUa00wcHdPa3JpanFGOV96VDd5eUsxTlBHenFRTU53QlVjeW9seHdTXzVNVU5rZTk3WFpkamFNZ0NWOFZGSFpEM054aTA3dGs1d01NeXZud0ZFQ1RKSU5ydFJXOUVfMG5QbUV4U3RzOW8xTXh0UEJKT1FTRGt2Q0MtRmNsSVM1Tm1FSEdKWlJCS25VaUR2NjJ4bWUta2M3ZTBhdUxZcW1pX1dOVHVVbEVCY05jN2c?oc=5",
-      "published_at": "2026-09-17T05:51:00Z",
-      "last_seen_at": "2026-09-17T07:24:36Z",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQUk9EY1QwWnFPeWF1WnRKbTY2cnhPemlTTTRkdHVNVmd6SFpQZWpYajd4VUEtclY4MFBtN0loMGVhOUc5UHVOanlfaU5raWUxaWRIb2xEa1ppdmZxbEhqUGJ2dm9DM01IZWJNdi13TlpiOENjZWp0Y0I5NUFIVFljdV9DcW83NEs0dm16d0ZPUkFfSExidlphRlB1N2p2cWQxUGYtTVhKOWs5Wk5MZU5EU1hZbXFpUXlHYmNqWHRJM0JCU05HOVV2cF9yVE1QN2_SAdQBQVVfeXFMTWw3SldmQW4xa3ZwSDBnVm9SSXd3aW45UzVLVFNlYld4QnZSVDhReE91QjFVQ1BZSG5yTHk5UlJjQ2J5b2tnMllEOGFZT0pJa1MyMmd2bEpSVkJwNTJpZUNLQUctemZpSXEwMlN3emd0blFkbGFXc1VjMWhBeFpCN292V0IteVV5X0RJR1U1LWF5NjlxemJaM0ZtRWNETjZkMjcwU2lNY0ZaZXRJSkxRSU1CTUtZUUFUVVQyS0JkbnZUTWhjWUFuSFVzR2JKS0ZSM0IzTmU?oc=5",
+      "published_at": "2026-09-19T11:48:45Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
-      "score": 44,
+      "score": 43,
       "tier": "C",
-      "query": "ukraine-war"
+      "query": "ukraine-regions"
     },
     {
       "title": "В Днепре прогремели взрывы: враг атаковал ракетами «Бандероль»",
@@ -4852,7 +4400,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxONXZRc0FXSGlkc1lGeEh2SHNSOERmWDVOc05ONnAwLVhOX0ZQb3l1RUVKNDEtTHRyYU16QkI1ZFRkRVREMjV4ckdFYnVTSlA1a1hrZGZYUWF4Z0pFUVBLNTNhbEZ1ejdVcllpdmpBTzAzNU1SLVNZUENFeDZfVWlVNjNUNVlob0JYelHSAYwBQVVfeXFMT3p6ODFsdHBIZjZ1S3Qtb05aczN3alFEV3d5dXYyaGh3ekNkUmJCLTdTZDNMTDBDbEVDR3Fia0lDLXRqYzJTV21TYnN6VC1oN05PWnNhWDEycGZnNF9PeFhtanJzODN2TDlfaW1iTEF1VzhTeXVxWFRiQzlmemJGQ1ZZdV9maGJzTF9PQTA?oc=5",
       "published_at": "2026-09-19T08:10:42Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "REGIONS",
       "score": 43,
       "tier": "C",
@@ -4865,9 +4413,9 @@
       "sources": [
         "Крым.Реалии"
       ],
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxORzdGZVZ6YzE4N2VHM1F3S2VUOEFRdWJ1S1JKN2V1cDZHN1ZPc1JxOEhNX054cVlwM2hsWHJBWnUwOTFxbEVJNVdSbkk1aWFsbmxrWm5rNDRFNmNCSnRKeEdLclFmbXkwZy14R3JKMTNfSEpMd1I5SWhBamZwcWxyamZaekc3ZUNDZ2tsTDZIczgzdjQ3SVHSAZgBQVVfeXFMT2tVMWhsQUpsU3hUUlZvNkJWaHUxbHQxMHdlaHNWNFg4VThZN0tEQmxoQ0VGY1BBQS1tUlBoZWhDTzUzcVd2a1RNeW5heEFZOWoyQ3hkbVhOeVdFU2JHc21Pa2dSSjJKTTRxNkptTFJyRnVaMmNyeFhTWl81R2loVkw3WFZvWlhCNHZkdThTWVFuU3c3VTBLWl8?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPa1UxaGxBSmxTeFRSVm82QlZodTFsdDEwd2Voc1Y0WDhVOFk3S0RCbGhDRUZjUEFBLW1SUGhlaENPNTNxV3ZrVE15bmF4QVk5ajJDeGRtWE55V0VTYkdzbU9rZ1JKMkpNNHE2Sm1MUnJGdVoyY3J4WFNaXzVHaWhWTDdYVm9aWEI0dmR1OFNZUW5TdzdVMEtaX9IBmAFBVV95cUxPa1UxaGxBSmxTeFRSVm82QlZodTFsdDEwd2Voc1Y0WDhVOFk3S0RCbGhDRUZjUEFBLW1SUGhlaENPNTNxV3ZrVE15bmF4QVk5ajJDeGRtWE55V0VTYkdzbU9rZ1JKMkpNNHE2Sm1MUnJGdVoyY3J4WFNaXzVHaWhWTDdYVm9aWEI0dmR1OFNZUW5TdzdVMEtaXw?oc=5",
       "published_at": "2026-09-19T07:10:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "WAR",
       "score": 43,
       "tier": "C",
@@ -4898,7 +4446,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQMzBtVmhpQkROMlZNNzRPRW5ucDFIZWJpOU1Vb0N4Mko1N3A4NnZQakFXeW9KSU9aR0RLT21RQnFVWGUxT2VMUUxYd2hLaFlycWRZUzRPZ01wQUlsU0h0VXZIb2ZIWkRvV205TEVIN0w2U0ctQ25DbnVDM2FKWTU2LXdCVzJ5NUgxVTgwSTNwM2xhTEdQVXVWWGlIU2prMlZZQlBrRmhVeXhoQ3VfZDZHV1dURjRzZktOUUladkR4MGxzcUZsbGZXYzVTRkM5eUHSAbwBQVVfeXFMTU5OWWJuVi1RSDA5U2NzMEJRQlpyZm8xdlJZUVFJSHYySEJ1SU1iSWtUbWtTTDNvbWUxVE9Rc0NmNURsXzVfQVFlbkdYT19UTW1wMzFoTkhxZTR6NGlkaEJWOU4xOWRCZjlXUkwxSXIzSXRiWmpkWjNRVTl6dXJfbXduZjgzYTJJOGJuX2NqOTJlZldONDJ2VlUwZUZFSnBsSFNvMDQtd3BkWHVUUm1hNTRzcDlsUFRqOC1BZF8?oc=5",
       "published_at": "2026-09-19T00:48:00Z",
-      "last_seen_at": "2026-09-19T10:36:31Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "LIFE",
       "score": 43,
       "tier": "C",
@@ -4943,7 +4491,7 @@
       ],
       "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOSk9UR2tGZFc1YkpkLUZlalRKUU1oeFBvOWxrY2xWNGVONnQxSldZR3pYMGV1Z2gxSkRNSHZtQTRxZTNIX2ZaOEtnRS1jekZkb05HVUlKaFRjNGpGSzdWMjQxZDFKcmU1U1RYRmZXUmFNem9RTy0wZXJ5b0puaFpyQnNORTFQVmlpSWlvMVVCWUtqWV80cnMxcncta0RCYk9NYmFHbkc2dDg0X1phbXFKaDRFQnA2aGxTaWc3MXFNOW1MUlFtN1I3cGw4SWVBRFd2elFvdTR0bWHSAcgBQVVfeXFMUFAtM0JXSjFHN3RtUFB5RXZ4MElkWDhOcGxsUVhjWlNwQlVDU0VERGJMY2k0SUx6RUw5SDFwMTlpU0lLcndLN2VkNTRvNDhfdTl0VGQxUEZ1cVBQdjlsRS1jLXBySWd6clJPclpzMWlKZS1ncDZ1T1JZaDFXelhlelpDcmYwbFJFYzdpSG5nV1BQR3FEY3RHX2ZMN1VOY3QwRENEb1RIR2l5VzZod09fWE9lNkVwSU5BbkczeVJqaEhkQ05UU1djOHE?oc=5",
       "published_at": "2026-09-18T14:53:00Z",
-      "last_seen_at": "2026-09-19T05:35:25Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
       "category": "OSINT",
       "score": 43,
       "tier": "C",
@@ -4963,6 +4511,442 @@
       "score": 43,
       "tier": "C",
       "query": "ukraine-core"
+    },
+    {
+      "title": "Можно ли учиться в польской школе и получать украинское образование онлайн: ответ МОН",
+      "summary": "Можно ли учиться в польской школе и получать украинское образование онлайн: ответ МОН Судово-юридична газета",
+      "source": "Судово-юридична газета",
+      "sources": [
+        "Судово-юридична газета"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQTmIxcU5uaW5uWFdVUko0M3MtQnRBOHYyZ0dnNU1QLTNzOGxYWFU3YThUZmxTbU9HZnNhMmg0eG5abWJLOFJ4ai1qNFNONmJzUzU5SkVldUE0V3E3andKbHRVYXU2OE9fakFweFNrazZhbnBHdmZsVExucVNmUE9yYkpZaXotdzVpbUNoeTlPaUJwWGxKT3YtV1pUdmUzQlJKUVdnWmFlSGZhSnE0YzB1Tnp6aWwzeER4THhCQkNPdmx2WVV0MkhENA?oc=5",
+      "published_at": "2026-09-19T13:01:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 42,
+      "tier": "C",
+      "query": "ukraine-life"
+    },
+    {
+      "title": "Зеленский показал работу дрона-перехватчика российских реактивных беспилотников",
+      "summary": "Зеленский показал работу дрона-перехватчика российских реактивных беспилотников KP.UA",
+      "source": "KP.UA",
+      "sources": [
+        "KP.UA"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOZmJnYk1aN1JqZTFiVlZTcjJnWnlUeVBGTjQ2N0FUYnl3ckhJbWpNM01PMFpuRGdKV1ZNeTlIMjNUMWFhSTh4eGdzNGh6dG5naVp4RkRxZDBJUGFXZzRfd0tVcnM0dUJiQXN3Y2thd19tV1NMTk9jTXd5UFJHOFBTYkJLSnFLN0NtT1dCXzRjOThOVVpCTUQ2eW92d2J0S3p0WWUtZG9zN09WVU9sUS1iNUhDSEXSAa4BQVVfeXFMT1c1NmhiUzNuSmJZY0RTVGdaUUtXb1QxU3loLW5vN1MzdnFCU213SG9DbERlSVZGc3ZuT3dyLVd1eV9nTGhReXFuNWJFUzIzZlc1VHZYaTcxRkxRZERkLTF6c2w3TnhRUk9iczQwanJIODgzX24yM2hHbHFrcGltMXhxZy1xMzR6SjFzYmNTMVNPN21pejU4NzVYa0VFeTV5Q1hLMEp6TXQ2V21HeWln?oc=5",
+      "published_at": "2026-09-19T11:39:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 42,
+      "tier": "C",
+      "query": "ukraine-life"
+    },
+    {
+      "title": "Дроны атаковали аэродром в Ростове - спутниковые снимки показали уничтоженные самолеты и вертолеты РФ",
+      "summary": "Дроны атаковали аэродром в Ростове - спутниковые снимки показали уничтоженные самолеты и вертолеты РФ KP.UA",
+      "source": "KP.UA",
+      "sources": [
+        "KP.UA"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOSDlBVXlpQ0VySkJlZW56ZmNuN0p4SUtxUUhwcVBtdnp6MzZINmo5VmZlS19wZVVwQVl3SmQ0WGk2Wm9iaXVlXzhYUEtKcU1kb0lYUURXTVhPVnNiMDdzdEQ2a0xsNGt3V1N3M09lQ1M4clVzR19Yb0FpS0NLRkxaNVJiV29VekgtSURKbnN3eXpiZXE3b044RnBaWnpMZXVKVlc0MmFuWDV3MUNSalUxZWZLai1oQW0wWHNvN3FOR0Vucy1Qcy1jbVpaMjFsQdIBxgFBVV95cUxPRDBUS0JzYTFueWlHQXR5alpQM1FoYk5mZ2h0V0d2eEMweEdQaWhqR1NLWHlIdTRTUkVVNUtROG5YVFQ2ZzRQV25RZU84Y2RrcmhGdVN4LXF2b21Hdnh4Smw5NHJBbEhpOU9aV09FRUtBbEJDMk5sTHJwTVc5NkczQXFaY21UUHFIckh1X2FuZHBYeHd1dXJRZzI2cFZKSUotSXZ0MHpfekRFT01NM3lGdGwteU0yYWhxVEJnX2FhV18wTVlpYmc?oc=5",
+      "published_at": "2026-09-19T07:14:40Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 42,
+      "tier": "C",
+      "query": "osint"
+    },
+    {
+      "title": "Зеленский анонсировал обновление Медицинских сил ВСУ и новые дальнобойные операции",
+      "summary": "Зеленский анонсировал обновление Медицинских сил ВСУ и новые дальнобойные операции Центр журналистских расследований",
+      "source": "Центр журналистских расследований / Українські Національні Новини (УНН)",
+      "sources": [
+        "Центр журналистских расследований",
+        "Українські Національні Новини (УНН)"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA0elczUXFaQ0d4QjdyQ25uOGFxN2pwU0JzSTdkdzNrdkVtbUlZVkxxR085eWd1NHRTOWkzZkJUQlQ4ZUJFV2xhUk9Bc3lORFNuTEMtdkRLNjhZZGlBbDdwejE5UFZmdEU?oc=5",
+      "published_at": "2026-09-19T13:29:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 41,
+      "tier": "C",
+      "query": "ukraine-politics"
+    },
+    {
+      "title": "\"Намного хуже\": чего ждать зимой 2026-2027 года при дефиците бюджета и без перемирия (видео)",
+      "summary": "\"Намного хуже\": чего ждать зимой 2026-2027 года при дефиците бюджета и без перемирия (видео) focus.ua",
+      "source": "focus.ua",
+      "sources": [
+        "focus.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQVWgzNV9Vczl5VUZveUg0TXNMam05aHROT182YmhqQ0N5WUF4Zl9PRmQ4STdXNlZkXzROTklCOWlFTEtIYkpKN0FSSndaNHd0OTd4QnZmTVllUkZzbXBELUZDM1BDWl91R0tKbFZ0WXd5TzhLMVZrczVmamg3aTM0VEVEZjJOaGV1d1lUYmh0eXhWeDdCdUVLUDR3dldJMlFycWtvbtIBqgFBVV95cUxPbmlJekdKWm5xWFgxMkR0bUd0OS1kUEJMYXdZNE9jVnJkOGhFcVdkTVQwQ0J1bnlTSXctZ1dtNDIyUVk2V3BnWXQ5STVHVWR1LW1NbkVXU1NPZ2xqVEdZR3ZnR1FORjVYd09NTTMxS2pOT3puNWxIRUMwOFBsaUVEVHRfTjlGeHAzckN1V3hQMll0QlJtaDFEU3hfWUdZR3F5TWJiY3hwYmlRUQ?oc=5",
+      "published_at": "2026-09-19T13:19:07Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 41,
+      "tier": "C",
+      "query": "ukraine-economy"
+    },
+    {
+      "title": "«Исторический день», — Украина поблагодарила США за закон о санкциях против РФ",
+      "summary": "«Исторический день», — Украина поблагодарила США за закон о санкциях против РФ NikVesti",
+      "source": "NikVesti",
+      "sources": [
+        "NikVesti"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPWDFLcml6cTRzUDA4SU5DbnAtbk1kdFprN0lFUldqWnh0OFJGa28xMDA5SHc0dnN6MFI2MXJhXzJsdU1oOEtINDZHbnpOa2F1T3NDQmtadDVzUUZ3UXl2VkpvLXIzSFVUWE1POXRSZ0UtaEluX3gwUGszS1p2LTlhNEE1cFpUTno3VnpISTFqdmxmdnN1bUlLSFVWak9DUk1URF80SGZGVFZ1MGZZ0gGsAUFVX3lxTE9YMUtyaXpxNHNQMDhJTkNucC1uTWR0Wms3SUVSV2paeHQ4UkZrbzEwMDlIdzR2c3owUjYxcmFfMmx1TWg4S0g0Nkduek5rYXVPc0NCa1p0NXNRRndReXZWSm8tcjNIVVRYTU85dFJnRS1oSW5feDBQazNLWnYtOWE0QTVwWlROejdWekhJMWp2bGZ2c3VtSUtIVVZqT0NSTVREXzRIZkZUVnUwZlk?oc=5",
+      "published_at": "2026-09-19T10:21:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 41,
+      "tier": "C",
+      "query": "us-ukraine"
+    },
+    {
+      "title": "Путин пригрозил Европе ответом, обвинил Киев в нежелании вести переговоры и назвал укрепление ядерной триады приоритетом",
+      "summary": "Путин пригрозил Европе ответом, обвинил Киев в нежелании вести переговоры и назвал укрепление ядерной триады приоритетом Інтерфакс-Україна",
+      "source": "Інтерфакс-Україна",
+      "sources": [
+        "Інтерфакс-Україна"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBtWXV2elFNZkI1Nkozb3BxWEF4SmlteGtMZ0tRVHktcV9VaUU2MXBhWXFHOTdRUVFwMEpORGxnVGFRVThUM3AtajRiUVV6YWxRQ296a19EckdWMTYwQjd4QThzYVTSAWpBVV95cUxNeVVnQ0pMbVJjaXUwSzBIQWhWRkZYUkxLR1FCS2dvdUZjRVoxcVljNFZSYVRLd1lfWXh3UWxFN281clZhbEFsVnNFMUxhbWZnNl9leVR3R1VxY05mb0Y2SjVFQUxZNWdGWW1n?oc=5",
+      "published_at": "2026-09-19T06:56:29Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 41,
+      "tier": "C",
+      "query": "nato-ukraine"
+    },
+    {
+      "title": "Украина обратилась к странам мира с предупреждением об опасности \"Русских домов\" – Сибига",
+      "summary": "Украина обратилась к странам мира с предупреждением об опасности \"Русских домов\" – Сибига Українська правда",
+      "source": "Українська правда",
+      "sources": [
+        "Українська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1mRTZQbjNxU2E1OVRIX1VSeXgtZHBwSmxvN1BsRTZCMTd5MXY5VEFsVTJvYUQyeDdUZHRteDNBV1d1YU9TelY1aTRZUVZ1Yjk2RXU0MG96akozX2R0N2FoZ0RONTLSAXBBVV95cUxQa2lrdGdlajVxNVhwNXY3TjJHLXQ1T0ZXQUdZS21sUEx0ZHE4QlAxM0ZCc1ItTG1zLTNuMEhhR2RXb3R2OHVQRTVnYk1jT3FEZmlZTkhMMFdKZlU5c3FaYXF4OS1SZzhIVElUYkQzNkUw?oc=5",
+      "published_at": "2026-09-19T13:32:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 39,
+      "tier": "D",
+      "query": "ukraine-core"
+    },
+    {
+      "title": "Украина официально попросила закрыть все \"Русские дома\" в мире",
+      "summary": "Украина официально попросила закрыть все \"Русские дома\" в мире LIGA.net",
+      "source": "LIGA.net",
+      "sources": [
+        "LIGA.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOSlhTNXhheWp5SmNiV2Q5Q25kam1FclVIU2JpNlNDX0VOeTZfZ0tIUVJJSHJwOG9MQ3p2NzhuaVRXZWtobWRqNG5DVWt5OUo2S3N2UEV3SUQteENLWm9qSGtVVjFKcWFULUZSblZWbEdvTHdPbGdKVThlY2pOUWk3ZU9UWldfM1g2UFJVbnJqMWFHY3FTQUlsVG1DUdIBoAFBVV95cUxQVS1Nbk9peVhkWmtLVUoyZnRFbmdBa1VUTkd1ZUpJVUM5T0hscFNTSWJQTTlOeDZlUklqZEU5TF9qWUpEeXR0OERSdlNQU2NoZnVZMV94aXk2Zk1CRjRqQU5xc01QYUFobjlqM1ZDdzB4RTF2RUdHZ08wR1ZYWks2M2Mtel9uREtZNGJremZhUFhWZVVTeEE0amZieU9QOGEx?oc=5",
+      "published_at": "2026-09-19T13:13:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 39,
+      "tier": "D",
+      "query": "ukraine-core"
+    },
+    {
+      "title": "Россия перенесла часть производства «Шахедов» под землю в Алабуге — спутниковые снимки",
+      "summary": "Россия перенесла часть производства «Шахедов» под землю в Алабуге — спутниковые снимки nv.ua",
+      "source": "nv.ua",
+      "sources": [
+        "nv.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPQXpWWkx3dWdUSGpzcXJDOUNob20xVmtSenRWOUZlYXNpcVppdnE4eWNxenpaVXVrY1EyVmZWZzBZbjByYXN4Y29oUjhaZ2lEWHJHczNmNWlIbjFqTGhjOXpBMUpjTWJGcDJnSTI4ME1xT2IyNXhocEdWWExwenA5aG1lYy16VnpneFV1U0ZIOVY4TVJMWVdoaTBtLWQ0TG80eDB5NjdmRUJEd00yeUk5MUVIQmp5RnR2a2ptN1FB?oc=5",
+      "published_at": "2026-09-19T13:25:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "OSINT",
+      "score": 38,
+      "tier": "D",
+      "query": "osint"
+    },
+    {
+      "title": "Зеленский поговорил с Хмарой и Драпатым: Готовим расширение дальнобойных возможностей",
+      "summary": "Зеленский поговорил с Хмарой и Драпатым: Готовим расширение дальнобойных возможностей Українська правда",
+      "source": "Українська правда",
+      "sources": [
+        "Українська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1LcTVSMzktbFRhZmd3R1ZFMXN4UXVwbUNyWmhCcXpJeWlSak1tblFWRTlnUU44ZERIU0tSRnh2SHlfMFFMU3VkZGVpMk1jOHVJdWxPVkZUelU1Nmo1YTVZV3ZYc0_SAXBBVV95cUxPSVdERTFGU2h5SFFNZUNiMjhZUzZRLUR2aWtCRl9ZaENibEw5Z2RsQjh6cHJNS2pUSFM3R0ctN2dkMFdkbngtbU9NTDVTNnBpeXQtZUtGTE9wU3JFdFgxQzd0eUNYNXF1aTQwb0ZDMmJ4?oc=5",
+      "published_at": "2026-09-19T13:20:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-politics"
+    },
+    {
+      "title": "За восемь месяцев 2026 года Украина стала нетто-импортером молочных продуктов, — Ассоциация производителей молока",
+      "summary": "За восемь месяцев 2026 года Украина стала нетто-импортером молочных продуктов, — Ассоциация производителей молока Ukr.net",
+      "source": "Ukr.net",
+      "sources": [
+        "Ukr.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBWQy1WcWwtaGlBQ0xDd2pzdXJjaFNNYW5aQUl2eWs5NGlmUDlfd3NyMTRJSFVKaFI4ckRSb3pVWFdRclZ0aUp5S2dvRFFGTUk3QnRHSElzdnpMYzh6VVpDQldrVlkzWXdZVElsLQ?oc=5",
+      "published_at": "2026-09-19T13:07:53Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-economy"
+    },
+    {
+      "title": "Украина успешно применила новый дрон-перехватчик, - Зеленский (видео)",
+      "summary": "Украина успешно применила новый дрон-перехватчик, - Зеленский (видео) unian.net",
+      "source": "unian.net",
+      "sources": [
+        "unian.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQU3l3Yl9CUURudG03a0kxX2dFVWZOaEVhelhKdFh1Q2tJZlVxQWVGWkd2Q0RUTEpKbHNZM1VGX3hiTVNPYVFxRW5Tbk9fM0lwRExHOTRmeHlUVnIxblpOMzlyeHVTa1FtQTBPdXFhNDRPbFhFLWswYXh2Yjd2cmJ4Rl9mM3EtRmc3R0RtakVGcW5hZWgyNHBSOUhBaDVlSFRDMjN6U0laN1JDcF83UFHSAeYBQVVfeXFMT0VFR3BEV1N1aTE0QnpEbE5hOHJPNTV2OXFUNUNTbzlCTi1iZkdmMHFpUXBNdWhIeC0wWjgyMW5udmRfVm42VDkwcTBMZ3VjZmZ4YWYyWjJwWjk4MU5LRmhQWHB3RDdqX3BDZk1JNHI3dVUwNGN5cTl5YmROSkI3RXE0dktYYW1KZ2I1SDY0TEE3amVzSktXR3FuNGU3amNIN2NqRU9LTTZFLXJiOFBtNnQycU9ZUHVBWG9lMU51VkUwOE1ueWpQVkh0RHd3cTh2eGdEbjJPZ0xzTmhQX0NBZ0VId3hydXc?oc=5",
+      "published_at": "2026-09-19T11:50:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-core"
+    },
+    {
+      "title": "СМИ: в Великобритании в течение года почти ежедневно фиксировали дроны возле объектов Минобороны",
+      "summary": "СМИ: в Великобритании в течение года почти ежедневно фиксировали дроны возле объектов Минобороны Європейська правда",
+      "source": "Європейська правда",
+      "sources": [
+        "Європейська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1Ecm5EbXNIck5heGVacHZncVhBaHY0NmQ4WWRmM1ZFVkJwbVFGYzdiZEktUDVlaDVoV0lDRUFJRkV6Yk5XZnZSQ1pKa0ZHVGhYeFZlaFdjODQzTFlOQ1BXQWlVOEJmYmluNHk0ZGdIN3I?oc=5",
+      "published_at": "2026-09-19T11:31:29Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-war"
+    },
+    {
+      "title": "Украина теряет около 27 тысяч военных убитыми и ранеными в месяц, - Туск",
+      "summary": "Украина теряет около 27 тысяч военных убитыми и ранеными в месяц, - Туск unian.net",
+      "source": "unian.net",
+      "sources": [
+        "unian.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPWlo3d1NHYVNZTGtJaDlEQWczb3pmMXgwRG5rN2JfM0l5dC10d08zci1aclN3WUlUS29HT0pmUS1lMzJ5c0o3UmdJUy11Zy1NV1h2YkdzdXZuMTk5VDJ4S1YzSzM0eHlpN045RjI0WVlGZlVSdTgzUnN6bkY2TmdWRnEtUnZubDhLTmlhbGdvRTFvTHZ3eW5tOXBGc3ZuS2lTTFRpMXhINE85eUp1d1E0bnM0MGxVTElWek9QUWhMZ9IB1gFBVV95cUxPWE5IRTlPWVdJYmNVNC1rTzZOQktRT1lKaGpwRzduMUFTSXJabzZuX1hrVkZlXzJEUV9pUlZiRGxkOHBKQndmblMxV0pRN1hLN1JnTEFTZ1VLNnFGV3RGaTJrQ3JGYXo4VVFXOWVIZFJjMnlLajVRVzBxd1ItQlp6dXpoaDNTYlc5UmJOZmNPRHFtX3RoYUVSMFlNcVZYQU9tY3lWcHU1Z2Q1blVSRjBWU2R4SHlobHdwd09uMU5NTHYxd0VoWG93bW0tT0tDeld5d2JtN0Vn?oc=5",
+      "published_at": "2026-09-19T11:16:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-core"
+    },
+    {
+      "title": "\"Мы заходим в большой кризис\". Онистрат – о дыре в бюджете, девальвации и реактивных \"шахедах\"",
+      "summary": "\"Мы заходим в большой кризис\". Онистрат – о дыре в бюджете, девальвации и реактивных \"шахедах\" LIGA.net",
+      "source": "LIGA.net",
+      "sources": [
+        "LIGA.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOWDB5WFkyWFlFTUptUGh5d2NTbm1kZlhKcTV6TmpMNTBvMkNHMUx5VmxzczNSTXpmZGZkTF9rQ2pNTWZObm5WaGRRcjVlR2E5LTUzbF9NemJYWDl0blF3OXh6cjZTcmpkb0g0UExjTlRvQ1VrMFdtY0x0ZGp4Z2N0UGNFcHMza1lYLUNyeEVPb1NoSmoza1Z3eVQ5UUJEVDZfTlYwWXZLZTVwcDJyRlUzZXZhd1B1SC1kSF9nUNIBwgFBVV95cUxOcjBpQ3VHYXQ1akV3LV8wOHY0Q2x3NC1LRnYxVGtnQkNCOGJnVWcxQU9QYkNhTkplWm1OT0xGNGtfWkM0T1M5T2pITEsydi1Rc1hlQUxBVV85OWNEUDdrU0dleXRXYldSdDBUU0txR19mYkpEU3RXeXNRUWNuZ3JFdk94cllncmFBZ2d1UEFaZ0RhSXlWeXV0U2tacThETDgwUm5vMkNwcUdxekllekVmSU1iSVlPTHN4SW5BV0xNTWFmdw?oc=5",
+      "published_at": "2026-09-19T09:35:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-economy"
+    },
+    {
+      "title": "РФ планирует привлечь к войне против Украины не менее 27 граждан Йемена — Служба внешней разведки",
+      "summary": "РФ планирует привлечь к войне против Украины не менее 27 граждан Йемена — Служба внешней разведки nv.ua",
+      "source": "nv.ua",
+      "sources": [
+        "nv.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPMTNCNTF6ZkR0aFdIaWo2dkx6dGM5Q2p1dVBPdjloa0VZV3hXMzhmaDVlLWdRVVc2QXA1LUhGVWU3dGFhWnd1MFRTY1JHU2FHcWZpWVJGYTBJNlFvUWJJNC1NaHdiT2hXb1JzeHNrZWJyUjVDb0hZQllpc2d2NkJIZ0FWWDNHdVVPWmJhTmtmRmU0ZmlSWnJpbWI3b2wtSnA0LTFtcXdSVk1LVWZjUDBpTVgzNmNXM2hoY2VVVF9B0gGuAUFVX3lxTE1PMUxkTFJUY0J0M0hZRVd1U2lsb0d0S2w0NTVkc2JDQ0UtRmpXUlN1NXdKQmpNckR3VFFhV3VPOWVLcDg4NEVCNGJxZzF1RUljSnlNTVBNczZ4SE5JTVU0a3FielMtbFdfaFd2UExObmpYaE5FUERRSXYwOWNCS2dFdkhiRnFvNmcxLTR3RVN0UEF3bHI3Y1NDc0JSUG1WS0plWVhGNGRGcjJuT3Rsdw?oc=5",
+      "published_at": "2026-09-19T08:08:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WAR",
+      "score": 38,
+      "tier": "D",
+      "query": "ukraine-russia"
+    },
+    {
+      "title": "Дания подтвердила подготовку соглашения о безопасности с США в отношении Гренландии",
+      "summary": "Дания подтвердила подготовку соглашения о безопасности с США в отношении Гренландии nv.ua",
+      "source": "nv.ua",
+      "sources": [
+        "nv.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOWlpHM1djV3QtMWxMc1E2d3A2enFEeng2UjM0T3d5VkdsSEFTLVNaRnY3dWdjdVAtb3E5bWJIenN2U205bWplTU0tamRtMDNpZkNYekZBQzdFbE9mdnVWN3BQNjNDSmFfWjNfUFBfNnA4am9VZmVGQklJVWNxZ0YtR195Q3A3cVUyMC1qVlZHZzlEQ0NfQ0hUeDk4bkQtZlJBc0tSR0oxeDlpNVM5bjBfOGc4UkZ1eFMtaW1VcNIBvAFBVV95cUxOWlpHM1djV3QtMWxMc1E2d3A2enFEeng2UjM0T3d5VkdsSEFTLVNaRnY3dWdjdVAtb3E5bWJIenN2U205bWplTU0tamRtMDNpZkNYekZBQzdFbE9mdnVWN3BQNjNDSmFfWjNfUFBfNnA4am9VZmVGQklJVWNxZ0YtR195Q3A3cVUyMC1qVlZHZzlEQ0NfQ0hUeDk4bkQtZlJBc0tSR0oxeDlpNVM5bjBfOGc4UkZ1eFMtaW1VcA?oc=5",
+      "published_at": "2026-09-19T03:48:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 38,
+      "tier": "D",
+      "query": "nato-ukraine"
+    },
+    {
+      "title": "“Готовим расширение наших возможностей”: Зеленский согласовал новые дальнобойные удары по России",
+      "summary": "“Готовим расширение наших возможностей”: Зеленский согласовал новые дальнобойные удары по России uatv.ua",
+      "source": "uatv.ua",
+      "sources": [
+        "uatv.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxORDE5cFkwajA4ZWdKVkdaNE5SQU91Q1o4NXJ6eVQyTWp3RGE0eFlRbTlmTzJjWGNxXzF0a3FaOUZWcE5aR1huOE8tZ2ZpcU5FLXRmS09JRldua3h2c00tYThINlVPWGNndnhtX3U2MzBwQ1g1ZXJONW9HNDlyR0ZhZXlZbWVBbkNCWXdJVFdmbHpFMGFPcndEb296dXd1WEk5S20td1hTc1l1cUR2UUdlQi1R?oc=5",
+      "published_at": "2026-09-19T12:55:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 37,
+      "tier": "D",
+      "query": "ukraine-politics"
+    },
+    {
+      "title": "Зеленский одобрил новые операции на большом расстоянии в ответ на российские удары",
+      "summary": "Зеленский одобрил новые операции на большом расстоянии в ответ на российские удары 24 Канал",
+      "source": "24 Канал",
+      "sources": [
+        "24 Канал"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQN2QyOTRNY1RMMmJLU2FmMmJXMUxVY1ROSjZMTEtuNXhaa1VYdndGQ2RYeVR0T0dJWllPeVREQ2JZVXREeFlIVkxWSVVGU3dDcFBRMUdxYWhSNUZkT2oxN2lOVzlFdE4xYlN2blFWU0pPQWJWcWJJWkdqbm56VDB0c1l4X1dFdjBub2lfeGowZVZBWjk3ZVNMa1BB0gGfAUFVX3lxTE9yMWk5dHZTUXp3V1BsZWNoNV8yczlfUzlMZmdrUUVaMjdNWGNYb3U3Qzg5UUIyQWxnbEpFMEVYeFR2LWQyb3RoY2dNVUVXV1JfUkZPSFB1dnA4eE1sajJOd1VURk9ZQ09lY0JrZm9jNnF4Qm1VNEt1dkVIZ184TklNUFlQNk9fT1gxRWRoZGVvOEJtNDZaTkFXMmttWGQ0MA?oc=5",
+      "published_at": "2026-09-19T12:13:47Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 37,
+      "tier": "D",
+      "query": "ukraine-politics"
+    },
+    {
+      "title": "Украина обратилась к правительствам по всему миру относительно опасности \"русских домов\" – Сибига",
+      "summary": "Украина обратилась к правительствам по всему миру относительно опасности \"русских домов\" – Сибига Інтерфакс-Україна",
+      "source": "Інтерфакс-Україна",
+      "sources": [
+        "Інтерфакс-Україна"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1naGlkMzFqZnk4WUdoMnFJdmtadGc5LVhZMHl6elZUQUJWcGtRSU1MZXFMNmdOcnpfY1gwNkJ5VGhKeGljellITzFuVFh3enhrT05scS16MWZsVnpWeS1wRkpR0gFnQVVfeXFMTWV4SlJzOENXRU12NHg2c09xaXh5bXdKLXRoVVQwQlVHaUdzQUlfZk03NGo0WGM4a0VCSWN1SmpsMlJSYjFIR3pPYS03blpoWE9GYkpTX3Zya1Q3MVBJOXBtNWtOTXVLUQ?oc=5",
+      "published_at": "2026-09-19T11:29:53Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "UKRAINE",
+      "score": 37,
+      "tier": "D",
+      "query": "ukraine-politics"
+    },
+    {
+      "title": "Украинцы будут терять работу и зарплаты: экономист оценил риски для экономики из-за ударов РФ",
+      "summary": "Украинцы будут терять работу и зарплаты: экономист оценил риски для экономики из-за ударов РФ unian.net",
+      "source": "unian.net",
+      "sources": [
+        "unian.net"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOVWZLTW00WFd1a1MzcU9VdXR5Q2s1MGZXTXA2QXR0NHVNeVhLQVVmbmgxbk1JcUtFNER0TE9NOEJ0Q3JGcFl5UjNZelg3MVNRdmIxNi1MZmtPLTdZVGFUVV9qNUo4cUhkU203djlJSFA0T0lCb2FoSGZJdWlnMHhFMDVvMHNEZzJCcW9GRUU1emx6cXQyV3h0RHE4UWRWaUVEa21QS3o4cXlQcW1OYTV5UDZqM0Zid0RfMHdfdVpRSWtQYU03UGx3WTNCSXJqSGx6ck9OYVZrQmljMEZQQmp30gH6AUFVX3lxTFBqUzIyYnhuWWtMdmR1RkdaeGJMN05nV05EUTI1czVuM3dBUkZERTBJN0FiQVNheFpNVnVJM1hOUWI4ZGhQcVBzMjB6RUhUUEpxOXMtWGJDakM0TXgzZkhkelhBWjFuQmZNWVc5Z1JvaTUwZUZNa09hbHN3eWc4eU9QTEU3clBLWVd5RkpvTkl4UXJuV0tJMk9SZnZjYklYbjI3cVQxNkpleF91YlZ3S1VTTTVKTXlwZE5seGQ4V21udUttTHFBdUdjckFpWWxaNUxHZHdHNHFuWjJoelg4WGhCVTd6a2JlTW9DR0Niei1teEpQazY0eEhuNFE?oc=5",
+      "published_at": "2026-09-19T07:06:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "LIFE",
+      "score": 37,
+      "tier": "D",
+      "query": "ukraine-economy"
+    },
+    {
+      "title": "Генеральный секретарь НАТО посетит США",
+      "summary": "Генеральный секретарь НАТО посетит США Європейська правда",
+      "source": "Європейська правда",
+      "sources": [
+        "Європейська правда"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5ZT2ZfaEdBNG9ZU0YzTkx2S0thakZPdDVJMHVSNjdDbUJpQUFZNzhsWW1NM2NCOTVFRjBGeDVnSjZoZ3pfcU9aV09sQk91SFZzOV9pV2hFOTZBMTNETmZQOGF0V2xvNHRFQ2VuNmRQd1E?oc=5",
+      "published_at": "2026-09-19T13:14:26Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 36,
+      "tier": "D",
+      "query": "nato-ukraine"
+    },
+    {
+      "title": "Путин шантажирует Запад войной с НАТО: Огрызко раскрыл, что стоит за этим",
+      "summary": "Путин шантажирует Запад войной с НАТО: Огрызко раскрыл, что стоит за этим 24 Канал",
+      "source": "24 Канал",
+      "sources": [
+        "24 Канал"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQeG1lb0YyZ1VsMkJ3ZHp0dy04THlNaVRDbDlKV2RCR2J0MlhTa0VxX05BVjFDRTRNMjNDcm43QURJNkdMdjhDcDZ4ZUptTm1kWFRXMDI4clFheDlrVGhkOEgzdEN1NTVkNnFUWGVlRWhkS01xeG9sUkFLYVV1cUpmYk1DalhoZ3FGRnczd3ZOWnZ3a1NCdFI5T1J1YUh2a19GRGfSAacBQVVfeXFMT1NUX2NUYW5ZYU9MdjRGMjJ2SmJoOTVyOFZpT1poQWhKeWI4YURFS3djNXBvaGd0VmVDVDRCWjZGQnRPMGNzODNXamVJYzd2MnI3N3lYZWJobW9DOVhmUlFDLVVKc2xUZlpHSTBSV2JrX1puYktNY3otMHZSM0VMSDkwTmpZZ1BQNUhmMGVFTnVvNTlpMU01U1IyY2VXeVFfMTM1WDM0Wlk?oc=5",
+      "published_at": "2026-09-19T12:55:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 36,
+      "tier": "D",
+      "query": "nato-ukraine"
+    },
+    {
+      "title": "США одобрили возможную продажу Украине ПВО и боеприпасов на $2,68 млрд",
+      "summary": "США одобрили возможную продажу Украине ПВО и боеприпасов на $2,68 млрд Finance.ua",
+      "source": "Finance.ua",
+      "sources": [
+        "Finance.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOeUNNTzlOQ09GNnhzYzlFbHdYV2FpZE9OakdZbm1NOVZlZnBJamJtOTJhSFc2aWhqMkRudXd4S2xxdjFxQjdzSlBNM2pvZUY5bTN6ZVZFYktOb09mNlJ0WVFFT3ltX0x6SjNHY3U5OG1sRXNvc0p4RWVlVmlJS0lOTUhtU2U2enN1RHhLYlNwcTNNV1BEaXlQamp6a1Z4X1c4Rmc?oc=5",
+      "published_at": "2026-09-19T12:22:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 36,
+      "tier": "D",
+      "query": "us-ukraine"
+    },
+    {
+      "title": "Глава Генштаба Германии претендует на высокую должность в НАТО",
+      "summary": "Глава Генштаба Германии претендует на высокую должность в НАТО ru.slovoidilo.ua",
+      "source": "ru.slovoidilo.ua",
+      "sources": [
+        "ru.slovoidilo.ua"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNV0Z5R0VsSzZZSVYxTnNMaUJVTWZsUTZXLUlSaDFKOEowOTJGS1dudXRSTy02M3R4ZHM2RGd1WW9QY2JnVU90bDZjakdkQUc2aWJPUDJHcU5CS0E5WVhQUzM5YnJSeFVacUJTZE50d0tKSjlpRDJzVVg2eG4ydUE5MDB4cWxXMW5NWWw5dFJ5MzlhUmZKN0JrVEItRjFsTG10ZlNaM0kzVWlvZ9IBrwFBVV95cUxNT2FWMTVLUUtid1p3b19tU0RsZHJOMkVaSllXM0xhNUJqcVZYY3FUMVpSaENLbEh2VUxOQVVhOWdiNy00eFZNRnRJX2tuOEhfSDVOVHF3c1ZxaWVZMU81eUZsbzdHTWUzbWNqMkdYY09wSEtsa2JHSlctOVFJTVBKTmc5RUFCdVpIT2pzQmlSY0oxUEVWZzRNMUNFUGQzUWxfTWU4M29QVkFvc2xibExr?oc=5",
+      "published_at": "2026-09-19T12:09:49Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 36,
+      "tier": "D",
+      "query": "nato-ukraine"
+    },
+    {
+      "title": "СБУ создала дрон-перехватчик для борьбы с реактивными \"Шахедами\", - Зеленский",
+      "summary": "СБУ создала дрон-перехватчик для борьбы с реактивными \"Шахедами\", - Зеленский Цензор.НЕТ",
+      "source": "Цензор.НЕТ",
+      "sources": [
+        "Цензор.НЕТ"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQODBmdzNOX1VZQmNzc0huaGxqNm9hX05UTVg3QTZiZWtqTVFNa2tGSDFzRzh1U0YyQ2tKQ0NjRV9xVndmdG9jS3JvUnF3VF9VOVVoMHE0cm9iRTFHNzV4NTVHQm9Hcm5hUGpPRmRKVmdrbzJDYk9Wb2sxSEZhaS1kZ1BhMTlaTDc2amI0dnFFd2dvemZReEM3Rg?oc=5",
+      "published_at": "2026-09-19T11:57:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "TECH",
+      "score": 36,
+      "tier": "D",
+      "query": "miltech"
+    },
+    {
+      "title": "Не один год: в США рассказали, когда, возможно, исчезнет дефицит ракет для Patriot",
+      "summary": "Не один год: в США рассказали, когда, возможно, исчезнет дефицит ракет для Patriot 24 Канал",
+      "source": "24 Канал",
+      "sources": [
+        "24 Канал"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQZlhQRkNPeHd4WDVXN1ZFY251Z3pESDhYNTlaOGlaY1dvSUl1aHE3dHhCRkI4TEdpOTVKQnJZOTNEdkVpM1JmUU9FelhPM0FJdlJ1UjFVWnZGOXVjRFpreklMU2lDRXB3eHdMeDJRZExmRkc3Vzl6VHluczIzc05EQmFvODM3aUFCRzlkZVBDN0o0Q1Z4Z2RHaHU0dDFnMzdNSi1YanI3cTNjNlZwTllv0gG0AUFVX3lxTE1FN1JYMnFjQnZaTE9iVHBsazJNV3gxdS1md0I2NzNDUmtaUndQcERFQnExU3poM1Q2ejhjcFFrX3ZsRGtCX0ZzaWJ5cWRpSVpfU3VfenBKNThNOEZoMXZ6R3ZSUzVQLVY0ZEV0LXlXODRpeHM4QjBKU2piNU5GWUY5Z0pqY0NDY2lTODgwMm1wemRvWHFCSWk4NndFUFVLMTIweGVVakw2UnZSYmhETW9lMy02cQ?oc=5",
+      "published_at": "2026-09-19T11:17:00Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 36,
+      "tier": "D",
+      "query": "us-ukraine"
+    },
+    {
+      "title": "Кремль пойдет на все, чтобы отсрочить санкции США: что задумал Путин",
+      "summary": "Кремль пойдет на все, чтобы отсрочить санкции США: что задумал Путин 24 Канал",
+      "source": "24 Канал",
+      "sources": [
+        "24 Канал"
+      ],
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOcEFQM3QzejVrMEtKaWpSTUxxbWJ2aEdVUEp6eFdBczhjRnNURjd2UjB5WGV6ZEN0dkpEVm4yUHY3MEZiblNLQWpHTC1ncDNXQnJjcFV1RE9oWXlCLVJhbGJyNVdMaEpzREZrMlJXMzFNXzVQSnhVTWdoR2NXbzg2anlJNVRTVTRWZUZUeEJ2OUdHWnVGQmJz0gGcAUFVX3lxTE43TndTejZ2QmN1QmNLUDhmd0dTZ0NPQzdyTU8tR1NCaGZjTjV3ZFVYNjlFSlZucVZMaGFURUJCNlJVWUxlR3g0UUwwUFJxdkNYcXhCaU8wSnRCdnlqM0RKMWVDWC1yQ21WOFRvRjh6N3FqY2hOLXh6ZmhFNG5NemVIR0RiN05MOUdpM0hVLVR3aEhoQXU2VG8ycm80Uw?oc=5",
+      "published_at": "2026-09-19T13:15:19Z",
+      "last_seen_at": "2026-09-19T14:14:10Z",
+      "category": "WORLD",
+      "score": 35,
+      "tier": "D",
+      "query": "sanctions-diplomacy"
     }
   ],
   "articles": [
@@ -4995,22 +4979,22 @@
     {
       "id": 26091902,
       "category": "WORLD",
-      "title": "США одобрили возможную продажу Украине вооружения и оборудования для ПВО на $2,68 млрд",
-      "summary": "США одобрили возможную продажу Украине вооружения и оборудования для ПВО на $2,68 млрд Судово-юридична газета",
+      "title": "США одобрили возможную продажу Украине вооружения для ПВО на сумму свыше 2 млрд долларов",
+      "summary": "США одобрили возможную продажу Украине вооружения для ПВО на сумму свыше 2 млрд долларов Газета МИГ",
       "source": "LIGA.net / Газета МИГ / Інтерфакс-Україна",
-      "time": "08:48",
+      "time": "13:29",
       "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
-      "details": "США одобрили возможную продажу Украине вооружения и оборудования для ПВО на $2,68 млрд Судово-юридична газета",
+      "details": "США одобрили возможную продажу Украине вооружения для ПВО на сумму свыше 2 млрд долларов Газета МИГ",
       "statements": "",
       "reality": "",
-      "previous": "Материал обновлён в 13:36. Источников в объединённом кластере: 7.",
+      "previous": "Материал обновлён в 17:14. Источников в объединённом кластере: 7.",
       "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
-      "source_url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOaXMza3k2OGp4eGo2WVMyc2ticGswNHZsdFM1YUpHX2UwQVVpSkhWSVpSaDRLNHNtZTB0VFlVRlBMOVp2bjU4VXk1TEVFVFpBS05kTm1mZjFkTjZPd2pfRFdTWGNqTzUyWllYWTJ0TnVZRWRxT3d5MjlLdXFyN1A2aWc5WlVLbUxQOUVIWUdEODRQTl9yQTd4VDZQVmU2cmZ0dWFEdkNhUGo0Q20wWGgwYm9TNEhRTWJKVHMxMFRlNXlwSTc0?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOQk1oS1lSaWJmc2F4NEVRcmdicEhBQ05xU0hGVklOR1ZIYWNraVQzMDNFSjN2ZnR1Q1E5cU1KNENvTE95dDM5VG93b2dyNGkyUjN0U0pyZUE2S21rN3dtVHRCVF9HdVUybThOVUg1b1ZMZ2NRSGFnb0J4bHBrSkctZmt6VkhtWkpSakMxSzRydGhYdzNnekNPOHo2dklLWDZIS1RvbElqRks0aXFuREFhQ0I3QWhld3dCNDNF?oc=5",
       "importance": 100,
       "tier": "A",
-      "published_at": "2026-09-19T05:48:00Z",
-      "updated_at": "2026-09-19T10:36:31Z",
-      "update_count": 1,
+      "published_at": "2026-09-19T10:29:54Z",
+      "updated_at": "2026-09-19T14:14:10Z",
+      "update_count": 2,
       "_sources": [
         "LIGA.net",
         "Газета МИГ",
@@ -5115,21 +5099,22 @@
       "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 6 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 6.",
+      "previous": "Материал обновлён в 17:14. Источников в объединённом кластере: 7.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
       "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQdi12dmVucHJWZDZIYkpma1JyU2d4ZjkzVWhZMXVhNzVoeUFmTFhodWZjQjNNcXRWSkhJRzBSUnZVdm1HWUpWakszZU1LbVA1QjIta0RiYm1KWHFiTDNERDB0QkVlZWV3Z1hmRlRzUzVQXzVucVZ1NVlhYVo3T2RSU29vckVKNjZvaUdmcjRFTy3SAZMBQVVfeXFMTWw0V0FjMk9jakdhYjBXTmNtZENpdUhXMU5PNkN0QWxBU0FHREUzOXhRamV0dlZmMXA3N1M3bUp1TURJd0ZyQkxoUWNiaUhyR2hLdjg2VzFrRl91Z0FUY3ZEdEp5WjZXTDlxQ1ItRm5VdUg1Umh0VXNjUzdJcUdBYUpEMFdpbG5lbGFlNEZsNkpVVWg0?oc=5",
       "importance": 100,
       "tier": "A",
       "published_at": "2026-09-18T10:30:00Z",
-      "updated_at": "2026-09-19T05:35:25Z",
-      "update_count": 0,
+      "updated_at": "2026-09-19T14:14:10Z",
+      "update_count": 1,
       "_sources": [
         "LIGA.net",
         "finance.liga.net",
         "Центр журналистских расследований",
         "Delo.ua",
         "Крым.Реалии",
-        "Європейська правда"
+        "Європейська правда",
+        "nv.ua"
       ]
     },
     {
