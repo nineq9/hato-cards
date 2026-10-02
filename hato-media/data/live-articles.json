@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-02T08:12:05Z",
+  "generated_at": "2026-10-02T15:35:04Z",
   "edition_date": "2026-10-02",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -354,18 +354,19 @@
       "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 3.",
+      "previous": "Материал обновлён в 18:35. Источников в объединённом кластере: 4.",
       "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
       "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQcG5lWDlIUDBYQWZvTy1xdFQ2V3QwcUdwWWJPU2dNNnFrWklxZnJzV3ZTMnNNS2Z5Xy1lRHR0RzhsUWZ0T21sVFpGWHVQODQ2VC16RUxZMGs0b1RSVkZXcDdWTzVzSWNjVlp3MHNyV0xaME1jWWw2M3lHZ0pMMDVvaTN6TS1YN2NESDdxcWZGdGNyY2dEcGdZb2VXeXVYbVV4ZVlWeFFLMmXSAa4BQVVfeXFMTTBjbE1RMjRac1FJNDBHa19TcWl0N1BlMDNrU182UmFObTdrU2lScGFUQWtFM1l6X1JmUlUxTjZMbE0yMHJjWmdoaEtPaFYtYzd4NDdZSDkwVkJZR2lyU3N0WTJRNWhZX25haXZhekZMVmdPWlY3Ylg3aGY1RXpCQklCZjRnWUZMYmViLUVLSlpUNkJqbFZQeWZwRUtjejNfSUo3eWJka21MUV9JS0ZB?oc=5",
-      "importance": 82,
+      "importance": 100,
       "tier": "A",
       "published_at": "2026-10-01T15:39:00Z",
-      "updated_at": "2026-10-02T08:12:05Z",
-      "update_count": 0,
+      "updated_at": "2026-10-02T15:35:04Z",
+      "update_count": 1,
       "_sources": [
         "УНИАН",
         "Головне в Україні",
-        "Українські Національні Новини (УНН)"
+        "Українські Національні Новини (УНН)",
+        "glavnoe.in.ua"
       ]
     },
     {
@@ -468,25 +469,26 @@
     {
       "id": 26100219,
       "category": "WORLD",
-      "title": "Путин знает, что не победит НАТО: Рютте о ядерных угрозах РФ",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "LIGA.net / Факти ICTV",
-      "time": "20:54",
+      "title": "«Путин знает, что никогда не сможет победить НАТО». Рютте заявил, что не видит риска ядерного удара",
+      "summary": "«Путин знает, что никогда не сможет победить НАТО». Рютте заявил, что не видит риска ядерного удара nv.ua",
+      "source": "LIGA.net / Факти ICTV / nv.ua",
+      "time": "22:11",
       "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "«Путин знает, что никогда не сможет победить НАТО». Рютте заявил, что не видит риска ядерного удара nv.ua",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 18:35. Источников в объединённом кластере: 3.",
       "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
-      "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPZlpmTFpYTW4wX0pHSy1IWDFOOU1UOW9yQlFfc1luaVdUNXJVdUZwbEY4Zm9XVElQcGRSbmRtM1o5aDIwT2laZ1ltZEdxaWh2Nl9NUzloczYtLWtXZVR5N0xZLUdTS0dnUHJYWlFLZ2NqbUV4ekNOem4zNkM2eVhibGJEWTRwYjZpZ3ZIdmFVMmRZcXNqS2xKR1ZzOVhTdFVEWGJtM1NB0gGrAUFVX3lxTFBuVk9ndDExY2tkbnZyZmFyMGRvODBHM1FTWHNBa0N2ZXBKNjF2TUZFYl9EZ2R5TlVmbVVabzVISURZV1ZlTWNOZFc5RzRZUFgyOWJfUEtkVG5iNVJDYlUzRHdHT3ZocUxRdUp4RzBRNnJzc0w4VXVOMXpESHFBcjgyVi1OeXQ4dVpyXzlTLUE5WnhULUVXYXFOU3V5TnBaODBqRURoOEVYdHZoaw?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOY0lMcEFqSHlUUWEyMXZUU29zcXlxM3dpNFJRSGpiUC1xMHhOM012enlJaUozenFPR2loRVN4U21yUnh1andlOHl2THRlZzlkNmFRUlRDREVIbEtqMlVzMFp3Q0RlR2FqamVTNkE5bHBhRU1uQURzc0JzTUxUVWhpdHV5SG5YeUJzN09TRXBDRmRxU0dXTWlGRUFJRkFiQkVzWlhKTkRHN25YVXJSaklZMkN0ZEtaMFpTb0ZPcmlqTdIBrAFBVV95cUxONG1IeEdJT3NvMEtrTmw1TDdhLW54UTVDZVlUSklBOW9wMllqYlZDVi1YOHI4cXJLZVVQNkRkU3B3NERva1N0YmlQeHgxaFV3eTZ3M1BwUkJYVUhuVHJrbXd6UGdjTFRnOXlZWEVFcG9fQ3B6dWJrbHRaRDdTQTR0d2pPbTgyRjRlN2JySXR6LTQzZFBMbzBzWGJHaUJIZ0xtSDQtQ3JSLXY5Z3RX?oc=5",
       "importance": 79,
       "tier": "A",
-      "published_at": "2026-09-30T17:54:00Z",
-      "updated_at": "2026-10-02T08:12:05Z",
-      "update_count": 0,
+      "published_at": "2026-09-30T19:11:00Z",
+      "updated_at": "2026-10-02T15:35:04Z",
+      "update_count": 1,
       "_sources": [
         "LIGA.net",
-        "Факти ICTV"
+        "Факти ICTV",
+        "nv.ua"
       ]
     },
     {
