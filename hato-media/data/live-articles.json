@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-05T06:41:27Z",
+  "generated_at": "2026-10-05T15:43:10Z",
   "edition_date": "2026-10-05",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -752,24 +752,26 @@
     {
       "id": 26100531,
       "category": "OSINT",
-      "title": "Удар по дронопорту \"Цимбулова\" РФ: OSINT-аналитик показал спутниковые снимки повреждений",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "УНИАН",
-      "time": "08:40",
+      "title": "OSINT-аналитик показал спутниковые снимки повреждений дронопорта \"Цимбулова\" в РФ",
+      "summary": "OSINT-аналитик показал спутниковые снимки повреждений дронопорта \"Цимбулова\" в РФ Gazeta.ua",
+      "source": "УНИАН / unian.net / Gazeta.ua",
+      "time": "15:52",
       "why": "Важно, потому что независимые данные и открытые источники помогают отделять проверяемые факты от заявлений сторон.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "OSINT-аналитик показал спутниковые снимки повреждений дронопорта \"Цимбулова\" в РФ Gazeta.ua",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 1.",
+      "previous": "Материал обновлён в 18:43. Источников в объединённом кластере: 3.",
       "watch": "Следим за независимым подтверждением, геолокацией, спутниковыми данными и первичными материалами.",
-      "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQMFU4a1BPOC1CSWg3RFBuOUszLUpsR1dwRUZmaEJNWDFwUkd2WGpyR2RHZ0hNZUQ4cFpuWUx4R1A2Z0hFQ0xsaUt2NTZyTWNoa3B2TG5RbXJ0QWNxZ3JVSy1aZXJrTmhUbzhVVGMxa01lQUdnTG9wX09GMVBVdVJ6VTlTUG93RTFFNl9kVGtTalpZV2R2eUxyaWFJaE5PM1RaNXMtVzgxcWlFTHlrUkJMeTUzUXUzMFZ2aFpnR3EtVFUxaE8waUluTW530gGCAkFVX3lxTE5vaHZvNDFXY2h5YVRXMU1VYjRUS0p6T2d0VjVvc0hUSTFCRTB1YUlTRUJ5Sll3N096V0l0M2ZZaXJ2U1MyenhTaGloaFREMGVFdXVGZUUxQzJuYlN0Z3dhRXN0MVI0U3lFLTVlR0dlRTVxX29OOXdKelQ5VWRRdmR1LU1SODVCaTBRdlVuVTBSamJFMHdfMjkwNjNwSEd4akpYLWd4aGt0ZUxicGk5UmdrQTJldzZ0cnlpWWFlYW9NVFpNNFFFQ2VkbEJzQUYzSXJSUllyTzd5aVY5bWtpLWZuMS14ZERNMzlHMUI0TVhXZ3JlVFJwaFpXdlZYcXVDNGhkZw?oc=5",
-      "importance": 56,
+      "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNbEdpc2dGbHRRV0dkQkQ3ckY2RWNrWFdxMGdVd0pycWtrSHh4eVljcVIwVFpmV3V5ZzFHSUdXc3lkMlBlYW5xTEtzeUQxN0JUb0pYa1MyQ2QwLTl3T19IbFZWeVo2SW9jWVBiM3lMdTFEUFkxQkRUd2d5dDQ1OGtxTzN4cjk3TDBkZXJXSFRtTjVmdWJCUFpwcGFTQWRmUVpTTEFJd0FPT1F1Y1lIb1JZVWJpMk9OUzNzQktSeFdDNk5uQ0VvLW5lMw?oc=5",
+      "importance": 70,
       "tier": "B",
-      "published_at": "2026-10-05T05:40:19Z",
-      "updated_at": "2026-10-05T06:41:27Z",
-      "update_count": 0,
+      "published_at": "2026-10-05T12:52:17Z",
+      "updated_at": "2026-10-05T15:43:10Z",
+      "update_count": 1,
       "_sources": [
-        "УНИАН"
+        "УНИАН",
+        "unian.net",
+        "Gazeta.ua"
       ]
     },
     {
