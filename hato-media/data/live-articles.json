@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T22:24:24Z",
+  "generated_at": "2026-10-06T02:47:12Z",
   "edition_date": "2026-10-05",
   "mode": "hourly-update",
   "policy": {
@@ -761,18 +761,19 @@
       "details": "OSINT-аналитик показал спутниковые снимки повреждений дронопорта \"Цимбулова\" в РФ Gazeta.ua",
       "statements": "",
       "reality": "",
-      "previous": "Материал обновлён в 18:43. Источников в объединённом кластере: 3.",
+      "previous": "Материал обновлён в 05:47. Источников в объединённом кластере: 4.",
       "watch": "Следим за независимым подтверждением, геолокацией, спутниковыми данными и первичными материалами.",
       "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNbEdpc2dGbHRRV0dkQkQ3ckY2RWNrWFdxMGdVd0pycWtrSHh4eVljcVIwVFpmV3V5ZzFHSUdXc3lkMlBlYW5xTEtzeUQxN0JUb0pYa1MyQ2QwLTl3T19IbFZWeVo2SW9jWVBiM3lMdTFEUFkxQkRUd2d5dDQ1OGtxTzN4cjk3TDBkZXJXSFRtTjVmdWJCUFpwcGFTQWRmUVpTTEFJd0FPT1F1Y1lIb1JZVWJpMk9OUzNzQktSeFdDNk5uQ0VvLW5lMw?oc=5",
-      "importance": 70,
-      "tier": "B",
+      "importance": 100,
+      "tier": "A",
       "published_at": "2026-10-05T12:52:17Z",
-      "updated_at": "2026-10-05T15:43:10Z",
-      "update_count": 1,
+      "updated_at": "2026-10-06T02:47:12Z",
+      "update_count": 2,
       "_sources": [
         "УНИАН",
         "unian.net",
-        "Gazeta.ua"
+        "Gazeta.ua",
+        "gazeta.ua"
       ]
     },
     {
