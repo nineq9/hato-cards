@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-21T04:01:40Z",
+  "generated_at": "2026-10-21T09:54:22Z",
   "edition_date": "2026-10-21",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -122,25 +122,26 @@
     {
       "id": 26102105,
       "category": "WAR",
-      "title": "Дрон рф атаковал трассу Киев - Одесса: трое погибших, есть раненые",
-      "summary": "Дрон рф атаковал трассу Киев - Одесса: трое погибших, есть раненые Українські Національні Новини (УНН)",
-      "source": "Українська правда / Українські Національні Новини (УНН)",
-      "time": "10:17",
+      "title": "Удар возле АЗС. Россия атаковала дроном трассу Киев — Одесса в Чабанах, трое погибших, есть раненые, сгорели автомобили: главное",
+      "summary": "Удар возле АЗС. Россия атаковала дроном трассу Киев — Одесса в Чабанах, трое погибших, есть раненые, сгорели автомобили: главное NV",
+      "source": "Українська правда / Українські Національні Новини (УНН) / NV",
+      "time": "12:32",
       "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
-      "details": "Дрон рф атаковал трассу Киев - Одесса: трое погибших, есть раненые Українські Національні Новини (УНН)",
+      "details": "Удар возле АЗС. Россия атаковала дроном трассу Киев — Одесса в Чабанах, трое погибших, есть раненые, сгорели автомобили: главное NV",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 12:54. Источников в объединённом кластере: 3.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
-      "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNSk11LXhrTHczOHh2Y21WQUVuSkF1T2Z4Yl9jT3NnSDNseVczU2FRN05FQXdJcm5KNEtCTEZLZmRVN2pwNng0VkxqZWFITGJMUkhLVU83X2JsQm1RMnIwYUphTzRjODlXSkZpcUhVUndIX05LU2ktZVA0VGFUVE5vSFRxNmtrWEFNbXJGN0hKR1rSAY8BQVVfeXFMT2lJWWhhX01maWtFSGhUN2g0aHR4eEU5SkdDak9sbmZPWmpSZlpCOS1xUnljclV5Y3V2Tko4cVVOUGJxcG1wZ1BjeVlOX0R0VHFsNk54dERaYzBURXpob2x0d2ZjWTJBZmhMTlg1OVo1aWduYUd5NHMtTkJoUjNLOEhuTElsVmVDcG55NW16eW8?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQUG1uSG04VERpMDdXbXVqVURndDkyUE94TDJDX1JVempZOUloUDBNUGhXd2pyVDdEdXJGWFZMSE1YdjVMRlBwaHlWNHo2VUJ4MWNQdlBPNlFjTUUwRTIxX0NleEFpTVRZWFNRazE5RHdkMGdGQWZxc2NQZjJDZkxwdk5yWkQ5TEJySl9TUS1xNWhvM1ZkZVZXSTBmcFZHRkhxSktmdnFmQWRvZUtKbjJfdTJOUWdxME04Z09JempmZU52eEZ5Vmd2c3Etajl0QdIBvwFBVV95cUxNN3VjWHRZSDZpQjhSdGI1d0lWQTVZOGEtcEwxbGlnR2VuT3RDY1Nhb3ZrUGNQVnFUbnFTM3hTaWhWdmFNMzAwaEh1M3k1WG5JblVxMTRneXU2Q0dvUVZZU3FKTjlVelAwdVJfcmdyNlY2ZlRsdnE0ZkdjczZvZktPZlNnM2R3R0hpRHU2emh4czhDTDgtYkdmR3NoeU5wbjJNREdHbW14ZklQNVdNLVM2dUtYaHdnY2FIbEVocnc2bw?oc=5",
       "importance": 100,
       "tier": "A",
-      "published_at": "2026-10-20T07:17:35Z",
-      "updated_at": "2026-10-21T04:01:40Z",
-      "update_count": 0,
+      "published_at": "2026-10-20T09:32:00Z",
+      "updated_at": "2026-10-21T09:54:22Z",
+      "update_count": 1,
       "_sources": [
         "Українська правда",
-        "Українські Національні Новини (УНН)"
+        "Українські Національні Новини (УНН)",
+        "NV"
       ]
     },
     {
@@ -259,19 +260,22 @@
       "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 4 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 4.",
+      "previous": "Материал обновлён в 12:54. Источников в объединённом кластере: 7.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
       "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOZkZ4MnhRMnJ1YnllTk9rQV82X2pmSWVFYlI0MFY0YTYwUV85YUdBUUhScTd2dnpKbkZCU1dNRHZpb0c2d1FFMlNhSHh5T3ljYkljUWNGaUhvWU1wUXFSZ09NMjVIVXBsa0U3dGI0bVFQUmREQzZvT1Zna0NBS2RlQ2NERmEtNVhzc0dxeEdqNGl3Z0NvTDZjTk9rUGxhNnEwVVhxNGJQNUt5OC1rR3R4b2ZWOThucUtubFVDVl9OVGcxck5SaWo1YV85eTd0cjFCS1JIZndPZHNNN1Fw?oc=5",
-      "importance": 87,
+      "importance": 100,
       "tier": "A",
       "published_at": "2026-10-19T19:52:30Z",
-      "updated_at": "2026-10-21T04:01:40Z",
-      "update_count": 0,
+      "updated_at": "2026-10-21T09:54:22Z",
+      "update_count": 1,
       "_sources": [
         "Новини.Live",
         "АНТИКОР",
         "Борг.Експерт",
-        "24 Канал"
+        "24 Канал",
+        "Українські Національні Новини (УНН)",
+        "Головне в Україні",
+        "Апостроф"
       ]
     },
     {
@@ -445,25 +449,26 @@
     {
       "id": 26102118,
       "category": "WAR",
-      "title": "НАТО направит в Черное море самолеты и дроны из-за атак на суда",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "РБК-Україна / NV",
-      "time": "04:47",
+      "title": "НАТО направит дополнительные самолеты и дроны в Черное море после смертоносных атак на суда",
+      "summary": "НАТО направит дополнительные самолеты и дроны в Черное море после смертоносных атак на суда Факти ICTV",
+      "source": "РБК-Україна / NV / Факти ICTV",
+      "time": "12:36",
       "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "НАТО направит дополнительные самолеты и дроны в Черное море после смертоносных атак на суда Факти ICTV",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 12:54. Источников в объединённом кластере: 3.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
-      "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPeWRPZjN6QmhQZnY2RVVWWDFKQ201al9OTUJFRk1fbkhGaXB2Nm1mSFdfeDYyVDRPS3JGZFlTaWRWcDdGQjVIQ290Rm9mc3pYX19zY1BSUXRGVjFzNm9XbGRWbzcyXzZZU0c5NWZ1OFd4WXI5MjhycDdacGJyOTUxejdkTFFfMlAzU2ZkcHZTNU1JZVnSAZMBQVVfeXFMT3lkT2YzekJoUGZ2NkVVVlgxSkNtNWpfTk1CRUZNX25IRmlwdjZtZkhXX3g2MlQ0T0tyRmRZU2lkVnA3RkI1SENvdEZvZnN6WF9fc2NQUlF0RlYxczZvV2xkVm83Ml82WVNHOTVmdThXeFlyOTI4cnA3WnBicjk1MXo3ZExRXzJQM1NmZHB2UzVNSWVZ?oc=5",
-      "importance": 68,
-      "tier": "B",
-      "published_at": "2026-10-21T01:47:42Z",
-      "updated_at": "2026-10-21T04:01:40Z",
-      "update_count": 0,
+      "source_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPV2pTTEFqSEEzUDFwN2VLWU9tcjgxQ2RmdUxJaHR2aXVFVjV3YlRtRVVGMzZSRHBSWnFHT3BHWFFCQ3RJa09LMVNleU11YlAxaEhHSTJNTFo0aTEzaVNUYWhxZFEzYzA4WVdoR29zWFdzb2hkTzh1UkpJYUlpUktRZWtrSzUyZk5kMzlpLU11Q1JBd2ZEWjZyeHZNZ1FTazFoTENFcE0yajVuN1pic3JmRnZ2MVFtVGozZ1YyOC1IZlcyOGhmSi1R0gHMAUFVX3lxTE9oNDFUWktYbXhpeFBXbnRCOS12SzV5OUVoVXVaMngxeHA4T1d1RGp3ckNoX1U3Y2M2SEU3a1BXbDZLeUFkVHNNcnpCWGg4NGJuZkhEb0Q1UFB1OVVyckkyVGNQd3g5YzBnN3VBMDNtamxKLU5Jdk5odDVYOVRrUWRPeExhNm5FYi1ZOU1qSWZybk9JMUxlcmJEMmtsMGtyNlpzX0pwMHUxTWZUazJnb2d1MGJxTHY1bTRxOEtRVVE4azkwMFIzVHhxNkU5TA?oc=5",
+      "importance": 82,
+      "tier": "A",
+      "published_at": "2026-10-21T09:36:00Z",
+      "updated_at": "2026-10-21T09:54:22Z",
+      "update_count": 1,
       "_sources": [
         "РБК-Україна",
-        "NV"
+        "NV",
+        "Факти ICTV"
       ]
     },
     {
@@ -1183,6 +1188,31 @@
       "update_count": 0,
       "_sources": [
         "Судово-юридична газета"
+      ]
+    },
+    {
+      "id": 26102150,
+      "category": "WORLD",
+      "title": "NYT: США предложили ЕС возобновить закупку российского газа в рамках мирного соглашения по Украине",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "DW.com / Інтерфакс-Україна / Слово и Дело",
+      "time": "01:39",
+      "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 3.",
+      "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
+      "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQeTRxMDdsN0ZvTXJ3RnEwRjVmcUVMZGxaYTMyVzhIM2lNU25Nd0dkeGZPODlQNnlGUUVlaWc5b2g0dEQ4clB1N1FrbGtpeGRqbUdkZWxCckJpdEtvTjlyOWpuX3ExZnkxV0dyamFmR1BydzV2WXA4cWdQUmQtc1ZXOW5CelVwNXdFOHZYY0ZfUmMtQl9YQmtKOUtKMVFST0FUVkNKdlA1RkVjZGh2M3ZWNUdCRlk1WV9mVDFHZ05FeC1aMDJUTU83btIByAFBVV95cUxQeFlZc3FOMkE4YUZWcUNRZ2dKaVpxVlREYnk0ZjN0cnJ0UVN6Y0tZV19Ha21FNTJOTmRrUVVuai1aZDBmMGh2M3Y3LTZxZnB4Zjc5NWxVbE5HdldZVHJmVU1Md0x4TDhjemtLa0k4NU5Eek1PbDZzY08wYWp4aEFPUUx4c2lCczhvY3BFcFZUYUdsMHhsSFJ4M2t0TkFXXy1fQkxJZElKNmozOUVLaURvS0lHRElHZ19FQlFDWUhUY2dVNll1elZFeg?oc=5",
+      "importance": 100,
+      "tier": "A",
+      "published_at": "2026-10-18T22:39:12Z",
+      "updated_at": "2026-10-21T09:54:22Z",
+      "update_count": 0,
+      "_sources": [
+        "DW.com",
+        "Інтерфакс-Україна",
+        "Слово и Дело"
       ]
     }
   ]
