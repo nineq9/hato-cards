@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-25T09:05:21Z",
+  "generated_at": "2026-10-25T14:11:03Z",
   "edition_date": "2026-10-25",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -249,18 +249,19 @@
       "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 3.",
+      "previous": "Материал обновлён в 16:11. Источников в объединённом кластере: 4.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
       "source_url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5VQkhDZnlQN3hGMm5jT0FBZW9BQWpfcnRGYTktYVV1UkxUTzdXTzYtRHRpSUowYWEtTzdqcE9aNVh3cFluc1ZXaV9PQWl3R013blo4UHhEdms2aVZpNmtUWXhocnpQVDQ?oc=5",
-      "importance": 88,
+      "importance": 100,
       "tier": "A",
       "published_at": "2026-10-24T12:08:27Z",
-      "updated_at": "2026-10-25T09:05:21Z",
-      "update_count": 0,
+      "updated_at": "2026-10-25T14:11:03Z",
+      "update_count": 1,
       "_sources": [
         "Судово-юридична газета",
         "Rubryka",
-        "NV"
+        "NV",
+        "Слово и Дело"
       ]
     },
     {
@@ -526,22 +527,22 @@
     {
       "id": 26102522,
       "category": "WAR",
-      "title": "Российский дрон ударил по ферме на Сумщине, есть погибшие и раненые",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "title": "Россия ударила по многоэтажке на Днепропетровщине, есть погибшие и раненые",
+      "summary": "Россия ударила по многоэтажке на Днепропетровщине, есть погибшие и раненые РБК-Україна",
       "source": "РБК-Україна",
-      "time": "16:08",
+      "time": "20:15",
       "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "Россия ударила по многоэтажке на Днепропетровщине, есть погибшие и раненые РБК-Україна",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 1.",
+      "previous": "Материал обновлён в 16:11. Источников в объединённом кластере: 1.",
       "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
-      "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQb0RQUzBmNWo1OWNKZEVTS05wdUdpbDdsWWtsM0g1MHpWSHMzWGM3cEIzdVF0cHJQSXlJaEtuZ1FpYkd2TzN3a1lDZHdGaFRUbElfT3Mzd0k2YVA0SUhYbGdmQmFUdjQzeFYtVWpvOS1KR0J0M2hEYmJKcU5mUmRxOURWUHhUZEU1bFlzU9IBkgFBVV95cUxNRTMtTlI0OTBvX0JSMG0yRjg0WExtODFCVlI2aVZyVEctd003bW9hNm0wZS1rSExOWnlTTFlJaHdRYlNRYkFSbXJPNjVLLTBERWJ6Y0JSaXFWTUU4Qk51SXBVNnREeGdNWUpWMmt2bkMyRTdMMUl1dkwyN2VGUzdCengwWWdJeWVXMTRpZEtBcWdmZw?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPS1ZuSm51Z3JmcU8wSUgyWU1MWEw3WENLTWtKblBla042ejlDbHJ3Yi12d3Jub3pyM1kzbGZJQjRhOXBpaGlhX2VUNUFCQlVodERGb1picVBSV1RhbzJjYm9CLXB6QU53MmFHN2RCNm92cHJ1cVVORWVXUVdJb0ZXWUdUNFBkLWFNczM4TE9BVUd5WThPS2MtbVJBeUZqYkVFSlHSAaIBQVVfeXFMT0tWbkpudWdyZnFPMElIMllNTFhMN1hDS01rSm5QZWtONno5Q2xyd2Itdndybm96cjNZM2xmSUI0YTlwaWhpYV9lVDVBQkJVaHRERm9aYnFQUldUYW8yY2JvQi1wekFOdzJhRzdkQjZvdnBydXFVTkVlV1FXSW9GV1lHVDRQZC1hTXMzOExPQVVHeVk4T0tjLW1SQXlGamJFRUpR?oc=5",
       "importance": 61,
       "tier": "B",
-      "published_at": "2026-10-24T13:08:19Z",
-      "updated_at": "2026-10-25T09:05:21Z",
-      "update_count": 0,
+      "published_at": "2026-10-24T17:15:09Z",
+      "updated_at": "2026-10-25T14:11:03Z",
+      "update_count": 1,
       "_sources": [
         "РБК-Україна"
       ]
@@ -1100,6 +1101,109 @@
       "update_count": 0,
       "_sources": [
         "OBOZ.UA"
+      ]
+    },
+    {
+      "id": 26102547,
+      "category": "LIFE",
+      "title": "Правительство выделило 187,6 млн грн на восстановление 33 домов: Корецкий",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 5 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "Українські Національні Новини (УНН) / Новини.Live / UA.NEWS",
+      "time": "15:23",
+      "why": "Важно, потому что это напрямую связано с жизнью людей: работой, жильём, ценами, энергией, медициной или образованием.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 5 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 5.",
+      "watch": "Следим за тем, когда изменения начнут действовать и кого они затронут на практике.",
+      "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQOGp6TFpPcHZMbzJMWldQOWdONVVjNF9NUU80V2ZxZFhuc2JDNHBwOHFKanV3THJjUUl6Z2V1RjJxOE5tWWFoYy1qckhaOTl5WkN0RDNpTHd2aDFDcTBid1lRcm1LOERaS1NjTEllaWc1cGpwaXBBQWRvN19BU2w5amY5ZHYtczd5bFI1Y0tQR3JndUhxUzJDLWpTcFZBVzNMT21ZaTI3NkpYM2NHcG50eNIBtgFBVV95cUxOSFdSWXMtdERSaS1oRmdvMi1QTnZtbkRoWXM2NllXZ19GVWw3RWx1S1F2VGdETzdKejBtQzBCbkVuQkNfTFN1N3AwRERlWGFrb0JySFpNQzFLUFJvdU1qM0pkX0ZzVnZqZEJLSzA3RHdfUUwyTE82M0o0cENtVkpnWC1WaDhCY3Y4UDBMX2hNWks0ZUhGTGt4dGlZdlZvRVk3Q3dJeWhRckVnTmdkOGdFR1ZuX2FlUQ?oc=5",
+      "importance": 100,
+      "tier": "A",
+      "published_at": "2026-10-25T13:23:08Z",
+      "updated_at": "2026-10-25T14:11:03Z",
+      "update_count": 0,
+      "_sources": [
+        "Українські Національні Новини (УНН)",
+        "Новини.Live",
+        "UA.NEWS",
+        "Інтерфакс-Україна",
+        "Слово и Дело"
+      ]
+    },
+    {
+      "id": 26102548,
+      "category": "WORLD",
+      "title": "Война России в Украине: ЕС добивается более значимой роли в мирных переговорах",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "Euronews / Euronews.com",
+      "time": "17:28",
+      "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
+      "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQMmRmTFpVUlNPRUJQU2JzSllIYUNnenJQVkFPaEJtX09tbmZsQmFiV3NZeUdHQndHRVMwcllxV0plNWI1dkJ3VXQtNFdHU0JHeC1zTHN1QVZsNGFFWnhTNzB6SUpnc1FaWXk2Z003NVQ3cHcxLW1jdFhydWhXLTZfdzFEcWIyUURJd1lEcGl2ZTlCN1VmdnFVR1IwRVpTcERRMlp2R2V5TnJjelc4TEVfN3B1Mm84Zw?oc=5",
+      "importance": 100,
+      "tier": "A",
+      "published_at": "2026-10-23T14:28:12Z",
+      "updated_at": "2026-10-25T14:11:03Z",
+      "update_count": 0,
+      "_sources": [
+        "Euronews",
+        "Euronews.com"
+      ]
+    },
+    {
+      "id": 26102549,
+      "category": "TECH",
+      "title": "Украина сможет закупать оружие и боеприпасы через закупочное агентство НАТО. Какие преимущества",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 6 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "uatv.ua / OBOZ.UA / АНТИКОР",
+      "time": "10:00",
+      "why": "Важно, потому что военные и технологические возможности всё сильнее влияют на баланс сил и защиту инфраструктуры.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 6 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 6.",
+      "watch": "Следим за серийным производством, реальным применением и подтверждёнными характеристиками, а не только анонсами.",
+      "source_url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcFFwWVgwRkdZV1YxcDZyZG5SSjVnenNuWU1MMEp4RXZjVll6eWhOVDV5Y1VXdXp4ZVlBSllIdEtZdHFwLVhoZHExSERPOGV3MGV2RTlNc18xb0JqOG5ZOUhXdjZKS0Fxek5IWVpMSFdnU2dpUXFWQXQyZHJfOVJrM2dXbmhiYXowUHRiUGxsMm5ZZjM4dGlkaGtDd3ZHZVNQSHN6R1NlalEwUkJMSHd1aEV6X19iTC1WOFRuVkhNU0M4bDFGWEowV1RQbVZ3Y3h2V0k2WXhR?oc=5",
+      "importance": 100,
+      "tier": "A",
+      "published_at": "2026-10-23T07:00:44Z",
+      "updated_at": "2026-10-25T14:11:03Z",
+      "update_count": 0,
+      "_sources": [
+        "uatv.ua",
+        "OBOZ.UA",
+        "АНТИКОР",
+        "NV",
+        "Українська правда",
+        "СЛОВО"
+      ]
+    },
+    {
+      "id": 26102550,
+      "category": "WAR",
+      "title": "Российский дрон атаковал пассажирский электропоезд в Харькове",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "Українська правда / Новини.Live",
+      "time": "19:30",
+      "why": "Важно, потому что это может влиять на безопасность, ход войны, возможности обороны или положение гражданского населения.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "watch": "Следим за подтверждением из нескольких источников и за тем, меняет ли это ситуацию на фронте или угрозу для гражданских.",
+      "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNYUVod3JBbmFHMVpWenFVaTNxS2lMVDVTOVVHcFVESXI3ZHJYcnl5R1A4U0RGakpka2ptdUQ5eDZPeHAyQVFJTTBjMmFkSFZHWmZNQ2V2V2J5MUJxUzhrbDdvR3NDYTVzMGd3WVkxdUswRFVGd0dwSksyYnVhZ0gwTVUxSEZ2a1RMeHg1c3piZGpWbVRxMW8ybGVPZThJZFFRcVlCSVZrQdIBrAFBVV95cUxOV2VOUzlERVMzLUZfQVVJQ1VyRDU1Rmg2Um1RdUsxY0RXeTVDVTRlbl9lTlRxUE1vMlBkc2drX05RZEVtMWVmeXNxblBIdmh0Z0VlLXlsR24xRWFBdkV0VVdYNkhHTTExOXFHMF9KM3o4TG5GRDlvUGZVT1Buc09BSk93N2ZibVNxelFua0RzTXpWTEZoTlozcDViOTNsRkctOWNkZ0h6b2xiWWFs?oc=5",
+      "importance": 77,
+      "tier": "A",
+      "published_at": "2026-10-22T16:30:00Z",
+      "updated_at": "2026-10-25T14:11:03Z",
+      "update_count": 0,
+      "_sources": [
+        "Українська правда",
+        "Новини.Live"
       ]
     }
   ]
