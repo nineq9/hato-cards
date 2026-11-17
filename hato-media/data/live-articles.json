@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-17T12:55:33Z",
+  "generated_at": "2026-11-17T21:37:54Z",
   "edition_date": "2026-11-17",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -212,25 +212,26 @@
     {
       "id": 26111709,
       "category": "OSINT",
-      "title": "Горит не менее пяти резервуаров. СМИ показали спутниковый снимок последствий удара по порту Усть-Луга",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "NV / Гордон",
-      "time": "22:28",
+      "title": "В сети показали спутниковые снимки последствий атаки на российский порт Усть-Луга",
+      "summary": "В сети показали спутниковые снимки последствий атаки на российский порт Усть-Луга Українські Національні Новини (УНН)",
+      "source": "NV / Гордон / Українські Національні Новини (УНН)",
+      "time": "01:16",
       "why": "Важно, потому что независимые данные и открытые источники помогают отделять проверяемые факты от заявлений сторон.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "В сети показали спутниковые снимки последствий атаки на российский порт Усть-Луга Українські Національні Новини (УНН)",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 23:37. Источников в объединённом кластере: 3.",
       "watch": "Следим за независимым подтверждением, геолокацией, спутниковыми данными и первичными материалами.",
-      "source_url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMVlYZ3JoUFF4aU1YVTZYa2swbzhONGZhMnZuVVJPUDA4X3lpTVFsX0hQY0x1RXRKRl9uZWtYaDYwbXZ5X0ZDUnlTbDV1d1o5MDBJU2I0RFFmRmhnYWgxV2hrdmtmYks0clYxaXNXQ1RLNzBTc3hkcDdla0pEd3hMR2tNMTZRc3pRN1FPbi1PajczN3poc0Z0RFNDWTQ1ZzVqVEJPOFl2UVBFTFN6alM1V0MwWk40NVh4aUFBM1h4NjBmaDNSd3pZa0tlS1YxS3Y3bUtyeWV4WmpGSlVtbU5RdkhiYldsaFRScVY4SC05RdIB7wFBVV95cUxQMVlYZ3JoUFF4aU1YVTZYa2swbzhONGZhMnZuVVJPUDA4X3lpTVFsX0hQY0x1RXRKRl9uZWtYaDYwbXZ5X0ZDUnlTbDV1d1o5MDBJU2I0RFFmRmhnYWgxV2hrdmtmYks0clYxaXNXQ1RLNzBTc3hkcDdla0pEd3hMR2tNMTZRc3pRN1FPbi1PajczN3poc0Z0RFNDWTQ1ZzVqVEJPOFl2UVBFTFN6alM1V0MwWk40NVh4aUFBM1h4NjBmaDNSd3pZa0tlS1YxS3Y3bUtyeWV4WmpGSlVtbU5RdkhiYldsaFRScVY4SC05RQ?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmo0TkdyT3NaS01SQ1ZRbzMxZHZIQ1B4elp2NEhzVE9iRXozS096M0tfbWxOeVFaSGd1M0VMZ3lpbFl0MlViLV9QZXAtenQxY0lsYVNvZ3NsQ1VmeG5yTzVlaTZrRlJwaGlRYkJ6UGxXTmtLdS1ncWVPUHRtRi1TUEFFTmJPM0FWekJkR0FZZXpBZlFjcE1HTldJYzRNTmJGMjlrWlRR0gGkAUFVX3lxTE56RmJQOTk5M0hPc2JDSWI1dzNhdkJTUWl6QmtwelVaVE5ySDdXUllLcXlIRHl2b2VXamxJSWZGS1pOX2NpUFZYZV9zNm56ZE90elJHOFF6RmRvQUFsSGhBc1B3aFFyYzdqRGl4ZkQxc3NQcGw5MlNYSm1qS2xkQWg5VlMyOXk4anZjX1NKbWhUSEhoV1BVMHZBaHNDQ1NyWWpGSWk4?oc=5",
       "importance": 72,
       "tier": "B",
-      "published_at": "2026-11-15T20:28:24Z",
-      "updated_at": "2026-11-17T12:55:33Z",
-      "update_count": 0,
+      "published_at": "2026-11-15T23:16:24Z",
+      "updated_at": "2026-11-17T21:37:54Z",
+      "update_count": 1,
       "_sources": [
         "NV",
-        "Гордон"
+        "Гордон",
+        "Українські Національні Новини (УНН)"
       ]
     },
     {
@@ -283,25 +284,26 @@
     {
       "id": 26111712,
       "category": "WORLD",
-      "title": "Урсула фон дер Ляєн рассказала, в каком формате Европа будет участвовать в мирных переговорах",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "NV / Слово и Дело",
-      "time": "08:42",
+      "title": "Фон дер Ляйен рассказала о формате участия Европы в переговорах с Россией",
+      "summary": "Фон дер Ляйен рассказала о формате участия Европы в переговорах с Россией LIGA.net",
+      "source": "NV / Слово и Дело / LIGA.net",
+      "time": "09:59",
       "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "Фон дер Ляйен рассказала о формате участия Европы в переговорах с Россией LIGA.net",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "previous": "Материал обновлён в 23:37. Источников в объединённом кластере: 3.",
       "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
-      "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPOEZhZjNORHkwYWc0T2xXUUtCRUpfSWkyTHJWcmxIWXBpTk1lRXpNRVY4YkJHcUh6VDFVLU1qS19nX2NBZjllNGlXYi1VbG9LYjFSX0Y2YnNQU2RaOVMxanFaaktxbTBBLXljNEx5MjZ3S2ZVTTBPaFd5TTVEY1FuSThnbG1rSlRRTnpRZk5OSzRELTVsWkxTMHhSUFMtSXZlVFl0SjdkTjNKWFkyR2lFRnVEVnBYOXMzQnVXWkFBVHUzWGZSYjFGZHFR0gG3AUFVX3lxTE14WWJKQ2FJZkt1VmVJYzU0bldyQkg5Z0o4eS03X0lnbXU4dkp3NDdMNVZSNnYyWWpRTEcxd0ltVEdTWW14dTdEVU1KLXhJUDF2YmFTQ081a2N0T01UZEMtWXJQM2dWdEktcGg1UlJuMFVFQ3lKSFBTM1dCMEZlT0h2UWJmcDFjcHRORnd3NHhWWGhSc2xjZXppZUpTWldCZkFHZWhMempSaUNFdkc3QXhCaERCTzZOSQ?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPQmU2bEU1M1NBUnN1ajY3QVFfVkNPM2tvX3ktcFpTNjA1aS1jTnhPTmpNZTE1a1dMNHd4MDlJRTRabndDWHoxYlNCVmo4S1JFd19ONF95VUtfSGotUmRJNHc3ZTBBNTlTUVd4NHd0Zmg3NC1wSm40QS1EZVl5dHBsNmRmc2dFMUh5OEtzdElqQWtvNmZhdXduS1RuVU9RZjlVeXpNSkNIYUlIeEHSAbABQVVfeXFMTVJid1hDQXM3RUJEaTZQNmx5ajZGY2hSeklUaUlpbnBvMS1mOGU5Wi03ZUpfQ1VTZzBlMHFKNjlOZ21nT0tmQ3dMOE5nZ0ZaU2c2LTlGU3ZnM3k1bXVXOWk1RUJUbWhJZWZKSGhHYVVKOGRxdVgySUJJeHIxUXNZblRXdHJpRE9nVTVQWXZXa3JpSllZeC04Ni1abFU3N2RXR1A1cnVkV3pSSi1CMVNPdGs?oc=5",
       "importance": 68,
       "tier": "B",
-      "published_at": "2026-11-16T06:42:00Z",
-      "updated_at": "2026-11-17T12:55:33Z",
-      "update_count": 0,
+      "published_at": "2026-11-16T07:59:11Z",
+      "updated_at": "2026-11-17T21:37:54Z",
+      "update_count": 1,
       "_sources": [
         "NV",
-        "Слово и Дело"
+        "Слово и Дело",
+        "LIGA.net"
       ]
     },
     {
@@ -842,24 +844,25 @@
     {
       "id": 26111736,
       "category": "REGIONS",
-      "title": "Россия атаковала Запорожье и область: есть погибшие и раненые",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "OBOZ.UA",
-      "time": "08:35",
+      "title": "Россияне атаковали промообъекты в Запорожье: 2 погибших, 38 раненый",
+      "summary": "Россияне атаковали промообъекты в Запорожье: 2 погибших, 38 раненый Українська правда",
+      "source": "OBOZ.UA / Українська правда",
+      "time": "15:03",
       "why": "Важно, потому что последствия различаются по регионам и могут напрямую затрагивать безопасность и инфраструктуру на местах.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "Россияне атаковали промообъекты в Запорожье: 2 погибших, 38 раненый Українська правда",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 1.",
+      "previous": "Материал обновлён в 23:37. Источников в объединённом кластере: 2.",
       "watch": "Следим за официальными сообщениями местных властей, инфраструктурой и изменениями ситуации на месте.",
-      "source_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOTXU1NkhaNnBTblhfd1B4WHRkYjIwRkZlWnl2N2hMQWo3WFA2SE96OGlzamNBbTJOR1VybUtnTFVjcFRkZmtFYlNnaUhKZURBMmRqSDV2V1NNSHp2QklmcTJOd2Q5MnBZTWJISkpRdmZXbHh4Y3k5Mkp5aXlvOG9BSW1lOUsxTzY5d200d21GNE42bWUxd1dRcS1NMHpxeDNtaHpGRDdxWHZHaWZrVkJDSUViUTZsMGdMWk1POTBn0gHCAUFVX3lxTFBYTXJkbFgxUEw1NXFvVHFWU05GcFRvNzcxa2xfM0VVWFFBaVZJMTZOdUNvbmprdWxZLUlya2tZck9FeTc4VmhXSkhRMWZMaFUwdUtSanBfMFMtQ1BicHB1Nk1iaWQ3aWVZdjlicTBXZlBGWE9IMk5pWHdfMUFqZWpkd0liTVhQMU9GLTV0SFIza0NDTm94aGFuNzFHOThtS3ZuQks4V0V0QjFaN19zMTFCV0RDd2RKcU9IY3BidmNVY0l3?oc=5",
-      "importance": 52,
+      "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBmWkRyZkc3WFVjbHF2SDN6N2UxOUdOV293dDlkTnF0NWRjYVA0UlU5Qm90eHNwZXdnYWVhT1dtbXc5cmhYSkYwVE9MZnZiU2xyc3FsQnloMmExZzVsZXdGdXJpVDLSAXBBVV95cUxQd1hyX0MzMHlvcUJ0Y21ObmNzcmhvX0Y4RWxnWEdwelJiSl9FYXhNVF91R1NCMloyOXZZcWFfMFJfaEUzRXZlZ0xhcmk3c3c5eEVTWXBncnI2YkV4b2NoM3h3dVQyaG1WQjNmZG5mRnlS?oc=5",
+      "importance": 54,
       "tier": "C",
-      "published_at": "2026-11-16T06:35:00Z",
-      "updated_at": "2026-11-17T12:55:33Z",
-      "update_count": 0,
+      "published_at": "2026-11-17T13:03:00Z",
+      "updated_at": "2026-11-17T21:37:54Z",
+      "update_count": 1,
       "_sources": [
-        "OBOZ.UA"
+        "OBOZ.UA",
+        "Українська правда"
       ]
     },
     {
