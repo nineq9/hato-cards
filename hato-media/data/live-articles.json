@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-18T12:49:13Z",
+  "generated_at": "2026-11-18T21:12:58Z",
   "edition_date": "2026-11-18",
-  "mode": "morning",
+  "mode": "hourly-update",
   "policy": {
     "fetched_per_hour_max": 150,
     "edition_max": 50,
@@ -480,47 +480,50 @@
     {
       "id": 26111821,
       "category": "REGIONS",
-      "title": "Вечером россияне атаковали Днепр: трое человек ранены, повреждено консульство Австрии",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "Українська правда",
-      "time": "21:58",
+      "title": "российская атака на Днепр повредила почётное консульство Австрии",
+      "summary": "российская атака на Днепр повредила почётное консульство Австрии Українські Національні Новини (УНН)",
+      "source": "Українська правда / Українські Національні Новини (УНН) / РБК-Україна",
+      "time": "03:49",
       "why": "Важно, потому что последствия различаются по регионам и могут напрямую затрагивать безопасность и инфраструктуру на местах.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "российская атака на Днепр повредила почётное консульство Австрии Українські Національні Новини (УНН)",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 1.",
+      "previous": "Материал обновлён в 23:12. Источников в объединённом кластере: 3.",
       "watch": "Следим за официальными сообщениями местных властей, инфраструктурой и изменениями ситуации на месте.",
-      "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBOd0RNZ01rSmdpT3N4YjlCek9neFZuQmVwVFdXaUtBOFJvN3JBamJLQzlrTDlMMDRUUGt1Nk4zRFp0UWp5OVd6Qms4WHRHWURjWGFKSmU3MTJlTVlIUjlYNmtBSVXSAXBBVV95cUxQN3FoMFRNcjlSanNZa1RSckhYcjhYZjVPYVp2aFZ3RkFxSXpqMTduSWFOWnFOZkJBU1oxTmxrakFHOVI2UHc1UndZd3FFUHloWEo1M1h3RUJHcndLdTVucDZVUnJBRVpDSDQ5TVM4RzNC?oc=5",
+      "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPSW5FUVlfY2JHaDFMeVhoc25qVHFXcGpLVWx1RTVDVlhKdFMwQWsyLUVScExidjZ1bHlyYWRXb21FRDYtUkMzM0tJS2FwUkN3VEx6MXh5TVI2UF9DTzZ1YzAtUTBhRXloTmVxYWxWTzAya3o4Rkt2OU54enc0eFdfcFZKb0MtUUp1eDVrOWY4ZG5rREXSAZIBQVVfeXFMT2VpajkzbTZlM2w2MFRxLWtnT29BNUdkUlhjOU45TlgyT0xNeUt5TjZRQ2pLb0NSeXNxOTZFSXJTeWtJT2ZCb1lJcFRPNFVtYVFaOXh0N1dUTFBoM29lTTBfQjRjYjVkbGZvdHlRZERFWERLWExoemdMd00yVEpvNG44bmwwTElkUktvd1pCT0RzY3c?oc=5",
       "importance": 53,
       "tier": "C",
-      "published_at": "2026-11-17T19:58:00Z",
-      "updated_at": "2026-11-18T12:49:13Z",
-      "update_count": 0,
+      "published_at": "2026-11-18T01:49:51Z",
+      "updated_at": "2026-11-18T21:12:58Z",
+      "update_count": 1,
       "_sources": [
-        "Українська правда"
+        "Українська правда",
+        "Українські Національні Новини (УНН)",
+        "РБК-Україна"
       ]
     },
     {
       "id": 26111822,
       "category": "WORLD",
-      "title": "Генсек НАТО поддержал удары по Крымскому мосту: \"Важно, чтобы Украина защищалась\"",
-      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
-      "source": "Українська правда",
-      "time": "17:00",
+      "title": "Глава НАТО Рютте поддержал удар по Крымскому мосту и назвал его частью обороны Украины",
+      "summary": "Глава НАТО Рютте поддержал удар по Крымскому мосту и назвал его частью обороны Украины DW.com",
+      "source": "Українська правда / DW.com",
+      "time": "21:33",
       "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
-      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 1 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "details": "Глава НАТО Рютте поддержал удар по Крымскому мосту и назвал его частью обороны Украины DW.com",
       "statements": "",
       "reality": "",
-      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 1.",
+      "previous": "Материал обновлён в 23:12. Источников в объединённом кластере: 2.",
       "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
-      "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE8tVXNMdVpFNUhGd1QwUm1SdVl2VF9nVnlpQlpMRUlHRWNpVkNJRktsaUpEZzZTYjQzSk1ndkxmbEFsWGN1Vmo1RllnS2l3akpTckJLNFlaVUZlNG43aDctM0VRRVLSAXBBVV95cUxNQm5WUHhQdkF4OWdzYjhHNEdwVjN0Tkpmbk5nVHRhaWVNZWRwWXRubGtoWWx4N3JFcUpvYXlNS0hBQ1BOSnQwTUoyQm4yTnFNLWdqeVdFaGJtR3lCa3dfSVNpYzZWQUp5a0FvZ3VoVVda?oc=5",
-      "importance": 53,
-      "tier": "C",
-      "published_at": "2026-11-17T15:00:00Z",
-      "updated_at": "2026-11-18T12:49:13Z",
-      "update_count": 0,
+      "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNbXhXalA2dlFkYXJsb0U1VnJCaWs2QTE0VVZXTkkzcWZoNlZrZzY3VjdDLUtJWlAxdHoybGZqQ2RocG9rN2E2SGkxcEVGUzhjMzZvUEtvb3ZET0syREdWQ3VEQkIzVFZ0Y01GQ3dTWEV1bG9tVm5VbkVDV2J3Y0hxa08wVjA4OFg3cEZaYXVLczhGX1hDUEE4bEZ3a9IBmwFBVV95cUxQbXpBbTJhR2p3NEFhVW5ucDF1NkRpVTBDdGdacmd3RzgxTUVHTW92dGdWVFhrOXVmVTF2YVlPNjV0NVZRcE13MDBzQXZ4bDgwWTIwUDZFMXlBREV5cmZDbXM0Vmw4ZHlYZFhGeGJ0MXhaVTQ4bDktcTUwMzdCNEpGWDduTjhJdFhmVGNFVUo2WHk5NUFmNWRMVGZNVQ?oc=5",
+      "importance": 57,
+      "tier": "B",
+      "published_at": "2026-11-17T19:33:03Z",
+      "updated_at": "2026-11-18T21:12:58Z",
+      "update_count": 1,
       "_sources": [
-        "Українська правда"
+        "Українська правда",
+        "DW.com"
       ]
     },
     {
@@ -1030,6 +1033,79 @@
       "update_count": 0,
       "_sources": [
         "OBOZ.UA"
+      ]
+    },
+    {
+      "id": 26111845,
+      "category": "WORLD",
+      "title": "Европа присоединится к мирному процессу между Украиной и РФ в формате \"E5 + ЕС\", — фон дер Ляйен",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "ТСН / Цензор.НЕТ / uatv.ua",
+      "time": "12:25",
+      "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 3 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 3.",
+      "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
+      "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVEtTWnp3UC1UNHM4NF9GYWVCNU9ZVlpMWlBEWmhkempPLWhOOC15dzl3QW9Jd3BGdkFISE1URmt4aGs0dFlvWlVGaDlreDA0aUlyN083TXVwU2xMaWNtTVJNXzlmVjBpdThTM09ZM2tqdWk5TTdYdVE3Uk1uUXVSZVBFMGNQdk1rVHMwcUVRdHFmV21FWDVVd2hoRVdHVDI5a1FQM3dhQ0xXUWZWZHNj?oc=5",
+      "importance": 100,
+      "tier": "A",
+      "published_at": "2026-11-16T10:25:05Z",
+      "updated_at": "2026-11-18T21:12:58Z",
+      "update_count": 0,
+      "_sources": [
+        "ТСН",
+        "Цензор.НЕТ",
+        "uatv.ua"
+      ]
+    },
+    {
+      "id": 26111846,
+      "category": "WORLD",
+      "title": "В ЕС подтвердили, что Европа примет участие в следующем раунде переговоров о завершении войны в Украине",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "Українська правда / NV",
+      "time": "16:05",
+      "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
+      "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQa2laMU1VajVZakM4MEJ6OTZHOU93RGwySURvVzhCYVVzYUFkZS1VajJyb2xFUm51MEYtUHQzRzZaZ1R3Z3RwYWtRR3ZsQUZXS0RBWHlkQWI5TFloWHFvRU5KR3FnN1NLeVhJSDY3dC1UOXFXWjlqczRRX3o4ak5xYm1Hd2JKZHh4NnpfZ2tRdHZaVlFUVUtxcWdmWC1xX2pQVHZiWHU2QXU3eV9sWXBMdGZvXzHSAaIBQVVfeXFMT2ZsSldwNmxiZUVXRkN6bWJSMVo5N1dTV3pSdmo4c2txbl8xb1pqV0lqQWRDU1V1Und6NUVxVHRTQnltMGY3Y2I3TlFSSnlQR0ZmZXdJSW02V2dFVkRaNVJub3pMMW1FekhmRVg1QkNvLWxuTWxiZWE5bnNvRFNqZll1d2pqeTFYSHgzSW9CSWZxS3hoQ0k5RTlDQUNISlhNQTl3?oc=5",
+      "importance": 83,
+      "tier": "A",
+      "published_at": "2026-11-16T14:05:00Z",
+      "updated_at": "2026-11-18T21:12:58Z",
+      "update_count": 0,
+      "_sources": [
+        "Українська правда",
+        "NV"
+      ]
+    },
+    {
+      "id": 26111847,
+      "category": "WORLD",
+      "title": "Урсула фон дер Ляєн рассказала, в каком формате Европа будет участвовать в мирных переговорах",
+      "summary": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "source": "NV / Слово и Дело",
+      "time": "08:42",
+      "why": "Важно, потому что внешние решения США, Европы, России и союзников могут изменить условия для Украины.",
+      "details": "HATO отслеживает развитие этой темы и объединяет подтверждения из 2 источника(ов). Новые существенные детали будут добавлены в этот материал, а не вынесены в дубликат.",
+      "statements": "",
+      "reality": "",
+      "previous": "Автоматически собрано HATO. Подтверждений/источников в текущем кластере: 2.",
+      "watch": "Следим за официальными решениями, а не только заявлениями, и за реакцией ключевых сторон.",
+      "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPOEZhZjNORHkwYWc0T2xXUUtCRUpfSWkyTHJWcmxIWXBpTk1lRXpNRVY4YkJHcUh6VDFVLU1qS19nX2NBZjllNGlXYi1VbG9LYjFSX0Y2YnNQU2RaOVMxanFaaktxbTBBLXljNEx5MjZ3S2ZVTTBPaFd5TTVEY1FuSThnbG1rSlRRTnpRZk5OSzRELTVsWkxTMHhSUFMtSXZlVFl0SjdkTjNKWFkyR2lFRnVEVnBYOXMzQnVXWkFBVHUzWGZSYjFGZHFR0gG3AUFVX3lxTE14WWJKQ2FJZkt1VmVJYzU0bldyQkg5Z0o4eS03X0lnbXU4dkp3NDdMNVZSNnYyWWpRTEcxd0ltVEdTWW14dTdEVU1KLXhJUDF2YmFTQ081a2N0T01UZEMtWXJQM2dWdEktcGg1UlJuMFVFQ3lKSFBTM1dCMEZlT0h2UWJmcDFjcHRORnd3NHhWWGhSc2xjZXppZUpTWldCZkFHZWhMempSaUNFdkc3QXhCaERCTzZOSQ?oc=5",
+      "importance": 75,
+      "tier": "A",
+      "published_at": "2026-11-16T06:42:00Z",
+      "updated_at": "2026-11-18T21:12:58Z",
+      "update_count": 0,
+      "_sources": [
+        "NV",
+        "Слово и Дело"
       ]
     }
   ]
